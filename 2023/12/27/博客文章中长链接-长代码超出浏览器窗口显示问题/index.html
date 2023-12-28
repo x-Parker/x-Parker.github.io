@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>CSS文本溢出问题 | Parker&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="问题：博客文章中 长链接&#x2F;长代码 超出浏览器窗口大小而无法完整显示（CSS文本溢出）如下图所示：  手机端：	     电脑端：   解决：打开 themes\landscape\source\css\_partial\article.styl 文件（该路径与所用主题有关），在 .article-entry 部分添加以下代码： 12word-break: break-all	&#x2F;&#x2F; 一个长">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSS文本溢出问题">
+<meta property="og:url" content="https://bitparker.github.io/2023/12/27/%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0%E4%B8%AD%E9%95%BF%E9%93%BE%E6%8E%A5-%E9%95%BF%E4%BB%A3%E7%A0%81%E8%B6%85%E5%87%BA%E6%B5%8F%E8%A7%88%E5%99%A8%E7%AA%97%E5%8F%A3%E6%98%BE%E7%A4%BA%E9%97%AE%E9%A2%98/index.html">
+<meta property="og:site_name" content="Parker&#39;s Blog">
+<meta property="og:description" content="问题：博客文章中 长链接&#x2F;长代码 超出浏览器窗口大小而无法完整显示（CSS文本溢出）如下图所示：  手机端：	     电脑端：   解决：打开 themes\landscape\source\css\_partial\article.styl 文件（该路径与所用主题有关），在 .article-entry 部分添加以下代码： 12word-break: break-all	&#x2F;&#x2F; 一个长">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2023/12/27/IvlT5cLHR78tE4F.jpg">
+<meta property="og:image" content="https://s2.loli.net/2023/12/27/e6zP4H9dJETWyOU.jpg">
+<meta property="og:image" content="https://s2.loli.net/2023/12/27/r8v45hlTISMPyts.png">
+<meta property="og:image" content="https://s2.loli.net/2023/12/27/yt8ixFgBRpcrdeY.png">
+<meta property="og:image" content="https://s2.loli.net/2023/12/27/eziCIhA3ML7mWYy.png">
+<meta property="article:published_time" content="2023-12-27T08:24:50.000Z">
+<meta property="article:modified_time" content="2023-12-28T05:25:58.575Z">
+<meta property="article:author" content="Parker">
+<meta property="article:tag" content="技术">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2023/12/27/IvlT5cLHR78tE4F.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="Parker's Blog" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Parker&#39;s Blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">主页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="https://bitparker.github.io/2023/12/22/hello-world/">关于</a>
+        
+          <a class="main-nav-link" target="_blank" rel="noopener" href="https://github.com/BitParker">Github</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS 订阅"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="搜索"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://bitparker.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-博客文章中长链接-长代码超出浏览器窗口显示问题" class="h-entry article article-type-post"
+  itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/12/27/%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0%E4%B8%AD%E9%95%BF%E9%93%BE%E6%8E%A5-%E9%95%BF%E4%BB%A3%E7%A0%81%E8%B6%85%E5%87%BA%E6%B5%8F%E8%A7%88%E5%99%A8%E7%AA%97%E5%8F%A3%E6%98%BE%E7%A4%BA%E9%97%AE%E9%A2%98/" class="article-date">
+  <time class="dt-published" datetime="2023-12-27T08:24:50.000Z" itemprop="datePublished">2023-12-27</time>
+</a>
+      
+  </div>
+  <div class="article-inner">
+    
+      
+        <header class="article-header">
+          
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      CSS文本溢出问题
+    </h1>
+  
+
+        </header>
+        
+
+          <!-- <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><strong>问题</strong>：博客文章中 长链接&#x2F;长代码 超出浏览器窗口大小而无法完整显示（CSS文本溢出）<br>如下图所示：</p>
+<ul>
+<li><p>手机端：<br><img src="https://s2.loli.net/2023/12/27/IvlT5cLHR78tE4F.jpg" style="display: inline-block;zoom: 20%" />	<img src="https://s2.loli.net/2023/12/27/e6zP4H9dJETWyOU.jpg" style="display: inline-block;zoom:23.6%" />   </p>
+</li>
+<li><p>电脑端：<br><img src="https://s2.loli.net/2023/12/27/r8v45hlTISMPyts.png"></p>
+</li>
+</ul>
+<p><strong>解决</strong>：<br>打开 <code>themes\landscape\source\css\_partial\article.styl</code> 文件（该路径与所用主题有关），在 <code>.article-entry</code> 部分添加以下代码：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">word-break</span>: break-all	// 一个长长的单词不会新起一行展示，而是直接在本行剩余空间展示，展示不全时折断展示</span><br><span class="line"><span class="attribute">overflow-wrap</span>: break-word	// 一个长长的单词会新起一行展示，新的一行展示不全时折断展示</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>效果</strong>：</p>
+<p><img src="https://s2.loli.net/2023/12/27/yt8ixFgBRpcrdeY.png"><br><img src="https://s2.loli.net/2023/12/27/eziCIhA3ML7mWYy.png"></p>
+<p><strong>One more thing</strong></p>
+<p>写作本文时，有让图片并排显示的需求，而网页默认是每个图片后自动换行。</p>
+<p>解决：<br>使用 <code>&lt;img&gt;</code> HTML标签的 <code>style</code> 属性来覆盖图片的 “块 “行为，形如：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;/uploads/image-1.jpg&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;image-1&quot;</span> <span class="attr">style</span>=<span class="string">&quot;display: inline-block&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;/uploads/image-2.jpg&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;image-2&quot;</span> <span class="attr">style</span>=<span class="string">&quot;display: inline-block&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>引用</strong>：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/litten/hexo-theme-yilia/issues/801#issuecomment-456317331">长链接不会自动换行解决方案</a></li>
+<li><a target="_blank" rel="noopener" href="https://yolkpie.net/2021/09/14/CSS%E6%96%87%E6%9C%AC%E6%BA%A2%E5%87%BA%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/">CSS文本溢出解决方案</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/iissnan/hexo-theme-next/issues/1139#issuecomment-286639102">网页图片并排显示解决方案</a></li>
+</ul>
+
+      
+    </div> -->
+          <div class="e-content article-entry" itemprop="articleBody">
+            
+                      
+                        
+                          <p><strong>问题</strong>：博客文章中 长链接&#x2F;长代码 超出浏览器窗口大小而无法完整显示（CSS文本溢出）<br>如下图所示：</p>
+<ul>
+<li><p>手机端：<br><img src="https://s2.loli.net/2023/12/27/IvlT5cLHR78tE4F.jpg" style="display: inline-block;zoom: 20%" />	<img src="https://s2.loli.net/2023/12/27/e6zP4H9dJETWyOU.jpg" style="display: inline-block;zoom:23.6%" />   </p>
+</li>
+<li><p>电脑端：<br><img src="https://s2.loli.net/2023/12/27/r8v45hlTISMPyts.png"></p>
+</li>
+</ul>
+<p><strong>解决</strong>：<br>打开 <code>themes\landscape\source\css\_partial\article.styl</code> 文件（该路径与所用主题有关），在 <code>.article-entry</code> 部分添加以下代码：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">word-break</span>: break-all	// 一个长长的单词不会新起一行展示，而是直接在本行剩余空间展示，展示不全时折断展示</span><br><span class="line"><span class="attribute">overflow-wrap</span>: break-word	// 一个长长的单词会新起一行展示，新的一行展示不全时折断展示</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>效果</strong>：</p>
+<p><img src="https://s2.loli.net/2023/12/27/yt8ixFgBRpcrdeY.png"><br><img src="https://s2.loli.net/2023/12/27/eziCIhA3ML7mWYy.png"></p>
+<p><strong>One more thing</strong></p>
+<p>写作本文时，有让图片并排显示的需求，而网页默认是每个图片后自动换行。</p>
+<p>解决：<br>使用 <code>&lt;img&gt;</code> HTML标签的 <code>style</code> 属性来覆盖图片的 “块 “行为，形如：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;/uploads/image-1.jpg&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;image-1&quot;</span> <span class="attr">style</span>=<span class="string">&quot;display: inline-block&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;/uploads/image-2.jpg&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;image-2&quot;</span> <span class="attr">style</span>=<span class="string">&quot;display: inline-block&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>引用</strong>：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/litten/hexo-theme-yilia/issues/801#issuecomment-456317331">长链接不会自动换行解决方案</a></li>
+<li><a target="_blank" rel="noopener" href="https://yolkpie.net/2021/09/14/CSS%E6%96%87%E6%9C%AC%E6%BA%A2%E5%87%BA%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/">CSS文本溢出解决方案</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/iissnan/hexo-theme-next/issues/1139#issuecomment-286639102">网页图片并排显示解决方案</a></li>
+</ul>
+
+                            
+                                      
+          </div>
+
+
+          <footer class="article-footer">
+            <a data-url="https://bitparker.github.io/2023/12/27/%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0%E4%B8%AD%E9%95%BF%E9%93%BE%E6%8E%A5-%E9%95%BF%E4%BB%A3%E7%A0%81%E8%B6%85%E5%87%BA%E6%B5%8F%E8%A7%88%E5%99%A8%E7%AA%97%E5%8F%A3%E6%98%BE%E7%A4%BA%E9%97%AE%E9%A2%98/" data-id="clqorigys00099gnz7ycm146l" data-title="CSS文本溢出问题"
+              class="article-share-link"><span class="fa fa-share">
+                分享
+              </span></a>
+            
+                
+                    
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%8A%80%E6%9C%AF/" rel="tag">技术</a></li></ul>
+
+          </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2023/12/27/Hexo%E5%8D%9A%E5%AE%A2%E4%B8%BB%E9%A1%B5%E6%96%87%E7%AB%A0%E5%86%85%E5%AE%B9%E6%8A%98%E5%8F%A0/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">博客主页文章内容折叠</div>
+    </a>
+  
+</nav>
+
+      
+</article>
+
+
+    </section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%85%B3%E4%BA%8E/" rel="tag">关于</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8A%80%E6%9C%AF/" rel="tag">技术</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%94%9F%E6%B4%BB/" rel="tag">生活</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/%E5%85%B3%E4%BA%8E/" style="font-size: 10px;">关于</a> <a href="/tags/%E6%8A%80%E6%9C%AF/" style="font-size: 20px;">技术</a> <a href="/tags/%E7%94%9F%E6%B4%BB/" style="font-size: 10px;">生活</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">十二月 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/12/27/%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0%E4%B8%AD%E9%95%BF%E9%93%BE%E6%8E%A5-%E9%95%BF%E4%BB%A3%E7%A0%81%E8%B6%85%E5%87%BA%E6%B5%8F%E8%A7%88%E5%99%A8%E7%AA%97%E5%8F%A3%E6%98%BE%E7%A4%BA%E9%97%AE%E9%A2%98/">CSS文本溢出问题</a>
+          </li>
+        
+          <li>
+            <a href="/2023/12/27/Hexo%E5%8D%9A%E5%AE%A2%E4%B8%BB%E9%A1%B5%E6%96%87%E7%AB%A0%E5%86%85%E5%AE%B9%E6%8A%98%E5%8F%A0/">博客主页文章内容折叠</a>
+          </li>
+        
+          <li>
+            <a href="/2023/12/25/Merry-Christmas/">Merry Christmas!</a>
+          </li>
+        
+          <li>
+            <a href="/2023/12/22/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  <div class="goBack" onclick="window.scrollTo('0','0')"></div>
+  
+        <div class="outer">
+          <div id="footer-info" class="inner">
+            
+                  &copy; 2023
+                    Parker<br>
+                      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+          </div>
+        </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">主页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="https://bitparker.github.io/2023/12/22/hello-world/" class="mobile-nav-link">关于</a>
+  
+    <a target="_blank" rel="noopener" href="https://github.com/BitParker" class="mobile-nav-link">Github</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
