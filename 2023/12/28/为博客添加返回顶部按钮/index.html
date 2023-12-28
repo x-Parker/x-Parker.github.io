@@ -6,16 +6,16 @@
   
   <title>为博客添加返回顶部按钮 | Parker&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="问题：landscape模板本身不带返回顶部按钮，当文章较长时返回顶部比较麻烦解决：自行添加一个返回到顶部的按钮 打开 themes&#x2F;landscape&#x2F;layout&#x2F;_partial&#x2F;footer.ejs 文件，在 &lt;footer id&#x3D;&quot;footer&quot;&gt; 中添加以下代码： 1&lt;div class&#x3D;&quot;goBack&quot; onclick&#x3D;&amp;qu">
+  <meta name="description" content="问题：landscape模板本身不带返回顶部按钮，当文章较长时返回顶部比较麻烦 解决：自行添加一个返回到顶部的按钮  打开 themes&#x2F;landscape&#x2F;layout&#x2F;_partial&#x2F;footer.ejs 文件，在 &lt;footer id&#x3D;&quot;footer&quot;&gt; 中添加以下代码： 1&lt;div class&#x3D;&quot;goBack&quot; onclick&#x3D;&amp;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="为博客添加返回顶部按钮">
 <meta property="og:url" content="https://bitparker.github.io/2023/12/28/%E4%B8%BA%E5%8D%9A%E5%AE%A2%E6%B7%BB%E5%8A%A0%E8%BF%94%E5%9B%9E%E9%A1%B6%E9%83%A8%E6%8C%89%E9%92%AE/index.html">
 <meta property="og:site_name" content="Parker&#39;s Blog">
-<meta property="og:description" content="问题：landscape模板本身不带返回顶部按钮，当文章较长时返回顶部比较麻烦解决：自行添加一个返回到顶部的按钮 打开 themes&#x2F;landscape&#x2F;layout&#x2F;_partial&#x2F;footer.ejs 文件，在 &lt;footer id&#x3D;&quot;footer&quot;&gt; 中添加以下代码： 1&lt;div class&#x3D;&quot;goBack&quot; onclick&#x3D;&amp;qu">
+<meta property="og:description" content="问题：landscape模板本身不带返回顶部按钮，当文章较长时返回顶部比较麻烦 解决：自行添加一个返回到顶部的按钮  打开 themes&#x2F;landscape&#x2F;layout&#x2F;_partial&#x2F;footer.ejs 文件，在 &lt;footer id&#x3D;&quot;footer&quot;&gt; 中添加以下代码： 1&lt;div class&#x3D;&quot;goBack&quot; onclick&#x3D;&amp;">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s2.loli.net/2023/12/28/iqVxAGQScwWFC4U.png">
 <meta property="article:published_time" content="2023-12-28T07:51:55.000Z">
-<meta property="article:modified_time" content="2023-12-28T08:31:46.495Z">
+<meta property="article:modified_time" content="2023-12-28T08:40:04.363Z">
 <meta property="article:author" content="Parker">
 <meta property="article:tag" content="技术">
 <meta property="article:tag" content="博客">
@@ -103,7 +103,9 @@
 
           <!-- <div class="e-content article-entry" itemprop="articleBody">
       
-        <h5 id="问题：landscape模板本身不带返回顶部按钮，当文章较长时返回顶部比较麻烦"><a href="#问题：landscape模板本身不带返回顶部按钮，当文章较长时返回顶部比较麻烦" class="headerlink" title="问题：landscape模板本身不带返回顶部按钮，当文章较长时返回顶部比较麻烦"></a><strong>问题</strong>：landscape模板本身不带返回顶部按钮，当文章较长时返回顶部比较麻烦</h5><h5 id="解决：自行添加一个返回到顶部的按钮"><a href="#解决：自行添加一个返回到顶部的按钮" class="headerlink" title="解决：自行添加一个返回到顶部的按钮"></a><strong>解决</strong>：自行添加一个返回到顶部的按钮</h5><ol>
+        <p><strong>问题</strong>：landscape模板本身不带返回顶部按钮，当文章较长时返回顶部比较麻烦</p>
+<p><strong>解决</strong>：自行添加一个返回到顶部的按钮</p>
+<ol>
 <li><p>打开 <code>themes/landscape/layout/_partial/footer.ejs</code> 文件，在 <code>&lt;footer id=&quot;footer&quot;&gt;</code> 中添加以下代码：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;goBack&quot; onclick=&quot;window.scrollTo(&#x27;0&#x27;,&#x27;0&#x27;)&quot;&gt;&lt;/div&gt;</span><br></pre></td></tr></table></figure>
 </li>
@@ -114,8 +116,10 @@
 <p>注意：修改 <code>.styl</code> 文件后，在使用 <code>hexo g</code> 命令之前，先进行 <code>hexo clean</code> ，否则部署时会出现样式不完整。</p>
 </li>
 </ol>
-<h5 id="效果："><a href="#效果：" class="headerlink" title="效果："></a><strong>效果</strong>：</h5><p><img src="https://s2.loli.net/2023/12/28/iqVxAGQScwWFC4U.png" alt="返回顶部按钮效果图"></p>
-<h5 id="引用："><a href="#引用：" class="headerlink" title="引用："></a><strong>引用</strong>：</h5><ul>
+<p><strong>效果</strong>：</p>
+<p><img src="https://s2.loli.net/2023/12/28/iqVxAGQScwWFC4U.png" alt="返回顶部按钮效果图"></p>
+<p><strong>引用</strong>：</p>
+<ul>
 <li><a target="_blank" rel="noopener" href="https://www.l3f.win/2018/02/14/%E5%AD%A6%E7%9D%80%E4%BF%AE%E6%94%B9Hexo%E7%9A%84Landscape%E6%A8%A1%E6%9D%BF/">修改Hexo的Landscape模板</a></li>
 </ul>
 
@@ -125,7 +129,9 @@
             
                       
                         
-                          <h5 id="问题：landscape模板本身不带返回顶部按钮，当文章较长时返回顶部比较麻烦"><a href="#问题：landscape模板本身不带返回顶部按钮，当文章较长时返回顶部比较麻烦" class="headerlink" title="问题：landscape模板本身不带返回顶部按钮，当文章较长时返回顶部比较麻烦"></a><strong>问题</strong>：landscape模板本身不带返回顶部按钮，当文章较长时返回顶部比较麻烦</h5><h5 id="解决：自行添加一个返回到顶部的按钮"><a href="#解决：自行添加一个返回到顶部的按钮" class="headerlink" title="解决：自行添加一个返回到顶部的按钮"></a><strong>解决</strong>：自行添加一个返回到顶部的按钮</h5><ol>
+                          <p><strong>问题</strong>：landscape模板本身不带返回顶部按钮，当文章较长时返回顶部比较麻烦</p>
+<p><strong>解决</strong>：自行添加一个返回到顶部的按钮</p>
+<ol>
 <li><p>打开 <code>themes/landscape/layout/_partial/footer.ejs</code> 文件，在 <code>&lt;footer id=&quot;footer&quot;&gt;</code> 中添加以下代码：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;goBack&quot; onclick=&quot;window.scrollTo(&#x27;0&#x27;,&#x27;0&#x27;)&quot;&gt;&lt;/div&gt;</span><br></pre></td></tr></table></figure>
 </li>
@@ -136,8 +142,10 @@
 <p>注意：修改 <code>.styl</code> 文件后，在使用 <code>hexo g</code> 命令之前，先进行 <code>hexo clean</code> ，否则部署时会出现样式不完整。</p>
 </li>
 </ol>
-<h5 id="效果："><a href="#效果：" class="headerlink" title="效果："></a><strong>效果</strong>：</h5><p><img src="https://s2.loli.net/2023/12/28/iqVxAGQScwWFC4U.png" alt="返回顶部按钮效果图"></p>
-<h5 id="引用："><a href="#引用：" class="headerlink" title="引用："></a><strong>引用</strong>：</h5><ul>
+<p><strong>效果</strong>：</p>
+<p><img src="https://s2.loli.net/2023/12/28/iqVxAGQScwWFC4U.png" alt="返回顶部按钮效果图"></p>
+<p><strong>引用</strong>：</p>
+<ul>
 <li><a target="_blank" rel="noopener" href="https://www.l3f.win/2018/02/14/%E5%AD%A6%E7%9D%80%E4%BF%AE%E6%94%B9Hexo%E7%9A%84Landscape%E6%A8%A1%E6%9D%BF/">修改Hexo的Landscape模板</a></li>
 </ul>
 
@@ -147,7 +155,7 @@
 
 
           <footer class="article-footer">
-            <a data-url="https://bitparker.github.io/2023/12/28/%E4%B8%BA%E5%8D%9A%E5%AE%A2%E6%B7%BB%E5%8A%A0%E8%BF%94%E5%9B%9E%E9%A1%B6%E9%83%A8%E6%8C%89%E9%92%AE/" data-id="clqoy2h4r00054snzamwz8t9k" data-title="为博客添加返回顶部按钮"
+            <a data-url="https://bitparker.github.io/2023/12/28/%E4%B8%BA%E5%8D%9A%E5%AE%A2%E6%B7%BB%E5%8A%A0%E8%BF%94%E5%9B%9E%E9%A1%B6%E9%83%A8%E6%8C%89%E9%92%AE/" data-id="clqoyhbls0007vsnzec99a462" data-title="为博客添加返回顶部按钮"
               class="article-share-link"><span class="fa fa-share">
                 分享
               </span></a>
@@ -194,7 +202,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%85%B3%E4%BA%8E/" rel="tag">关于</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%9A%E5%AE%A2/" rel="tag">博客</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8A%80%E6%9C%AF/" rel="tag">技术</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8A%80%E6%9C%AF%EF%BC%8C%E5%8D%9A%E5%AE%A2/" rel="tag">技术，博客</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%94%9F%E6%B4%BB/" rel="tag">生活</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%85%B3%E4%BA%8E/" rel="tag">关于</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%9A%E5%AE%A2/" rel="tag">博客</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8A%80%E6%9C%AF/" rel="tag">技术</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%94%9F%E6%B4%BB/" rel="tag">生活</a></li></ul>
     </div>
   </div>
 
@@ -204,7 +212,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/%E5%85%B3%E4%BA%8E/" style="font-size: 15px;">关于</a> <a href="/tags/%E5%8D%9A%E5%AE%A2/" style="font-size: 20px;">博客</a> <a href="/tags/%E6%8A%80%E6%9C%AF/" style="font-size: 20px;">技术</a> <a href="/tags/%E6%8A%80%E6%9C%AF%EF%BC%8C%E5%8D%9A%E5%AE%A2/" style="font-size: 10px;">技术，博客</a> <a href="/tags/%E7%94%9F%E6%B4%BB/" style="font-size: 15px;">生活</a>
+      <a href="/tags/%E5%85%B3%E4%BA%8E/" style="font-size: 10px;">关于</a> <a href="/tags/%E5%8D%9A%E5%AE%A2/" style="font-size: 20px;">博客</a> <a href="/tags/%E6%8A%80%E6%9C%AF/" style="font-size: 20px;">技术</a> <a href="/tags/%E7%94%9F%E6%B4%BB/" style="font-size: 10px;">生活</a>
     </div>
   </div>
 
