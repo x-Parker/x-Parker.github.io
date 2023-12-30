@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title>修改博客模板默认字重</title>
+      <link href="/2023/12/28/%E4%BF%AE%E6%94%B9%E5%8D%9A%E5%AE%A2%E6%A8%A1%E6%9D%BF%E9%BB%98%E8%AE%A4%E5%AD%97%E9%87%8D/"/>
+      <url>/2023/12/28/%E4%BF%AE%E6%94%B9%E5%8D%9A%E5%AE%A2%E6%A8%A1%E6%9D%BF%E9%BB%98%E8%AE%A4%E5%AD%97%E9%87%8D/</url>
+      
+        <content type="html"><![CDATA[<p><strong>问题</strong>：landscape模板字体过粗，导致显示出的界面不协调</p><p><strong>解决</strong>：打开 <code>themes/landscape/source/css/_partial/article.styl</code> 文件</p><ol><li><p>将 <code>.article-title</code> 中的 <code>font-weight: bold</code> 代码删除；</p></li><li><p>将 <code>.article-entry</code> 中的以下代码删除：</p><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">h1</span>, <span class="selector-tag">h2</span>, <span class="selector-tag">h3</span>, <span class="selector-tag">h4</span>, <span class="selector-tag">h5</span>, <span class="selector-tag">h6</span></span><br><span class="line">  <span class="attribute">font-weight</span>: bold</span><br></pre></td></tr></table></figure></li></ol><p>注意：修改 <code>.styl</code> 文件后，在使用 <code>hexo g</code> 命令之前，先进行 <code>hexo clean</code> ，否则部署时会出现样式不完整。</p><p><strong>引用</strong>：</p><ul><li><a href="https://www.l3f.win/2018/02/14/%E5%AD%A6%E7%9D%80%E4%BF%AE%E6%94%B9Hexo%E7%9A%84Landscape%E6%A8%A1%E6%9D%BF/">修改Hexo的Landscape模板</a></li></ul>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 技术 </tag>
+            
+            <tag> 博客 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>为博客添加返回顶部按钮</title>
+      <link href="/2023/12/28/%E4%B8%BA%E5%8D%9A%E5%AE%A2%E6%B7%BB%E5%8A%A0%E8%BF%94%E5%9B%9E%E9%A1%B6%E9%83%A8%E6%8C%89%E9%92%AE/"/>
+      <url>/2023/12/28/%E4%B8%BA%E5%8D%9A%E5%AE%A2%E6%B7%BB%E5%8A%A0%E8%BF%94%E5%9B%9E%E9%A1%B6%E9%83%A8%E6%8C%89%E9%92%AE/</url>
+      
+        <content type="html"><![CDATA[<p><strong>问题</strong>：landscape模板本身不带返回顶部按钮，当文章较长时返回顶部比较麻烦</p><p><strong>解决</strong>：自行添加一个返回到顶部的按钮</p><ol><li><p>打开 <code>themes/landscape/layout/_partial/footer.ejs</code> 文件，在 <code>&lt;footer id=&quot;footer&quot;&gt;</code> 中添加以下代码：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;goBack&quot; onclick=&quot;window.scrollTo(&#x27;0&#x27;,&#x27;0&#x27;)&quot;&gt;&lt;/div&gt;</span><br></pre></td></tr></table></figure></li><li><p>打开 <code>themes/landscape/source/css/_partial/footer.styl</code> 文件，添加以下代码：</p><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#footer</span> <span class="selector-class">.goBack</span></span><br><span class="line">  <span class="attribute">width</span> <span class="number">25px</span></span><br><span class="line">  <span class="attribute">height</span> <span class="number">25px</span></span><br><span class="line">  <span class="attribute">text-align</span> center</span><br><span class="line">  <span class="attribute">background</span> <span class="number">#f1f1f1</span> <span class="built_in">url</span>(images/scrolltop.png) no-repeat <span class="number">0</span> <span class="number">0</span></span><br><span class="line">  <span class="attribute">background-size</span>: <span class="number">25px</span> <span class="number">25px</span>; <span class="comment">/* 宽度 25 像素，高度 25 像素 */</span></span><br><span class="line">  <span class="attribute">position</span> fixed</span><br><span class="line">  <span class="attribute">bottom</span> <span class="number">20px</span></span><br><span class="line">  <span class="attribute">cursor</span> pointer</span><br><span class="line">  <span class="attribute">border</span> <span class="number">0px</span> solid <span class="number">#cdcdcd</span></span><br><span class="line">  <span class="attribute">border-radius</span> <span class="number">3px</span></span><br><span class="line">  <span class="attribute">right</span> <span class="number">30px</span></span><br></pre></td></tr></table></figure><p>然后，将返回顶部图标文件 <code>scrolltop.png</code> 放入 <code>themes/landscape/source/css/images</code> 文件夹下。</p><p>注意：修改 <code>.styl</code> 文件后，在使用 <code>hexo g</code> 命令之前，先进行 <code>hexo clean</code> ，否则部署时会出现样式不完整。</p></li></ol><p><strong>效果</strong>：</p><p><img src="https://s2.loli.net/2023/12/28/iqVxAGQScwWFC4U.png" alt="返回顶部按钮效果图"></p><p><strong>引用</strong>：</p><ul><li><a href="https://www.l3f.win/2018/02/14/%E5%AD%A6%E7%9D%80%E4%BF%AE%E6%94%B9Hexo%E7%9A%84Landscape%E6%A8%A1%E6%9D%BF/">修改Hexo的Landscape模板</a></li></ul>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 技术 </tag>
+            
+            <tag> 博客 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>CSS文本溢出问题</title>
+      <link href="/2023/12/27/CSS%E6%96%87%E6%9C%AC%E6%BA%A2%E5%87%BA%E9%97%AE%E9%A2%98/"/>
+      <url>/2023/12/27/CSS%E6%96%87%E6%9C%AC%E6%BA%A2%E5%87%BA%E9%97%AE%E9%A2%98/</url>
+      
+        <content type="html"><![CDATA[<p><strong>问题</strong>：博客文章中 长链接&#x2F;长代码 超出浏览器窗口大小而无法完整显示（CSS文本溢出）<br>如下图所示：</p><ul><li><p>手机端：<br><img src="https://s2.loli.net/2023/12/27/IvlT5cLHR78tE4F.jpg" style="display: inline-block;zoom: 20%" /><img src="https://s2.loli.net/2023/12/27/e6zP4H9dJETWyOU.jpg" style="display: inline-block;zoom:23.6%" />   </p></li><li><p>电脑端：<br><img src="https://s2.loli.net/2023/12/27/r8v45hlTISMPyts.png"></p></li></ul><p><strong>解决</strong>：<br>打开 <code>themes\landscape\source\css\_partial\article.styl</code> 文件（该路径与所用主题有关），在 <code>.article-entry</code> 部分添加以下代码：</p><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">word-break</span>: break-all// 一个长长的单词不会新起一行展示，而是直接在本行剩余空间展示，展示不全时折断展示</span><br><span class="line"><span class="attribute">overflow-wrap</span>: break-word// 一个长长的单词会新起一行展示，新的一行展示不全时折断展示</span><br></pre></td></tr></table></figure><p><strong>效果</strong>：</p><p><img src="https://s2.loli.net/2023/12/27/yt8ixFgBRpcrdeY.png"><br><img src="https://s2.loli.net/2023/12/27/eziCIhA3ML7mWYy.png"></p><p><strong>One more thing</strong></p><p>写作本文时，有让图片并排显示的需求，而网页默认是每个图片后自动换行。</p><p>解决：<br>使用 <code>&lt;img&gt;</code> HTML标签的 <code>style</code> 属性来覆盖图片的 “块 “行为，形如：</p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;/uploads/image-1.jpg&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;image-1&quot;</span> <span class="attr">style</span>=<span class="string">&quot;display: inline-block&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;/uploads/image-2.jpg&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;image-2&quot;</span> <span class="attr">style</span>=<span class="string">&quot;display: inline-block&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure><p><strong>引用</strong>：</p><ul><li><a href="https://github.com/litten/hexo-theme-yilia/issues/801#issuecomment-456317331">长链接不会自动换行解决方案</a></li><li><a href="https://yolkpie.net/2021/09/14/CSS%E6%96%87%E6%9C%AC%E6%BA%A2%E5%87%BA%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/">CSS文本溢出解决方案</a></li><li><a href="https://github.com/iissnan/hexo-theme-next/issues/1139#issuecomment-286639102">网页图片并排显示解决方案</a></li></ul>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 技术 </tag>
+            
+            <tag> 博客 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>博客主页文章内容折叠</title>
+      <link href="/2023/12/27/%E5%8D%9A%E5%AE%A2%E4%B8%BB%E9%A1%B5%E6%96%87%E7%AB%A0%E5%86%85%E5%AE%B9%E6%8A%98%E5%8F%A0/"/>
+      <url>/2023/12/27/%E5%8D%9A%E5%AE%A2%E4%B8%BB%E9%A1%B5%E6%96%87%E7%AB%A0%E5%86%85%E5%AE%B9%E6%8A%98%E5%8F%A0/</url>
+      
+        <content type="html"><![CDATA[<p><strong>问题</strong>：Hexo博客主页默认展示文章全部内容<br>如下图所示：</p><p><img src="https://s2.loli.net/2023/12/27/AZFvplLEdRegMqu.png"><br>然而这样影响查找文章的效率且不美观，所以主页文章目录仅展示文章部分内容，其余内容折叠起来最好。</p><p><strong>解决</strong>：</p><ul><li><p>方法一：在文章要折叠的内容之前添加如下代码：</p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--more--&gt;</span></span><br></pre></td></tr></table></figure><p><img src="https://s2.loli.net/2023/12/27/1AzxMnImV8RwKP5.png"></p></li><li><p>方法二：修改当前主题下的文章模板，实现自动添加 Read More 标记<br>打开 <code>themes/landscape/layout/_partial/article.ejs</code> 文件（该路径与所用主题有关），找到与摘要相关的代码，修改为：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;article-entry&quot; itemprop=&quot;articleBody&quot;&gt;</span><br><span class="line">  &lt;% if (post.excerpt &amp;&amp; index) &#123; %&gt;</span><br><span class="line">    &lt;%- post.excerpt %&gt;</span><br><span class="line">    &lt;% if (theme.excerpt_link) &#123; %&gt;</span><br><span class="line">      &lt;p class=&quot;article-more-link&quot;&gt;</span><br><span class="line">        &lt;a href=&quot;&lt;%- config.root %&gt;&lt;%- post.path %&gt;#more&quot;&gt;&lt;%= theme.excerpt_link %&gt;&lt;/a&gt;</span><br><span class="line">      &lt;/p&gt;</span><br><span class="line">    &lt;% &#125; %&gt;</span><br><span class="line">  &lt;% &#125; else &#123; %&gt;</span><br><span class="line">    &lt;% var br = post.content.indexOf(&#x27;\n&#x27;) %&gt;</span><br><span class="line">    &lt;% if(br &lt; 0 || !index) &#123; %&gt;</span><br><span class="line">      &lt;%- post.content %&gt;</span><br><span class="line">    &lt;% &#125; else &#123; %&gt;</span><br><span class="line">      &lt;%- post.content.substring(0, br) %&gt;</span><br><span class="line">      &lt;% if (theme.excerpt_link) &#123; %&gt;</span><br><span class="line">        &lt;p class=&quot;article-more-link&quot;&gt;</span><br><span class="line">          &lt;a href=&quot;&lt;%- config.root %&gt;&lt;%- post.path %&gt;#more&quot;&gt;&lt;%= theme.excerpt_link %&gt;&lt;/a&gt;</span><br><span class="line">        &lt;/p&gt;</span><br><span class="line">      &lt;% &#125; %&gt;</span><br><span class="line">    &lt;% &#125; %&gt;</span><br><span class="line">  &lt;% &#125; %&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure><p>则在文章没有 more 标记的时候，截取文章的前两段作为摘要，如果文章少于两段，直接显示整篇文章内容<br>注意：文章前两段不要包含代码片段。</p></li></ul><p><strong>效果</strong>：</p><ul><li><p>方法一：<br><img src="https://s2.loli.net/2023/12/27/ZkqDBrtKsfo7AgF.png"></p></li><li><p>方法二：<img src="https://s2.loli.net/2023/12/27/IKwF2YpZMEtOlA7.png"></p></li></ul><p><strong>引用</strong>：</p><ul><li><a href="https://strongrock.github.io/2018-11-15/hexo%E9%A6%96%E9%A1%B5%E4%B8%8D%E6%98%BE%E7%A4%BA%E6%96%87%E7%AB%A0%E5%85%A8%E9%83%A8%E5%86%85%E5%AE%B9%E7%9A%84%E8%AE%BE%E7%BD%AE%E6%96%B9%E6%B3%95/">方法一：Hexo首页不显示文章全部内容的设置方法</a></li><li><a href="https://blog.csdn.net/itguangzhi/article/details/79510044">方法二：Hexo博客首页自动添加Read More标记</a></li></ul>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 技术 </tag>
+            
+            <tag> 博客 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Merry Christmas!</title>
+      <link href="/2023/12/25/Merry-Christmas/"/>
+      <url>/2023/12/25/Merry-Christmas/</url>
+      
+        <content type="html"><![CDATA[<br><p><img src="https://s2.loli.net/2023/12/27/HJP4O7sgTtrxMCe.jpg"></p><p><img src="https://s2.loli.net/2023/12/27/o6wa24CLNDS3cBp.jpg"></p><p> 🎄🎄🎄🎄🎄🎄🎄<br><a href="/HTML/Merry-Christmas/index.html">点我看赛博圣诞树(^_^)</a></p><p><strong>引用</strong>：</p><ul><li><a href="https://blog.csdn.net/Gou_Hailong/article/details/128401580">圣诞 HTML 代码汇总 - Part.1 音效圣诞树</a></li></ul>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 生活 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Hello World</title>
+      <link href="/2023/12/22/hello-world/"/>
+      <url>/2023/12/22/hello-world/</url>
+      
+        <content type="html"><![CDATA[<p><strong>你好！欢迎来到Parker的博客。我是一名硕士研究生，本科毕业于华中科技大学，现就读于中国科学技术大学。此博客将主要用于个人学习、生活记录，目前还比较简陋，后续将逐渐丰富起来。欢迎访问！</strong></p><p><strong>如果有任何问题，欢迎通过邮箱联系我：<a href="mailto:&#112;&#x65;&#110;&#103;&#107;&#97;&#x69;&#95;&#x78;&#x69;&#x65;&#64;&#109;&#97;&#105;&#x6c;&#x2e;&#117;&#x73;&#x74;&#x63;&#46;&#x65;&#x64;&#117;&#x2e;&#99;&#x6e;">&#112;&#x65;&#110;&#103;&#107;&#97;&#x69;&#95;&#x78;&#x69;&#x65;&#64;&#109;&#97;&#105;&#x6c;&#x2e;&#117;&#x73;&#x74;&#x63;&#46;&#x65;&#x64;&#117;&#x2e;&#99;&#x6e;</a></strong></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 关于 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+  
+  
+</search>
