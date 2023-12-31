@@ -6,19 +6,19 @@
   
   <title>博客主页文章内容折叠 | Parker&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="问题：Hexo博客主页默认展示文章全部内容如下图所示： 然而这样影响查找文章的效率且不美观，所以主页文章目录仅展示文章部分内容，其余内容折叠起来最好。 解决：  方法一：在文章要折叠的内容之前添加如下代码： 1&lt;!--more--&gt;    方法二：修改当前主题下的文章模板，实现自动添加 Read More 标记打开 themes&#x2F;landscape&#x2F;layout&#x2F;_partial&#x2F;ar">
+  <meta name="description" content="问题：Hexo博客主页默认展示文章全部内容 如下图所示： 然而这样影响查找文章的效率且不美观，所以主页文章目录仅展示文章部分内容，其余内容折叠起来最好。 解决：  方法一：在文章要折叠的内容之前添加如下代码： 1&lt;!--more--&gt;    方法二：修改当前主题下的文章模板，实现自动添加 Read More 标记打开 themes&#x2F;landscape&#x2F;layout&#x2F;_partial&#x2F;a">
 <meta property="og:type" content="article">
 <meta property="og:title" content="博客主页文章内容折叠">
 <meta property="og:url" content="https://bitparker.github.io/2023/12/27/%E5%8D%9A%E5%AE%A2%E4%B8%BB%E9%A1%B5%E6%96%87%E7%AB%A0%E5%86%85%E5%AE%B9%E6%8A%98%E5%8F%A0/index.html">
 <meta property="og:site_name" content="Parker&#39;s Blog">
-<meta property="og:description" content="问题：Hexo博客主页默认展示文章全部内容如下图所示： 然而这样影响查找文章的效率且不美观，所以主页文章目录仅展示文章部分内容，其余内容折叠起来最好。 解决：  方法一：在文章要折叠的内容之前添加如下代码： 1&lt;!--more--&gt;    方法二：修改当前主题下的文章模板，实现自动添加 Read More 标记打开 themes&#x2F;landscape&#x2F;layout&#x2F;_partial&#x2F;ar">
+<meta property="og:description" content="问题：Hexo博客主页默认展示文章全部内容 如下图所示： 然而这样影响查找文章的效率且不美观，所以主页文章目录仅展示文章部分内容，其余内容折叠起来最好。 解决：  方法一：在文章要折叠的内容之前添加如下代码： 1&lt;!--more--&gt;    方法二：修改当前主题下的文章模板，实现自动添加 Read More 标记打开 themes&#x2F;landscape&#x2F;layout&#x2F;_partial&#x2F;a">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s2.loli.net/2023/12/27/AZFvplLEdRegMqu.png">
 <meta property="og:image" content="https://s2.loli.net/2023/12/27/1AzxMnImV8RwKP5.png">
 <meta property="og:image" content="https://s2.loli.net/2023/12/27/ZkqDBrtKsfo7AgF.png">
 <meta property="og:image" content="https://s2.loli.net/2023/12/27/IKwF2YpZMEtOlA7.png">
 <meta property="article:published_time" content="2023-12-26T16:43:23.000Z">
-<meta property="article:modified_time" content="2023-12-28T08:16:33.712Z">
+<meta property="article:modified_time" content="2023-12-31T06:06:55.546Z">
 <meta property="article:author" content="Parker">
 <meta property="article:tag" content="技术">
 <meta property="article:tag" content="博客">
@@ -97,12 +97,14 @@
       <div class="outer">
         <section id="main"><article id="post-博客主页文章内容折叠" class="h-entry article article-type-post"
   itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+
   <div class="article-meta">
     <a href="/2023/12/27/%E5%8D%9A%E5%AE%A2%E4%B8%BB%E9%A1%B5%E6%96%87%E7%AB%A0%E5%86%85%E5%AE%B9%E6%8A%98%E5%8F%A0/" class="article-date">
   <time class="dt-published" datetime="2023-12-26T16:43:23.000Z" itemprop="datePublished">2023-12-27</time>
 </a>
       
   </div>
+
   <div class="article-inner">
     
       
@@ -119,7 +121,8 @@
 
           <!-- <div class="e-content article-entry" itemprop="articleBody">
       
-        <p><strong>问题</strong>：Hexo博客主页默认展示文章全部内容<br>如下图所示：</p>
+        <p><strong>问题</strong>：Hexo博客主页默认展示文章全部内容</p>
+<p>如下图所示：</p>
 <p><img src="https://s2.loli.net/2023/12/27/AZFvplLEdRegMqu.png"><br>然而这样影响查找文章的效率且不美观，所以主页文章目录仅展示文章部分内容，其余内容折叠起来最好。</p>
 <p><strong>解决</strong>：</p>
 <ul>
@@ -153,7 +156,8 @@
             
                       
                         
-                          <p><strong>问题</strong>：Hexo博客主页默认展示文章全部内容<br>如下图所示：</p>
+                          <p><strong>问题</strong>：Hexo博客主页默认展示文章全部内容</p>
+<p>如下图所示：</p>
 <p><img src="https://s2.loli.net/2023/12/27/AZFvplLEdRegMqu.png"><br>然而这样影响查找文章的效率且不美观，所以主页文章目录仅展示文章部分内容，其余内容折叠起来最好。</p>
 <p><strong>解决</strong>：</p>
 <ul>
@@ -185,16 +189,21 @@
                                       
           </div>
 
-
           <footer class="article-footer">
             <!-- 分享按钮 -->
-            <!-- <a data-url="https://bitparker.github.io/2023/12/27/%E5%8D%9A%E5%AE%A2%E4%B8%BB%E9%A1%B5%E6%96%87%E7%AB%A0%E5%86%85%E5%AE%B9%E6%8A%98%E5%8F%A0/" data-id="clqt0yqbd000k98nz4g792y7g" data-title="博客主页文章内容折叠"
+            <!-- <a data-url="https://bitparker.github.io/2023/12/27/%E5%8D%9A%E5%AE%A2%E4%B8%BB%E9%A1%B5%E6%96%87%E7%AB%A0%E5%86%85%E5%AE%B9%E6%8A%98%E5%8F%A0/" data-id="clqt3abb10007hcnz0dr08ahu" data-title="博客主页文章内容折叠"
               class="article-share-link"><span class="fa fa-share">
                 分享
               </span></a> -->
+
+            <!-- disqus评论系统 -->
+            <!--  -->
+
+            <!-- valine评论系统 -->
+            <!--  -->
+
+            <!-- 文章末尾tag标签 -->
             
-                
-                    
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8D%9A%E5%AE%A2/" rel="tag">博客</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%8A%80%E6%9C%AF/" rel="tag">技术</a></li></ul>
 
           </footer>
