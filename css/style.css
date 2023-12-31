@@ -301,7 +301,7 @@ body {
   font-weight: bold;
 }
 #header {
-  height: 230px;
+  height: 160px;
   position: relative;
   border-bottom: 1px solid #ddd;
 }
@@ -349,7 +349,7 @@ body {
   text-align: center;
   height: 40px;
   position: absolute;
-  top: 45%;
+  top: 40%;
   left: 0;
   margin-top: -20px;
 }
