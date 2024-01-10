@@ -4446,7 +4446,7 @@ html.is-animating .scroll-progress-bar {
 }
 .footer .odometer.odometer-auto-theme,
 .footer .odometer.odometer-theme-default {
-  line-height: 1em;
+  line-height: 1.1em;
 }
 .footer .odometer.odometer-auto-theme .odometer-value,
 .footer .odometer.odometer-theme-default .odometer-value {
@@ -6832,7 +6832,7 @@ html.is-animating .scroll-progress-bar {
   display: block;
   opacity: 1;
   transition: opacity 0.2s ease-in 0.2s;
-  width: 250px;
+  width: 210px;
 }
 .post-page-container.show-toc .toc-content-container:hover::-webkit-scrollbar-thumb {
   border: 3px solid rgba(183,183,183,0.3);
