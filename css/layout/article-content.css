@@ -320,7 +320,6 @@
   margin-top: 38px;
   padding-bottom: 10px;
   word-wrap: break-word;
-  overflow-wrap: break-word;
   border-bottom: 1px solid var(--border-color);
   color: var(--default-text-color);
 }
