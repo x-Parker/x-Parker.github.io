@@ -511,7 +511,7 @@
 
         <div class="statistics flex justify-around my-2.5">
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">3</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">2</div>
         <div class="label text-third-text-color text-sm">标签</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
@@ -670,7 +670,8 @@
 
             
                 <div class="home-sidebar-container">
-    <div class="sticky-container sticky">
+    <div class="sticky-container">
+        <!-- <div class="sticky-container sticky">可使该类下的组件固定到显示窗口中 -->
         
         
             <div class="sidebar-content">
@@ -685,7 +686,7 @@
 </div>
                 <div class="statistics flex justify-around my-2.5">
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">3</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">2</div>
         <div class="label text-third-text-color text-sm">标签</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
@@ -702,6 +703,18 @@
         
 
     </div>
+
+    <!-- 引用 artitalk -->
+    <script type="text/javascript" src="https://unpkg.com/artitalk"></script>
+    <!-- 存放说说的容器 -->
+    <div id="artitalk_main"></div>
+    <script>
+        new Artitalk({
+            appId: 'UGIqQ3SWzirgiZEWRIRyw4SL-MdYXbMMI', // Your LeanCloud appId
+            appKey: 'TwbccjCL3iQjV7JolC9i7dF0' // Your LeanCloud appKey
+        })
+    </script>
+
 </div>
 
             
@@ -964,6 +977,7 @@
 
     
 </div>
+
 
 
 </body>
