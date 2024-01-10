@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="Parker">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://bitparker.github.io/2024/01/10/hadoop环境配置/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="主要步骤一、准备虚拟机首先要创建五台一模一样的Ubuntu虚拟机，可在VMware中先安装一个Ubuntu虚拟机，然后克隆出另外四个虚拟机。 二、搭建集群1.修改hostname现在有五台虚拟机，改hostname：将其中一台改作master，其余分别改作slave1、slave2、slave3、slave4。让其处于同一局域网中。 1sudo gedit &#x2F;etc&#x2F;hostname  修改后保存">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hadoop环境配置">
+<meta property="og:url" content="https://bitparker.github.io/2024/01/10/Hadoop%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/index.html">
+<meta property="og:site_name" content="Parker&#39;s Blog">
+<meta property="og:description" content="主要步骤一、准备虚拟机首先要创建五台一模一样的Ubuntu虚拟机，可在VMware中先安装一个Ubuntu虚拟机，然后克隆出另外四个虚拟机。 二、搭建集群1.修改hostname现在有五台虚拟机，改hostname：将其中一台改作master，其余分别改作slave1、slave2、slave3、slave4。让其处于同一局域网中。 1sudo gedit &#x2F;etc&#x2F;hostname  修改后保存">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2023/10/18/arKLqu23wdTIgbD.png">
+<meta property="og:image" content="https://s2.loli.net/2023/10/18/2NYJbqB8ytKh3zZ.png">
+<meta property="og:image" content="https://s2.loli.net/2024/01/10/PHrsxtvNiIFGmkT.png">
+<meta property="og:image" content="https://s2.loli.net/2024/01/10/x4uYlirEd5U2hgy.png">
+<meta property="og:image" content="https://s2.loli.net/2024/01/10/zUywuYjHvRTX3sa.png">
+<meta property="article:published_time" content="2024-01-10T06:23:23.000Z">
+<meta property="article:modified_time" content="2024-01-10T06:32:59.311Z">
+<meta property="article:author" content="Parker">
+<meta property="article:tag" content="Hadoop">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2023/10/18/arKLqu23wdTIgbD.png">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/redefine-favicon.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/redefine-favicon.svg">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/redefine-favicon.svg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            Hadoop环境配置 -
+        
+        Parker&#39;s Blog
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    
+        <style>
+    :root {
+        --preloader-background-color: #fff;
+        --preloader-text-color: #000;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --preloader-background-color: #202124;
+            --preloader-text-color: #fff;
+        }
+    }
+
+    @media (prefers-color-scheme: light) {
+        :root {
+            --preloader-background-color: #fff;
+            --preloader-text-color: #000;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .ml13 {
+            font-size: 2.6rem !important; /* Adjust this value as needed */
+        }
+    }
+
+    .preloader {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem; /* Tailwind 'gap-4' is 1rem */
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        padding: 12px;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh; /* 'h-screen' is 100% of the viewport height */
+        background-color: var(--preloader-background-color);
+        z-index: 1100; /* 'z-[1100]' sets the z-index */
+        transition: opacity 0.2s ease-in-out;
+    }
+
+    .ml13 {
+        font-size: 3.2rem;
+        /* text-transform: uppercase; */
+        color: var(--preloader-text-color);
+        letter-spacing: -1px;
+        font-weight: 500;
+        font-family: 'Chillax-Variable', sans-serif;
+        text-align: center;
+    }
+
+    .ml13 .word {
+        display: inline-flex;
+        flex-wrap: wrap;
+        white-space: nowrap;
+    }
+
+    .ml13 .letter {
+        display: inline-block;
+        line-height: 1em;
+    }
+</style>
+
+<div class="preloader">
+    
+<script src="/js/libs/anime.min.js"></script>
+
+    <h1 class="ml13">
+        Parker&#39;s Blog
+    </h1>
+    <script>
+        var textWrapper = document.querySelector('.ml13');
+        // Split text into words
+        var words = textWrapper.textContent.trim().split(' ');
+
+        // Clear the existing content
+        textWrapper.innerHTML = '';
+
+        // Wrap each word and its letters in spans
+        words.forEach(function(word) {
+            var wordSpan = document.createElement('span');
+            wordSpan.classList.add('word');
+            wordSpan.innerHTML = word.replace(/\S/g, "<span class='letter'>$&</span>");
+            textWrapper.appendChild(wordSpan);
+            textWrapper.appendChild(document.createTextNode(' ')); // Add space between words
+        });
+
+
+        anime.timeline({loop: true})
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [100,0],
+                translateZ: 0,
+                opacity: [0,1],
+                easing: "easeOutExpo",
+                duration: 1400,
+                delay: (el, i) => 300 + 30 * i
+            }).add({
+            targets: '.ml13 .letter',
+            translateY: [0,-100],
+            opacity: [1,0],
+            easing: "easeInExpo",
+            duration: 1200,
+            delay: (el, i) => 100 + 30 * i
+        });
+
+        let themeStatus = JSON.parse(localStorage.getItem('REDEFINE-THEME-STATUS'))?.isDark;
+
+        // If the theme status is not found in local storage, check the preferred color scheme
+        if (themeStatus === undefined || themeStatus === null) {
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                themeStatus = 'dark';
+            } else {
+                themeStatus = 'light';
+            }
+        }
+
+        // Now you can use the themeStatus variable in your code
+        if (themeStatus) {
+            document.documentElement.style.setProperty('--preloader-background-color', '#202124');
+            document.documentElement.style.setProperty('--preloader-text-color', '#fff');
+        } else {
+            document.documentElement.style.setProperty('--preloader-background-color', '#fff');
+            document.documentElement.style.setProperty('--preloader-text-color', '#000');
+        }
+
+        window.addEventListener('load', function () {
+            hidePreloaderAfterTimeout(1000); // Hide after 1000 milliseconds once the window has loaded
+        });
+
+        // Backup failsafe: Hide preloader after a maximum of 5000 milliseconds, regardless of the window load event
+        hidePreloaderAfterTimeout(5000);
+
+        function hidePreloaderAfterTimeout(delay) {
+            setTimeout(function () {
+                var preloader = document.querySelector('.preloader');
+                preloader.style.opacity = '0';
+                setTimeout(function () {
+                    preloader.style.display = 'none';
+                }, 200);
+            }, delay);
+        }
+    </script>
+</div>
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/assets/build/styles.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/fonts.css">
+
+    
+<link rel="stylesheet" href="/fonts/Satoshi/satoshi.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+
+    <!--- Inject Part-->
+    
+    <script id="hexo-configurations">
+    window.config = {"hostname":"bitparker.github.io","root":"/","language":"zh-CN","path":"search.xml"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"title_alignment":"left"},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":true,"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"Parker's Blog","subtitle":{"text":[],"hitokoto":{"enable":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"links":{"github":null,"instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.6.0","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"links":null},"article_date_format":"auto","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
+    window.lang_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+<!--        <span class="swup-progress-icon">-->
+<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+<!--        </span>-->
+    
+</div>
+
+
+<main class="page-container" id="swup">
+
+    
+
+    <div class="main-content-container">
+
+
+        <div class="main-content-header">
+            <header class="navbar-container">
+
+    <div class="navbar-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                Parker&#39;s Blog
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    首页
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="navbar-drawer h-screen w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                首页
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">5</div>
+        <div class="label text-third-text-color text-sm">标签</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">0</div>
+        <div class="label text-third-text-color text-sm">分类</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">7</div>
+        <div class="label text-third-text-color text-sm">文章</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="post-page-container flex relative justify-between box-border w-full h-full">
+    <div class="article-content-container">
+
+        <div class="article-title relative w-full">
+            
+                <div class="w-full flex items-center pt-6 justify-start">
+                    <h1 class="article-title-regular text-second-text-color text-4xl md:text-6xl font-bold px-2 sm:px-6 md:px-8 py-3">Hadoop环境配置</h1>
+                </div>
+            
+            </div>
+
+        
+            <div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+                <div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+                    <img src="/images/redefine-avatar.svg">
+                </div>
+                <div class="info flex flex-col justify-between">
+                    <div class="author flex items-center">
+                        <span class="name text-default-text-color text-lg font-semibold">Parker</span>
+                        
+                            <span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv1</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2024-01-10 14:23:23</span>
+        <span class="mobile">2024-01-10 14:23:23</span>
+        <span class="hover-info">创建</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2024-01-10 14:32:59</span>
+            <span class="mobile">2024-01-10 14:32:59</span>
+            <span class="hover-info">更新</span>
+        </span>
+    
+
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Hadoop/">Hadoop</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        
+
+
+        <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+            <h2 id="主要步骤"><a href="#主要步骤" class="headerlink" title="主要步骤"></a>主要步骤</h2><h3 id="一、准备虚拟机"><a href="#一、准备虚拟机" class="headerlink" title="一、准备虚拟机"></a>一、准备虚拟机</h3><p>首先要创建五台一模一样的Ubuntu虚拟机，可在VMware中先安装一个Ubuntu虚拟机，然后克隆出另外四个虚拟机。</p>
+<h3 id="二、搭建集群"><a href="#二、搭建集群" class="headerlink" title="二、搭建集群"></a>二、搭建集群</h3><h4 id="1-修改hostname"><a href="#1-修改hostname" class="headerlink" title="1.修改hostname"></a>1.修改hostname</h4><p>现在有五台虚拟机，改hostname：将其中一台改作master，其余分别改作slave1、slave2、slave3、slave4。让其处于同一局域网中。</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo gedit /etc/hostname</span><br></pre></td></tr></table></figure></div>
+
+<p>修改后保存。</p>
+<h4 id="2-记录五台虚拟机的IP地址"><a href="#2-记录五台虚拟机的IP地址" class="headerlink" title="2.记录五台虚拟机的IP地址"></a>2.记录五台虚拟机的IP地址</h4><p>在终端输入<code>ipconfig</code>，可以得到本节点IP。最终可以得到：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">192.168.242.129	master</span><br><span class="line">192.168.242.130	slave1</span><br><span class="line">192.168.242.131	slave2</span><br><span class="line">192.168.242.132	slave3</span><br><span class="line">192.168.242.133	slave4</span><br></pre></td></tr></table></figure></div>
+
+<p>接下来修改节点IP映射，在每台虚拟机的<code>hosts</code>文件末尾添加上述<code>IP-主机名</code>映射（重启后生效）：</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo gedit /etc/hosts  </span><br></pre></td></tr></table></figure></div>
+
+<h4 id="3-ping通五台虚拟机"><a href="#3-ping通五台虚拟机" class="headerlink" title="3.ping通五台虚拟机"></a>3.ping通五台虚拟机</h4><p>利用刚刚记录下来的IP地址，五台虚拟机互相ping通：</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ping IP地址/主机名</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="4-配置SSH免密登录"><a href="#4-配置SSH免密登录" class="headerlink" title="4.配置SSH免密登录"></a>4.配置SSH免密登录</h4><p>首先安装SSH：</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install openssh-server  #安装服务，一路回车                     </span><br><span class="line">sudo /etc/init.d/ssh restart  #启动服务                                      </span><br><span class="line">sudo ufw disable   #关闭防火墙     </span><br></pre></td></tr></table></figure></div>
+
+<p>关闭完防火墙，接下来查看是否开通SSH服务：</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -e | grep ssh</span><br></pre></td></tr></table></figure></div>
+
+<p>只要出现了以下进程就说明成功了：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2023/10/18/arKLqu23wdTIgbD.png"
+                     
+                ></p>
+<p>接下来在master节点生成SSH公钥，公钥储存在 <code>/root/.ssh</code> 中</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo cd /root/.ssh  </span><br><span class="line">rm ./id_rsa*            # 删除之前生成的公匙（如果有）                  </span><br><span class="line">ssh-keygen -t rsa       # 一直按回车就可以     </span><br></pre></td></tr></table></figure></div>
+
+<p>让master 节点可以无密码 SSH 本机，在 master 节点上执行以下代码：</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat ./id_rsa.pub &gt;&gt; ./authorized_keys</span><br></pre></td></tr></table></figure></div>
+
+<p>完成后可执行<code>ssh master</code>验证一下（需要输入 <code>yes</code>，成功后执行 <code>exit</code> 返回原来的终端）</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh master</span><br></pre></td></tr></table></figure></div>
+
+<p>接着在 master 节点将上述公匙传输到 slave1 节点，过程中需要输入 slave1 节点的密码，传输100%以后就是传过去了：</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp ./.ssh/id_rsa.pub xpk@slave1:/home/xpk</span><br></pre></td></tr></table></figure></div>
+
+<p> 接着在 slave1 节点上，把 master 节点的公钥加入授权：</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir ~/.ssh        # 如果不存在该文件夹需先创建，若已存在则忽略        </span><br><span class="line">cat ~/id_rsa.pub &gt;&gt; ~/.ssh/authorized_keys                                   </span><br><span class="line">rm ~/id_rsa.pub    # 用完就可以删掉了</span><br></pre></td></tr></table></figure></div>
+
+<p>在其余 slave 节点重复以上步骤，然后就可以免密码SSH所有 slave 节点了：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2023/10/18/2NYJbqB8ytKh3zZ.png"
+                     
+                ></p>
+<p>最后在 master 节点修改SSH文件权限（否则之后SSH免密登录可能失效）：</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chmod 700 /root/.ssh/	#修改 .ssh/ 文件夹权限为700</span><br><span class="line">chmod 600 /root/.ssh/authorized_keys 	#修改 authorized_keys 文件权限为700</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="5-安装配置JDK环境变量"><a href="#5-安装配置JDK环境变量" class="headerlink" title="5.安装配置JDK环境变量"></a>5.安装配置JDK环境变量</h4><h5 id="下载JDK"><a href="#下载JDK" class="headerlink" title="下载JDK"></a>下载JDK</h5><p>官网： <a class="link"   target="_blank" rel="noopener" href="https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html" >https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p>我下载的是 JDK1.8 ，压缩文件名为<code>jdk-8u391-linux-x64.tar.gz</code>。</p>
+<h5 id="解压tar包"><a href="#解压tar包" class="headerlink" title="解压tar包"></a>解压tar包</h5><p>把安装包放到 <code>/usr/local/java/</code> 目录下面（没有java目录的话自行创建），然后解压安装包：</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">创建目录</span></span><br><span class="line">mkdir -p /usr/local/java/	</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">解压</span></span><br><span class="line">tar -zxvf  安装包名称	</span><br></pre></td></tr></table></figure></div>
+
+<h5 id="配置JDK环境变量"><a href="#配置JDK环境变量" class="headerlink" title="配置JDK环境变量"></a>配置JDK环境变量</h5><p>修改 environment 文件：</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">修改文件</span></span><br><span class="line">sudo gedit /etc/environment</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">文件尾部添加如下配置</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">java</span></span><br><span class="line">export JAVA_HOME=/usr/local/java/jdk1.8.0_391</span><br><span class="line">export JRE_HOME=/usr/local/java/jdk1.8.0_391/jre</span><br><span class="line">export CLASSPATH=$CLASSPATH:$JAVA_HOME/lib:$JAVA_HOME/jre/lib</span><br></pre></td></tr></table></figure></div>
+
+<p>修改 profile 文件：</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">修改文件</span></span><br><span class="line">sudo gedit /etc/profile </span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">文件尾部添加如下配置</span></span><br><span class="line">export JAVA_HOME=/usr/local/java/jdk1.8.0_391</span><br><span class="line">export JRE_HOME=/usr/local/java/jdk1.8.0_391/jre</span><br><span class="line">export CLASSPATH=$CLASSPATH:$JAVA_HOME/lib:$JAVA_HOME/jre/lib</span><br><span class="line">export PATH=$JAVA_HOME/bin:$JAVA_HOME/jre/bin:$PATH:$HOME/bin</span><br></pre></td></tr></table></figure></div>
+
+<p>配置立即生效：</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">立即生效</span></span><br><span class="line">source /etc/profile</span><br></pre></td></tr></table></figure></div>
+
+<p>检查Java命令：</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">查看java版本</span></span><br><span class="line">java -version</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">显示如下表示成功</span></span><br><span class="line">java version &quot;1.8.0_391&quot;</span><br><span class="line">Java(TM) SE Runtime Environment (build 1.8.0_391-b13)</span><br><span class="line">Java HotSpot(TM) 64-Bit Server VM (build 25.391-b13, mixed mode)</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="6-安装和配置Hadoop"><a href="#6-安装和配置Hadoop" class="headerlink" title="6.安装和配置Hadoop"></a>6.安装和配置Hadoop</h4><h5 id="下载Hadoop安装包"><a href="#下载Hadoop安装包" class="headerlink" title="下载Hadoop安装包"></a>下载Hadoop安装包</h5><p>Hadoop官网：<a class="link"   target="_blank" rel="noopener" href="http://hadoop.apache.org/" >http://hadoop.apache.org/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p>我下载的是 hadoop3 ，压缩文件名为<code>hadoop-3.3.6.tar.gz</code>。</p>
+<h5 id="解压Hadoop安装包（只在master做）"><a href="#解压Hadoop安装包（只在master做）" class="headerlink" title="解压Hadoop安装包（只在master做）"></a>解压Hadoop安装包（只在master做）</h5><p>把 Hadoop 压缩包放置到<code>/opt/hadoop</code>目录内，然后在 master 主机上执行以下代码：</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd /opt/hadoop</span><br></pre></td></tr></table></figure></div>
+
+<p>进入<code>/opt/hadoop</code>目录后，执行解压缩命令：</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf hadoop-3.3.6.tar.gz</span><br></pre></td></tr></table></figure></div>
+
+<h5 id="配置env文件（只在master做）"><a href="#配置env文件（只在master做）" class="headerlink" title="配置env文件（只在master做）"></a>配置env文件（只在master做）</h5><p>执行命令：</p>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo gedit /opt/hadoop/hadoop/etc/hadoop/hadoop-env.sh</span><br></pre></td></tr></table></figure></div>
+
+<p>找到<code>export JAVA_HOME</code>这行，修改为：</p>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> JAVA_HOME=/usr/local/java/jdk1.8.0_391/</span><br></pre></td></tr></table></figure></div>
+
+<h5 id="配置核心组件文件（只在master做）"><a href="#配置核心组件文件（只在master做）" class="headerlink" title="配置核心组件文件（只在master做）"></a>配置核心组件文件（只在master做）</h5><p>Hadoop 的核心组件文件是<code>core-site.xml</code>，位于<code>/opt/hadoop/hadoop/etc/hadoop</code>子目录下，将下面的配置代码放在文件的<code>&lt;configuration&gt;</code>和<code>&lt;/configuration&gt;</code>之间。</p>
+<p>执行编辑<code>core-site.xml</code>文件的命令：</p>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo gedit /opt/hadoop/hadoop/etc/hadoop/core-site.xml</span><br></pre></td></tr></table></figure></div>
+
+<p>需要在<code>&lt;configuration&gt;</code>和<code>&lt;/configuration&gt;</code>之间加入的代码：</p>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;property&gt;</span><br><span class="line">		&lt;name&gt;fs.defaultFS&lt;/name&gt;</span><br><span class="line">		&lt;value&gt;hdfs://master:9000&lt;/value&gt;</span><br><span class="line">	&lt;/property&gt;</span><br><span class="line">	&lt;property&gt;</span><br><span class="line">		&lt;name&gt;hadoop.tmp.dir&lt;/name&gt;</span><br><span class="line">		&lt;value&gt;/opt/hadoop/hadoopdata&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br></pre></td></tr></table></figure></div>
+
+<p>编辑完成后，退出并保存即可。</p>
+<h5 id="配置文件系统（只在master做）"><a href="#配置文件系统（只在master做）" class="headerlink" title="配置文件系统（只在master做）"></a>配置文件系统（只在master做）</h5><p>Hadoop 的文件系统配置文件是<code>hdfs-site.xml</code>，位于<code>/opt/hadoop/hadoop/etc/hadoop</code>子目录下，将以下代码放在文件的<code>&lt;configuration&gt;</code>和<code>&lt;/configuration&gt;</code>之间。</p>
+<p>执行编辑<code>hdfs-site.xml</code>文件的命令：</p>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo gedit /opt/hadoop/hadoop/etc/hadoop/hdfs-site.xml</span><br></pre></td></tr></table></figure></div>
+
+<p>需要在<code>&lt;configuration&gt;</code>和<code>&lt;/configuration&gt;</code>之间加入的代码：</p>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;property&gt;</span><br><span class="line">		&lt;name&gt;dfs.replication&lt;/name&gt;</span><br><span class="line">		&lt;value&gt;1&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br></pre></td></tr></table></figure></div>
+
+<p>编辑完成后，退出保存即可。</p>
+<h5 id="配置yarn-site-xml文件（只在master做）"><a href="#配置yarn-site-xml文件（只在master做）" class="headerlink" title="配置yarn-site.xml文件（只在master做）"></a>配置yarn-site.xml文件（只在master做）</h5><p>yarn 的站点配置文件是<code>yarn-site.xml</code>，位于<code>/opt/hadoop/hadoop/etc/hadoop</code>子目录下，将以下代码放在文件的<code>&lt;configuration&gt;</code>和<code>&lt;/configuration&gt;</code>之间。</p>
+<p>执行编辑<code>yarn-site.xml</code>文件的命令：</p>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo gedit /opt/hadoop/hadoop/etc/hadoop/yarn-site.xml</span><br></pre></td></tr></table></figure></div>
+
+<p>需要在<code>&lt;configuration&gt;</code>和<code>&lt;/configuration&gt;</code>之间加入的代码：</p>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;property&gt;</span><br><span class="line">	&lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt;</span><br><span class="line">	&lt;value&gt;mapreduce_shuffle&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">	&lt;name&gt;yarn.resourcemanager.address&lt;/name&gt;</span><br><span class="line">	&lt;value&gt;master:18040&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">	&lt;name&gt;yarn.resourcemanager.scheduler.address&lt;/name&gt;</span><br><span class="line">	&lt;value&gt;master:18030&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">	&lt;name&gt;yarn.resourcemanager.resource-tracker.address&lt;/name&gt;</span><br><span class="line">	&lt;value&gt;master:18025&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">	&lt;name&gt;yarn.resourcemanager.admin.address&lt;/name&gt;</span><br><span class="line">	&lt;value&gt;master:18141&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">	&lt;name&gt;yarn.resourcemanager.webapp.address&lt;/name&gt;</span><br><span class="line">	&lt;value&gt;master:18088&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br></pre></td></tr></table></figure></div>
+
+<h5 id="配置MapReduce计算框架文件（只在master做）"><a href="#配置MapReduce计算框架文件（只在master做）" class="headerlink" title="配置MapReduce计算框架文件（只在master做）"></a>配置MapReduce计算框架文件（只在master做）</h5><p>配置文件是<code>mapred-site.xml</code>，在<code>/opt/hadoop/hadoop/etc/hadoop</code>子目录下，将下面的代码填充到文件的<code>&lt;configuration&gt;</code>和<code>&lt;/configuration&gt;</code>之间。</p>
+<p>执行命令：</p>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo gedit /opt/hadoop/hadoop/etc/hadoop/mapred-site.xml</span><br></pre></td></tr></table></figure></div>
+
+<p>需要在<code>&lt;configuration&gt;</code>和<code>&lt;/configuration&gt;</code>之间加入的代码：</p>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;property&gt;</span><br><span class="line">		&lt;name&gt;mapreduce.framework.name&lt;/name&gt;</span><br><span class="line">		&lt;value&gt;yarn&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br></pre></td></tr></table></figure></div>
+
+<p>编辑完毕，保存退出即可。</p>
+<h5 id="配置master的workers文件（只在master做）"><a href="#配置master的workers文件（只在master做）" class="headerlink" title="配置master的workers文件（只在master做）"></a>配置master的workers文件（只在master做）</h5><p>workers 文件给出了 Hadoop 集群的 slave 节点列表，该文件十分重要，因为启动 Hadoop 的时候，系统总是根据当前workers 文件中的 slave 节点名称列表启动集群，不在列表中的 slave 节点便不会被视为计算节点。</p>
+<p>执行编辑 workers 文件命令：</p>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo gedit /opt/hadoop/hadoop/etc/hadoop/workers</span><br></pre></td></tr></table></figure></div>
+
+<p>加入以下代码：</p>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">slave1</span><br><span class="line">slave2</span><br><span class="line">slave3</span><br><span class="line">slave4</span><br></pre></td></tr></table></figure></div>
+
+<p>注意：删除 workers 文件中原来 localhost 那一行。</p>
+<h5 id="复制master上的Hadoop到slave节点（只在master做）"><a href="#复制master上的Hadoop到slave节点（只在master做）" class="headerlink" title="复制master上的Hadoop到slave节点（只在master做）"></a>复制master上的Hadoop到slave节点（只在master做）</h5><p>通过复制master节点上的 Hadoop ，能够大大提高系统部署效率。由于我这里有4个 slave 节点，所以复制4次。</p>
+<p>复制命令：</p>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">scp -r /opt/hadoop root@slave1:/opt</span><br><span class="line">scp -r /opt/hadoop root@slave2:/opt</span><br><span class="line">scp -r /opt/hadoop root@slave3:/opt</span><br><span class="line">scp -r /opt/hadoop root@slave4:/opt</span><br></pre></td></tr></table></figure></div>
+
+<h5 id="配置操作系统环境变量（五个节点都做）"><a href="#配置操作系统环境变量（五个节点都做）" class="headerlink" title="配置操作系统环境变量（五个节点都做）"></a>配置操作系统环境变量（五个节点都做）</h5><p>回到用户目录命令：</p>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /opt/hadoop</span><br></pre></td></tr></table></figure></div>
+
+<p>然后编辑<code>.bash_profile</code>文件，命令：</p>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo gedit ~/.bash_profile</span><br></pre></td></tr></table></figure></div>
+
+<p>最后把以下代码追加到文件的尾部：</p>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#HADOOP</span></span><br><span class="line"><span class="built_in">export</span> HADOOP_HOME=/opt/hadoop/hadoop</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$HADOOP_HOME</span>/bin:<span class="variable">$HADOOP_HOME</span>/sbin:<span class="variable">$PATH</span></span><br></pre></td></tr></table></figure></div>
+
+<p>保存退出后，执行命令：</p>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> ~/.bash_profile</span><br></pre></td></tr></table></figure></div>
+
+<p><code>source ~/.bash_profile</code>命令是使上述配置生效。</p>
+<p>提示：在其余 slave 节点使用上述相同的配置方法，配置全部 slave 节点。</p>
+<h5 id="创建Hadoop数据目录（只在master做）"><a href="#创建Hadoop数据目录（只在master做）" class="headerlink" title="创建Hadoop数据目录（只在master做）"></a>创建Hadoop数据目录（只在master做）</h5><p>创建数据目录，命令是：</p>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> /opt/hadoop/hadoopdata</span><br></pre></td></tr></table></figure></div>
+
+<h5 id="格式化文件系统（只在master做）"><a href="#格式化文件系统（只在master做）" class="headerlink" title="格式化文件系统（只在master做）"></a>格式化文件系统（只在master做）</h5><p>执行格式化文件系统命令：</p>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hadoop namenode -format</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="三、Hadoop集群的启动与关闭"><a href="#三、Hadoop集群的启动与关闭" class="headerlink" title="三、Hadoop集群的启动与关闭"></a>三、Hadoop集群的启动与关闭</h3><h4 id="1-启动和关闭Hadoop集群（只在master做）"><a href="#1-启动和关闭Hadoop集群（只在master做）" class="headerlink" title="1.启动和关闭Hadoop集群（只在master做）"></a>1.启动和关闭Hadoop集群（只在master做）</h4><p>首先进入安装主目录，命令是：</p>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /opt/hadoop/hadoop/sbin</span><br></pre></td></tr></table></figure></div>
+
+<p>然后启动，命令是：</p>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./start-all.sh</span><br></pre></td></tr></table></figure></div>
+
+<p>如果要关闭 Hadoop 集群，可以使用命令：</p>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./stop-all.sh</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="2-验证Hadoop集群是否启动成功"><a href="#2-验证Hadoop集群是否启动成功" class="headerlink" title="2.验证Hadoop集群是否启动成功"></a>2.验证Hadoop集群是否启动成功</h4><p>在 master 节点的浏览器中输入<code>localhost:9870/</code>并回车。打开 HDFS 面板查看详细信息：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/01/10/PHrsxtvNiIFGmkT.png"
+                     
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/01/10/x4uYlirEd5U2hgy.png"
+                     
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/01/10/zUywuYjHvRTX3sa.png"
+                     
+                ></p>
+<h3 id="参考资料："><a href="#参考资料：" class="headerlink" title="参考资料："></a>参考资料：</h3><p><a class="link"   target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_52105111/article/details/123159877" >三台Ubuntu虚拟机搭建 Hadoop集群 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://blog.51cto.com/u_12835254/5273118" >Linux：Ubuntu配置jdk环境变量 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44198965/article/details/89603788?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522164601575316780271530136%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fall.%2522%257D&request_id=164601575316780271530136&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~first_rank_ecpm_v1~rank_v31_ecpm-1-89603788.pc_search_result_cache&utm_term=hadoop%E5%AE%89%E8%A3%85&spm=1018.2226.3001.4187" >Hadoop安装与配置详细教程 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h2 id="遇到的-问题-解决方法"><a href="#遇到的-问题-解决方法" class="headerlink" title="遇到的 问题&amp;解决方法"></a>遇到的 问题&amp;解决方法</h2><h3 id="一、部分Ubuntu虚拟机无法连接网络"><a href="#一、部分Ubuntu虚拟机无法连接网络" class="headerlink" title="一、部分Ubuntu虚拟机无法连接网络"></a>一、部分Ubuntu虚拟机无法连接网络</h3><h4 id="问题："><a href="#问题：" class="headerlink" title="问题："></a>问题：</h4><p>安装之后可以正常使用，但是隔了一段时间再上就发现有一两台虚拟机连不上网络。</p>
+<h4 id="解决："><a href="#解决：" class="headerlink" title="解决："></a>解决：</h4><div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo service NetworkManager stop</span><br><span class="line">sudo <span class="built_in">rm</span> /var/lib/NetworkManager/NetworkManager.state</span><br><span class="line">sudo service NetworkManager start</span><br></pre></td></tr></table></figure></div>
+
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo gedit /etc/NetworkManager/NetworkManager.conf	<span class="comment">#把false改成true</span></span><br></pre></td></tr></table></figure></div>
+
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service NetworkManager restart</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="参考资料：-1"><a href="#参考资料：-1" class="headerlink" title="参考资料："></a>参考资料：</h4><p><a class="link"   target="_blank" rel="noopener" href="https://blog.csdn.net/lj695242104/article/details/80922108" >ubuntu 18.04 网络图标不见的问题解决方案 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h3 id="二、第一次运行Hadoop时，出现以下报错："><a href="#二、第一次运行Hadoop时，出现以下报错：" class="headerlink" title="二、第一次运行Hadoop时，出现以下报错："></a>二、第一次运行Hadoop时，出现以下报错：</h3><div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">ERROR: Attempting to operate on hdfs namenode as root</span><br><span class="line">ERROR: but there is no HDFS_NAMENODE_USER defined. </span><br><span class="line">Aborting operation.</span><br><span class="line">Starting datanodes</span><br><span class="line">ERROR: Attempting to operate on hdfs datanode as root</span><br><span class="line">ERROR: but there is no HDFS_DATANODE_USER defined. </span><br><span class="line">Aborting operation.</span><br><span class="line">Starting secondary namenodes</span><br><span class="line">ERROR: Attempting to operate on hdfs secondarynamenode as root</span><br><span class="line">ERROR: but there is no HDFS_SECONDARYNAMENODE_USER defined. </span><br><span class="line">Aborting operation.</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="解决：-1"><a href="#解决：-1" class="headerlink" title="解决："></a>解决：</h4><p>在<code>$HADOOP_HOME/etc/hadoop/hadoop-env.sh</code>中添加以下内容：</p>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> HDFS_NAMENODE_USER=root</span><br><span class="line"><span class="built_in">export</span> HDFS_DATANODE_USER=root</span><br><span class="line"><span class="built_in">export</span> HDFS_SECONDARYNAMENODE_USER=root</span><br><span class="line"><span class="built_in">export</span> YARN_RESOURCEMANAGER_USER=root</span><br><span class="line"><span class="built_in">export</span> YARN_NODEMANAGER_USER=root</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="参考资料：-2"><a href="#参考资料：-2" class="headerlink" title="参考资料："></a>参考资料：</h4><p><a class="link"   target="_blank" rel="noopener" href="https://stackoverflow.com/questions/48129029/hdfs-namenode-user-hdfs-datanode-user-hdfs-secondarynamenode-user-not-defined" >HDFS_NAMENODE_USER, HDFS_DATANODE_USER &amp; HDFS_SECONDARYNAMENODE_USER not defined <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h3 id="三、主节点启动成功，从节点没有启动"><a href="#三、主节点启动成功，从节点没有启动" class="headerlink" title="三、主节点启动成功，从节点没有启动"></a>三、主节点启动成功，从节点没有启动</h3><h4 id="解决：-2"><a href="#解决：-2" class="headerlink" title="解决："></a>解决：</h4><p>执行编辑 workers 文件命令：</p>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo gedit /opt/hadoop/hadoop/etc/hadoop/workers</span><br></pre></td></tr></table></figure></div>
+
+<p>加入以下代码：</p>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">slave1</span><br><span class="line">slave2</span><br><span class="line">slave3</span><br><span class="line">slave4</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="原因分析："><a href="#原因分析：" class="headerlink" title="原因分析："></a>原因分析：</h4><p>网上教程用的是Hadoop 2 版本，配置 slave 节点列表文件时修改的是<code>slaves</code>文件；而我使用的是 Hadoop 3 版本，Hadoop 3 版本里的配置文件需要修改<code>workers</code>文件，而不是<code>slaves</code>文件。</p>
+<h4 id="参考资料：-3"><a href="#参考资料：-3" class="headerlink" title="参考资料："></a>参考资料：</h4><p><a class="link"   target="_blank" rel="noopener" href="https://blog.51cto.com/u_16099172/6391674" >hadoop从节点进程缺失 hadoop从节点没有启动 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+
+        </div>
+
+        
+            <div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>标题:</strong> Hadoop环境配置</li>
+        <li><strong>作者:</strong> Parker</li>
+        <!-- <li><strong>创建于
+                :</strong> 2024-01-10 14:23:23</li> -->
+        <!-- 
+            <li>
+                <strong>更新于
+                    :</strong> 2024-01-10 14:32:59
+            </li>
+         -->
+        <li>
+            <strong>链接:</strong> https://bitparker.github.io/2024/01/10/Hadoop环境配置/
+        </li>
+        <li>
+            <strong>
+                版权声明:
+            </strong>
+            
+
+            
+                本文章采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a> 进行许可。
+            
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+                
+                    <li class="tag-item mx-0.5">
+                        <a href="/tags/Hadoop/">#Hadoop</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+
+        
+            <div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+                
+                
+                    <div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="next"
+                        rel="next"
+                        href="/2023/12/28/%E4%BF%AE%E6%94%B9%E5%8D%9A%E5%AE%A2%E6%A8%A1%E6%9D%BF%E9%BB%98%E8%AE%A4%E5%AD%97%E9%87%8D/"
+                        >
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">修改博客模板默认字重</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+
+        
+            <div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+                <div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        评论
+    </div>
+    
+
+        
+            
+    <div id="waline"></div>
+    <script type="module" data-swup-reload-script>
+      import { init } from '/js/libs/waline.mjs';
+
+      function loadWaline() {
+        init({
+          el: '#waline',
+          serverURL: 'https://example.example.com',
+          lang: 'zh-CN',
+          dark: 'body[class~="dark-mode"]',
+          requiredMeta: ['nick', 'mail'],
+          emoji: [],
+          recaptchaV3Key: "wasd",
+          
+        });
+      }
+
+      if (typeof swup !== 'undefined') {
+        loadWaline();
+      } else {
+        window.addEventListener('DOMContentLoaded', loadWaline);
+      }
+    </script>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+
+    
+        <div class="toc-content-container">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">此页目录</div>
+        <div class="page-title">Hadoop环境配置</div>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%AD%A5%E9%AA%A4"><span class="nav-text">主要步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%87%86%E5%A4%87%E8%99%9A%E6%8B%9F%E6%9C%BA"><span class="nav-text">一、准备虚拟机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E6%90%AD%E5%BB%BA%E9%9B%86%E7%BE%A4"><span class="nav-text">二、搭建集群</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E3%80%81Hadoop%E9%9B%86%E7%BE%A4%E7%9A%84%E5%90%AF%E5%8A%A8%E4%B8%8E%E5%85%B3%E9%97%AD"><span class="nav-text">三、Hadoop集群的启动与关闭</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99%EF%BC%9A"><span class="nav-text">参考资料：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%81%87%E5%88%B0%E7%9A%84-%E9%97%AE%E9%A2%98-%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95"><span class="nav-text">遇到的 问题&amp;解决方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E9%83%A8%E5%88%86Ubuntu%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%97%A0%E6%B3%95%E8%BF%9E%E6%8E%A5%E7%BD%91%E7%BB%9C"><span class="nav-text">一、部分Ubuntu虚拟机无法连接网络</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E7%AC%AC%E4%B8%80%E6%AC%A1%E8%BF%90%E8%A1%8CHadoop%E6%97%B6%EF%BC%8C%E5%87%BA%E7%8E%B0%E4%BB%A5%E4%B8%8B%E6%8A%A5%E9%94%99%EF%BC%9A"><span class="nav-text">二、第一次运行Hadoop时，出现以下报错：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E4%B8%BB%E8%8A%82%E7%82%B9%E5%90%AF%E5%8A%A8%E6%88%90%E5%8A%9F%EF%BC%8C%E4%BB%8E%E8%8A%82%E7%82%B9%E6%B2%A1%E6%9C%89%E5%90%AF%E5%8A%A8"><span class="nav-text">三、主节点启动成功，从节点没有启动</span></a></li></ol></li></ol>
+
+    </div>
+</div>
+        </div>
+    
+</div>
+
+
+
+                
+
+            </div>
+
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2024 <a href="/">Parker</a>
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">访问人数</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">总访问量</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <!-- <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">由 <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a> 驱动</span>
+            <span class="text-sm lg:block">主题&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.6.0</a></span>
+        </div> -->
+        
+        
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+
+</main>
+
+
+    
+<script src="/js/libs/Swup.min.js"></script>
+
+<script src="/js/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+
+
+
+<script src="/js/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/utils.js" type="module"></script>
+
+<script src="/js/main.js" type="module"></script>
+
+<script src="/js/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/layouts/categoryList.js" type="module"></script>
+
+
+
+
+
+    
+<script src="/js/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/layouts/lazyload.js" type="module"></script>
+
+
+
+
+
+
+  
+<script src="/js/libs/Typed.min.js"></script>
+
+  
+<script src="/js/plugins/typed.js" type="module"></script>
+
+
+
+
+
+
+
+
+
+<div class="post-scripts" data-swup-reload-script>
+    
+        
+<script src="/js/tools/tocToggle.js" type="module"></script>
+
+<script src="/js/layouts/toc.js" type="module"></script>
+
+<script src="/js/plugins/tabs.js" type="module"></script>
+
+    
+</div>
+
+
+</body>
+</html>
