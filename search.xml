@@ -203,6 +203,9 @@
 <h4 id="原因分析："><a href="#原因分析：" class="headerlink" title="原因分析："></a>原因分析：</h4><p>网上教程用的是Hadoop 2 版本，配置 slave 节点列表文件时修改的是<code>slaves</code>文件；而我使用的是 Hadoop 3 版本，Hadoop 3 版本里的配置文件需要修改<code>workers</code>文件，而不是<code>slaves</code>文件。</p>
 <h4 id="参考资料：-3"><a href="#参考资料：-3" class="headerlink" title="参考资料："></a>参考资料：</h4><p><a class="link"   href="https://blog.51cto.com/u_16099172/6391674" >hadoop从节点进程缺失 hadoop从节点没有启动 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 ]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
       <tags>
         <tag>Hadoop</tag>
       </tags>
@@ -245,6 +248,9 @@
 <li><a class="link"   href="https://github.com/iissnan/hexo-theme-next/issues/1139#issuecomment-286639102" >网页图片并排显示解决方案 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
 </ul>
 ]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
       <tags>
         <tag>CSS</tag>
       </tags>
