@@ -4461,7 +4461,7 @@ html.is-animating .scroll-progress-bar {
 }
 .footer .odometer.odometer-auto-theme,
 .footer .odometer.odometer-theme-default {
-  line-height: 1.1em;
+  line-height: 1em;
 }
 .footer .odometer.odometer-auto-theme .odometer-value,
 .footer .odometer.odometer-theme-default .odometer-value {
