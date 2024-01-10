@@ -18,24 +18,22 @@
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
-        <meta name="description" content="问题：博客文章中 长链接&#x2F;长代码 超出浏览器窗口大小而无法完整显示（CSS文本溢出） 如下图所示：  手机端：	     电脑端：   解决：打开 themes\landscape\source\css\_partial\article.styl 文件（该路径与所用主题有关），在 .article-entry 部分添加以下代码： 12word-break: break-all	&#x2F;&#x2F; 一个">
+        <meta name="description" content="问题：博客文章中 长链接&#x2F;长代码 超出浏览器窗口大小而无法完整显示（CSS文本溢出） 如下图所示： 解决：打开 themes\landscape\source\css\_partial\article.styl 文件（该路径与所用主题有关），在 .article-entry 部分添加以下代码： 12word-break: break-all	&#x2F;&#x2F; 一个长长的单词不会新起一行展示，而是直接">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CSS文本溢出问题">
 <meta property="og:url" content="https://bitparker.github.io/2023/12/27/CSS%E6%96%87%E6%9C%AC%E6%BA%A2%E5%87%BA%E9%97%AE%E9%A2%98/index.html">
 <meta property="og:site_name" content="Parker&#39;s Blog">
-<meta property="og:description" content="问题：博客文章中 长链接&#x2F;长代码 超出浏览器窗口大小而无法完整显示（CSS文本溢出） 如下图所示：  手机端：	     电脑端：   解决：打开 themes\landscape\source\css\_partial\article.styl 文件（该路径与所用主题有关），在 .article-entry 部分添加以下代码： 12word-break: break-all	&#x2F;&#x2F; 一个">
+<meta property="og:description" content="问题：博客文章中 长链接&#x2F;长代码 超出浏览器窗口大小而无法完整显示（CSS文本溢出） 如下图所示： 解决：打开 themes\landscape\source\css\_partial\article.styl 文件（该路径与所用主题有关），在 .article-entry 部分添加以下代码： 12word-break: break-all	&#x2F;&#x2F; 一个长长的单词不会新起一行展示，而是直接">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://s2.loli.net/2023/12/27/IvlT5cLHR78tE4F.jpg">
-<meta property="og:image" content="https://s2.loli.net/2023/12/27/e6zP4H9dJETWyOU.jpg">
 <meta property="og:image" content="https://s2.loli.net/2023/12/27/r8v45hlTISMPyts.png">
 <meta property="og:image" content="https://s2.loli.net/2023/12/27/yt8ixFgBRpcrdeY.png">
 <meta property="og:image" content="https://s2.loli.net/2023/12/27/eziCIhA3ML7mWYy.png">
 <meta property="article:published_time" content="2023-12-27T08:24:50.000Z">
-<meta property="article:modified_time" content="2024-01-10T08:52:45.133Z">
+<meta property="article:modified_time" content="2024-01-10T13:18:17.348Z">
 <meta property="article:author" content="Parker">
 <meta property="article:tag" content="CSS">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://s2.loli.net/2023/12/27/IvlT5cLHR78tE4F.jpg">
+<meta name="twitter:image" content="https://s2.loli.net/2023/12/27/r8v45hlTISMPyts.png">
     
     
     <!--- Icon Part-->
@@ -571,8 +569,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2024-01-10 16:52:45</span>
-            <span class="mobile">2024-01-10 16:52:45</span>
+            <span class="desktop">2024-01-10 21:18:17</span>
+            <span class="mobile">2024-01-10 21:18:17</span>
             <span class="hover-info">更新</span>
         </span>
     
@@ -594,7 +592,7 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>292 字</span>
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>286 字</span>
         </span>
     
     
@@ -619,28 +617,12 @@
 
         <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
             <h3 id="问题："><a href="#问题：" class="headerlink" title="问题："></a><strong>问题</strong>：</h3><p>博客文章中 长链接&#x2F;长代码 超出浏览器窗口大小而无法完整显示（CSS文本溢出）</p>
-<p>如下图所示：</p>
-<ul>
-<li><p>手机端：<br><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2023/12/27/IvlT5cLHR78tE4F.jpg"
-                      style="display: inline-block;zoom: 20%" 
-                >	<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2023/12/27/e6zP4H9dJETWyOU.jpg"
-                      style="display: inline-block;zoom:23.6%" 
-                >   </p>
-</li>
-<li><p>电脑端：<br><img  
+<p>如下图所示：<br><img  
                      lazyload
                      src="/images/loading.svg"
                      data-src="https://s2.loli.net/2023/12/27/r8v45hlTISMPyts.png"
                      
                 ></p>
-</li>
-</ul>
 <h3 id="解决："><a href="#解决：" class="headerlink" title="解决："></a><strong>解决</strong>：</h3><p>打开 <code>themes\landscape\source\css\_partial\article.styl</code> 文件（该路径与所用主题有关），在 <code>.article-entry</code> 部分添加以下代码：</p>
 <div class="highlight-container" data-rel="Stylus"><figure class="iseeu highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">word-break</span>: break-all	// 一个长长的单词不会新起一行展示，而是直接在本行剩余空间展示，展示不全时折断展示</span><br><span class="line"><span class="attribute">overflow-wrap</span>: break-word	// 一个长长的单词会新起一行展示，新的一行展示不全时折断展示</span><br></pre></td></tr></table></figure></div>
 
@@ -682,7 +664,7 @@
         
             <li>
                 <strong>更新于
-                    :</strong> 2024-01-10 16:52:45
+                    :</strong> 2024-01-10 21:18:17
             </li>
         
         <li>
