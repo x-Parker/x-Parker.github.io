@@ -617,48 +617,32 @@
 
         
             
-    <div id="gitalk-container"></div>
-    <script data-swup-reload-script
-            src="//cdn.staticfile.org/gitalk/1.8.0/gitalk.min.js"></script>
-    <script data-swup-reload-script>
-
-        function loadGitalk() {
-            let __gitalk__pathname = decodeURI(location.pathname);
-            const __gitalk__pathnameLength = __gitalk__pathname.length;
-            const __gitalk__pathnameMaxLength = 50;
-            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
-                __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+    <div class="twikoo-container">
+        <script data-swup-reload-script
+                src='https://cdn.staticfile.org/twikoo/1.6.10/twikoo.all.min.js'
+        ></script>
+        <div id="twikoo-comment"></div>
+        <script data-swup-reload-script>
+            function loadTwikoo() {
+                twikoo.init({
+                    el: '#twikoo-comment',
+                    envId: 'https://bitparker-twikoo.hf.space',
+                });
             }
 
-            try {
-                Gitalk && new Gitalk({
-                    clientID: '3ad2814da57b14b8f7e8',
-                    clientSecret: 'd36599a4fa00b113c0ef5d154fde270826a1e69f',
-                    repo: 'https://github.com/BitParker/BlogComment',
-                    owner: 'BitParker',
-                    admin: ['BitParker'],
-                    id: __gitalk__pathname,
-                    language: 'zh-CN',
-                    proxy: 'https://netnr-proxy.cloudno.de/https://github.com/login/oauth/access_token'
-                }).render('gitalk-container');
-
-            } catch (e) {
-                window.Gitalk = null;
+            if ('true') {
+                const loadTwikooTimeout = setTimeout(() => {
+                    loadTwikoo();
+                    clearTimeout(loadTwikooTimeout);
+                }, 1000);
+            } else {
+                window.addEventListener('DOMContentLoaded', loadTwikoo);
             }
-        }
-
-        if ('true') {
-            const loadGitalkTimeout = setTimeout(() => {
-                loadGitalk();
-                clearTimeout(loadGitalkTimeout);
-            }, 1000);
-        } else {
-            window.addEventListener('DOMContentLoaded', loadGitalk);
-        }
-    </script>
+        </script>
+    </div>
 
 
-
+        
         
     
 </div>
