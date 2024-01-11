@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://bitparker.github.io/2024/01/11/MapReduce%E9%85%8D%E7%BD%AE%E4%B8%8E%E6%93%8D%E4%BD%9C/</loc>
+    
+    <lastmod>2024-01-11</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://bitparker.github.io/2023/12/27/CSS%E6%96%87%E6%9C%AC%E6%BA%A2%E5%87%BA%E9%97%AE%E9%A2%98/</loc>
     
     <lastmod>2024-01-11</lastmod>
@@ -82,6 +91,13 @@
   
   <url>
     <loc>https://bitparker.github.io/tags/Hadoop/</loc>
+    <lastmod>2024-01-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://bitparker.github.io/tags/MapReduce/</loc>
     <lastmod>2024-01-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>

@@ -1,6 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>MapReduce配置与操作</title>
+    <url>/2024/01/11/MapReduce%E9%85%8D%E7%BD%AE%E4%B8%8E%E6%93%8D%E4%BD%9C/</url>
+    <content><![CDATA[<h3 id="一、通过eclipse连接hadoop"><a href="#一、通过eclipse连接hadoop" class="headerlink" title="一、通过eclipse连接hadoop"></a>一、通过eclipse连接hadoop</h3><h4 id="1-主要步骤"><a href="#1-主要步骤" class="headerlink" title="1. 主要步骤"></a>1. 主要步骤</h4><ul>
+<li><p>安装eclipse</p>
+</li>
+<li><p>安装Hadoop-Eclipse-Plugin</p>
+</li>
+<li><p>配置Hadoop-Eclipse-Plugin</p>
+</li>
+</ul>
+<p>参考资料已给出此部分详细步骤，因此此处不再展开，仅给出实现效果如下：</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2023/11/17/5e8bfMxDjoOsPVL.png"
+                      alt="image-20231117144850544" style="zoom: 67%;" 
+                >
+
+<h4 id="2-参考资料"><a href="#2-参考资料" class="headerlink" title="2. 参考资料"></a>2. 参考资料</h4><ul>
+<li><a class="link"   href="https://blog.csdn.net/u010185220/article/details/79095179" >windows10上使用Eclipse配置Hadoop开发环境详细步骤+WordCount示例 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+<h4 id="3-遇到的问题"><a href="#3-遇到的问题" class="headerlink" title="3. 遇到的问题"></a>3. 遇到的问题</h4><ul>
+<li><p>新添加的插件在Eclipse中不显示</p>
+<ul>
+<li><p>解决方法</p>
+<p>在 <code>eclipse/configuration</code> 目录下的 <code>config.ini</code> 文件中加入一行 : <code>osgi.checkConfiguration=true</code>，这样它就会寻找并安装插件。</p>
+</li>
+<li><p>参考资料</p>
+<p><a class="link"   href="https://blog.csdn.net/qq_38789941/article/details/86244990" >Eclipse 安装插件后不显示的解决办法 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="二、WordCount示例"><a href="#二、WordCount示例" class="headerlink" title="二、WordCount示例"></a>二、WordCount示例</h3><h4 id="1-主要步骤-1"><a href="#1-主要步骤-1" class="headerlink" title="1. 主要步骤"></a>1. 主要步骤</h4><p>参考资料已给出此部分详细步骤，因此此处仅列举出主要步骤。</p>
+<ul>
+<li><p>新建项目</p>
+</li>
+<li><p>在项目的src目录下创建<code>WordCount.java</code>类，内容如下：</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> Package;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.util.StringTokenizer;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.conf.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.fs.Path;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.IntWritable;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.Text;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.Job;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.Mapper;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.Reducer;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.lib.input.FileInputFormat;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.util.GenericOptionsParser;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">WordCount</span> &#123;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">TokenizerMapper</span> <span class="keyword">extends</span> <span class="title class_">Mapper</span>&lt;Object, Text, Text, IntWritable&gt; &#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="type">IntWritable</span> <span class="variable">one</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">IntWritable</span>(<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">private</span> <span class="type">Text</span> <span class="variable">word</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Text</span>();</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">map</span><span class="params">(Object key, Text value, Context context)</span> <span class="keyword">throws</span> IOException, InterruptedException &#123;</span><br><span class="line">            <span class="type">StringTokenizer</span> <span class="variable">itr</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringTokenizer</span>(value.toString());</span><br><span class="line">            <span class="keyword">while</span> (itr.hasMoreTokens()) &#123;</span><br><span class="line">                word.set(itr.nextToken());</span><br><span class="line">                context.write(word, one);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">IntSumReducer</span> <span class="keyword">extends</span> <span class="title class_">Reducer</span>&lt;Text, IntWritable, Text, IntWritable&gt; &#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="type">IntWritable</span> <span class="variable">result</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">IntWritable</span>();</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">reduce</span><span class="params">(Text key, Iterable&lt;IntWritable&gt; values, Context context)</span></span><br><span class="line">                <span class="keyword">throws</span> IOException, InterruptedException &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">sum</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span> (IntWritable val : values) &#123;</span><br><span class="line">                sum += val.get();</span><br><span class="line">            &#125;</span><br><span class="line">            result.set(sum);</span><br><span class="line">            context.write(key, result);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="type">Configuration</span> <span class="variable">conf</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Configuration</span>();</span><br><span class="line">        String[] otherArgs = <span class="keyword">new</span> <span class="title class_">GenericOptionsParser</span>(conf, args).getRemainingArgs();</span><br><span class="line">        <span class="keyword">if</span> (otherArgs.length != <span class="number">2</span>) &#123;</span><br><span class="line">            System.err.println(<span class="string">&quot;Usage: wordcount &lt;in&gt; &lt;out&gt;&quot;</span>);</span><br><span class="line">            System.exit(<span class="number">2</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="meta">@SuppressWarnings(&quot;deprecation&quot;)</span></span><br><span class="line">		<span class="type">Job</span> <span class="variable">job</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Job</span>(conf, <span class="string">&quot;word count&quot;</span>);</span><br><span class="line">        job.setJarByClass(WordCount.class);</span><br><span class="line">        job.setMapperClass(TokenizerMapper.class);</span><br><span class="line">        job.setCombinerClass(IntSumReducer.class);</span><br><span class="line">        job.setReducerClass(IntSumReducer.class);</span><br><span class="line">        job.setOutputKeyClass(Text.class);</span><br><span class="line">        job.setOutputValueClass(IntWritable.class);</span><br><span class="line">        FileInputFormat.addInputPath(job, <span class="keyword">new</span> <span class="title class_">Path</span>(otherArgs[<span class="number">0</span>]));</span><br><span class="line">        FileOutputFormat.setOutputPath(job, <span class="keyword">new</span> <span class="title class_">Path</span>(otherArgs[<span class="number">1</span>]));</span><br><span class="line">        System.exit(job.waitForCompletion(<span class="literal">true</span>) ? <span class="number">0</span> : <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>在项目的src目录下创建<code>log4j.properties</code>文件，内容如下：</p>
+<div class="highlight-container" data-rel="Properties"><figure class="iseeu highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Configure logging for testing:optionally with log file </span></span><br><span class="line"><span class="comment">#log4j.rootLogger=debug,appender </span></span><br><span class="line"><span class="attr">log4j.rootLogger</span>=<span class="string">info,appender </span></span><br><span class="line"><span class="comment">#log4j.rootLogger=error,appender </span></span><br><span class="line"><span class="comment">#\u8F93\u51FA\u5230\u63A7\u5236\u53F0 </span></span><br><span class="line"><span class="attr">log4j.appender.appender</span>=<span class="string">org.apache.log4j.ConsoleAppender </span></span><br><span class="line"><span class="comment">#\u6837\u5F0F\u4E3ATTCCLayout </span></span><br><span class="line"><span class="attr">log4j.appender.appender.layout</span>=<span class="string">org.apache.log4j.TTCCLayout</span></span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>配置运行参数</p>
+</li>
+<li><p>运行</p>
+</li>
+</ul>
+<h4 id="2-运行结果"><a href="#2-运行结果" class="headerlink" title="2. 运行结果"></a>2. 运行结果</h4><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2023/11/17/o6ERhliMpC85qPm.png"
+                      alt="image-20231117160047360"
+                ></p>
+<p>其中，<code>word.txt</code> 文件内容如下：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">a</span><br><span class="line">a</span><br><span class="line">a</span><br><span class="line"></span><br><span class="line">b</span><br><span class="line">b</span><br><span class="line">b</span><br><span class="line"></span><br><span class="line">c</span><br><span class="line">c</span><br><span class="line">c</span><br><span class="line"></span><br><span class="line">d</span><br><span class="line">e</span><br><span class="line">f</span><br><span class="line"></span><br><span class="line">hello hadoop !</span><br><span class="line">hello world !</span><br></pre></td></tr></table></figure></div>
+
+<p>程序输出 <code>hdfs://192.168.242.129:9000/hadoop-user/output.txt/part-r-00000</code> 文件内容如下：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">!	2</span><br><span class="line">a	3</span><br><span class="line">b	3</span><br><span class="line">c	3</span><br><span class="line">d	1</span><br><span class="line">e	1</span><br><span class="line">f	1</span><br><span class="line">hadoop	1</span><br><span class="line">hello	2</span><br><span class="line">world	1</span><br></pre></td></tr></table></figure></div>
+
+<p>词频统计结果无误。</p>
+<h4 id="3-参考资料"><a href="#3-参考资料" class="headerlink" title="3. 参考资料"></a>3. 参考资料</h4><ul>
+<li><a class="link"   href="https://cwiki.apache.org/confluence/display/HADOOP2/WordCount" >WordCount Example <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://blog.csdn.net/u010185220/article/details/79095179" >windows10上使用Eclipse配置Hadoop开发环境详细步骤+WordCount示例 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+<h4 id="4-遇到的问题"><a href="#4-遇到的问题" class="headerlink" title="4. 遇到的问题"></a>4. 遇到的问题</h4><ul>
+<li><p>环境变量问题</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">Exception in thread &quot;main&quot; java.lang.RuntimeException: java.io.FileNotFoundException: java.io.FileNotFoundException: HADOOP_HOME and hadoop.home.dir are unset.</span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li><p>问题分析</p>
+<p>从错误信息中可以看到，Hadoop在执行<code>Shell.getWinUtilsPath</code>的时候抛出了异常。这是因为Hadoop在进行某些本地文件系统操作时，依赖于一些环境变量，其中包括<code>HADOOP_HOME</code>。这两个变量都没有被正确设置，导致了<code>FileNotFoundException</code>。</p>
+</li>
+<li><p>解决方法</p>
+<p>在项目运行配置中指定<code>HADOOP_HOME</code>环境变量及其值：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2023/11/17/3dmlWo9A8LMwkSU.png"
+                      alt="image-20231117161245048"
+                ></p>
+</li>
+<li><p>参考资料</p>
+<p><a class="link"   href="https://cwiki.apache.org/confluence/display/HADOOP2/WindowsProblems" >Problems running Hadoop on Windows <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+</li>
+</ul>
+</li>
+<li><h5 id="权限错误问题"><a href="#权限错误问题" class="headerlink" title="权限错误问题"></a>权限错误问题</h5><div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">[Thread-5] WARN org.apache.hadoop.mapred.LocalJobRunner - job_local2147375942_0001</span><br><span class="line">org.apache.hadoop.security.AccessControlException: Permission denied: user=23876, access=WRITE, inode=&quot;/hadoop-user&quot;:root:supergroup:drwxr-xr-x</span><br><span class="line">[main] INFO org.apache.hadoop.mapreduce.Job - Job job_local2147375942_0001 failed with state FAILED due to: NA</span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li><p>问题分析</p>
+<p>这个错误表明在本地运行作业时，用户尝试写入目录<code>/hadoop-user</code>时遇到权限问题，并导致作业以失败结束。</p>
+</li>
+<li><p>解决方法</p>
+<p>在master节点中执行以下代码，以赋予当前用户对目标HDFS文件夹的写权限：</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">sudo chmod -R 777 /hadoop-user/</span><br></pre></td></tr></table></figure></div>
+
+</li>
+<li><p>参考资料</p>
+<ul>
+<li><p><a class="link"   href="https://hadoop.apache.org/docs/r1.0.4/cn/hdfs_permissions_guide.html#%E8%B6%85%E7%BA%A7%E7%94%A8%E6%88%B7" >HDFS权限管理用户指南 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+</li>
+<li><p><a class="link"   href="https://www.cnblogs.com/yinzhengjie2020/p/13737254.html" >HDFS权限管理篇-博客园 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>Hadoop</tag>
+        <tag>MapReduce</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>CSS文本溢出问题</title>
     <url>/2023/12/27/CSS%E6%96%87%E6%9C%AC%E6%BA%A2%E5%87%BA%E9%97%AE%E9%A2%98/</url>
     <content><![CDATA[<h3 id="问题："><a href="#问题：" class="headerlink" title="问题："></a><strong>问题</strong>：</h3><p>博客文章中 长链接&#x2F;长代码 超出浏览器窗口大小而无法完整显示（CSS文本溢出）</p>
