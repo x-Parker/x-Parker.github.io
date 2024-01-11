@@ -1,6 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>CSS文本溢出问题</title>
+    <url>/2023/12/27/CSS%E6%96%87%E6%9C%AC%E6%BA%A2%E5%87%BA%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<h3 id="问题："><a href="#问题：" class="headerlink" title="问题："></a><strong>问题</strong>：</h3><p>博客文章中 长链接&#x2F;长代码 超出浏览器窗口大小而无法完整显示（CSS文本溢出）</p>
+<p>如下图所示：<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2023/12/27/r8v45hlTISMPyts.png"
+                     
+                ></p>
+<h3 id="解决："><a href="#解决：" class="headerlink" title="解决："></a><strong>解决</strong>：</h3><p>打开 <code>themes\landscape\source\css\_partial\article.styl</code> 文件（该路径与所用主题有关），在 <code>.article-entry</code> 部分添加以下代码：</p>
+<div class="highlight-container" data-rel="Stylus"><figure class="iseeu highlight stylus"><table><tr><td class="code"><pre><span class="line"><span class="attribute">word-break</span>: break-all	// 一个长长的单词不会新起一行展示，而是直接在本行剩余空间展示，展示不全时折断展示</span><br><span class="line"><span class="attribute">overflow-wrap</span>: break-word	// 一个长长的单词会新起一行展示，新的一行展示不全时折断展示</span><br></pre></td></tr></table></figure></div>
+
+
+
+<h3 id="效果："><a href="#效果：" class="headerlink" title="效果："></a><strong>效果</strong>：</h3><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2023/12/27/yt8ixFgBRpcrdeY.png"
+                     
+                ><br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2023/12/27/eziCIhA3ML7mWYy.png"
+                     
+                ></p>
+<h3 id="One-more-thing"><a href="#One-more-thing" class="headerlink" title="One more thing"></a><strong>One more thing</strong></h3><p>写作本文时，有让图片并排显示的需求，而网页默认是每个图片后自动换行。</p>
+<p>解决：<br>使用 <code>&lt;img&gt;</code> HTML标签的 <code>style</code> 属性来覆盖图片的 “块 “行为，形如：</p>
+<div class="highlight-container" data-rel="Html"><figure class="iseeu highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;/uploads/image-1.jpg&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;image-1&quot;</span> <span class="attr">style</span>=<span class="string">&quot;display: inline-block&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;/uploads/image-2.jpg&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;image-2&quot;</span> <span class="attr">style</span>=<span class="string">&quot;display: inline-block&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure></div>
+
+
+
+<h3 id="引用："><a href="#引用：" class="headerlink" title="引用："></a><strong>引用</strong>：</h3><ul>
+<li><a class="link"   href="https://github.com/litten/hexo-theme-yilia/issues/801#issuecomment-456317331" >长链接不会自动换行解决方案 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://yolkpie.net/2021/09/14/CSS%E6%96%87%E6%9C%AC%E6%BA%A2%E5%87%BA%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" >CSS文本溢出解决方案 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://github.com/iissnan/hexo-theme-next/issues/1139#issuecomment-286639102" >网页图片并排显示解决方案 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>CSS</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hadoop环境配置</title>
     <url>/2024/01/10/Hadoop%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/</url>
     <content><![CDATA[<h2 id="主要步骤"><a href="#主要步骤" class="headerlink" title="主要步骤"></a>主要步骤</h2><h3 id="一、准备虚拟机"><a href="#一、准备虚拟机" class="headerlink" title="一、准备虚拟机"></a>一、准备虚拟机</h3><p>首先要创建五台一模一样的Ubuntu虚拟机，可在VMware中先安装一个Ubuntu虚拟机，然后克隆出另外四个虚拟机。</p>
@@ -208,51 +253,6 @@
       </categories>
       <tags>
         <tag>Hadoop</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>CSS文本溢出问题</title>
-    <url>/2023/12/27/CSS%E6%96%87%E6%9C%AC%E6%BA%A2%E5%87%BA%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<h3 id="问题："><a href="#问题：" class="headerlink" title="问题："></a><strong>问题</strong>：</h3><p>博客文章中 长链接&#x2F;长代码 超出浏览器窗口大小而无法完整显示（CSS文本溢出）</p>
-<p>如下图所示：<br><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2023/12/27/r8v45hlTISMPyts.png"
-                     
-                ></p>
-<h3 id="解决："><a href="#解决：" class="headerlink" title="解决："></a><strong>解决</strong>：</h3><p>打开 <code>themes\landscape\source\css\_partial\article.styl</code> 文件（该路径与所用主题有关），在 <code>.article-entry</code> 部分添加以下代码：</p>
-<div class="highlight-container" data-rel="Stylus"><figure class="iseeu highlight stylus"><table><tr><td class="code"><pre><span class="line"><span class="attribute">word-break</span>: break-all	// 一个长长的单词不会新起一行展示，而是直接在本行剩余空间展示，展示不全时折断展示</span><br><span class="line"><span class="attribute">overflow-wrap</span>: break-word	// 一个长长的单词会新起一行展示，新的一行展示不全时折断展示</span><br></pre></td></tr></table></figure></div>
-
-
-
-<h3 id="效果："><a href="#效果：" class="headerlink" title="效果："></a><strong>效果</strong>：</h3><p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2023/12/27/yt8ixFgBRpcrdeY.png"
-                     
-                ><br><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2023/12/27/eziCIhA3ML7mWYy.png"
-                     
-                ></p>
-<h3 id="One-more-thing"><a href="#One-more-thing" class="headerlink" title="One more thing"></a><strong>One more thing</strong></h3><p>写作本文时，有让图片并排显示的需求，而网页默认是每个图片后自动换行。</p>
-<p>解决：<br>使用 <code>&lt;img&gt;</code> HTML标签的 <code>style</code> 属性来覆盖图片的 “块 “行为，形如：</p>
-<div class="highlight-container" data-rel="Html"><figure class="iseeu highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;/uploads/image-1.jpg&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;image-1&quot;</span> <span class="attr">style</span>=<span class="string">&quot;display: inline-block&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;/uploads/image-2.jpg&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;image-2&quot;</span> <span class="attr">style</span>=<span class="string">&quot;display: inline-block&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure></div>
-
-
-
-<h3 id="引用："><a href="#引用：" class="headerlink" title="引用："></a><strong>引用</strong>：</h3><ul>
-<li><a class="link"   href="https://github.com/litten/hexo-theme-yilia/issues/801#issuecomment-456317331" >长链接不会自动换行解决方案 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li><a class="link"   href="https://yolkpie.net/2021/09/14/CSS%E6%96%87%E6%9C%AC%E6%BA%A2%E5%87%BA%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" >CSS文本溢出解决方案 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li><a class="link"   href="https://github.com/iissnan/hexo-theme-next/issues/1139#issuecomment-286639102" >网页图片并排显示解决方案 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>CSS</tag>
       </tags>
   </entry>
 </search>
