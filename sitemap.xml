@@ -2,6 +2,24 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://bitparker.github.io/2023/12/27/CSS%E6%96%87%E6%9C%AC%E6%BA%A2%E5%87%BA%E9%97%AE%E9%A2%98/</loc>
+    
+    <lastmod>2024-01-11</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://bitparker.github.io/2024/01/10/Hadoop%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/</loc>
+    
+    <lastmod>2024-01-11</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://bitparker.github.io/essays/index.html</loc>
     
     <lastmod>2024-01-11</lastmod>
@@ -39,24 +57,6 @@
   
   <url>
     <loc>https://bitparker.github.io/categories/index.html</loc>
-    
-    <lastmod>2024-01-11</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://bitparker.github.io/2023/12/27/CSS%E6%96%87%E6%9C%AC%E6%BA%A2%E5%87%BA%E9%97%AE%E9%A2%98/</loc>
-    
-    <lastmod>2024-01-11</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://bitparker.github.io/2024/01/10/Hadoop%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/</loc>
     
     <lastmod>2024-01-11</lastmod>
     
