@@ -23,8 +23,7 @@
 <li><a class="link"   href="https://blog.csdn.net/u010185220/article/details/79095179" >windows10上使用Eclipse配置Hadoop开发环境详细步骤+WordCount示例 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
 </ul>
 <h4 id="3-遇到的问题"><a href="#3-遇到的问题" class="headerlink" title="3. 遇到的问题"></a>3. 遇到的问题</h4><ul>
-<li><p>新添加的插件在Eclipse中不显示</p>
-<ul>
+<li><h5 id="新添加的插件在Eclipse中不显示"><a href="#新添加的插件在Eclipse中不显示" class="headerlink" title="新添加的插件在Eclipse中不显示"></a>新添加的插件在Eclipse中不显示</h5><ul>
 <li><p>解决方法</p>
 <p>在 <code>eclipse/configuration</code> 目录下的 <code>config.ini</code> 文件中加入一行 : <code>osgi.checkConfiguration=true</code>，这样它就会寻找并安装插件。</p>
 </li>
@@ -67,13 +66,12 @@
 <li><a class="link"   href="https://blog.csdn.net/u010185220/article/details/79095179" >windows10上使用Eclipse配置Hadoop开发环境详细步骤+WordCount示例 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
 </ul>
 <h4 id="4-遇到的问题"><a href="#4-遇到的问题" class="headerlink" title="4. 遇到的问题"></a>4. 遇到的问题</h4><ul>
-<li><p>环境变量问题</p>
-<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">Exception in thread &quot;main&quot; java.lang.RuntimeException: java.io.FileNotFoundException: java.io.FileNotFoundException: HADOOP_HOME and hadoop.home.dir are unset.</span><br></pre></td></tr></table></figure></div>
+<li><h5 id="环境变量问题"><a href="#环境变量问题" class="headerlink" title="环境变量问题"></a>环境变量问题</h5><div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">Exception in thread &quot;main&quot; java.lang.RuntimeException: java.io.FileNotFoundException: java.io.FileNotFoundException: HADOOP_HOME and hadoop.home.dir are unset.</span><br></pre></td></tr></table></figure></div>
 
 <ul>
 <li><p>问题分析</p>
 <p>从错误信息中可以看到，Hadoop在执行<code>Shell.getWinUtilsPath</code>的时候抛出了异常。这是因为Hadoop在进行某些本地文件系统操作时，依赖于一些环境变量，其中包括<code>HADOOP_HOME</code>。这两个变量都没有被正确设置，导致了<code>FileNotFoundException</code>。</p>
-</li>
+<ul>
 <li><p>解决方法</p>
 <p>在项目运行配置中指定<code>HADOOP_HOME</code>环境变量及其值：</p>
 <p><img  
@@ -88,6 +86,8 @@
 </li>
 </ul>
 </li>
+</ul>
+</li>
 <li><h5 id="权限错误问题"><a href="#权限错误问题" class="headerlink" title="权限错误问题"></a>权限错误问题</h5><div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">[Thread-5] WARN org.apache.hadoop.mapred.LocalJobRunner - job_local2147375942_0001</span><br><span class="line">org.apache.hadoop.security.AccessControlException: Permission denied: user=23876, access=WRITE, inode=&quot;/hadoop-user&quot;:root:supergroup:drwxr-xr-x</span><br><span class="line">[main] INFO org.apache.hadoop.mapreduce.Job - Job job_local2147375942_0001 failed with state FAILED due to: NA</span><br></pre></td></tr></table></figure></div>
 
 <ul>
@@ -98,12 +98,15 @@
 <p>在master节点中执行以下代码，以赋予当前用户对目标HDFS文件夹的写权限：</p>
 <div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">sudo chmod -R 777 /hadoop-user/</span><br></pre></td></tr></table></figure></div>
 
-</li>
+
+<ul>
 <li><p>参考资料</p>
 <ul>
 <li><p><a class="link"   href="https://hadoop.apache.org/docs/r1.0.4/cn/hdfs_permissions_guide.html#%E8%B6%85%E7%BA%A7%E7%94%A8%E6%88%B7" >HDFS权限管理用户指南 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 </li>
 <li><p><a class="link"   href="https://www.cnblogs.com/yinzhengjie2020/p/13737254.html" >HDFS权限管理篇-博客园 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+</li>
+</ul>
 </li>
 </ul>
 </li>
