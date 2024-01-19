@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://x-parker.github.io/2024/01/19/git%E6%8A%A5%E9%94%99-ssh-connect-to-host-github-com-port-22-Connection-timed-out/</loc>
+    
+    <lastmod>2024-01-19</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://x-parker.github.io/2024/01/19/Once-Upon-a-Time-in-America/</loc>
     
     <lastmod>2024-01-19</lastmod>
@@ -130,6 +139,20 @@
   
   <url>
     <loc>https://x-parker.github.io/tags/%E7%94%B5%E5%BD%B1/</loc>
+    <lastmod>2024-01-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://x-parker.github.io/tags/Git/</loc>
+    <lastmod>2024-01-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://x-parker.github.io/tags/SSH/</loc>
     <lastmod>2024-01-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
