@@ -1827,7 +1827,7 @@
 <p>出现询问是否连接的提示，输入 <code>yes</code> 回车：</p>
 <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ ssh -T git@github.com</span><br><span class="line">The authenticity of host &#x27;[ssh.github.com]:443 ([20.205.243.160]:443)&#x27; can&#x27;t be established.</span><br><span class="line">Are you sure you want to continue connecting (yes/no/[fingerprint])? yes</span><br><span class="line">Warning: Permanently added &#x27;[ssh.github.com]:443&#x27; (ED25519) to the list of known hosts.</span><br><span class="line">Hi x-Parker! You&#x27;ve successfully authenticated, but GitHub does not provide shell access.</span><br></pre></td></tr></table></figure></div>
 
-<p>成功重新建立SSH连接。</p>
+<p>成功重新建立 SSH 连接。</p>
 </li>
 </ul>
 <h2 id="另解"><a href="#另解" class="headerlink" title="另解"></a>另解</h2><p>抛弃 SSH 连接方式，使用 HTTPS 连接 Github。</p>
