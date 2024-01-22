@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://x-parker.github.io/2024/01/22/Vue-%E6%8A%A5%E9%94%99%EF%BC%9AFailed-to-get-response-from-Error-JAVA-HOME-is-not-set-vue-cli-version-marker/</loc>
+    <loc>https://x-parker.github.io/2024/01/22/PowerShell-vue%E6%97%A0%E6%B3%95%E5%8A%A0%E8%BD%BD%E6%96%87%E4%BB%B6-%E5%9B%A0%E4%B8%BA%E5%9C%A8%E6%AD%A4%E7%B3%BB%E7%BB%9F%E4%B8%8A%E7%A6%81%E6%AD%A2%E8%BF%90%E8%A1%8C%E8%84%9A%E6%9C%AC/</loc>
     
     <lastmod>2024-01-22</lastmod>
     
@@ -11,7 +11,7 @@
   </url>
   
   <url>
-    <loc>https://x-parker.github.io/2024/01/22/PowerShell-vue%E6%97%A0%E6%B3%95%E5%8A%A0%E8%BD%BD%E6%96%87%E4%BB%B6-%E5%9B%A0%E4%B8%BA%E5%9C%A8%E6%AD%A4%E7%B3%BB%E7%BB%9F%E4%B8%8A%E7%A6%81%E6%AD%A2%E8%BF%90%E8%A1%8C%E8%84%9A%E6%9C%AC/</loc>
+    <loc>https://x-parker.github.io/2024/01/22/Vue-%E6%8A%A5%E9%94%99%EF%BC%9AFailed-to-get-response-from-Error-JAVA-HOME-is-not-set-vue-cli-version-marker/</loc>
     
     <lastmod>2024-01-22</lastmod>
     
@@ -101,7 +101,7 @@
   </url>
   
   <url>
-    <loc>https://x-parker.github.io/about/index.html</loc>
+    <loc>https://x-parker.github.io/categories/index.html</loc>
     
     <lastmod>2024-01-11</lastmod>
     
@@ -110,7 +110,7 @@
   </url>
   
   <url>
-    <loc>https://x-parker.github.io/categories/index.html</loc>
+    <loc>https://x-parker.github.io/about/index.html</loc>
     
     <lastmod>2024-01-11</lastmod>
     
@@ -135,6 +135,13 @@
   </url>
   
   <url>
+    <loc>https://x-parker.github.io/tags/Hadoop/</loc>
+    <lastmod>2024-01-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://x-parker.github.io/tags/MapReduce/</loc>
     <lastmod>2024-01-22</lastmod>
     <changefreq>weekly</changefreq>
@@ -142,7 +149,14 @@
   </url>
   
   <url>
-    <loc>https://x-parker.github.io/tags/Hadoop/</loc>
+    <loc>https://x-parker.github.io/tags/%E7%94%B5%E5%BD%B1/</loc>
+    <lastmod>2024-01-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://x-parker.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
     <lastmod>2024-01-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -157,20 +171,6 @@
   
   <url>
     <loc>https://x-parker.github.io/tags/SSH/</loc>
-    <lastmod>2024-01-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://x-parker.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
-    <lastmod>2024-01-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://x-parker.github.io/tags/%E7%94%B5%E5%BD%B1/</loc>
     <lastmod>2024-01-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
