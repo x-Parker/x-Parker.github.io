@@ -22,15 +22,15 @@
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
-        <meta name="description" content="问题使用 Git 向 GitHub 部署代码时，报错如下（此前正常）： 123ssh: connect to host github.com port 22: Connection timed outfatal: Could not read from remote repository.Please make sure you have the correct access rights and">
+        <meta name="description" content="问题 使用 Git 向 GitHub 部署代码时，报错如下（此前正常）： 123ssh: connect to host github.com port 22: Connection timed outfatal: Could not read from remote repository.Please make sure you have the correct access rights an">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Git 报错：SSH连接超时">
 <meta property="og:url" content="https://x-parker.github.io/2024/01/19/Git%E6%8A%A5%E9%94%99-SSH%E8%BF%9E%E6%8E%A5%E8%B6%85%E6%97%B6/index.html">
 <meta property="og:site_name" content="Parker&#39;s Blog">
-<meta property="og:description" content="问题使用 Git 向 GitHub 部署代码时，报错如下（此前正常）： 123ssh: connect to host github.com port 22: Connection timed outfatal: Could not read from remote repository.Please make sure you have the correct access rights and">
+<meta property="og:description" content="问题 使用 Git 向 GitHub 部署代码时，报错如下（此前正常）： 123ssh: connect to host github.com port 22: Connection timed outfatal: Could not read from remote repository.Please make sure you have the correct access rights an">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-01-19T11:25:52.000Z">
-<meta property="article:modified_time" content="2024-01-22T15:02:33.744Z">
+<meta property="article:modified_time" content="2024-01-24T17:07:11.727Z">
 <meta property="article:author" content="Parker">
 <meta property="article:tag" content="Git">
 <meta property="article:tag" content="SSH">
@@ -232,7 +232,7 @@
     
     <script id="hexo-configurations">
     window.config = {"hostname":"x-parker.github.io","root":"/","language":"zh-CN","path":"search.xml"};
-    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"title_alignment":"left"},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":false,"auto":false,"list":[]},"code_block":{"copy":true,"style":"simple","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":6,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1500px","sidebar_width":"300px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":true,"open_graph":true,"google_analytics":{"enable":true,"id":"G-49NHXQ2Z1H"}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"Parker's Blog","subtitle":{"text":["Loading..."],"hitokoto":{"enable":true,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"links":{"github":"https://github.com/x-Parker","email":"pengkai_xie@mail.ustc.edu.cn"},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.6.0","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"links":{"Home":{"path":"/","icon":"fa-solid fa-house"},"Archives":{"path":"/archives","icon":"fa-solid fa-archive"},"Categories":{"path":"/categories","icon":"fa-solid fa-folder"},"Tags":{"path":"/tags","icon":"fa-solid fa-tags"},"随笔":{"path":"/essays","icon":"fa-solid fa-pen-nib"},"About":{"path":"/about","icon":"fa-solid fa-user"}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"cloud"},"home":{"sidebar":{"enable":false,"position":"right","first_item":"menu","announcement":null,"links":null},"article_date_format":"auto","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2023/12/22 00:00:00"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":true,"link_icon":true,"title_alignment":"left"},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":false,"auto":false,"list":[]},"code_block":{"copy":true,"style":"simple","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":6,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1500px","sidebar_width":"300px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":true,"open_graph":true,"google_analytics":{"enable":true,"id":"G-49NHXQ2Z1H"}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"Parker's Blog","subtitle":{"text":["Loading..."],"hitokoto":{"enable":true,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"links":{"github":"https://github.com/x-Parker","email":"pengkai_xie@mail.ustc.edu.cn"},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.6.0","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"links":{"Home":{"path":"/","icon":"fa-solid fa-house"},"Archives":{"path":"/archives","icon":"fa-solid fa-archive"},"Categories":{"path":"/categories","icon":"fa-solid fa-folder"},"Tags":{"path":"/tags","icon":"fa-solid fa-tags"},"随笔":{"path":"/essays","icon":"fa-solid fa-pen-nib"},"About":{"path":"/about","icon":"fa-solid fa-user"}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"cloud"},"home":{"sidebar":{"enable":false,"position":"right","first_item":"menu","announcement":null,"links":null},"article_date_format":"auto","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2023/12/22 00:00:00"};
     window.lang_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
     window.data = {"masonry":false};
   </script>
@@ -537,7 +537,7 @@
 
         <div class="statistics flex justify-around my-2.5">
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">9</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">10</div>
         <div class="label text-third-text-color text-sm">标签</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
@@ -545,7 +545,7 @@
         <div class="label text-third-text-color text-sm">分类</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">8</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">9</div>
         <div class="label text-third-text-color text-sm">文章</div>
     </a>
 </div>
@@ -597,8 +597,8 @@
     <!-- 
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2024-01-22 23:02:33</span>
-            <span class="mobile">2024-01-22 23:02:33</span>
+            <span class="desktop">2024-01-25 01:07:11</span>
+            <span class="mobile">2024-01-25 01:07:11</span>
             <span class="hover-info">更新</span>
         </span>
      -->
@@ -640,7 +640,7 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>252 字</span>
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>272 字</span>
         </span>
     
     
@@ -664,29 +664,36 @@
 
 
         <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
-            <h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>使用 Git 向 GitHub 部署代码时，报错如下（此前正常）：</p>
+            <h2 id="问题">问题</h2>
+<p>使用 Git 向 GitHub 部署代码时，报错如下（此前正常）：</p>
 <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ssh: connect to host github.com port 22: Connection timed out</span><br><span class="line">fatal: Could not read from remote repository.</span><br><span class="line">Please make sure you have the correct access rights and the repository exists.</span><br></pre></td></tr></table></figure></div>
-
-<h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>SSH 连接端口改变，重新指定一个新端口即可。</p>
-<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><ul>
-<li><p>打开 <code>C:\用户\主机名\.ssh</code> 文件夹</p>
+<h2 id="原因">原因</h2>
+<p>SSH 端口被占用，重新指定一个端口即可。</p>
+<p>注：<em>Windows 系统查看端口占用情况的命令为：<code>netstat -ano | findStr 端口号</code></em></p>
+<h2 id="解决">解决</h2>
+<ul>
+<li>
+<p>打开 <code>C:\用户\主机名\.ssh</code> 文件夹</p>
 </li>
-<li><p>新建 <code>config</code> 文件（不带后缀）</p>
+<li>
+<p>新建 <code>config</code> 文件（不带后缀）</p>
 </li>
-<li><p>输入以下内容后保存：</p>
+<li>
+<p>输入以下内容后保存：</p>
 <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Host github.com</span><br><span class="line">User GitHub注册邮箱</span><br><span class="line">Hostname ssh.github.com</span><br><span class="line">PreferredAuthentications publickey</span><br><span class="line">IdentityFile ~/.ssh/id_rsa</span><br><span class="line">Port 443</span><br></pre></td></tr></table></figure></div>
 </li>
-<li><p>在 Git Bash 执行：</p>
+<li>
+<p>在 Git Bash 执行：</p>
 <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure></div>
-
 <p>出现询问是否连接的提示，输入 <code>yes</code> 回车：</p>
 <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ ssh -T git@github.com</span><br><span class="line">The authenticity of host &#x27;[ssh.github.com]:443 ([20.205.243.160]:443)&#x27; can&#x27;t be established.</span><br><span class="line">Are you sure you want to continue connecting (yes/no/[fingerprint])? yes</span><br><span class="line">Warning: Permanently added &#x27;[ssh.github.com]:443&#x27; (ED25519) to the list of known hosts.</span><br><span class="line">Hi x-Parker! You&#x27;ve successfully authenticated, but GitHub does not provide shell access.</span><br></pre></td></tr></table></figure></div>
-
 <p>成功重新建立 SSH 连接。</p>
 </li>
 </ul>
-<h2 id="另解"><a href="#另解" class="headerlink" title="另解"></a>另解</h2><p>抛弃 SSH 连接方式，使用 HTTPS 连接 Github。</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<h2 id="另解">另解</h2>
+<p>抛弃 SSH 连接方式，使用 HTTPS 连接 Github。</p>
+<h2 id="参考">参考</h2>
+<ul>
 <li><a class="link"   target="_blank" rel="noopener" href="https://blog.csdn.net/yunxiaobaobei/article/details/123474599" >https://blog.csdn.net/yunxiaobaobei/article/details/123474599 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
 <li><a class="link"   target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_41287260/article/details/124368189" >https://blog.csdn.net/weixin_41287260/article/details/124368189 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
 </ul>
@@ -706,7 +713,7 @@
         <!-- 
             <li>
                 <strong>更新于
-                    :</strong> 2024-01-22 23:02:33
+                    :</strong> 2024-01-25 01:07:11
             </li>
          -->
         
