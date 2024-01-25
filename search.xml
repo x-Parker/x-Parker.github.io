@@ -48,51 +48,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Git 报错：SSH连接超时</title>
-    <url>/2024/01/19/Git%E6%8A%A5%E9%94%99-SSH%E8%BF%9E%E6%8E%A5%E8%B6%85%E6%97%B6/</url>
-    <content><![CDATA[<h2 id="问题">问题</h2>
-<p>使用 Git 向 GitHub 部署代码时，报错如下（此前正常）：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh: connect to host github.com port 22: Connection timed out</span><br><span class="line">fatal: Could not read from remote repository.</span><br><span class="line">Please make sure you have the correct access rights and the repository exists.</span><br></pre></td></tr></table></figure></div>
-<h2 id="原因">原因</h2>
-<p>SSH 端口被占用，重新指定一个端口即可。</p>
-<p>注：<em>Windows 系统查看端口占用情况的命令为：<code>netstat -ano | findStr 端口号</code></em></p>
-<h2 id="解决">解决</h2>
-<ul>
-<li>
-<p>打开 <code>C:\用户\主机名\.ssh</code> 文件夹</p>
-</li>
-<li>
-<p>新建 <code>config</code> 文件（不带后缀）</p>
-</li>
-<li>
-<p>输入以下内容后保存：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">Host github.com</span><br><span class="line">User GitHub注册邮箱</span><br><span class="line">Hostname ssh.github.com</span><br><span class="line">PreferredAuthentications publickey</span><br><span class="line">IdentityFile ~/.ssh/id_rsa</span><br><span class="line">Port 443</span><br></pre></td></tr></table></figure></div>
-</li>
-<li>
-<p>在 Git Bash 执行：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure></div>
-<p>出现询问是否连接的提示，输入 <code>yes</code> 回车：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ ssh -T git@github.com</span><br><span class="line">The authenticity of host &#x27;[ssh.github.com]:443 ([20.205.243.160]:443)&#x27; can&#x27;t be established.</span><br><span class="line">Are you sure you want to continue connecting (yes/no/[fingerprint])? yes</span><br><span class="line">Warning: Permanently added &#x27;[ssh.github.com]:443&#x27; (ED25519) to the list of known hosts.</span><br><span class="line">Hi x-Parker! You&#x27;ve successfully authenticated, but GitHub does not provide shell access.</span><br></pre></td></tr></table></figure></div>
-<p>成功重新建立 SSH 连接。</p>
-</li>
-</ul>
-<h2 id="另解">另解</h2>
-<p>抛弃 SSH 连接方式，使用 HTTPS 连接 Github。</p>
-<h2 id="参考">参考</h2>
-<ul>
-<li><a class="link"   href="https://blog.csdn.net/yunxiaobaobei/article/details/123474599" >https://blog.csdn.net/yunxiaobaobei/article/details/123474599 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li><a class="link"   href="https://blog.csdn.net/weixin_41287260/article/details/124368189" >https://blog.csdn.net/weixin_41287260/article/details/124368189 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>Git</tag>
-        <tag>SSH</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Hadoop 环境配置</title>
     <url>/2024/01/10/Hadoop%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/</url>
     <content><![CDATA[<h2 id="主要步骤">主要步骤</h2>
@@ -1773,6 +1728,51 @@
       </tags>
   </entry>
   <entry>
+    <title>Git 报错：SSH连接超时</title>
+    <url>/2024/01/19/Git%E6%8A%A5%E9%94%99-SSH%E8%BF%9E%E6%8E%A5%E8%B6%85%E6%97%B6/</url>
+    <content><![CDATA[<h2 id="问题">问题</h2>
+<p>使用 Git 向 GitHub 部署代码时，报错如下（此前正常）：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh: connect to host github.com port 22: Connection timed out</span><br><span class="line">fatal: Could not read from remote repository.</span><br><span class="line">Please make sure you have the correct access rights and the repository exists.</span><br></pre></td></tr></table></figure></div>
+<h2 id="原因">原因</h2>
+<p>SSH 端口被占用，重新指定一个端口即可。</p>
+<p>注：<em>Windows 系统查看端口占用情况的命令为：<code>netstat -ano | findStr 端口号</code></em></p>
+<h2 id="解决">解决</h2>
+<ul>
+<li>
+<p>打开 <code>C:\用户\主机名\.ssh</code> 文件夹</p>
+</li>
+<li>
+<p>新建 <code>config</code> 文件（不带后缀）</p>
+</li>
+<li>
+<p>输入以下内容后保存：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">Host github.com</span><br><span class="line">User GitHub注册邮箱</span><br><span class="line">Hostname ssh.github.com</span><br><span class="line">PreferredAuthentications publickey</span><br><span class="line">IdentityFile ~/.ssh/id_rsa</span><br><span class="line">Port 443</span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>在 Git Bash 执行：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure></div>
+<p>出现询问是否连接的提示，输入 <code>yes</code> 回车：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ ssh -T git@github.com</span><br><span class="line">The authenticity of host &#x27;[ssh.github.com]:443 ([20.205.243.160]:443)&#x27; can&#x27;t be established.</span><br><span class="line">Are you sure you want to continue connecting (yes/no/[fingerprint])? yes</span><br><span class="line">Warning: Permanently added &#x27;[ssh.github.com]:443&#x27; (ED25519) to the list of known hosts.</span><br><span class="line">Hi x-Parker! You&#x27;ve successfully authenticated, but GitHub does not provide shell access.</span><br></pre></td></tr></table></figure></div>
+<p>成功重新建立 SSH 连接。</p>
+</li>
+</ul>
+<h2 id="另解">另解</h2>
+<p>抛弃 SSH 连接方式，使用 HTTPS 连接 Github。</p>
+<h2 id="参考">参考</h2>
+<ul>
+<li><a class="link"   href="https://blog.csdn.net/yunxiaobaobei/article/details/123474599" >https://blog.csdn.net/yunxiaobaobei/article/details/123474599 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://blog.csdn.net/weixin_41287260/article/details/124368189" >https://blog.csdn.net/weixin_41287260/article/details/124368189 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>Git</tag>
+        <tag>SSH</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>PowerShell 报错：在此系统上禁止运行脚本</title>
     <url>/2024/01/22/PowerShell-vue%E6%97%A0%E6%B3%95%E5%8A%A0%E8%BD%BD%E6%96%87%E4%BB%B6-%E5%9B%A0%E4%B8%BA%E5%9C%A8%E6%AD%A4%E7%B3%BB%E7%BB%9F%E4%B8%8A%E7%A6%81%E6%AD%A2%E8%BF%90%E8%A1%8C%E8%84%9A%E6%9C%AC/</url>
     <content><![CDATA[<h2 id="问题">问题</h2>
@@ -1806,39 +1806,6 @@
       </categories>
       <tags>
         <tag>PowerShell</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Git 报错：无法创建 index.lock 文件，因其已存在。</title>
-    <url>/2024/01/25/Git-%E6%8A%A5%E9%94%99%EF%BC%9A%E6%97%A0%E6%B3%95%E5%88%9B%E5%BB%BA-index-lock-%E6%96%87%E4%BB%B6%EF%BC%8C%E5%9B%A0%E5%85%B6%E5%B7%B2%E5%AD%98%E5%9C%A8/</url>
-    <content><![CDATA[<h2 id="问题">问题</h2>
-<p>使用 Git 向 Github 部署代码时，出现如下报错：</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/01/25/VTOAzyM2Jm9pEWH.png"
-                      alt=""
-                ></p>
-<h2 id="原因">原因</h2>
-<p>有两个 Git 命令同时运行，可能一种来自命令提示符，另一种来自 IDE 。</p>
-<h2 id="解决">解决</h2>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/01/25/V2x6Msj5KSDqFp3.png"
-                      alt=""
-                ><br>
-删除报错信息对应路径下已存在的 <code>index.lock</code> 文件即可。</p>
-<h2 id="引用">引用</h2>
-<ul>
-<li><a class="link"   href="https://stackoverflow.com/questions/38004148/another-git-process-seems-to-be-running-in-this-repository" >https://stackoverflow.com/questions/38004148/another-git-process-seems-to-be-running-in-this-repository <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>Git</tag>
       </tags>
   </entry>
   <entry>
@@ -1884,6 +1851,39 @@
       </categories>
       <tags>
         <tag>Vue</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Git 报错：无法创建 index.lock 文件，因其已存在。</title>
+    <url>/2024/01/25/Git-%E6%8A%A5%E9%94%99%EF%BC%9A%E6%97%A0%E6%B3%95%E5%88%9B%E5%BB%BA-index-lock-%E6%96%87%E4%BB%B6%EF%BC%8C%E5%9B%A0%E5%85%B6%E5%B7%B2%E5%AD%98%E5%9C%A8/</url>
+    <content><![CDATA[<h2 id="问题">问题</h2>
+<p>使用 Git 向 Github 部署代码时，出现如下报错：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/01/25/VTOAzyM2Jm9pEWH.png"
+                      alt=""
+                ></p>
+<h2 id="原因">原因</h2>
+<p>有两个 Git 命令同时运行，可能一种来自命令提示符，另一种来自 IDE 。</p>
+<h2 id="解决">解决</h2>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/01/25/V2x6Msj5KSDqFp3.png"
+                      alt=""
+                ><br>
+删除报错信息对应路径下已存在的 <code>index.lock</code> 文件即可。</p>
+<h2 id="引用">引用</h2>
+<ul>
+<li><a class="link"   href="https://stackoverflow.com/questions/38004148/another-git-process-seems-to-be-running-in-this-repository" >https://stackoverflow.com/questions/38004148/another-git-process-seems-to-be-running-in-this-repository <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>Git</tag>
       </tags>
   </entry>
   <entry>
@@ -1947,5 +1947,11 @@
       <tags>
         <tag>Markdown</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>留言板</title>
+    <url>/2024/01/25/notes-index/</url>
+    <content><![CDATA[<p>这里是 Parker 的留言板，欢迎留下你的声音。评论时请注意填写邮箱，否则不会收到回复邮件提醒哦。</p>
+]]></content>
   </entry>
 </search>
