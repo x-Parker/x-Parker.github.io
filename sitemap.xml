@@ -128,7 +128,7 @@
   </url>
   
   <url>
-    <loc>https://x-parker.github.io/about/index.html</loc>
+    <loc>https://x-parker.github.io/categories/index.html</loc>
     
     <lastmod>2024-01-11</lastmod>
     
@@ -137,7 +137,7 @@
   </url>
   
   <url>
-    <loc>https://x-parker.github.io/categories/index.html</loc>
+    <loc>https://x-parker.github.io/about/index.html</loc>
     
     <lastmod>2024-01-11</lastmod>
     
@@ -162,28 +162,7 @@
   </url>
   
   <url>
-    <loc>https://x-parker.github.io/tags/Hadoop/</loc>
-    <lastmod>2024-01-25</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://x-parker.github.io/tags/MapReduce/</loc>
-    <lastmod>2024-01-25</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://x-parker.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
-    <lastmod>2024-01-25</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://x-parker.github.io/tags/%E7%94%B5%E5%BD%B1/</loc>
     <lastmod>2024-01-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -204,6 +183,13 @@
   </url>
   
   <url>
+    <loc>https://x-parker.github.io/tags/Hadoop/</loc>
+    <lastmod>2024-01-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://x-parker.github.io/tags/PowerShell/</loc>
     <lastmod>2024-01-25</lastmod>
     <changefreq>weekly</changefreq>
@@ -211,7 +197,14 @@
   </url>
   
   <url>
-    <loc>https://x-parker.github.io/tags/Vue/</loc>
+    <loc>https://x-parker.github.io/tags/MapReduce/</loc>
+    <lastmod>2024-01-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://x-parker.github.io/tags/%E7%94%B5%E5%BD%B1/</loc>
     <lastmod>2024-01-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -219,6 +212,13 @@
   
   <url>
     <loc>https://x-parker.github.io/tags/Markdown/</loc>
+    <lastmod>2024-01-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://x-parker.github.io/tags/Vue/</loc>
     <lastmod>2024-01-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
