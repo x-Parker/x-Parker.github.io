@@ -17,7 +17,7 @@
     
     <!--- Seo Part-->
     
-    <link rel="canonical" href="https://x-parker.github.io/tags/css/"/>
+    <link rel="canonical" href="https://x-parker.github.io/page/2/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
@@ -25,7 +25,7 @@
         <meta name="description" content="Parker&#39;s Blog">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Parker&#39;s Blog">
-<meta property="og:url" content="https://x-parker.github.io/tags/CSS/index.html">
+<meta property="og:url" content="https://x-parker.github.io/page/2/index.html">
 <meta property="og:site_name" content="Parker&#39;s Blog">
 <meta property="og:description" content="Parker&#39;s Blog">
 <meta property="og:locale" content="zh_CN">
@@ -52,8 +52,6 @@
     <!--- Page Info-->
     
     <title>
-        
-            标签: CSS -
         
         Parker&#39;s Blog
     </title>
@@ -262,6 +260,39 @@
 <main class="page-container" id="swup">
 
     
+        <style>
+    .home-article-item,
+    .sidebar-links,
+    .sidebar-content,
+    a.page-number,
+    a.extend,
+    .sidebar-links .links:hover,
+    .right-bottom-tools,
+    footer.footer {
+        background-color: var(--background-color-transparent-80) !important;
+    }
+    .right-bottom-tools:hover,
+    a.page-number:hover,
+    a.extend:hover {
+        background-color: var(--primary-color) !important;
+    }
+    .site-info,
+    .home-article-sticky-label {
+        background-color: var(--background-color-transparent-15) !important;
+    }
+    .home-article-sticky-label {
+        backdrop-filter: none !important;
+    }
+    .home-banner-background {
+        filter: blur(15px);
+    }
+</style>
+
+<div class="home-banner-background">
+</div>
+
+
+    
 
     <div class="main-content-container">
 
@@ -273,9 +304,9 @@
         <div class="left">
             
             <a class="logo-title" href="/">
-                
+                <h1>
                 Parker&#39;s Blog
-                
+                </h1>
             </a>
         </div>
 
@@ -289,7 +320,7 @@
 
                             <li class="navbar-item">
                                 <!-- Menu -->
-                                <a class=""
+                                <a class="active"
                                    href="/"
                                         >
                                     <i class="fa-solid fa-house fa-fw"></i>
@@ -340,7 +371,7 @@
 
                             <li class="navbar-item">
                                 <!-- Menu -->
-                                <a class="active"
+                                <a class=""
                                    href="/tags"
                                         >
                                     <i class="fa-solid fa-tags fa-fw"></i>
@@ -415,7 +446,7 @@
 
                     <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
                         
-                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
                            href="/"
                         >
                             <span>
@@ -475,7 +506,7 @@
 
                     <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
                         
-                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
                            href="/tags"
                         >
                             <span>
@@ -562,48 +593,92 @@
             <div class="main-content">
 
                 
-                    <div class="tag-container">
-	<div class="tag-name">
-		<i class="fa-solid fa-tag"></i>&nbsp;CSS
-	</div>
-	<div class="tag-post-list">
-		
+                    <div class="home-content-container">
+    <ul class="home-article-list">
+        
+            <li class="home-article-item">
 
-<div class="archive-list-container">
-    
-        <section class="archive-item">
-            <div class="archive-item-header flex flex-row items-center mb-2">
-                <span class="archive-year font-semibold text-3xl mr-2">2023</span>
-                <span class="archive-year-post-count text-xs md:text-sm font-bold rounded-small bg-third-background-color py-[2px] px-[10px] border border-border-color">1</span>
-            </div>
-            <ul class="article-list pl-8 text-lg leading-[1.5]">
-              
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2023/12/27/CSS%E6%96%87%E6%9C%AC%E6%BA%A2%E5%87%BA%E9%97%AE%E9%A2%98/">
+                            CSS 文本溢出问题
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            问题：
+博客文章中 长链接/长代码 超出浏览器窗口大小而无法完整显示（CSS文本溢出）
+如下图所示：
+
+解决：
+打开 themes\landscape\source\css\_partial\article.styl 文件（该路径与所用主题有关），在...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Wed Dec 27 2023 16:24:06 GMT+0800">
+                
+                    2023-12-27
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
                 
                     
-                    <li class="article-item" date-is='12-27'>
+                        
+                        <li>
+                            <a href="/categories/%E6%8A%80%E6%9C%AF/">技术</a>&nbsp;
+                        </li>
+                    
+                    
                 
-                
-                    <a href="/2023/12/27/CSS%E6%96%87%E6%9C%AC%E6%BA%A2%E5%87%BA%E9%97%AE%E9%A2%98/" class="block overflow-hidden">
-                        <span class="article-title mb-0.5 text-2xl">CSS 文本溢出问题</span>
-                    </a>
-                
-              
             </ul>
-        </section>
-    
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/CSS/">CSS</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2023/12/27/CSS%E6%96%87%E6%9C%AC%E6%BA%A2%E5%87%BA%E9%97%AE%E9%A2%98/">阅读全文<span class="seo-reader-text">CSS 文本溢出问题</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
-	</div>
+                </div>
+            </li>
+        
+    </ul>
+
+    <div class="home-paginator px-7 py-5">
+        <div class="paginator">
+    <a class="extend prev" rel="prev" href="/"><i class="fa-regular fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
 </div>
 
-<div class="tag-paginator">
-	<div class="paginator">
-    <span class="page-number current">1</span>
+    </div>
 </div>
 
-</div>
-
-
+                    <div class="comment-container pjax"></div>
                 
 
             </div>
@@ -754,6 +829,7 @@
         containers: ["#swup"],
     });
 </script>
+
 
 
 
