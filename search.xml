@@ -1,53 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>CSS 文本溢出问题</title>
-    <url>/2023/12/27/CSS%E6%96%87%E6%9C%AC%E6%BA%A2%E5%87%BA%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<h3 id="问题："><strong>问题</strong>：</h3>
-<p>博客文章中 长链接/长代码 超出浏览器窗口大小而无法完整显示（CSS文本溢出）</p>
-<p>如下图所示：<br>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2023/12/27/r8v45hlTISMPyts.png"
-                      alt=""
-                ></p>
-<h3 id="解决："><strong>解决</strong>：</h3>
-<p>打开 <code>themes\landscape\source\css\_partial\article.styl</code> 文件（该路径与所用主题有关），在 <code>.article-entry</code> 部分添加以下代码：</p>
-<div class="highlight-container" data-rel="Stylus"><figure class="iseeu highlight stylus"><table><tr><td class="code"><pre><span class="line"><span class="attribute">word-break</span>: break-all	// 一个长长的单词不会新起一行展示，而是直接在本行剩余空间展示，展示不全时折断展示</span><br><span class="line"><span class="attribute">overflow-wrap</span>: break-word	// 一个长长的单词会新起一行展示，新的一行展示不全时折断展示</span><br></pre></td></tr></table></figure></div>
-<h3 id="效果："><strong>效果</strong>：</h3>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2023/12/27/yt8ixFgBRpcrdeY.png"
-                      alt=""
-                ><br>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2023/12/27/eziCIhA3ML7mWYy.png"
-                      alt=""
-                ></p>
-<h3 id="One-more-thing"><strong>One more thing</strong></h3>
-<p>写作本文时，有让图片并排显示的需求，而网页默认是每个图片后自动换行。</p>
-<p>解决：<br>
-使用 <code>&lt;img&gt;</code> HTML标签的 <code>style</code> 属性来覆盖图片的 &quot;块 &quot;行为，形如：</p>
-<div class="highlight-container" data-rel="Html"><figure class="iseeu highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;/uploads/image-1.jpg&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;image-1&quot;</span> <span class="attr">style</span>=<span class="string">&quot;display: inline-block&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;/uploads/image-2.jpg&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;image-2&quot;</span> <span class="attr">style</span>=<span class="string">&quot;display: inline-block&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure></div>
-<h3 id="引用："><strong>引用</strong>：</h3>
-<ul>
-<li><a class="link"   href="https://github.com/litten/hexo-theme-yilia/issues/801#issuecomment-456317331" >长链接不会自动换行解决方案 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li><a class="link"   href="https://yolkpie.net/2021/09/14/CSS%E6%96%87%E6%9C%AC%E6%BA%A2%E5%87%BA%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" >CSS文本溢出解决方案 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li><a class="link"   href="https://github.com/iissnan/hexo-theme-next/issues/1139#issuecomment-286639102" >网页图片并排显示解决方案 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>CSS</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Hadoop 环境配置</title>
     <url>/2024/01/10/Hadoop%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/</url>
     <content><![CDATA[<h2 id="主要步骤">主要步骤</h2>
@@ -250,6 +203,53 @@
       </tags>
   </entry>
   <entry>
+    <title>CSS 文本溢出问题</title>
+    <url>/2023/12/27/CSS%E6%96%87%E6%9C%AC%E6%BA%A2%E5%87%BA%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<h3 id="问题："><strong>问题</strong>：</h3>
+<p>博客文章中 长链接/长代码 超出浏览器窗口大小而无法完整显示（CSS文本溢出）</p>
+<p>如下图所示：<br>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2023/12/27/r8v45hlTISMPyts.png"
+                      alt=""
+                ></p>
+<h3 id="解决："><strong>解决</strong>：</h3>
+<p>打开 <code>themes\landscape\source\css\_partial\article.styl</code> 文件（该路径与所用主题有关），在 <code>.article-entry</code> 部分添加以下代码：</p>
+<div class="highlight-container" data-rel="Stylus"><figure class="iseeu highlight stylus"><table><tr><td class="code"><pre><span class="line"><span class="attribute">word-break</span>: break-all	// 一个长长的单词不会新起一行展示，而是直接在本行剩余空间展示，展示不全时折断展示</span><br><span class="line"><span class="attribute">overflow-wrap</span>: break-word	// 一个长长的单词会新起一行展示，新的一行展示不全时折断展示</span><br></pre></td></tr></table></figure></div>
+<h3 id="效果："><strong>效果</strong>：</h3>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2023/12/27/yt8ixFgBRpcrdeY.png"
+                      alt=""
+                ><br>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2023/12/27/eziCIhA3ML7mWYy.png"
+                      alt=""
+                ></p>
+<h3 id="One-more-thing"><strong>One more thing</strong></h3>
+<p>写作本文时，有让图片并排显示的需求，而网页默认是每个图片后自动换行。</p>
+<p>解决：<br>
+使用 <code>&lt;img&gt;</code> HTML标签的 <code>style</code> 属性来覆盖图片的 &quot;块 &quot;行为，形如：</p>
+<div class="highlight-container" data-rel="Html"><figure class="iseeu highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;/uploads/image-1.jpg&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;image-1&quot;</span> <span class="attr">style</span>=<span class="string">&quot;display: inline-block&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;/uploads/image-2.jpg&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;image-2&quot;</span> <span class="attr">style</span>=<span class="string">&quot;display: inline-block&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure></div>
+<h3 id="引用："><strong>引用</strong>：</h3>
+<ul>
+<li><a class="link"   href="https://github.com/litten/hexo-theme-yilia/issues/801#issuecomment-456317331" >长链接不会自动换行解决方案 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://yolkpie.net/2021/09/14/CSS%E6%96%87%E6%9C%AC%E6%BA%A2%E5%87%BA%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" >CSS文本溢出解决方案 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://github.com/iissnan/hexo-theme-next/issues/1139#issuecomment-286639102" >网页图片并排显示解决方案 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>CSS</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>MapReduce 配置与操作</title>
     <url>/2024/01/11/MapReduce%E9%85%8D%E7%BD%AE%E4%B8%8E%E6%93%8D%E4%BD%9C/</url>
     <content><![CDATA[<h3 id="一、通过eclipse连接hadoop">一、通过eclipse连接hadoop</h3>
@@ -438,42 +438,6 @@
       <tags>
         <tag>Git</tag>
         <tag>SSH</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>PowerShell 报错：在此系统上禁止运行脚本</title>
-    <url>/2024/01/22/PowerShell-vue%E6%97%A0%E6%B3%95%E5%8A%A0%E8%BD%BD%E6%96%87%E4%BB%B6-%E5%9B%A0%E4%B8%BA%E5%9C%A8%E6%AD%A4%E7%B3%BB%E7%BB%9F%E4%B8%8A%E7%A6%81%E6%AD%A2%E8%BF%90%E8%A1%8C%E8%84%9A%E6%9C%AC/</url>
-    <content><![CDATA[<h2 id="问题">问题</h2>
-<p>在 Windows PowerShell （管理员模式下）执行 <code>vue --version</code> 命令时报错如下：</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/01/22/IBWcwtCLqjm2ya3.png"
-                      alt=""
-                ></p>
-<h2 id="原因">原因</h2>
-<p>首次在计算机上启动 Windows PowerShell 时，现用执行策略很可能是 Restricted（默认设置）。Restricted 策略不允许任何脚本运行，以防止执行不信任的脚本。</p>
-<h2 id="解决">解决</h2>
-<p>在 Windows PowerShell 执行以下命令：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">set-executionpolicy remotesigned</span><br></pre></td></tr></table></figure></div>
-<h2 id="效果">效果</h2>
-<p>再次执行 <code>vue --version</code> 命令，可正常查看 Vue 版本：</p>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/01/22/2UpOySQuL3ev5to.png"
-                      style="zoom: 50%;"
-                >
-<h2 id="引用">引用</h2>
-<ul>
-<li><a class="link"   href="https://cloud.tencent.com/developer/article/1612513" >https://cloud.tencent.com/developer/article/1612513 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>PowerShell</tag>
       </tags>
   </entry>
   <entry>
@@ -1854,36 +1818,39 @@
       </tags>
   </entry>
   <entry>
-    <title>Git 报错：无法创建 index.lock 文件，因其已存在。</title>
-    <url>/2024/01/25/Git-%E6%8A%A5%E9%94%99%EF%BC%9A%E6%97%A0%E6%B3%95%E5%88%9B%E5%BB%BA-index-lock-%E6%96%87%E4%BB%B6%EF%BC%8C%E5%9B%A0%E5%85%B6%E5%B7%B2%E5%AD%98%E5%9C%A8/</url>
+    <title>PowerShell 报错：在此系统上禁止运行脚本</title>
+    <url>/2024/01/22/PowerShell-vue%E6%97%A0%E6%B3%95%E5%8A%A0%E8%BD%BD%E6%96%87%E4%BB%B6-%E5%9B%A0%E4%B8%BA%E5%9C%A8%E6%AD%A4%E7%B3%BB%E7%BB%9F%E4%B8%8A%E7%A6%81%E6%AD%A2%E8%BF%90%E8%A1%8C%E8%84%9A%E6%9C%AC/</url>
     <content><![CDATA[<h2 id="问题">问题</h2>
-<p>使用 Git 向 Github 部署代码时，出现如下报错：</p>
+<p>在 Windows PowerShell （管理员模式下）执行 <code>vue --version</code> 命令时报错如下：</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/01/25/VTOAzyM2Jm9pEWH.png"
+                     data-src="https://s2.loli.net/2024/01/22/IBWcwtCLqjm2ya3.png"
                       alt=""
                 ></p>
 <h2 id="原因">原因</h2>
-<p>有两个 Git 命令同时运行，可能一种来自命令提示符，另一种来自 IDE 。</p>
+<p>首次在计算机上启动 Windows PowerShell 时，现用执行策略很可能是 Restricted（默认设置）。Restricted 策略不允许任何脚本运行，以防止执行不信任的脚本。</p>
 <h2 id="解决">解决</h2>
-<p><img  
+<p>在 Windows PowerShell 执行以下命令：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">set-executionpolicy remotesigned</span><br></pre></td></tr></table></figure></div>
+<h2 id="效果">效果</h2>
+<p>再次执行 <code>vue --version</code> 命令，可正常查看 Vue 版本：</p>
+<img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/01/25/V2x6Msj5KSDqFp3.png"
-                      alt=""
-                ><br>
-删除报错信息对应路径下已存在的 <code>index.lock</code> 文件即可。</p>
+                     data-src="https://s2.loli.net/2024/01/22/2UpOySQuL3ev5to.png"
+                      style="zoom: 50%;"
+                >
 <h2 id="引用">引用</h2>
 <ul>
-<li><a class="link"   href="https://stackoverflow.com/questions/38004148/another-git-process-seems-to-be-running-in-this-repository" >https://stackoverflow.com/questions/38004148/another-git-process-seems-to-be-running-in-this-repository <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://cloud.tencent.com/developer/article/1612513" >https://cloud.tencent.com/developer/article/1612513 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
 </ul>
 ]]></content>
       <categories>
         <category>技术</category>
       </categories>
       <tags>
-        <tag>Git</tag>
+        <tag>PowerShell</tag>
       </tags>
   </entry>
   <entry>
@@ -1977,6 +1944,39 @@
       </categories>
       <tags>
         <tag>Markdown</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Git 报错：无法创建 index.lock 文件，因其已存在。</title>
+    <url>/2024/01/25/Git-%E6%8A%A5%E9%94%99%EF%BC%9A%E6%97%A0%E6%B3%95%E5%88%9B%E5%BB%BA-index-lock-%E6%96%87%E4%BB%B6%EF%BC%8C%E5%9B%A0%E5%85%B6%E5%B7%B2%E5%AD%98%E5%9C%A8/</url>
+    <content><![CDATA[<h2 id="问题">问题</h2>
+<p>使用 Git 向 Github 部署代码时，出现如下报错：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/01/25/VTOAzyM2Jm9pEWH.png"
+                      alt=""
+                ></p>
+<h2 id="原因">原因</h2>
+<p>有两个 Git 命令同时运行，可能一种来自命令提示符，另一种来自 IDE 。</p>
+<h2 id="解决">解决</h2>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/01/25/V2x6Msj5KSDqFp3.png"
+                      alt=""
+                ><br>
+删除报错信息对应路径下已存在的 <code>index.lock</code> 文件即可。</p>
+<h2 id="引用">引用</h2>
+<ul>
+<li><a class="link"   href="https://stackoverflow.com/questions/38004148/another-git-process-seems-to-be-running-in-this-repository" >https://stackoverflow.com/questions/38004148/another-git-process-seems-to-be-running-in-this-repository <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>Git</tag>
       </tags>
   </entry>
 </search>
