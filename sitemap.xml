@@ -128,7 +128,7 @@
   </url>
   
   <url>
-    <loc>https://x-parker.github.io/about/index.html</loc>
+    <loc>https://x-parker.github.io/categories/index.html</loc>
     
     <lastmod>2024-01-11</lastmod>
     
@@ -137,7 +137,7 @@
   </url>
   
   <url>
-    <loc>https://x-parker.github.io/categories/index.html</loc>
+    <loc>https://x-parker.github.io/about/index.html</loc>
     
     <lastmod>2024-01-11</lastmod>
     
@@ -176,20 +176,6 @@
   </url>
   
   <url>
-    <loc>https://x-parker.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
-    <lastmod>2024-01-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://x-parker.github.io/tags/%E7%94%B5%E5%BD%B1/</loc>
-    <lastmod>2024-01-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://x-parker.github.io/tags/Git/</loc>
     <lastmod>2024-01-30</lastmod>
     <changefreq>weekly</changefreq>
@@ -198,6 +184,20 @@
   
   <url>
     <loc>https://x-parker.github.io/tags/SSH/</loc>
+    <lastmod>2024-01-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://x-parker.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
+    <lastmod>2024-01-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://x-parker.github.io/tags/%E7%94%B5%E5%BD%B1/</loc>
     <lastmod>2024-01-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -218,14 +218,14 @@
   </url>
   
   <url>
-    <loc>https://x-parker.github.io/tags/Hexo/</loc>
+    <loc>https://x-parker.github.io/tags/Markdown/</loc>
     <lastmod>2024-01-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://x-parker.github.io/tags/Markdown/</loc>
+    <loc>https://x-parker.github.io/tags/Hexo/</loc>
     <lastmod>2024-01-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
