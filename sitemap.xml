@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://x-parker.github.io/2024/01/31/Tomcat%E5%8F%8C%E5%87%BBstartup-bat%E9%97%AA%E9%80%80/</loc>
+    
+    <lastmod>2024-01-31</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://x-parker.github.io/2024/01/25/Hexo-%E9%9A%90%E8%97%8F%E7%89%B9%E5%AE%9A%E6%96%87%E7%AB%A0/</loc>
     
     <lastmod>2024-01-25</lastmod>
@@ -148,7 +157,7 @@
 
   <url>
     <loc>https://x-parker.github.io/</loc>
-    <lastmod>2024-01-30</lastmod>
+    <lastmod>2024-01-31</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -156,77 +165,84 @@
   
   <url>
     <loc>https://x-parker.github.io/tags/CSS/</loc>
-    <lastmod>2024-01-30</lastmod>
+    <lastmod>2024-01-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://x-parker.github.io/tags/Hadoop/</loc>
-    <lastmod>2024-01-30</lastmod>
+    <lastmod>2024-01-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://x-parker.github.io/tags/MapReduce/</loc>
-    <lastmod>2024-01-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://x-parker.github.io/tags/Git/</loc>
-    <lastmod>2024-01-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://x-parker.github.io/tags/SSH/</loc>
-    <lastmod>2024-01-30</lastmod>
+    <lastmod>2024-01-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://x-parker.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
-    <lastmod>2024-01-30</lastmod>
+    <lastmod>2024-01-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://x-parker.github.io/tags/Git/</loc>
+    <lastmod>2024-01-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://x-parker.github.io/tags/SSH/</loc>
+    <lastmod>2024-01-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://x-parker.github.io/tags/%E7%94%B5%E5%BD%B1/</loc>
-    <lastmod>2024-01-30</lastmod>
+    <lastmod>2024-01-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://x-parker.github.io/tags/PowerShell/</loc>
-    <lastmod>2024-01-30</lastmod>
+    <lastmod>2024-01-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://x-parker.github.io/tags/Vue/</loc>
-    <lastmod>2024-01-30</lastmod>
+    <lastmod>2024-01-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://x-parker.github.io/tags/Markdown/</loc>
-    <lastmod>2024-01-30</lastmod>
+    <lastmod>2024-01-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://x-parker.github.io/tags/Hexo/</loc>
-    <lastmod>2024-01-30</lastmod>
+    <lastmod>2024-01-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://x-parker.github.io/tags/Tomcat/</loc>
+    <lastmod>2024-01-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
@@ -235,14 +251,14 @@
   
   <url>
     <loc>https://x-parker.github.io/categories/%E6%8A%80%E6%9C%AF/</loc>
-    <lastmod>2024-01-30</lastmod>
+    <lastmod>2024-01-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://x-parker.github.io/categories/%E7%94%9F%E6%B4%BB/</loc>
-    <lastmod>2024-01-30</lastmod>
+    <lastmod>2024-01-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
