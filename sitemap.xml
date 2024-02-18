@@ -153,13 +153,6 @@
   </url>
   
   <url>
-    <loc>https://x-parker.github.io/tags/MapReduce/</loc>
-    <lastmod>2024-02-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://x-parker.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
     <lastmod>2024-02-18</lastmod>
     <changefreq>weekly</changefreq>
@@ -167,7 +160,7 @@
   </url>
   
   <url>
-    <loc>https://x-parker.github.io/tags/%E7%94%B5%E5%BD%B1/</loc>
+    <loc>https://x-parker.github.io/tags/MapReduce/</loc>
     <lastmod>2024-02-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -195,7 +188,7 @@
   </url>
   
   <url>
-    <loc>https://x-parker.github.io/tags/Markdown/</loc>
+    <loc>https://x-parker.github.io/tags/%E7%94%B5%E5%BD%B1/</loc>
     <lastmod>2024-02-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -210,6 +203,13 @@
   
   <url>
     <loc>https://x-parker.github.io/tags/Tomcat/</loc>
+    <lastmod>2024-02-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://x-parker.github.io/tags/Markdown/</loc>
     <lastmod>2024-02-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
