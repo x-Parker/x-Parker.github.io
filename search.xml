@@ -2179,9 +2179,17 @@
   <entry>
     <title>转载-SpringBoot为什么不需要额外安装Tomcat？</title>
     <url>/2024/03/07/SpringBoot%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E9%9C%80%E8%A6%81%E9%A2%9D%E5%A4%96%E5%AE%89%E8%A3%85Tomcat%EF%BC%9F/</url>
-    <content><![CDATA[<blockquote>
-<p>来源：<a class="link"   href="https://javabetter.cn/springboot/tomcat.html" >https://javabetter.cn/springboot/tomcat.html <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-</blockquote>
+    <content><![CDATA[
+  <div class="note-large yellow">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>来源</p>
+
+    </div>
+    <div class="notel-content">
+      <p><a class="link"   href="https://javabetter.cn/springboot/tomcat.html" >https://javabetter.cn/springboot/tomcat.html <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+
+    </div>
+  </div>
 <p>首次接触 Spring Boot 的时候，绝大多数小伙伴应该和我一样好奇：</p>
 <blockquote>
 <p>为什么 Spring Boot 不需要额外安装 Tomcat 啊？</p>
