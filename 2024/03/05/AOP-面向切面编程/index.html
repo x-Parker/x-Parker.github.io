@@ -30,8 +30,10 @@
 <meta property="og:description" content="1. 基础 1.1 概述 AOP：Aspect Oriented Programming （面向切面编程），即面向特定方法编程。 场景：  统计业务方法的执行耗时 记录操作日志 权限管理 事务管理 ……  AOP的作用： 在程序运行期间在不修改源代码的基础上对已有方法进行增强（无侵入性: 解耦） AOP的优势：  代码无侵入 减少重复代码 提高开发效率 维护方便  1.2 SpringAOP开发步">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s2.loli.net/2024/03/05/KuSYiaOBDHxesMt.png">
+<meta property="og:image" content="https://s2.loli.net/2024/03/06/OZcTQEsKVFRunIm.png">
+<meta property="og:image" content="https://s2.loli.net/2024/03/06/XSDLBROW3YPEdqK.png">
 <meta property="article:published_time" content="2024-03-05T05:51:56.000Z">
-<meta property="article:modified_time" content="2024-03-05T16:43:20.481Z">
+<meta property="article:modified_time" content="2024-03-07T06:40:04.207Z">
 <meta property="article:author" content="Parker">
 <meta property="article:tag" content="JavaWeb">
 <meta name="twitter:card" content="summary">
@@ -603,8 +605,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2024-03-06 00:43:20</span>
-            <span class="mobile">2024-03-06 00:43:20</span>
+            <span class="desktop">2024-03-07 14:40:04</span>
+            <span class="mobile">2024-03-07 14:40:04</span>
             <span class="hover-info">更新</span>
         </span>
     
@@ -642,12 +644,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>1.1k 字</span>
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>2.3k 字</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fa-regular fa-clock"></i>&nbsp;<span>4 分钟</span>
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>8 分钟</span>
         </span>
     
     
@@ -688,16 +690,14 @@
 <h3 id="1-2-SpringAOP开发步骤">1.2 SpringAOP开发步骤</h3>
 <p><strong>需求</strong>：统计各个业务层方法执行耗时</p>
 <p><strong>实现步骤</strong>：</p>
-<ul>
-<li>
-<p>导入依赖：在pom.xml中导入AOP的依赖</p>
-<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-aop<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
-</li>
-<li>
-<p>编写AOP程序：针对于特定方法根据业务需要进行编程</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@Aspect</span>	<span class="comment">// AOP类</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TimeAspect</span> &#123;</span><br><span class="line">    <span class="meta">@Around(&quot;execution(* com.parker.service.*.*(..))&quot;)</span>  <span class="comment">// 切入点表达式：作用于com.parker.service包下所有接口/类的所有方法，形参和返回值均为任意值</span></span><br><span class="line">    <span class="keyword">public</span> Object <span class="title function_">recordTime</span><span class="params">(ProceedingJoinPoint proceedingJoinPoint)</span> <span class="keyword">throws</span> Throwable &#123;</span><br><span class="line">        <span class="comment">// 记录开始时间</span></span><br><span class="line">        <span class="type">long</span> <span class="variable">begin</span> <span class="operator">=</span> System.currentTimeMillis();</span><br><span class="line">        <span class="comment">// 调用原始方法运行</span></span><br><span class="line">        <span class="type">Object</span> <span class="variable">result</span> <span class="operator">=</span> proceedingJoinPoint.proceed();</span><br><span class="line">        <span class="comment">// 记录结束时间</span></span><br><span class="line">        <span class="type">long</span> <span class="variable">end</span> <span class="operator">=</span> System.currentTimeMillis();</span><br><span class="line">        <span class="comment">// 写入日志</span></span><br><span class="line">        log.info(proceedingJoinPoint.getSignature() + <span class="string">&quot;执行耗时：&#123;&#125;ms&quot;</span>, end - begin);</span><br><span class="line">        <span class="comment">// 返回结果</span></span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-</li>
-</ul>
+<ol>
+<li>导入依赖：在项目pom.xml中导入AOP的依赖</li>
+</ol>
+  <div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-aop<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
+<ol start="2">
+<li>编写AOP程序：针对于特定方法根据业务需要进行编程</li>
+</ol>
+  <div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@Aspect</span>	<span class="comment">// AOP类</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TimeAspect</span> &#123;</span><br><span class="line">    <span class="meta">@Around(&quot;execution(* com.parker.service.*.*(..))&quot;)</span>  <span class="comment">// 切入点表达式：作用于com.parker.service包下所有接口/类的所有方法，形参和返回值均为任意值</span></span><br><span class="line">    <span class="keyword">public</span> Object <span class="title function_">recordTime</span><span class="params">(ProceedingJoinPoint proceedingJoinPoint)</span> <span class="keyword">throws</span> Throwable &#123;</span><br><span class="line">        <span class="type">long</span> <span class="variable">begin</span> <span class="operator">=</span> System.currentTimeMillis();	<span class="comment">// 记录开始时间</span></span><br><span class="line">        <span class="type">Object</span> <span class="variable">result</span> <span class="operator">=</span> proceedingJoinPoint.proceed();	<span class="comment">// 调用原始方法运行</span></span><br><span class="line">        <span class="type">long</span> <span class="variable">end</span> <span class="operator">=</span> System.currentTimeMillis();	<span class="comment">// 记录结束时间</span></span><br><span class="line">        log.info(proceedingJoinPoint.getSignature() + <span class="string">&quot;执行耗时：&#123;&#125;ms&quot;</span>, end - begin);	<span class="comment">// 写入日志</span></span><br><span class="line">        <span class="keyword">return</span> result;	<span class="comment">// 返回结果</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 <h3 id="1-3-核心概念">1.3 核心概念</h3>
 <ul>
 <li><strong>连接点：JoinPoint</strong>，可以被AOP控制的方法（暗含方法执行时的相关信息）</li>
@@ -729,11 +729,127 @@
 <li>@Around 环绕通知方法的返回值，必须指定为Object，来接收原始方法的返回值，否则原始方法执行完毕，是获取不到返回值的</li>
 </ul>
 <p>当代码中存在大量重复的切入点表达式时，Spring提供了<code>@PointCut</code>注解，该注解的作用是将公共的切入点表达式抽取出来，需要用到时引用该切入点表达式即可，具体形式如下：</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyAspect1</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//切入点方法（公共的切入点表达式）</span></span><br><span class="line">    <span class="meta">@Pointcut(&quot;execution(* com.parker.service.*.*(..))&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">pt</span><span class="params">()</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//前置通知（引用切入点）</span></span><br><span class="line">    <span class="meta">@Before(&quot;pt()&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">before</span><span class="params">(JoinPoint joinPoint)</span>&#123;</span><br><span class="line">        log.info(<span class="string">&quot;before ...&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//环绕通知（引用切入点）</span></span><br><span class="line">    <span class="meta">@Around(&quot;pt()&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> Object <span class="title function_">around</span><span class="params">(ProceedingJoinPoint proceedingJoinPoint)</span> <span class="keyword">throws</span> Throwable &#123;</span><br><span class="line">        log.info(<span class="string">&quot;around before ...&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//调用目标对象的原始方法执行</span></span><br><span class="line">        <span class="type">Object</span> <span class="variable">result</span> <span class="operator">=</span> proceedingJoinPoint.proceed();</span><br><span class="line">        <span class="comment">//原始方法在执行时：发生异常</span></span><br><span class="line">        <span class="comment">//后续代码不在执行</span></span><br><span class="line"></span><br><span class="line">        log.info(<span class="string">&quot;around after ...&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//后置通知（引用切入点）</span></span><br><span class="line">    <span class="meta">@After(&quot;pt()&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">after</span><span class="params">(JoinPoint joinPoint)</span>&#123;</span><br><span class="line">        log.info(<span class="string">&quot;after ...&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyAspect1</span> &#123;</span><br><span class="line">    <span class="comment">//切入点方法（公共的切入点表达式）</span></span><br><span class="line">    <span class="meta">@Pointcut(&quot;execution(* com.parker.service.*.*(..))&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">pt</span><span class="params">()</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//环绕通知（引用切入点）</span></span><br><span class="line">    <span class="meta">@Around(&quot;pt()&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> Object <span class="title function_">around</span><span class="params">(ProceedingJoinPoint proceedingJoinPoint)</span> <span class="keyword">throws</span> Throwable &#123;</span><br><span class="line">        log.info(<span class="string">&quot;around before ...&quot;</span>);</span><br><span class="line">        <span class="type">Object</span> <span class="variable">result</span> <span class="operator">=</span> proceedingJoinPoint.proceed();</span><br><span class="line">        log.info(<span class="string">&quot;around after ...&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">    ……</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 <p>需要注意的是：当切入点方法使用<code>private</code>修饰时，仅能在当前切面类中引用该表达式， 当外部其他切面类中也要引用当前类中的切入点表达式，就需要把<code>private</code>改为<code>public</code>，而在引用的时候，具体的语法为：<code>全类名.方法名()</code>，具体形式如下：</p>
 <div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyAspect2</span> &#123;</span><br><span class="line">    <span class="comment">//引用MyAspect1切面类中的切入点表达式</span></span><br><span class="line">    <span class="meta">@Before(&quot;com.parker.aspect.MyAspect1.pt()&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">before</span><span class="params">()</span>&#123;</span><br><span class="line">        log.info(<span class="string">&quot;MyAspect2 -&gt; before ...&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 <h3 id="2-2-通知顺序">2.2 通知顺序</h3>
-<p>……</p>
+<p>当在项目开发当中，我们定义了多个切面类，而多个切面类中多个切入点都匹配到了同一个目标方法。此时当目标方法在运行的时候，这多个切面类当中的这些通知方法都会运行。</p>
+<p>在不同切面类中，默认按照切面类的类名字母排序：</p>
+<ul>
+<li>目标方法前的通知方法：字母排名靠前的先执行</li>
+<li>目标方法后的通知方法：字母排名靠前的后执行</li>
+</ul>
+<p>如果我们想控制通知的执行顺序有两种方式：</p>
+<ul>
+<li>
+<p>修改切面类的类名（这种方式非常繁琐、而且不便管理）</p>
+</li>
+<li>
+<p>使用Spring提供的@Order注解，形如：</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="meta">@Order(2)</span>  <span class="comment">// 切面类的执行顺序（前置通知：数字越小先执行; 后置通知：数字越小越后执行）</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyAspect2</span> &#123;</span><br><span class="line">    <span class="meta">@Before(&quot;execution(* com.parker.service.*.*(..))&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">before</span><span class="params">()</span>&#123;</span><br><span class="line">        log.info(<span class="string">&quot;MyAspect2 -&gt; before ...&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    ……</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+</li>
+</ul>
+<h3 id="2-3-切入点表达式">2.3 切入点表达式</h3>
+<p>切入点表达式：</p>
+<ul>
+<li>
+<p>描述切入点方法的一种表达式</p>
+</li>
+<li>
+<p>作用：主要用来决定项目中的哪些方法需要加入通知</p>
+</li>
+<li>
+<p>常见形式：</p>
+<ol>
+<li>
+<p>execution(……)：根据方法的签名来匹配<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/03/06/OZcTQEsKVFRunIm.png"
+                      alt=""
+                ></p>
+</li>
+<li>
+<p>@annotation(……) ：根据注解匹配</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/03/06/XSDLBROW3YPEdqK.png"
+                      alt=""
+                ></p>
+</li>
+</ol>
+</li>
+</ul>
+<h4 id="2-3-1-execution">2.3.1 execution</h4>
+<p>execution主要根据方法的返回值、包名、类名、方法名、方法参数等信息来匹配，语法为：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">execution(访问修饰符?  返回值  包名.类名.?方法名(方法参数) throws 异常?)</span><br></pre></td></tr></table></figure></div>
+<p>其中带<code>?</code>的表示可以省略的部分</p>
+<ul>
+<li>访问修饰符：可省略（比如: public、protected）</li>
+<li>包名.类名： 可省略</li>
+<li>throws 异常：可省略（注意是方法上声明抛出的异常，不是实际抛出的异常）</li>
+</ul>
+<p>可以使用通配符描述切入点</p>
+<ul>
+<li><code>*</code> ：单个独立的任意符号，可以通配任意返回值、包名、类名、方法名、任意类型的一个参数，也可以通配包、类、方法名的一部分</li>
+<li><code>..</code> ：多个连续的任意符号，可以通配任意层级的包，或任意类型、任意个数的参数</li>
+</ul>
+<p>注意事项：</p>
+<ul>
+<li>
+<p>根据业务需要，可以使用 且（&amp;&amp;）、或（||）、非（!） 来组合比较复杂的切入点表达式。形如：</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">execution(* com.itheima.service.DeptService.list(..)) || execution(* com.itheima.service.DeptService.delete(..))</span><br></pre></td></tr></table></figure></div>
+</li>
+</ul>
+<p>切入点表达式的书写建议：</p>
+<ul>
+<li>所有业务方法名在命名时尽量规范，方便切入点表达式快速匹配。如：查询类方法都是 find 开头，更新类方法都是update开头</li>
+<li>描述切入点方法通常基于接口描述，而不是直接描述实现类，增强拓展性</li>
+<li>在满足业务需要的前提下，尽量缩小切入点的匹配范围。如：包名匹配尽量不使用 …，使用 * 匹配单个包</li>
+</ul>
+<h4 id="2-3-2-annotation">2.3.2 @annotation</h4>
+<p>如果我们要匹配多个无规则的方法，比如：list()和 delete()这两个方法。这个时候我们基于execution这种切入点表达式来描述就不是很方便了。此时，我们可以借助于另一种切入点表达式annotation来描述这一类的切入点，从而来简化切入点表达式的书写。</p>
+<p>实现步骤：</p>
+<ol>
+<li>
+<p>编写自定义注解</p>
+</li>
+<li>
+<p>在业务类要作为连接点的方法上添加自定义注解</p>
+</li>
+</ol>
+<p><strong>自定义注解</strong>：MyLog</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target(ElementType.METHOD)</span>	<span class="comment">// 作用域</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span>	<span class="comment">// 作用时间</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> MyLog &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p><strong>业务类</strong>：DeptServiceImpl</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DeptServiceImpl</span> <span class="keyword">implements</span> <span class="title class_">DeptService</span> &#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> DeptMapper deptMapper;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="meta">@MyLog</span> <span class="comment">// 自定义注解（表示：当前方法属于目标方法）</span></span><br><span class="line">    <span class="keyword">public</span> List&lt;Dept&gt; <span class="title function_">list</span><span class="params">()</span> &#123;</span><br><span class="line">        List&lt;Dept&gt; deptList = deptMapper.list();</span><br><span class="line">        <span class="keyword">return</span> deptList;</span><br><span class="line">    &#125;</span><br><span class="line">    ……</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p><strong>切面类</strong></p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyAspect</span> &#123;</span><br><span class="line">    <span class="meta">@Before(&quot;@annotation(com.itheima.anno.MyLog)&quot;)</span>	<span class="comment">// annotation切入点表达式</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">before</span><span class="params">()</span>&#123;</span><br><span class="line">        log.info(<span class="string">&quot;MyAspect -&gt; before ...&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">	……</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h4 id="2-3-3-总结">2.3.3 总结</h4>
+<ul>
+<li>execution切入点表达式
+<ul>
+<li>根据我们所指定的方法的描述信息来匹配切入点方法，这种方式也是最为常用的一种方式</li>
+<li>如果我们要匹配的切入点方法的方法名不规则，或者有一些比较特殊的需求，通过execution切入点表达式描述比较繁琐</li>
+</ul>
+</li>
+<li>annotation切入点表达式
+<ul>
+<li>基于注解的方式来匹配切入点方法。这种方式虽然多一步操作，我们需要自定义一个注解，但是相对来比较灵活。我们需要匹配哪个方法，就在方法上加上对应的注解就可以了</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-4-连接点">2.4 连接点</h3>
+<p>在Spring中用<code>JoinPoint</code>抽象了连接点，用它可以获得方法执行时的相关信息，如目标类名、方法名、方法参数等。</p>
+<ul>
+<li>
+<p>对于@Around通知，获取连接点信息只能使用<code>ProceedingJoinPoint</code>类型</p>
+</li>
+<li>
+<p>对于其他四种通知，获取连接点信息只能使用<code>JoinPoint</code>，它是<code>ProceedingJoinPoint</code>的父类型</p>
+</li>
+</ul>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Before(&quot;execution(* com.itheima.service.DeptService.*(..))&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">before</span><span class="params">(JoinPoint joinPoint)</span> &#123;</span><br><span class="line">	<span class="type">String</span> <span class="variable">className</span> <span class="operator">=</span> joinPoint.getTarget().getClass().getName(); <span class="comment">// 获取目标类名</span></span><br><span class="line">	<span class="type">Signature</span> <span class="variable">signature</span> <span class="operator">=</span> joinPoint.getSignature(); <span class="comment">// 获取目标方法签名</span></span><br><span class="line">	<span class="type">String</span> <span class="variable">methodName</span> <span class="operator">=</span>joinPoint.getSignature().getName(); <span class="comment">// 获取目标方法名</span></span><br><span class="line">	Object[] args = joinPoint.getArgs(); <span class="comment">// 获取目标方法运行参数</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 
         </div>
 
@@ -748,7 +864,7 @@
         
             <li>
                 <strong>更新于
-                    :</strong> 2024-03-06 00:43:20
+                    :</strong> 2024-03-07 14:40:04
             </li>
         
         <li>
@@ -871,7 +987,7 @@
     <div class="post-toc">
         <div class="toc-title">此页目录</div>
         <div class="page-title">AOP-面向切面编程</div>
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%9F%BA%E7%A1%80"><span class="nav-text">1. 基础</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-%E6%A6%82%E8%BF%B0"><span class="nav-text">1.1 概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-SpringAOP%E5%BC%80%E5%8F%91%E6%AD%A5%E9%AA%A4"><span class="nav-text">1.2 SpringAOP开发步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5"><span class="nav-text">1.3 核心概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B"><span class="nav-text">1.4 执行流程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E8%BF%9B%E9%98%B6"><span class="nav-text">2. 进阶</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E9%80%9A%E7%9F%A5%E7%B1%BB%E5%9E%8B"><span class="nav-text">2.1 通知类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E9%80%9A%E7%9F%A5%E9%A1%BA%E5%BA%8F"><span class="nav-text">2.2 通知顺序</span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%9F%BA%E7%A1%80"><span class="nav-text">1. 基础</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-%E6%A6%82%E8%BF%B0"><span class="nav-text">1.1 概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-SpringAOP%E5%BC%80%E5%8F%91%E6%AD%A5%E9%AA%A4"><span class="nav-text">1.2 SpringAOP开发步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5"><span class="nav-text">1.3 核心概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B"><span class="nav-text">1.4 执行流程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E8%BF%9B%E9%98%B6"><span class="nav-text">2. 进阶</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E9%80%9A%E7%9F%A5%E7%B1%BB%E5%9E%8B"><span class="nav-text">2.1 通知类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E9%80%9A%E7%9F%A5%E9%A1%BA%E5%BA%8F"><span class="nav-text">2.2 通知顺序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-%E5%88%87%E5%85%A5%E7%82%B9%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-text">2.3 切入点表达式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-1-execution"><span class="nav-text">2.3.1 execution</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-2-annotation"><span class="nav-text">2.3.2 @annotation</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-3-%E6%80%BB%E7%BB%93"><span class="nav-text">2.3.3 总结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-%E8%BF%9E%E6%8E%A5%E7%82%B9"><span class="nav-text">2.4 连接点</span></a></li></ol></li></ol>
 
     </div>
 </div>
