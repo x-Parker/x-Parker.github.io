@@ -22,15 +22,15 @@
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
-        <meta name="description" content="Parker&#39;s Blog">
+        <meta name="description" content="1. 配置优先级 1.1 配置文件 配置文件优先级排名（从高到低）：  properties配置文件 yml配置文件 yaml配置文件  注意事项：虽然SpringBoot支持多种格式配置文件，但是在项目开发时，推荐统一使用一种格式的配置。（yml是主流） 1.2 系统属性和命令行参数 在SpringBoot项目当中除了以上3种配置文件外，SpringBoot为了增强程序的扩展性，除了支持配置文件">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SpringBoot 原理">
 <meta property="og:url" content="https://x-parker.github.io/2024/03/07/SpringBoot%E5%8E%9F%E7%90%86/index.html">
 <meta property="og:site_name" content="Parker&#39;s Blog">
-<meta property="og:description" content="Parker&#39;s Blog">
+<meta property="og:description" content="1. 配置优先级 1.1 配置文件 配置文件优先级排名（从高到低）：  properties配置文件 yml配置文件 yaml配置文件  注意事项：虽然SpringBoot支持多种格式配置文件，但是在项目开发时，推荐统一使用一种格式的配置。（yml是主流） 1.2 系统属性和命令行参数 在SpringBoot项目当中除了以上3种配置文件外，SpringBoot为了增强程序的扩展性，除了支持配置文件">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-03-07T11:25:25.000Z">
-<meta property="article:modified_time" content="2024-03-07T12:12:30.898Z">
+<meta property="article:modified_time" content="2024-03-07T13:13:55.578Z">
 <meta property="article:author" content="Parker">
 <meta property="article:tag" content="JavaWeb">
 <meta name="twitter:card" content="summary">
@@ -601,8 +601,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2024-03-07 20:12:30</span>
-            <span class="mobile">2024-03-07 20:12:30</span>
+            <span class="desktop">2024-03-07 21:13:55</span>
+            <span class="mobile">2024-03-07 21:13:55</span>
             <span class="hover-info">更新</span>
         </span>
     
@@ -639,6 +639,10 @@
 
     
     
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>307 字</span>
+        </span>
+    
     
         <span class="article-min2read article-meta-item">
             <i class="fa-regular fa-clock"></i>&nbsp;<span>1 分钟</span>
@@ -660,7 +664,40 @@
 
 
         <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
-            
+            <h2 id="1-配置优先级">1. 配置优先级</h2>
+<h3 id="1-1-配置文件">1.1 配置文件</h3>
+<p>配置文件优先级排名（从高到低）：</p>
+<ol>
+<li>properties配置文件</li>
+<li>yml配置文件</li>
+<li>yaml配置文件</li>
+</ol>
+<p>注意事项：虽然SpringBoot支持多种格式配置文件，但是在项目开发时，推荐统一使用一种格式的配置。（yml是主流）</p>
+<h3 id="1-2-系统属性和命令行参数">1.2 系统属性和命令行参数</h3>
+<p>在SpringBoot项目当中除了以上3种配置文件外，SpringBoot为了增强程序的扩展性，除了支持配置文件的配置方式以外，还支持另外两种常见的配置方式：</p>
+<ol>
+<li>
+<p>Java系统属性配置 （格式： -Dkey=value）</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-Dserver.port=9000</span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>命令行参数 （格式：–key=value）</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--server.port=10010</span><br></pre></td></tr></table></figure></div>
+</li>
+</ol>
+<p>思考：如果项目已经打包上线了，这个时候我们又如何来设置Java系统属性和命令行参数呢？</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java [-Dserver.port=9000] -jar XXXXX.jar [--server.port=10010]</span><br></pre></td></tr></table></figure></div>
+<h3 id="1-3-总结">1.3 总结</h3>
+<p>在SpringBoot项目当中，常见的属性配置方式有5种： 3种配置文件，加上2种外部属性的配置(Java系统属性、命令行参数)，优先级从高到低：</p>
+<ol>
+<li>命令行参数（–xxx=xxx）</li>
+<li>java系统属性（-Dxxx=xxx）</li>
+<li>application.properties</li>
+<li>application.yml</li>
+<li>application.yaml（忽略）</li>
+</ol>
+<h2 id="2-Bean管理">2. Bean管理</h2>
+
         </div>
 
         
@@ -674,7 +711,7 @@
         
             <li>
                 <strong>更新于
-                    :</strong> 2024-03-07 20:12:30
+                    :</strong> 2024-03-07 21:13:55
             </li>
         
         <li>
@@ -797,7 +834,7 @@
     <div class="post-toc">
         <div class="toc-title">此页目录</div>
         <div class="page-title">SpringBoot 原理</div>
-        
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E9%85%8D%E7%BD%AE%E4%BC%98%E5%85%88%E7%BA%A7"><span class="nav-text">1. 配置优先级</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-text">1.1 配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-%E7%B3%BB%E7%BB%9F%E5%B1%9E%E6%80%A7%E5%92%8C%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%8F%82%E6%95%B0"><span class="nav-text">1.2 系统属性和命令行参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-%E6%80%BB%E7%BB%93"><span class="nav-text">1.3 总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Bean%E7%AE%A1%E7%90%86"><span class="nav-text">2. Bean管理</span></a></li></ol>
 
     </div>
 </div>
