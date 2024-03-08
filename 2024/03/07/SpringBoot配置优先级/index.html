@@ -17,20 +17,20 @@
     
     <!--- Seo Part-->
     
-    <link rel="canonical" href="https://x-parker.github.io/2024/03/08/spring-注解之-restcontroller与-controller的区别/"/>
+    <link rel="canonical" href="https://x-parker.github.io/2024/03/07/springboot配置优先级/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
-        <meta name="description" content="链接                  https:&#x2F;&#x2F;www.cnblogs.com&#x2F;east7&#x2F;p&#x2F;10462279.html">
+        <meta name="description" content="1. 配置文件 配置文件优先级排名（从高到低）：  properties配置文件 yml配置文件 yaml配置文件  注意事项：虽然SpringBoot支持多种格式配置文件，但是在项目开发时，推荐统一使用一种格式的配置。（yml是主流） 2. 系统属性和命令行参数 在SpringBoot项目当中除了以上3种配置文件外，SpringBoot为了增强程序的扩展性，除了支持配置文件的配置方式以外，还支持">
 <meta property="og:type" content="article">
-<meta property="og:title" content="转载 - Spring 注解之 @RestController 与 @Controller 的区别">
-<meta property="og:url" content="https://x-parker.github.io/2024/03/08/Spring-%E6%B3%A8%E8%A7%A3%E4%B9%8B-RestController%E4%B8%8E-Controller%E7%9A%84%E5%8C%BA%E5%88%AB/index.html">
+<meta property="og:title" content="SpringBoot 配置的优先级">
+<meta property="og:url" content="https://x-parker.github.io/2024/03/07/SpringBoot%E9%85%8D%E7%BD%AE%E4%BC%98%E5%85%88%E7%BA%A7/index.html">
 <meta property="og:site_name" content="Parker&#39;s Blog">
-<meta property="og:description" content="链接                  https:&#x2F;&#x2F;www.cnblogs.com&#x2F;east7&#x2F;p&#x2F;10462279.html">
+<meta property="og:description" content="1. 配置文件 配置文件优先级排名（从高到低）：  properties配置文件 yml配置文件 yaml配置文件  注意事项：虽然SpringBoot支持多种格式配置文件，但是在项目开发时，推荐统一使用一种格式的配置。（yml是主流） 2. 系统属性和命令行参数 在SpringBoot项目当中除了以上3种配置文件外，SpringBoot为了增强程序的扩展性，除了支持配置文件的配置方式以外，还支持">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-03-08T06:26:19.000Z">
-<meta property="article:modified_time" content="2024-03-08T06:31:11.171Z">
+<meta property="article:published_time" content="2024-03-07T11:25:25.000Z">
+<meta property="article:modified_time" content="2024-03-08T08:50:46.964Z">
 <meta property="article:author" content="Parker">
 <meta property="article:tag" content="Spring">
 <meta name="twitter:card" content="summary">
@@ -55,7 +55,7 @@
     
     <title>
         
-            转载 - Spring 注解之 @RestController 与 @Controller 的区别 -
+            SpringBoot 配置的优先级 -
         
         Parker&#39;s Blog
     </title>
@@ -549,7 +549,7 @@
         <div class="label text-third-text-color text-sm">分类</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">17</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">18</div>
         <div class="label text-third-text-color text-sm">文章</div>
     </a>
 </div>
@@ -575,7 +575,7 @@
         <div class="article-title relative w-full">
             
                 <div class="w-full flex items-center pt-6 justify-start">
-                    <h1 class="article-title-regular text-second-text-color text-4xl md:text-6xl font-bold px-2 sm:px-6 md:px-8 py-3">转载 - Spring 注解之 @RestController 与 @Controller 的区别</h1>
+                    <h1 class="article-title-regular text-second-text-color text-4xl md:text-6xl font-bold px-2 sm:px-6 md:px-8 py-3">SpringBoot 配置的优先级</h1>
                 </div>
             
             </div>
@@ -594,15 +594,15 @@
                         <div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fa-regular fa-pen-fancy"></i>&nbsp;
-        <span class="desktop">2024-03-08 14:26:19</span>
-        <span class="mobile">2024-03-08 14:26:19</span>
+        <span class="desktop">2024-03-07 19:25:25</span>
+        <span class="mobile">2024-03-07 19:25:25</span>
         <span class="hover-info">创建</span>
     </span>
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2024-03-08 14:31:11</span>
-            <span class="mobile">2024-03-08 14:31:11</span>
+            <span class="desktop">2024-03-08 16:50:46</span>
+            <span class="mobile">2024-03-08 16:50:46</span>
             <span class="hover-info">更新</span>
         </span>
     
@@ -616,7 +616,7 @@
                     
                         
                         <li>
-                            <a href="/categories/%E8%BD%AC%E8%BD%BD/">转载</a>&nbsp;
+                            <a href="/categories/Java%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">Java学习笔记</a>&nbsp;
                         </li>
                     
                     
@@ -640,7 +640,7 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>10 字</span>
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>294 字</span>
         </span>
     
     
@@ -664,17 +664,37 @@
 
 
         <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
-            
-  <div class="note-large yellow">
-    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
-      <p>链接</p>
-
-    </div>
-    <div class="notel-content">
-      <p><a class="link"   target="_blank" rel="noopener" href="https://www.cnblogs.com/east7/p/10462279.html" >https://www.cnblogs.com/east7/p/10462279.html <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-
-    </div>
-  </div>
+            <h2 id="1-配置文件">1. 配置文件</h2>
+<p>配置文件优先级排名（从高到低）：</p>
+<ol>
+<li>properties配置文件</li>
+<li>yml配置文件</li>
+<li>yaml配置文件</li>
+</ol>
+<p>注意事项：虽然SpringBoot支持多种格式配置文件，但是在项目开发时，推荐统一使用一种格式的配置。（yml是主流）</p>
+<h2 id="2-系统属性和命令行参数">2. 系统属性和命令行参数</h2>
+<p>在SpringBoot项目当中除了以上3种配置文件外，SpringBoot为了增强程序的扩展性，除了支持配置文件的配置方式以外，还支持另外两种常见的配置方式：</p>
+<ol>
+<li>
+<p>Java系统属性配置 （格式： -Dkey=value）</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-Dserver.port=9000</span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>命令行参数 （格式：–key=value）</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--server.port=10010</span><br></pre></td></tr></table></figure></div>
+</li>
+</ol>
+<p>思考：如果项目已经打包上线了，这个时候我们又如何来设置Java系统属性和命令行参数呢？</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java [-Dserver.port=9000] -jar XXXXX.jar [--server.port=10010]</span><br></pre></td></tr></table></figure></div>
+<h2 id="3-总结">3. 总结</h2>
+<p>在SpringBoot项目当中，常见的属性配置方式有5种： 3种配置文件，加上2种外部属性的配置(Java系统属性、命令行参数)，优先级从高到低：</p>
+<ol>
+<li>命令行参数（–xxx=xxx）</li>
+<li>java系统属性（-Dxxx=xxx）</li>
+<li>application.properties</li>
+<li>application.yml</li>
+<li>application.yaml（忽略）</li>
+</ol>
 
         </div>
 
@@ -682,18 +702,18 @@
             <div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
                 <div class="article-copyright-info-container">
     <ul>
-        <li><strong>标题:</strong> 转载 - Spring 注解之 @RestController 与 @Controller 的区别</li>
+        <li><strong>标题:</strong> SpringBoot 配置的优先级</li>
         <li><strong>作者:</strong> Parker</li>
         <li><strong>创建于
-                :</strong> 2024-03-08 14:26:19</li>
+                :</strong> 2024-03-07 19:25:25</li>
         
             <li>
                 <strong>更新于
-                    :</strong> 2024-03-08 14:31:11
+                    :</strong> 2024-03-08 16:50:46
             </li>
         
         <li>
-            <strong>链接:</strong> https://x-parker.github.io/2024/03/08/Spring-注解之-RestController与-Controller的区别/
+            <strong>链接:</strong> https://x-parker.github.io/2024/03/07/SpringBoot配置优先级/
         </li>
         <li>
             <strong>
@@ -729,13 +749,13 @@
                     <div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
                         <a class="prev"
                         rel="prev"
-                        href="/2024/03/08/IOC-%E5%AE%B9%E5%99%A8%E5%AF%B9-Bean-%E7%9A%84%E5%91%BD%E5%90%8D%E8%A7%84%E5%88%99/"
+                        href="/2024/03/07/%E8%BD%AC%E8%BD%BD-SpringBoot%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E9%9C%80%E8%A6%81%E9%A2%9D%E5%A4%96%E5%AE%89%E8%A3%85Tomcat%EF%BC%9F/"
                         >
                             <span class="left arrow-icon flex justify-center items-center">
                                 <i class="fa-solid fa-chevron-left"></i>
                             </span>
                             <span class="title flex justify-center items-center">
-                                <span class="post-nav-title-item">IOC 容器对 Bean 的命名规则</span>
+                                <span class="post-nav-title-item">转载 - SpringBoot 为什么不需要额外安装 Tomcat ？</span>
                                 <span class="post-nav-item">上一篇</span>
                             </span>
                         </a>
@@ -745,10 +765,10 @@
                     <div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
                         <a class="next"
                         rel="next"
-                        href="/2024/03/07/%E8%BD%AC%E8%BD%BD-SpringBoot%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E9%9C%80%E8%A6%81%E9%A2%9D%E5%A4%96%E5%AE%89%E8%A3%85Tomcat%EF%BC%9F/"
+                        href="/2024/03/05/%E5%AE%9E%E7%8E%B0Windows%E7%8E%AF%E5%A2%83%E4%B8%8BThunderbird%E9%82%AE%E4%BB%B6%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%87%AA%E5%90%AF%E5%8A%A8/"
                         >
                             <span class="title flex justify-center items-center">
-                                <span class="post-nav-title-item">转载 - SpringBoot 为什么不需要额外安装 Tomcat ？</span>
+                                <span class="post-nav-title-item">实现 Windows 环境下 Thunderbird 邮件客户端自启动</span>
                                 <span class="post-nav-item">下一篇</span>
                             </span>
                             <span class="right arrow-icon flex justify-center items-center">
@@ -811,8 +831,8 @@
             <div class="post-toc-wrap">
     <div class="post-toc">
         <div class="toc-title">此页目录</div>
-        <div class="page-title">转载 - Spring 注解之 @RestController 与 @Controller 的区别</div>
-        
+        <div class="page-title">SpringBoot 配置的优先级</div>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-text">1. 配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E7%B3%BB%E7%BB%9F%E5%B1%9E%E6%80%A7%E5%92%8C%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%8F%82%E6%95%B0"><span class="nav-text">2. 系统属性和命令行参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E6%80%BB%E7%BB%93"><span class="nav-text">3. 总结</span></a></li></ol>
 
     </div>
 </div>
