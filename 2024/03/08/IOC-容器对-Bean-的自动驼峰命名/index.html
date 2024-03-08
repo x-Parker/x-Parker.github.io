@@ -17,28 +17,23 @@
     
     <!--- Seo Part-->
     
-    <link rel="canonical" href="https://x-parker.github.io/2024/01/11/mapreduce配置与操作/"/>
+    <link rel="canonical" href="https://x-parker.github.io/2024/03/08/ioc-容器对-bean-的自动驼峰命名/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
-        <meta name="description" content="一、通过eclipse连接hadoop 1. 主要步骤   安装eclipse   安装Hadoop-Eclipse-Plugin   配置Hadoop-Eclipse-Plugin   参考资料已给出此部分详细步骤，因此此处不再展开，仅给出实现效果如下：  2. 参考资料  windows10上使用Eclipse配置Hadoop开发环境详细步骤+WordCount示例   3. 遇到的问题">
+        <meta name="description" content="在 Spring 中，IOC（控制反转）容器可以自动识别并创建 Bean，而且它默认遵循一定的命名规则。Spring 的 IOC 容器在自动识别 Bean 时通常使用的是基于类名的驼峰命名规则。 如果类名以大写字母开头，Spring 将会把它转换为以小写字母开头，并且在容器中注册为 Bean。 例如，假设你有一个名为 UserService 的类，Spring IOC 容器会将它识别为 userS">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MapReduce 配置与操作">
-<meta property="og:url" content="https://x-parker.github.io/2024/01/11/MapReduce%E9%85%8D%E7%BD%AE%E4%B8%8E%E6%93%8D%E4%BD%9C/index.html">
+<meta property="og:title" content="IOC 容器对 Bean 的自动驼峰命名">
+<meta property="og:url" content="https://x-parker.github.io/2024/03/08/IOC-%E5%AE%B9%E5%99%A8%E5%AF%B9-Bean-%E7%9A%84%E8%87%AA%E5%8A%A8%E9%A9%BC%E5%B3%B0%E5%91%BD%E5%90%8D/index.html">
 <meta property="og:site_name" content="Parker&#39;s Blog">
-<meta property="og:description" content="一、通过eclipse连接hadoop 1. 主要步骤   安装eclipse   安装Hadoop-Eclipse-Plugin   配置Hadoop-Eclipse-Plugin   参考资料已给出此部分详细步骤，因此此处不再展开，仅给出实现效果如下：  2. 参考资料  windows10上使用Eclipse配置Hadoop开发环境详细步骤+WordCount示例   3. 遇到的问题">
+<meta property="og:description" content="在 Spring 中，IOC（控制反转）容器可以自动识别并创建 Bean，而且它默认遵循一定的命名规则。Spring 的 IOC 容器在自动识别 Bean 时通常使用的是基于类名的驼峰命名规则。 如果类名以大写字母开头，Spring 将会把它转换为以小写字母开头，并且在容器中注册为 Bean。 例如，假设你有一个名为 UserService 的类，Spring IOC 容器会将它识别为 userS">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://s2.loli.net/2023/11/17/5e8bfMxDjoOsPVL.png">
-<meta property="og:image" content="https://s2.loli.net/2023/11/17/o6ERhliMpC85qPm.png">
-<meta property="og:image" content="https://s2.loli.net/2023/11/17/3dmlWo9A8LMwkSU.png">
-<meta property="article:published_time" content="2024-01-11T13:06:44.000Z">
-<meta property="article:modified_time" content="2024-02-02T09:00:39.294Z">
+<meta property="article:published_time" content="2024-03-08T06:53:50.000Z">
+<meta property="article:modified_time" content="2024-03-08T06:59:57.902Z">
 <meta property="article:author" content="Parker">
-<meta property="article:tag" content="MapReduce">
-<meta property="article:tag" content="Hadoop">
+<meta property="article:tag" content="Spring">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://s2.loli.net/2023/11/17/5e8bfMxDjoOsPVL.png">
     
     
         <!-- Google tag (gtag.js) -->
@@ -60,7 +55,7 @@
     
     <title>
         
-            MapReduce 配置与操作 -
+            IOC 容器对 Bean 的自动驼峰命名 -
         
         Parker&#39;s Blog
     </title>
@@ -580,7 +575,7 @@
         <div class="article-title relative w-full">
             
                 <div class="w-full flex items-center pt-6 justify-start">
-                    <h1 class="article-title-regular text-second-text-color text-4xl md:text-6xl font-bold px-2 sm:px-6 md:px-8 py-3">MapReduce 配置与操作</h1>
+                    <h1 class="article-title-regular text-second-text-color text-4xl md:text-6xl font-bold px-2 sm:px-6 md:px-8 py-3">IOC 容器对 Bean 的自动驼峰命名</h1>
                 </div>
             
             </div>
@@ -599,15 +594,15 @@
                         <div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fa-regular fa-pen-fancy"></i>&nbsp;
-        <span class="desktop">2024-01-11 21:06:44</span>
-        <span class="mobile">2024-01-11 21:06:44</span>
+        <span class="desktop">2024-03-08 14:53:50</span>
+        <span class="mobile">2024-03-08 14:53:50</span>
         <span class="hover-info">创建</span>
     </span>
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2024-02-02 17:39</span>
-            <span class="mobile">2024-02-02 17:39</span>
+            <span class="desktop">2024-03-08 14:59:57</span>
+            <span class="mobile">2024-03-08 14:59:57</span>
             <span class="hover-info">更新</span>
         </span>
     
@@ -621,7 +616,7 @@
                     
                         
                         <li>
-                            <a href="/categories/%E6%8A%80%E6%9C%AF/">技术</a>&nbsp;
+                            <a href="/categories/Java%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">Java学习笔记</a>&nbsp;
                         </li>
                     
                     
@@ -635,11 +630,7 @@
             <ul>
                 
                     <li>
-                        <a href="/tags/MapReduce/">MapReduce</a>&nbsp;
-                    </li>
-                
-                    <li>
-                        | <a href="/tags/Hadoop/">Hadoop</a>&nbsp;
+                        <a href="/tags/Spring/">Spring</a>&nbsp;
                     </li>
                 
             </ul>
@@ -649,12 +640,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>953 字</span>
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>282 字</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fa-regular fa-clock"></i>&nbsp;<span>4 分钟</span>
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>1 分钟</span>
         </span>
     
     
@@ -673,135 +664,13 @@
 
 
         <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
-            <h3 id="一、通过eclipse连接hadoop">一、通过eclipse连接hadoop</h3>
-<h4 id="1-主要步骤">1. 主要步骤</h4>
-<ul>
-<li>
-<p>安装eclipse</p>
-</li>
-<li>
-<p>安装Hadoop-Eclipse-Plugin</p>
-</li>
-<li>
-<p>配置Hadoop-Eclipse-Plugin</p>
-</li>
-</ul>
-<p>参考资料已给出此部分详细步骤，因此此处不再展开，仅给出实现效果如下：</p>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2023/11/17/5e8bfMxDjoOsPVL.png"
-                      style="zoom: 67%;" 
-                >
-<h4 id="2-参考资料">2. 参考资料</h4>
-<ul>
-<li><a class="link"   target="_blank" rel="noopener" href="https://blog.csdn.net/u010185220/article/details/79095179" >windows10上使用Eclipse配置Hadoop开发环境详细步骤+WordCount示例 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-</ul>
-<h4 id="3-遇到的问题">3. 遇到的问题</h4>
-<ul>
-<li>
-<h5 id="新添加的插件在Eclipse中不显示">新添加的插件在Eclipse中不显示</h5>
-<ul>
-<li>
-<p>解决方法</p>
-<p>在 <code>eclipse/configuration</code> 目录下的 <code>config.ini</code> 文件中加入一行 : <code>osgi.checkConfiguration=true</code>，这样它就会寻找并安装插件。</p>
-</li>
-<li>
-<p>参考资料</p>
-<p><a class="link"   target="_blank" rel="noopener" href="https://blog.csdn.net/qq_38789941/article/details/86244990" >Eclipse 安装插件后不显示的解决办法 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="二、WordCount示例">二、WordCount示例</h3>
-<h4 id="1-主要步骤-2">1. 主要步骤</h4>
-<p>参考资料已给出此部分详细步骤，因此此处仅列举出主要步骤。</p>
-<ul>
-<li>
-<p>新建项目</p>
-</li>
-<li>
-<p>在项目的src目录下创建<code>WordCount.java</code>类，内容如下：</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> Package;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.util.StringTokenizer;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.conf.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.fs.Path;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.IntWritable;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.Text;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.Job;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.Mapper;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.Reducer;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.lib.input.FileInputFormat;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.util.GenericOptionsParser;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">WordCount</span> &#123;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">TokenizerMapper</span> <span class="keyword">extends</span> <span class="title class_">Mapper</span>&lt;Object, Text, Text, IntWritable&gt; &#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="type">IntWritable</span> <span class="variable">one</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">IntWritable</span>(<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">private</span> <span class="type">Text</span> <span class="variable">word</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Text</span>();</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">map</span><span class="params">(Object key, Text value, Context context)</span> <span class="keyword">throws</span> IOException, InterruptedException &#123;</span><br><span class="line">            <span class="type">StringTokenizer</span> <span class="variable">itr</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringTokenizer</span>(value.toString());</span><br><span class="line">            <span class="keyword">while</span> (itr.hasMoreTokens()) &#123;</span><br><span class="line">                word.set(itr.nextToken());</span><br><span class="line">                context.write(word, one);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">IntSumReducer</span> <span class="keyword">extends</span> <span class="title class_">Reducer</span>&lt;Text, IntWritable, Text, IntWritable&gt; &#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="type">IntWritable</span> <span class="variable">result</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">IntWritable</span>();</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">reduce</span><span class="params">(Text key, Iterable&lt;IntWritable&gt; values, Context context)</span></span><br><span class="line">                <span class="keyword">throws</span> IOException, InterruptedException &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">sum</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span> (IntWritable val : values) &#123;</span><br><span class="line">                sum += val.get();</span><br><span class="line">            &#125;</span><br><span class="line">            result.set(sum);</span><br><span class="line">            context.write(key, result);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="type">Configuration</span> <span class="variable">conf</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Configuration</span>();</span><br><span class="line">        String[] otherArgs = <span class="keyword">new</span> <span class="title class_">GenericOptionsParser</span>(conf, args).getRemainingArgs();</span><br><span class="line">        <span class="keyword">if</span> (otherArgs.length != <span class="number">2</span>) &#123;</span><br><span class="line">            System.err.println(<span class="string">&quot;Usage: wordcount &lt;in&gt; &lt;out&gt;&quot;</span>);</span><br><span class="line">            System.exit(<span class="number">2</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="meta">@SuppressWarnings(&quot;deprecation&quot;)</span></span><br><span class="line">		<span class="type">Job</span> <span class="variable">job</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Job</span>(conf, <span class="string">&quot;word count&quot;</span>);</span><br><span class="line">        job.setJarByClass(WordCount.class);</span><br><span class="line">        job.setMapperClass(TokenizerMapper.class);</span><br><span class="line">        job.setCombinerClass(IntSumReducer.class);</span><br><span class="line">        job.setReducerClass(IntSumReducer.class);</span><br><span class="line">        job.setOutputKeyClass(Text.class);</span><br><span class="line">        job.setOutputValueClass(IntWritable.class);</span><br><span class="line">        FileInputFormat.addInputPath(job, <span class="keyword">new</span> <span class="title class_">Path</span>(otherArgs[<span class="number">0</span>]));</span><br><span class="line">        FileOutputFormat.setOutputPath(job, <span class="keyword">new</span> <span class="title class_">Path</span>(otherArgs[<span class="number">1</span>]));</span><br><span class="line">        System.exit(job.waitForCompletion(<span class="literal">true</span>) ? <span class="number">0</span> : <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-</li>
-<li>
-<p>在项目的src目录下创建<code>log4j.properties</code>文件，内容如下：</p>
-<div class="highlight-container" data-rel="Properties"><figure class="iseeu highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Configure logging for testing:optionally with log file </span></span><br><span class="line"><span class="comment">#log4j.rootLogger=debug,appender </span></span><br><span class="line"><span class="attr">log4j.rootLogger</span>=<span class="string">info,appender </span></span><br><span class="line"><span class="comment">#log4j.rootLogger=error,appender </span></span><br><span class="line"><span class="comment">#\u8F93\u51FA\u5230\u63A7\u5236\u53F0 </span></span><br><span class="line"><span class="attr">log4j.appender.appender</span>=<span class="string">org.apache.log4j.ConsoleAppender </span></span><br><span class="line"><span class="comment">#\u6837\u5F0F\u4E3ATTCCLayout </span></span><br><span class="line"><span class="attr">log4j.appender.appender.layout</span>=<span class="string">org.apache.log4j.TTCCLayout</span></span><br></pre></td></tr></table></figure></div>
-</li>
-<li>
-<p>配置运行参数</p>
-</li>
-<li>
-<p>运行</p>
-</li>
-</ul>
-<h4 id="2-运行结果">2. 运行结果</h4>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2023/11/17/o6ERhliMpC85qPm.png"
-                      alt=""
-                ></p>
-<p>其中，<code>word.txt</code> 文件内容如下：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">a</span><br><span class="line">a</span><br><span class="line">a</span><br><span class="line"></span><br><span class="line">b</span><br><span class="line">b</span><br><span class="line">b</span><br><span class="line"></span><br><span class="line">c</span><br><span class="line">c</span><br><span class="line">c</span><br><span class="line"></span><br><span class="line">d</span><br><span class="line">e</span><br><span class="line">f</span><br><span class="line"></span><br><span class="line">hello hadoop !</span><br><span class="line">hello world !</span><br></pre></td></tr></table></figure></div>
-<p>程序输出 <code>hdfs://192.168.242.129:9000/hadoop-user/output.txt/part-r-00000</code> 文件内容如下：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">!	2</span><br><span class="line">a	3</span><br><span class="line">b	3</span><br><span class="line">c	3</span><br><span class="line">d	1</span><br><span class="line">e	1</span><br><span class="line">f	1</span><br><span class="line">hadoop	1</span><br><span class="line">hello	2</span><br><span class="line">world	1</span><br></pre></td></tr></table></figure></div>
-<p>词频统计结果无误。</p>
-<h4 id="3-参考资料">3. 参考资料</h4>
-<ul>
-<li><a class="link"   target="_blank" rel="noopener" href="https://cwiki.apache.org/confluence/display/HADOOP2/WordCount" >WordCount Example <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li><a class="link"   target="_blank" rel="noopener" href="https://blog.csdn.net/u010185220/article/details/79095179" >windows10上使用Eclipse配置Hadoop开发环境详细步骤+WordCount示例 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-</ul>
-<h4 id="4-遇到的问题">4. 遇到的问题</h4>
-<ul>
-<li>
-<h5 id="环境变量问题">环境变量问题</h5>
-<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Exception in thread &quot;main&quot; java.lang.RuntimeException: java.io.FileNotFoundException: java.io.FileNotFoundException: HADOOP_HOME and hadoop.home.dir are unset.</span><br></pre></td></tr></table></figure></div>
-<ul>
-<li>
-<p>问题分析</p>
-<p>从错误信息中可以看到，Hadoop在执行<code>Shell.getWinUtilsPath</code>的时候抛出了异常。这是因为Hadoop在进行某些本地文件系统操作时，依赖于一些环境变量，其中包括<code>HADOOP_HOME</code>。这两个变量都没有被正确设置，导致了<code>FileNotFoundException</code>。</p>
-</li>
-<li>
-<p>解决方法</p>
-<p>在项目运行配置中指定<code>HADOOP_HOME</code>环境变量及其值：<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2023/11/17/3dmlWo9A8LMwkSU.png"
-                      alt=""
-                ></p>
-</li>
-<li>
-<p>参考资料</p>
-<ul>
-<li><a class="link"   target="_blank" rel="noopener" href="https://cwiki.apache.org/confluence/display/HADOOP2/WindowsProblems" >Problems running Hadoop on Windows <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li>
-<h5 id="权限错误问题">权限错误问题</h5>
-<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[Thread-5] WARN org.apache.hadoop.mapred.LocalJobRunner - job_local2147375942_0001</span><br><span class="line">org.apache.hadoop.security.AccessControlException: Permission denied: user=23876, access=WRITE, inode=&quot;/hadoop-user&quot;:root:supergroup:drwxr-xr-x</span><br><span class="line">[main] INFO org.apache.hadoop.mapreduce.Job - Job job_local2147375942_0001 failed with state FAILED due to: NA</span><br></pre></td></tr></table></figure></div>
-<ul>
-<li>
-<p>问题分析</p>
-<p>这个错误表明在本地运行作业时，用户尝试写入目录<code>/hadoop-user</code>时遇到权限问题，并导致作业以失败结束。</p>
-</li>
-<li>
-<p>解决方法</p>
-<p>在master节点中执行以下代码，以赋予当前用户对目标HDFS文件夹的写权限：</p>
-<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo chmod -R 777 /hadoop-user/</span><br></pre></td></tr></table></figure></div>
-</li>
-<li>
-<p>参考资料</p>
-<ul>
-<li><a class="link"   target="_blank" rel="noopener" href="https://hadoop.apache.org/docs/r1.0.4/cn/hdfs_permissions_guide.html#%E8%B6%85%E7%BA%A7%E7%94%A8%E6%88%B7" >HDFS权限管理用户指南 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li><a class="link"   target="_blank" rel="noopener" href="https://www.cnblogs.com/yinzhengjie2020/p/13737254.html" >HDFS权限管理篇-博客园 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
+            <p>在 Spring 中，IOC（控制反转）容器可以自动识别并创建 Bean，而且它默认遵循一定的命名规则。Spring 的 IOC 容器在自动识别 Bean 时通常使用的是<strong>基于类名的驼峰命名规则</strong>。</p>
+<p><strong>如果类名以大写字母开头，Spring 将会把它转换为以小写字母开头，并且在容器中注册为 Bean。</strong></p>
+<p>例如，假设你有一个名为 <code>UserService</code> 的类，Spring IOC 容器会将它识别为 <code>userService</code> 的 Bean。类似地，<code>UserServiceImpl</code> 会变成 <code>userServiceImpl</code>。</p>
+<p>这种自动的 Bean 命名规则存在于 Spring 的默认行为中，这样开发者就不需要显式地在配置文件或注解中指定 Bean 的名称，Spring 会根据类名来自动推断。</p>
+<p>但是，如果开发者想要<strong>自定义 Bean 的名称</strong>，可以使用 <code>@Component</code>、<code>@Service</code>、<code>@Repository</code> 等注解，并<strong>在括号中指定 Bean 的名称</strong>，例如：</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service(&quot;myCustomService&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyCustomServiceImpl</span> <span class="keyword">implements</span> <span class="title class_">MyCustomService</span> &#123;</span><br><span class="line">    <span class="comment">// 实现代码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>在这个例子中，<code>MyCustomServiceImpl</code> 类会被注册到 Spring 容器中，并且 Bean 的名称将会是 <code>myCustomService</code>，而不是自动推断的 <code>myCustomServiceImpl</code>。</p>
 
         </div>
 
@@ -809,18 +678,18 @@
             <div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
                 <div class="article-copyright-info-container">
     <ul>
-        <li><strong>标题:</strong> MapReduce 配置与操作</li>
+        <li><strong>标题:</strong> IOC 容器对 Bean 的自动驼峰命名</li>
         <li><strong>作者:</strong> Parker</li>
         <li><strong>创建于
-                :</strong> 2024-01-11 21:06:44</li>
+                :</strong> 2024-03-08 14:53:50</li>
         
             <li>
                 <strong>更新于
-                    :</strong> 2024-02-02 17:00:39
+                    :</strong> 2024-03-08 14:59:57
             </li>
         
         <li>
-            <strong>链接:</strong> https://x-parker.github.io/2024/01/11/MapReduce配置与操作/
+            <strong>链接:</strong> https://x-parker.github.io/2024/03/08/IOC-容器对-Bean-的自动驼峰命名/
         </li>
         <li>
             <strong>
@@ -842,11 +711,7 @@
             <ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
                 
                     <li class="tag-item mx-0.5">
-                        <a href="/tags/MapReduce/">#MapReduce</a>&nbsp;
-                    </li>
-                
-                    <li class="tag-item mx-0.5">
-                        <a href="/tags/Hadoop/">#Hadoop</a>&nbsp;
+                        <a href="/tags/Spring/">#Spring</a>&nbsp;
                     </li>
                 
             </ul>
@@ -857,29 +722,14 @@
         
             <div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
                 
-                    <div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
-                        <a class="prev"
-                        rel="prev"
-                        href="/2024/01/13/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E6%8A%80%E6%9C%AF-%E5%A4%8D%E4%B9%A0/"
-                        >
-                            <span class="left arrow-icon flex justify-center items-center">
-                                <i class="fa-solid fa-chevron-left"></i>
-                            </span>
-                            <span class="title flex justify-center items-center">
-                                <span class="post-nav-title-item">高级数据库技术 - 复习</span>
-                                <span class="post-nav-item">上一篇</span>
-                            </span>
-                        </a>
-                    </div>
-                
                 
                     <div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
                         <a class="next"
                         rel="next"
-                        href="/2024/01/10/Hadoop%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/"
+                        href="/2024/03/08/Spring-%E6%B3%A8%E8%A7%A3%E4%B9%8B-RestController%E4%B8%8E-Controller%E7%9A%84%E5%8C%BA%E5%88%AB/"
                         >
                             <span class="title flex justify-center items-center">
-                                <span class="post-nav-title-item">Hadoop 环境配置</span>
+                                <span class="post-nav-title-item">转载 - Spring 注解之 @RestController 与 @Controller 的区别</span>
                                 <span class="post-nav-item">下一篇</span>
                             </span>
                             <span class="right arrow-icon flex justify-center items-center">
@@ -942,8 +792,8 @@
             <div class="post-toc-wrap">
     <div class="post-toc">
         <div class="toc-title">此页目录</div>
-        <div class="page-title">MapReduce 配置与操作</div>
-        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E9%80%9A%E8%BF%87eclipse%E8%BF%9E%E6%8E%A5hadoop"><span class="nav-text">一、通过eclipse连接hadoop</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E4%B8%BB%E8%A6%81%E6%AD%A5%E9%AA%A4"><span class="nav-text">1. 主要步骤</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-text">2. 参考资料</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-text">3. 遇到的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%96%B0%E6%B7%BB%E5%8A%A0%E7%9A%84%E6%8F%92%E4%BB%B6%E5%9C%A8Eclipse%E4%B8%AD%E4%B8%8D%E6%98%BE%E7%A4%BA"><span class="nav-text">新添加的插件在Eclipse中不显示</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81WordCount%E7%A4%BA%E4%BE%8B"><span class="nav-text">二、WordCount示例</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E4%B8%BB%E8%A6%81%E6%AD%A5%E9%AA%A4-2"><span class="nav-text">1. 主要步骤</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C"><span class="nav-text">2. 运行结果</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-text">3. 参考资料</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-text">4. 遇到的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%97%AE%E9%A2%98"><span class="nav-text">环境变量问题</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9D%83%E9%99%90%E9%94%99%E8%AF%AF%E9%97%AE%E9%A2%98"><span class="nav-text">权限错误问题</span></a></li></ol></li></ol></li></ol>
+        <div class="page-title">IOC 容器对 Bean 的自动驼峰命名</div>
+        
 
     </div>
 </div>
