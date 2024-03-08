@@ -2250,7 +2250,7 @@
       </tags>
   </entry>
   <entry>
-    <title>SpringBoot-Bean的管理</title>
+    <title>SpringBoot - Bean 的管理</title>
     <url>/2024/03/08/SpringBoot-Bean%E7%9A%84%E7%AE%A1%E7%90%86/</url>
     <content><![CDATA[<h2 id="1-Bean的获取">1. Bean的获取</h2>
 <p>默认情况下，SpringBoot项目在启动的时候会自动的创建IOC容器(也称为Spring容器)，并且在启动的过程当中会自动的将bean对象都创建好，存放在IOC容器当中。应用程序在运行时需要依赖什么bean对象，就直接进行依赖注入就可以了。</p>
