@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://x-parker.github.io/2024/03/08/SpringBoot-%E5%8E%9F%E7%90%86/</loc>
+    
+    <lastmod>2024-03-08</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://x-parker.github.io/2024/03/08/SpringBoot-Bean%E7%9A%84%E7%AE%A1%E7%90%86/</loc>
     
     <lastmod>2024-03-08</lastmod>
@@ -246,14 +255,14 @@
   </url>
   
   <url>
-    <loc>https://x-parker.github.io/tags/PowerShell/</loc>
+    <loc>https://x-parker.github.io/tags/MapReduce/</loc>
     <lastmod>2024-03-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://x-parker.github.io/tags/MapReduce/</loc>
+    <loc>https://x-parker.github.io/tags/PowerShell/</loc>
     <lastmod>2024-03-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -274,13 +283,6 @@
   </url>
   
   <url>
-    <loc>https://x-parker.github.io/tags/Markdown/</loc>
-    <lastmod>2024-03-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://x-parker.github.io/tags/Tomcat/</loc>
     <lastmod>2024-03-08</lastmod>
     <changefreq>weekly</changefreq>
@@ -288,7 +290,7 @@
   </url>
   
   <url>
-    <loc>https://x-parker.github.io/tags/Thunderbird/</loc>
+    <loc>https://x-parker.github.io/tags/Markdown/</loc>
     <lastmod>2024-03-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -296,6 +298,13 @@
   
   <url>
     <loc>https://x-parker.github.io/tags/JavaWeb/</loc>
+    <lastmod>2024-03-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://x-parker.github.io/tags/Thunderbird/</loc>
     <lastmod>2024-03-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -346,14 +355,14 @@
   </url>
   
   <url>
-    <loc>https://x-parker.github.io/categories/%E5%B7%A5%E5%85%B7/</loc>
+    <loc>https://x-parker.github.io/categories/Java%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2024-03-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://x-parker.github.io/categories/Java%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
+    <loc>https://x-parker.github.io/categories/%E5%B7%A5%E5%85%B7/</loc>
     <lastmod>2024-03-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
