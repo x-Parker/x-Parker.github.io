@@ -30,7 +30,7 @@
 <meta property="og:description" content="1. 配置优先级 1.1 配置文件 配置文件优先级排名（从高到低）：  properties配置文件 yml配置文件 yaml配置文件  注意事项：虽然SpringBoot支持多种格式配置文件，但是在项目开发时，推荐统一使用一种格式的配置。（yml是主流） 1.2 系统属性和命令行参数 在SpringBoot项目当中除了以上3种配置文件外，SpringBoot为了增强程序的扩展性，除了支持配置文件">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-03-07T11:25:25.000Z">
-<meta property="article:modified_time" content="2024-03-07T13:13:55.578Z">
+<meta property="article:modified_time" content="2024-03-08T05:56:07.557Z">
 <meta property="article:author" content="Parker">
 <meta property="article:tag" content="JavaWeb">
 <meta name="twitter:card" content="summary">
@@ -541,7 +541,7 @@
 
         <div class="statistics flex justify-around my-2.5">
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">15</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">16</div>
         <div class="label text-third-text-color text-sm">标签</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
@@ -549,7 +549,7 @@
         <div class="label text-third-text-color text-sm">分类</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">15</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">16</div>
         <div class="label text-third-text-color text-sm">文章</div>
     </a>
 </div>
@@ -601,8 +601,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2024-03-07 21:13:55</span>
-            <span class="mobile">2024-03-07 21:13:55</span>
+            <span class="desktop">2024-03-08 13:56:07</span>
+            <span class="mobile">2024-03-08 13:56:07</span>
             <span class="hover-info">更新</span>
         </span>
     
@@ -640,12 +640,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>307 字</span>
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>607 字</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fa-regular fa-clock"></i>&nbsp;<span>1 分钟</span>
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>2 分钟</span>
         </span>
     
     
@@ -697,6 +697,31 @@
 <li>application.yaml（忽略）</li>
 </ol>
 <h2 id="2-Bean管理">2. Bean管理</h2>
+<h3 id="2-1-获取Bean">2.1 获取Bean</h3>
+<p>默认情况下，SpringBoot项目在启动的时候会自动的创建IOC容器(也称为Spring容器)，并且在启动的过程当中会自动的将bean对象都创建好，存放在IOC容器当中。应用程序在运行时需要依赖什么bean对象，就直接进行依赖注入就可以了。</p>
+<p>而在Spring容器中提供了一些方法，可以主动从IOC容器中获取到bean对象，下面介绍3种常用方式：</p>
+<ol>
+<li>
+<p>根据name获取bean</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Object <span class="title function_">getBean</span><span class="params">(String name)</span></span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>根据类型获取bean</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;T&gt; T <span class="title function_">getBean</span><span class="params">(Class&lt;T&gt; requiredType)</span></span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>根据name获取bean（带类型转换）</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;T&gt; T <span class="title function_">getBean</span><span class="params">(String name, Class&lt;T&gt; requiredType)</span></span><br></pre></td></tr></table></figure></div>
+</li>
+</ol>
+<p>思考：要从IOC容器当中来获取到bean对象，需要先拿到IOC容器对象，怎么样才能拿到IOC容器呢？</p>
+<ul>
+<li>想获取到IOC容器，直接将IOC容器对象注入进来就可以了</li>
+</ul>
+<p>注意事项：</p>
+<ul>
+<li>上述所说的 【Spring项目启动时，会把其中的bean都创建好】还会受到作用域及延迟初始化影响，这里主要针对于默认的单例非延迟加载的bean而言。</li>
+</ul>
 
         </div>
 
@@ -711,7 +736,7 @@
         
             <li>
                 <strong>更新于
-                    :</strong> 2024-03-07 21:13:55
+                    :</strong> 2024-03-08 13:56:07
             </li>
         
         <li>
@@ -834,7 +859,7 @@
     <div class="post-toc">
         <div class="toc-title">此页目录</div>
         <div class="page-title">SpringBoot 原理</div>
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E9%85%8D%E7%BD%AE%E4%BC%98%E5%85%88%E7%BA%A7"><span class="nav-text">1. 配置优先级</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-text">1.1 配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-%E7%B3%BB%E7%BB%9F%E5%B1%9E%E6%80%A7%E5%92%8C%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%8F%82%E6%95%B0"><span class="nav-text">1.2 系统属性和命令行参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-%E6%80%BB%E7%BB%93"><span class="nav-text">1.3 总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Bean%E7%AE%A1%E7%90%86"><span class="nav-text">2. Bean管理</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E9%85%8D%E7%BD%AE%E4%BC%98%E5%85%88%E7%BA%A7"><span class="nav-text">1. 配置优先级</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-text">1.1 配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-%E7%B3%BB%E7%BB%9F%E5%B1%9E%E6%80%A7%E5%92%8C%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%8F%82%E6%95%B0"><span class="nav-text">1.2 系统属性和命令行参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-%E6%80%BB%E7%BB%93"><span class="nav-text">1.3 总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Bean%E7%AE%A1%E7%90%86"><span class="nav-text">2. Bean管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E8%8E%B7%E5%8F%96Bean"><span class="nav-text">2.1 获取Bean</span></a></li></ol></li></ol>
 
     </div>
 </div>
