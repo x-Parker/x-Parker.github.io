@@ -19,27 +19,29 @@
     
     <!--- Seo Part-->
     
-    <link rel="canonical" href="https://x-parker.github.io/2024/03/08/springboot-原理/"/>
+    <link rel="canonical" href="https://x-parker.github.io/2024/03/10/javaweb-后端开发总结/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
-        <meta name="description" content="1. 起步依赖 如果使用了SpringBoot，就不需要繁琐的引入依赖了。我们只需要引入一个依赖就可以了，那就是web开发的起步依赖：springboot-starter-web。  为什么我们只需要引入一个web开发的起步依赖，web开发所需要的所有的依赖都有了呢？  因为Maven的依赖传递。   在SpringBoot给我们提供的这些起步依赖当中，已提供了当前程序开发所需要的所有的常见依赖(">
+        <meta name="description" content="web后端开发现在基本上都是基于标准的三层架构进行开发的，在三层架构当中，Controller控制器层负责接收请求响应数据，Service业务层负责具体的业务逻辑处理，而Dao数据访问层也叫持久层，就是用来处理数据访问操作的，来完成数据库当中数据的增删改查操作。   在三层架构当中，前端发起请求首先会到达Controller(不进行逻辑处理)，然后Controller会直接调用Service 进行">
 <meta property="og:type" content="article">
-<meta property="og:title" content="SpringBoot 原理">
-<meta property="og:url" content="https://x-parker.github.io/2024/03/08/SpringBoot-%E5%8E%9F%E7%90%86/index.html">
+<meta property="og:title" content="JavaWeb 后端开发总结">
+<meta property="og:url" content="https://x-parker.github.io/2024/03/10/JavaWeb-%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91%E6%80%BB%E7%BB%93/index.html">
 <meta property="og:site_name" content="Parker&#39;s Blog">
-<meta property="og:description" content="1. 起步依赖 如果使用了SpringBoot，就不需要繁琐的引入依赖了。我们只需要引入一个依赖就可以了，那就是web开发的起步依赖：springboot-starter-web。  为什么我们只需要引入一个web开发的起步依赖，web开发所需要的所有的依赖都有了呢？  因为Maven的依赖传递。   在SpringBoot给我们提供的这些起步依赖当中，已提供了当前程序开发所需要的所有的常见依赖(">
+<meta property="og:description" content="web后端开发现在基本上都是基于标准的三层架构进行开发的，在三层架构当中，Controller控制器层负责接收请求响应数据，Service业务层负责具体的业务逻辑处理，而Dao数据访问层也叫持久层，就是用来处理数据访问操作的，来完成数据库当中数据的增删改查操作。   在三层架构当中，前端发起请求首先会到达Controller(不进行逻辑处理)，然后Controller会直接调用Service 进行">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://s2.loli.net/2024/03/08/pofdUiauB8l2XQh.png">
-<meta property="og:image" content="https://s2.loli.net/2024/03/10/x7ajQu8sJOXI1md.png">
-<meta property="og:image" content="https://s2.loli.net/2024/03/10/FsylaRI2TDjm6b1.png">
-<meta property="article:published_time" content="2024-03-08T11:17:59.000Z">
-<meta property="article:modified_time" content="2024-03-10T15:20:48.298Z">
+<meta property="og:image" content="https://s2.loli.net/2024/03/10/tgSJKPX3FBwZGx6.png">
+<meta property="og:image" content="https://s2.loli.net/2024/03/10/jIOK7DnacR2uVEG.png">
+<meta property="og:image" content="https://s2.loli.net/2024/03/10/lOK2t8nTUq6EVp9.png">
+<meta property="og:image" content="https://s2.loli.net/2024/03/10/c73xEmrLOfNjS8o.png">
+<meta property="og:image" content="https://s2.loli.net/2024/03/10/Fvtu8Kz6OJyR2oE.png">
+<meta property="article:published_time" content="2024-03-10T15:21:52.000Z">
+<meta property="article:modified_time" content="2024-03-10T15:27:47.555Z">
 <meta property="article:author" content="Parker">
-<meta property="article:tag" content="Spring">
+<meta property="article:tag" content="JavaWeb">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://s2.loli.net/2024/03/08/pofdUiauB8l2XQh.png">
+<meta name="twitter:image" content="https://s2.loli.net/2024/03/10/tgSJKPX3FBwZGx6.png">
     
     
         <!-- Google tag (gtag.js) -->
@@ -61,7 +63,7 @@
     
     <title>
         
-            SpringBoot 原理 -
+            JavaWeb 后端开发总结 -
         
         Parker&#39;s Blog
     </title>
@@ -581,7 +583,7 @@
         <div class="article-title relative w-full">
             
                 <div class="w-full flex items-center pt-6 justify-start">
-                    <h1 class="article-title-regular text-second-text-color text-4xl md:text-6xl font-bold px-2 sm:px-6 md:px-8 py-3">SpringBoot 原理</h1>
+                    <h1 class="article-title-regular text-second-text-color text-4xl md:text-6xl font-bold px-2 sm:px-6 md:px-8 py-3">JavaWeb 后端开发总结</h1>
                 </div>
             
             </div>
@@ -600,15 +602,15 @@
                         <div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fa-regular fa-pen-fancy"></i>&nbsp;
-        <span class="desktop">2024-03-08 19:17:59</span>
-        <span class="mobile">2024-03-08 19:17:59</span>
+        <span class="desktop">2024-03-10 23:21:52</span>
+        <span class="mobile">2024-03-10 23:21:52</span>
         <span class="hover-info">创建</span>
     </span>
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2024-03-10 23:20:48</span>
-            <span class="mobile">2024-03-10 23:20:48</span>
+            <span class="desktop">2024-03-10 23:27:47</span>
+            <span class="mobile">2024-03-10 23:27:47</span>
             <span class="hover-info">更新</span>
         </span>
     
@@ -636,7 +638,7 @@
             <ul>
                 
                     <li>
-                        <a href="/tags/Spring/">Spring</a>&nbsp;
+                        <a href="/tags/JavaWeb/">JavaWeb</a>&nbsp;
                     </li>
                 
             </ul>
@@ -646,12 +648,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>2.2k 字</span>
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>843 字</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fa-regular fa-clock"></i>&nbsp;<span>8 分钟</span>
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>2 分钟</span>
         </span>
     
     
@@ -670,170 +672,60 @@
 
 
         <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
-            <h2 id="1-起步依赖">1. 起步依赖</h2>
-<p>如果使用了SpringBoot，就不需要繁琐的引入依赖了。我们只需要引入一个依赖就可以了，那就是web开发的起步依赖：springboot-starter-web。</p>
+            <p>web后端开发现在基本上都是基于标准的三层架构进行开发的，在三层架构当中，Controller控制器层负责接收请求响应数据，Service业务层负责具体的业务逻辑处理，而Dao数据访问层也叫持久层，就是用来处理数据访问操作的，来完成数据库当中数据的增删改查操作。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/03/08/pofdUiauB8l2XQh.png"
+                     data-src="https://s2.loli.net/2024/03/10/tgSJKPX3FBwZGx6.png"
                       alt=""
                 ></p>
-<p>为什么我们只需要引入一个web开发的起步依赖，web开发所需要的所有的依赖都有了呢？</p>
-<ul>
-<li>因为Maven的依赖传递。</li>
-</ul>
 <blockquote>
-<p>在SpringBoot给我们提供的这些起步依赖当中，已提供了当前程序开发所需要的所有的常见依赖(官网地址：<a class="link"   target="_blank" rel="noopener" href="https://docs.spring.io/spring-boot/docs/2.7.7/reference/htmlsingle/#using.build-systems.starters" >https://docs.spring.io/spring-boot/docs/2.7.7/reference/htmlsingle/#using.build-systems.starters <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>)。</p>
-<p>比如：springboot-starter-web，这是web开发的起步依赖，在web开发的起步依赖当中，就集成了web开发中常见的依赖：json、web、webmvc、tomcat等。我们只需要引入这一个起步依赖，其他的依赖都会自动的通过Maven的依赖传递进来。</p>
+<p>在三层架构当中，前端发起请求首先会到达Controller(不进行逻辑处理)，然后Controller会直接调用Service 进行逻辑处理， Service再调用Dao完成数据访问操作。</p>
 </blockquote>
-<p><strong>结论：起步依赖的原理就是Maven的依赖传递。</strong></p>
-<h2 id="2-自动配置">2. 自动配置</h2>
-<h3 id="2-1-概述">2.1 概述</h3>
-<p>SpringBoot的自动配置就是当Spring容器启动后，一些配置类、bean对象就自动存入到了IOC容器中，不需要我们手动去声明，从而简化了开发，省去了繁琐的配置操作。</p>
-<blockquote>
-<p>比如：我们要进行事务管理、要进行AOP程序的开发，此时就不需要我们再去手动的声明这些bean对象了，我们直接使用就可以从而大大的简化程序的开发，省去了繁琐的配置操作。</p>
-</blockquote>
-<p>了解了SpringBoot的自动配置，下面我们就来分析自动配置的原理。其实分析自动配置原理就是来解析在SpringBoot项目中，在引入依赖之后是如何将依赖jar包当中所定义的配置类以及bean加载到SpringIOC容器中的。</p>
-<h3 id="2-2-常见方案">2.2 常见方案</h3>
-<h4 id="2-2-1-方案一">2.2.1 方案一</h4>
-<p>@ComponentScan组件扫描</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="meta">@ComponentScan(&#123;&quot;com.itheima&quot;,&quot;com.example&quot;&#125;)</span> <span class="comment">//指定要扫描的包</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SpringbootWebConfig2Application</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        SpringApplication.run(SpringbootWebConfig2Application.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
-<blockquote>
-<p>可以想象一下，如果采用以上这种方式来完成自动配置，那我们进行项目开发时，当需要引入大量的第三方的依赖，就需要在<strong>启动类</strong>上配置N多要扫描的包，这种方式会很繁琐。而且这种大面积的扫描性能也比较低。</p>
-<p>缺点：</p>
-<ol>
-<li>使用繁琐</li>
-<li>性能低</li>
-</ol>
-<p><strong>结论：SpringBoot中并没有采用以上这种方案。</strong></p>
-</blockquote>
-<h4 id="2-2-2-方案二">2.2.2 方案二</h4>
-<p>@Import导入</p>
-<ul>
-<li>导入形式主要有以下几种：
-<ol>
-<li>导入普通类</li>
-<li>导入配置类</li>
-<li>导入ImportSelector接口实现类</li>
-</ol>
-</li>
-</ul>
-<p>1). 使用@Import导入普通类：</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Import(TokenParser.class)</span> <span class="comment">//导入的类会被Spring加载到IOC容器中</span></span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SpringbootWebConfig2Application</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        SpringApplication.run(SpringbootWebConfig2Application.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<p>2). 使用@Import导入配置类：</p>
-<ul>
-<li>配置类</li>
-</ul>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HeaderConfig</span> &#123;</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> HeaderParser <span class="title function_">headerParser</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">HeaderParser</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    ……</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<ul>
-<li>启动类</li>
-</ul>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Import(HeaderConfig.class)</span> <span class="comment">//导入配置类</span></span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SpringbootWebConfig2Application</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        SpringApplication.run(SpringbootWebConfig2Application.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<p>3). 使用@Import导入ImportSelector接口实现类：</p>
-<ul>
-<li>ImportSelector接口实现类</li>
-</ul>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyImportSelector</span> <span class="keyword">implements</span> <span class="title class_">ImportSelector</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> String[] selectImports(AnnotationMetadata importingClassMetadata) &#123;</span><br><span class="line">        <span class="comment">//返回值字符串数组（数组中封装了全限定名称的类）</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">String</span>[]&#123;<span class="string">&quot;com.example.HeaderConfig&quot;</span>&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<ul>
-<li>启动类</li>
-</ul>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Import(MyImportSelector.class)</span> <span class="comment">//导入ImportSelector接口实现类</span></span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SpringbootWebConfig2Application</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        SpringApplication.run(SpringbootWebConfig2Application.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<p>4). 使用第三方依赖提供的 @EnableXxxxx 注解</p>
-<ul>
-<li>第三方依赖中提供的注解</li>
-</ul>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Target(ElementType.TYPE)</span></span><br><span class="line"><span class="meta">@Import(MyImportSelector.class)</span><span class="comment">//指定要导入哪些bean对象或配置类</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> EnableHeaderConfig &#123; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<ul>
-<li>在使用时只需在启动类上加上@EnableXxxxx注解即可</li>
-</ul>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@EnableHeaderConfig</span>  <span class="comment">//使用第三方依赖提供的Enable开头的注解</span></span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SpringbootWebConfig2Application</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        SpringApplication.run(SpringbootWebConfig2Application.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<p>以上四种方式都可以完成导入操作，但是第4种方式会更方便更优雅，而这种方式也是SpringBoot当中所采用的方式。</p>
-<h3 id="2-3-原理分析">2.3 原理分析</h3>
-<h4 id="2-3-1-源码跟踪">2.3.1 源码跟踪</h4>
-<p>要搞清楚SpringBoot的自动配置原理，要从SpringBoot启动类上使用的核心注解@SpringBootApplication开始分析：</p>
+<p>如果我们在执行具体的业务处理之前，需要去做一些通用的业务处理，比如：我们要进行统一的登录校验，我们要进行统一的字符编码等这些操作时，我们就可以借助于Javaweb当中三大组件之一的过滤器Filter或者是Spring当中提供的拦截器Interceptor来实现。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/03/10/x7ajQu8sJOXI1md.png"
+                     data-src="https://s2.loli.net/2024/03/10/jIOK7DnacR2uVEG.png"
                       alt=""
                 ></p>
-<p>在@SpringBootApplication注解中包含了：</p>
-<ul>
-<li>元注解</li>
-<li>@SpringBootConfiguration</li>
-<li>@EnableAutoConfiguration</li>
-<li>@ComponentScan</li>
-</ul>
-<p>自动配置原理源码入口就是@SpringBootApplication注解，在这个注解中封装了3个注解，分别是：</p>
-<ul>
-<li>@SpringBootConfiguration
-<ul>
-<li>声明当前类是一个配置类</li>
-</ul>
-</li>
-<li>@ComponentScan
-<ul>
-<li>进行组件扫描（SpringBoot中默认扫描的是启动类所在的当前包及其子包）</li>
-</ul>
-</li>
-<li>@EnableAutoConfiguration
-<ul>
-<li>封装了@Import注解（Import注解中指定了一个ImportSelector接口的实现类）
-<ul>
-<li>在实现类重写的selectImports()方法，读取当前项目下所有依赖jar包中META-INF/spring.factories、META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports两个文件里面定义的配置类（配置类中定义了@Bean注解标识的方法）。</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p>当SpringBoot程序启动时，就会加载配置文件当中所定义的配置类，并将这些配置类信息(类的全限定名)封装到String类型的数组中，最终通过@Import注解将这些配置类全部加载到Spring的IOC容器中，交给IOC容器管理。</p>
+<p>而为了实现三层架构层与层之间的解耦，我们学习了Spring框架当中的第一大核心：IOC控制反转与DI依赖注入。</p>
 <blockquote>
-<p>在META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports文件中定义的配置类非常多，而且每个配置类中又可以定义很多的bean，那这些bean都会注册到Spring的IOC容器中吗？</p>
-<p>答案：并不是。 在声明bean对象时，上面有加一个以@Conditional开头的注解，这种注解的作用就是按照条件进行装配，只有满足条件之后，才会将bean注册到Spring的IOC容器中（下面会详细来讲解）</p>
+<p>所谓控制反转，指的是将对象创建的控制权由应用程序自身交给外部容器，这个容器就是我们常说的IOC容器或Spring容器。</p>
+<p>而DI依赖注入指的是容器为程序提供运行时所需要的资源。</p>
 </blockquote>
-<h4 id="2-3-2-Conditional">2.3.2 @Conditional</h4>
-<p>我们在跟踪SpringBoot自动配置的源码的时候，在自动配置类声明bean的时候，除了在方法上加了一个@Bean注解以外，还会经常用到一个注解，就是以Conditional开头的这一类的注解。以Conditional开头的这些注解都是条件装配的注解。</p>
-<p>@Conditional注解：</p>
-<ul>
-<li>作用：按照一定的条件进行判断，在满足给定条件后才会注册对应的bean对象到Spring的IOC容器中。</li>
-<li>位置：方法、类</li>
-<li>@Conditional本身是一个父注解，派生出大量的子注解：
-<ul>
-<li>@ConditionalOnClass：判断环境中有对应字节码文件，才注册bean到IOC容器。</li>
-<li>@ConditionalOnMissingBean：判断环境中没有对应的bean(类型或名称)，才注册bean到IOC容器。</li>
-<li>@ConditionalOnProperty：判断配置文件中有对应属性和值，才注册bean到IOC容器。</li>
-</ul>
-</li>
-</ul>
-<h4 id="2-3-3-总结">2.3.3 总结</h4>
+<p>除了IOC与DI我们还讲到了AOP面向切面编程，还有Spring中的事务管理、全局异常处理器，以及传递会话技术Cookie、Session以及新的会话跟踪解决方案JWT令牌，阿里云OSS对象存储服务，以及通过Mybatis持久层架构操作数据库等技术。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/03/10/FsylaRI2TDjm6b1.png"
+                     data-src="https://s2.loli.net/2024/03/10/lOK2t8nTUq6EVp9.png"
                       alt=""
                 ></p>
-<p>自动配置的核心就在@SpringBootApplication注解上，SpringBootApplication这个注解底层包含了3个注解，分别是：</p>
-<ul>
-<li>
-<p>@SpringBootConfiguration</p>
-</li>
-<li>
-<p>@ComponentScan</p>
-</li>
-<li>
-<p>@EnableAutoConfiguration</p>
-</li>
-</ul>
-<p>@EnableAutoConfiguration这个注解才是自动配置的核心。</p>
-<ul>
-<li>它封装了一个@Import注解，Import注解里面指定了一个ImportSelector接口的实现类。</li>
-<li>在这个实现类中，重写了ImportSelector接口中的selectImports()方法。</li>
-<li>而selectImports()方法中会去读取两份配置文件，并将配置文件中定义的配置类做为selectImports()方法的返回值返回，返回值代表的就是需要将哪些类交给Spring的IOC容器进行管理。</li>
-<li>那么所有自动配置类的中声明的bean都会加载到Spring的IOC容器中吗? 其实并不会，因为这些配置类中在声明bean时，通常都会添加@Conditional开头的注解，这个注解就是进行条件装配。而Spring会根据Conditional注解有选择性的进行bean的创建。</li>
-<li>@Enable 开头的注解底层，它就封装了一个注解 import 注解，它里面指定了一个类，是 ImportSelector 接口的实现类。在实现类当中，我们需要去实现 ImportSelector  接口当中的一个方法 selectImports 这个方法。这个方法的返回值代表的就是我需要将哪些类交给 spring 的 IOC容器进行管理。</li>
-<li>此时它会去读取两份配置文件，一份儿是 spring.factories，另外一份儿是 autoConfiguration.imports。而在  autoConfiguration.imports 这份儿文件当中，它就会去配置大量的自动配置的类。</li>
-<li>而前面我们也提到过这些所有的自动配置类当中，所有的 bean都会加载到 spring 的 IOC 容器当中吗？其实并不会，因为这些配置类当中，在声明 bean 的时候，通常会加上这么一类@Conditional 开头的注解。这个注解就是进行条件装配。所以SpringBoot非常的智能，它会根据 @Conditional 注解来进行条件装配。只有条件成立，它才会声明这个bean，才会将这个 bean 交给 IOC 容器管理。</li>
-</ul>
+<p>我们在学习这些web后端开发技术的时候，我们都是基于主流的SpringBoot进行整合使用的。而SpringBoot又是用来简化开发，提高开发效率的。像过滤器、拦截器、IOC、DI、AOP、事务管理等这些技术到底是哪个框架提供的核心功能？</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/03/10/c73xEmrLOfNjS8o.png"
+                      alt=""
+                ></p>
+<blockquote>
+<p>Filter过滤器、Cookie、 Session这些都是传统的JavaWeb提供的技术。</p>
+<p>JWT令牌、阿里云OSS对象存储服务，是现在企业项目中常见的一些解决方案。</p>
+<p>IOC控制反转、DI依赖注入、AOP面向切面编程、事务管理、全局异常处理、拦截器等，这些技术都是 Spring Framework框架当中提供的核心功能。</p>
+<p>Mybatis就是一个持久层的框架，是用来操作数据库的。</p>
+</blockquote>
+<p>在Spring框架的生态中，对web程序开发提供了很好的支持，如：全局异常处理器、拦截器这些都是Spring框架中web开发模块所提供的功能，而Spring框架的web开发模块，我们也称为：SpringMVC</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/03/10/Fvtu8Kz6OJyR2oE.png"
+                      alt=""
+                ></p>
+<blockquote>
+<p>SpringMVC不是一个单独的框架，它是Spring框架的一部分，是Spring框架中的web开发模块，是用来简化原始的Servlet程序开发的。</p>
+</blockquote>
+<p>外界俗称的SSM，就是由：SpringMVC、Spring Framework、Mybatis三块组成。</p>
+<p>基于传统的SSM框架进行整合开发项目会比较繁琐，而且效率也比较低，所以在现在的企业项目开发当中，基本上都是直接基于SpringBoot整合SSM进行项目开发的。</p>
 
         </div>
 
@@ -841,18 +733,18 @@
             <div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
                 <div class="article-copyright-info-container">
     <ul>
-        <li><strong>标题:</strong> SpringBoot 原理</li>
+        <li><strong>标题:</strong> JavaWeb 后端开发总结</li>
         <li><strong>作者:</strong> Parker</li>
         <li><strong>创建于
-                :</strong> 2024-03-08 19:17:59</li>
+                :</strong> 2024-03-10 23:21:52</li>
         
             <li>
                 <strong>更新于
-                    :</strong> 2024-03-10 23:20:48
+                    :</strong> 2024-03-10 23:27:47
             </li>
         
         <li>
-            <strong>链接:</strong> https://x-parker.github.io/2024/03/08/SpringBoot-原理/
+            <strong>链接:</strong> https://x-parker.github.io/2024/03/10/JavaWeb-后端开发总结/
         </li>
         <li>
             <strong>
@@ -874,7 +766,7 @@
             <ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
                 
                     <li class="tag-item mx-0.5">
-                        <a href="/tags/Spring/">#Spring</a>&nbsp;
+                        <a href="/tags/JavaWeb/">#JavaWeb</a>&nbsp;
                     </li>
                 
             </ul>
@@ -885,29 +777,14 @@
         
             <div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
                 
-                    <div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
-                        <a class="prev"
-                        rel="prev"
-                        href="/2024/03/10/JavaWeb-%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91%E6%80%BB%E7%BB%93/"
-                        >
-                            <span class="left arrow-icon flex justify-center items-center">
-                                <i class="fa-solid fa-chevron-left"></i>
-                            </span>
-                            <span class="title flex justify-center items-center">
-                                <span class="post-nav-title-item">JavaWeb 后端开发总结</span>
-                                <span class="post-nav-item">上一篇</span>
-                            </span>
-                        </a>
-                    </div>
-                
                 
                     <div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
                         <a class="next"
                         rel="next"
-                        href="/2024/03/08/SpringBoot-Bean%E7%9A%84%E7%AE%A1%E7%90%86/"
+                        href="/2024/03/08/SpringBoot-%E5%8E%9F%E7%90%86/"
                         >
                             <span class="title flex justify-center items-center">
-                                <span class="post-nav-title-item">SpringBoot - Bean 的管理</span>
+                                <span class="post-nav-title-item">SpringBoot 原理</span>
                                 <span class="post-nav-item">下一篇</span>
                             </span>
                             <span class="right arrow-icon flex justify-center items-center">
@@ -970,8 +847,8 @@
             <div class="post-toc-wrap">
     <div class="post-toc">
         <div class="toc-title">此页目录</div>
-        <div class="page-title">SpringBoot 原理</div>
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E8%B5%B7%E6%AD%A5%E4%BE%9D%E8%B5%96"><span class="nav-text">1. 起步依赖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E8%87%AA%E5%8A%A8%E9%85%8D%E7%BD%AE"><span class="nav-text">2. 自动配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E6%A6%82%E8%BF%B0"><span class="nav-text">2.1 概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E5%B8%B8%E8%A7%81%E6%96%B9%E6%A1%88"><span class="nav-text">2.2 常见方案</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-1-%E6%96%B9%E6%A1%88%E4%B8%80"><span class="nav-text">2.2.1 方案一</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-2-%E6%96%B9%E6%A1%88%E4%BA%8C"><span class="nav-text">2.2.2 方案二</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90"><span class="nav-text">2.3 原理分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-1-%E6%BA%90%E7%A0%81%E8%B7%9F%E8%B8%AA"><span class="nav-text">2.3.1 源码跟踪</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-2-Conditional"><span class="nav-text">2.3.2 @Conditional</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-3-%E6%80%BB%E7%BB%93"><span class="nav-text">2.3.3 总结</span></a></li></ol></li></ol></li></ol>
+        <div class="page-title">JavaWeb 后端开发总结</div>
+        
 
     </div>
 </div>
