@@ -11,6 +11,15 @@
   </url>
   
   <url>
+    <loc>https://x-parker.github.io/2024/03/11/Maven-%E7%BB%A7%E6%89%BF%E4%B8%8E%E8%81%9A%E5%90%88/</loc>
+    
+    <lastmod>2024-03-11</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://x-parker.github.io/2024/03/10/JavaWeb-%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91%E6%80%BB%E7%BB%93/</loc>
     
     <lastmod>2024-03-10</lastmod>
@@ -245,28 +254,7 @@
 
   
   <url>
-    <loc>https://x-parker.github.io/tags/MapReduce/</loc>
-    <lastmod>2024-03-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://x-parker.github.io/tags/Hadoop/</loc>
-    <lastmod>2024-03-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://x-parker.github.io/tags/Git/</loc>
-    <lastmod>2024-03-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://x-parker.github.io/tags/SSH/</loc>
     <lastmod>2024-03-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -287,6 +275,27 @@
   </url>
   
   <url>
+    <loc>https://x-parker.github.io/tags/Git/</loc>
+    <lastmod>2024-03-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://x-parker.github.io/tags/SSH/</loc>
+    <lastmod>2024-03-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://x-parker.github.io/tags/MapReduce/</loc>
+    <lastmod>2024-03-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://x-parker.github.io/tags/PowerShell/</loc>
     <lastmod>2024-03-11</lastmod>
     <changefreq>weekly</changefreq>
@@ -301,14 +310,14 @@
   </url>
   
   <url>
-    <loc>https://x-parker.github.io/tags/Tomcat/</loc>
+    <loc>https://x-parker.github.io/tags/Markdown/</loc>
     <lastmod>2024-03-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://x-parker.github.io/tags/Markdown/</loc>
+    <loc>https://x-parker.github.io/tags/Tomcat/</loc>
     <lastmod>2024-03-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -336,14 +345,14 @@
   </url>
   
   <url>
-    <loc>https://x-parker.github.io/tags/Spring/</loc>
+    <loc>https://x-parker.github.io/tags/Thunderbird/</loc>
     <lastmod>2024-03-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://x-parker.github.io/tags/Thunderbird/</loc>
+    <loc>https://x-parker.github.io/tags/Spring/</loc>
     <lastmod>2024-03-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -387,14 +396,14 @@
   </url>
   
   <url>
-    <loc>https://x-parker.github.io/categories/%E8%BD%AC%E8%BD%BD/</loc>
+    <loc>https://x-parker.github.io/categories/%E5%B7%A5%E5%85%B7/</loc>
     <lastmod>2024-03-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://x-parker.github.io/categories/%E5%B7%A5%E5%85%B7/</loc>
+    <loc>https://x-parker.github.io/categories/%E8%BD%AC%E8%BD%BD/</loc>
     <lastmod>2024-03-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
