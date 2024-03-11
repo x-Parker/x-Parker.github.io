@@ -1,51 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Git 报错：SSH连接超时</title>
-    <url>/2024/01/19/Git%E6%8A%A5%E9%94%99-SSH%E8%BF%9E%E6%8E%A5%E8%B6%85%E6%97%B6/</url>
-    <content><![CDATA[<h2 id="问题">问题</h2>
-<p>使用 Git 向 GitHub 部署代码时，报错如下（此前正常）：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh: connect to host github.com port 22: Connection timed out</span><br><span class="line">fatal: Could not read from remote repository.</span><br><span class="line">Please make sure you have the correct access rights and the repository exists.</span><br></pre></td></tr></table></figure></div>
-<h2 id="原因">原因</h2>
-<p>SSH 端口被占用，重新指定一个端口即可。</p>
-<p>注：<em>Windows 系统查看端口占用情况的命令为：<code>netstat -ano | findStr 端口号</code></em></p>
-<h2 id="解决">解决</h2>
-<ul>
-<li>
-<p>打开 <code>C:\用户\主机名\.ssh</code> 文件夹</p>
-</li>
-<li>
-<p>新建 <code>config</code> 文件（不带后缀）</p>
-</li>
-<li>
-<p>输入以下内容后保存：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">Host github.com</span><br><span class="line">User GitHub注册邮箱</span><br><span class="line">Hostname ssh.github.com</span><br><span class="line">PreferredAuthentications publickey</span><br><span class="line">IdentityFile ~/.ssh/id_rsa</span><br><span class="line">Port 443</span><br></pre></td></tr></table></figure></div>
-</li>
-<li>
-<p>在 Git Bash 执行：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure></div>
-<p>出现询问是否连接的提示，输入 <code>yes</code> 回车：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ ssh -T git@github.com</span><br><span class="line">The authenticity of host &#x27;[ssh.github.com]:443 ([20.205.243.160]:443)&#x27; can&#x27;t be established.</span><br><span class="line">Are you sure you want to continue connecting (yes/no/[fingerprint])? yes</span><br><span class="line">Warning: Permanently added &#x27;[ssh.github.com]:443&#x27; (ED25519) to the list of known hosts.</span><br><span class="line">Hi x-Parker! You&#x27;ve successfully authenticated, but GitHub does not provide shell access.</span><br></pre></td></tr></table></figure></div>
-<p>成功重新建立 SSH 连接。</p>
-</li>
-</ul>
-<h2 id="另解">另解</h2>
-<p>抛弃 SSH 连接方式，使用 HTTPS 连接 Github。</p>
-<h2 id="参考">参考</h2>
-<ul>
-<li><a class="link"   href="https://blog.csdn.net/yunxiaobaobei/article/details/123474599" >https://blog.csdn.net/yunxiaobaobei/article/details/123474599 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li><a class="link"   href="https://blog.csdn.net/weixin_41287260/article/details/124368189" >https://blog.csdn.net/weixin_41287260/article/details/124368189 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>Git</tag>
-        <tag>SSH</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>MapReduce 配置与操作</title>
     <url>/2024/01/11/MapReduce%E9%85%8D%E7%BD%AE%E4%B8%8E%E6%93%8D%E4%BD%9C/</url>
     <content><![CDATA[<h3 id="一、通过eclipse连接hadoop">一、通过eclipse连接hadoop</h3>
@@ -1704,6 +1659,51 @@
       </tags>
   </entry>
   <entry>
+    <title>Git 报错：SSH连接超时</title>
+    <url>/2024/01/19/Git%E6%8A%A5%E9%94%99-SSH%E8%BF%9E%E6%8E%A5%E8%B6%85%E6%97%B6/</url>
+    <content><![CDATA[<h2 id="问题">问题</h2>
+<p>使用 Git 向 GitHub 部署代码时，报错如下（此前正常）：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh: connect to host github.com port 22: Connection timed out</span><br><span class="line">fatal: Could not read from remote repository.</span><br><span class="line">Please make sure you have the correct access rights and the repository exists.</span><br></pre></td></tr></table></figure></div>
+<h2 id="原因">原因</h2>
+<p>SSH 端口被占用，重新指定一个端口即可。</p>
+<p>注：<em>Windows 系统查看端口占用情况的命令为：<code>netstat -ano | findStr 端口号</code></em></p>
+<h2 id="解决">解决</h2>
+<ul>
+<li>
+<p>打开 <code>C:\用户\主机名\.ssh</code> 文件夹</p>
+</li>
+<li>
+<p>新建 <code>config</code> 文件（不带后缀）</p>
+</li>
+<li>
+<p>输入以下内容后保存：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">Host github.com</span><br><span class="line">User GitHub注册邮箱</span><br><span class="line">Hostname ssh.github.com</span><br><span class="line">PreferredAuthentications publickey</span><br><span class="line">IdentityFile ~/.ssh/id_rsa</span><br><span class="line">Port 443</span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>在 Git Bash 执行：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure></div>
+<p>出现询问是否连接的提示，输入 <code>yes</code> 回车：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ ssh -T git@github.com</span><br><span class="line">The authenticity of host &#x27;[ssh.github.com]:443 ([20.205.243.160]:443)&#x27; can&#x27;t be established.</span><br><span class="line">Are you sure you want to continue connecting (yes/no/[fingerprint])? yes</span><br><span class="line">Warning: Permanently added &#x27;[ssh.github.com]:443&#x27; (ED25519) to the list of known hosts.</span><br><span class="line">Hi x-Parker! You&#x27;ve successfully authenticated, but GitHub does not provide shell access.</span><br></pre></td></tr></table></figure></div>
+<p>成功重新建立 SSH 连接。</p>
+</li>
+</ul>
+<h2 id="另解">另解</h2>
+<p>抛弃 SSH 连接方式，使用 HTTPS 连接 Github。</p>
+<h2 id="参考">参考</h2>
+<ul>
+<li><a class="link"   href="https://blog.csdn.net/yunxiaobaobei/article/details/123474599" >https://blog.csdn.net/yunxiaobaobei/article/details/123474599 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://blog.csdn.net/weixin_41287260/article/details/124368189" >https://blog.csdn.net/weixin_41287260/article/details/124368189 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>Git</tag>
+        <tag>SSH</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Once Upon a Time in America</title>
     <url>/2024/01/19/Once-Upon-a-Time-in-America/</url>
     <content><![CDATA[<img  
@@ -1718,6 +1718,42 @@
       </categories>
       <tags>
         <tag>电影</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>PowerShell 报错：在此系统上禁止运行脚本</title>
+    <url>/2024/01/22/PowerShell-vue%E6%97%A0%E6%B3%95%E5%8A%A0%E8%BD%BD%E6%96%87%E4%BB%B6-%E5%9B%A0%E4%B8%BA%E5%9C%A8%E6%AD%A4%E7%B3%BB%E7%BB%9F%E4%B8%8A%E7%A6%81%E6%AD%A2%E8%BF%90%E8%A1%8C%E8%84%9A%E6%9C%AC/</url>
+    <content><![CDATA[<h2 id="问题">问题</h2>
+<p>在 Windows PowerShell （管理员模式下）执行 <code>vue --version</code> 命令时报错如下：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/01/22/IBWcwtCLqjm2ya3.png"
+                      alt=""
+                ></p>
+<h2 id="原因">原因</h2>
+<p>首次在计算机上启动 Windows PowerShell 时，现用执行策略很可能是 Restricted（默认设置）。Restricted 策略不允许任何脚本运行，以防止执行不信任的脚本。</p>
+<h2 id="解决">解决</h2>
+<p>在 Windows PowerShell 执行以下命令：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">set-executionpolicy remotesigned</span><br></pre></td></tr></table></figure></div>
+<h2 id="效果">效果</h2>
+<p>再次执行 <code>vue --version</code> 命令，可正常查看 Vue 版本：</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/01/22/2UpOySQuL3ev5to.png"
+                      style="zoom: 50%;"
+                >
+<h2 id="引用">引用</h2>
+<ul>
+<li><a class="link"   href="https://cloud.tencent.com/developer/article/1612513" >https://cloud.tencent.com/developer/article/1612513 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>PowerShell</tag>
       </tags>
   </entry>
   <entry>
@@ -1785,39 +1821,59 @@
       </tags>
   </entry>
   <entry>
-    <title>PowerShell 报错：在此系统上禁止运行脚本</title>
-    <url>/2024/01/22/PowerShell-vue%E6%97%A0%E6%B3%95%E5%8A%A0%E8%BD%BD%E6%96%87%E4%BB%B6-%E5%9B%A0%E4%B8%BA%E5%9C%A8%E6%AD%A4%E7%B3%BB%E7%BB%9F%E4%B8%8A%E7%A6%81%E6%AD%A2%E8%BF%90%E8%A1%8C%E8%84%9A%E6%9C%AC/</url>
+    <title>Tomcat 双击 startup.bat 闪退</title>
+    <url>/2024/01/31/Tomcat%E5%8F%8C%E5%87%BBstartup-bat%E9%97%AA%E9%80%80/</url>
     <content><![CDATA[<h2 id="问题">问题</h2>
-<p>在 Windows PowerShell （管理员模式下）执行 <code>vue --version</code> 命令时报错如下：</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/01/22/IBWcwtCLqjm2ya3.png"
-                      alt=""
-                ></p>
+<p>在没有其他进程占用 8080 端口的情况下，双击 Tomcat 的 <code>startup.bat</code> 脚本发生闪退，无法启动。</p>
 <h2 id="原因">原因</h2>
-<p>首次在计算机上启动 Windows PowerShell 时，现用执行策略很可能是 Restricted（默认设置）。Restricted 策略不允许任何脚本运行，以防止执行不信任的脚本。</p>
-<h2 id="解决">解决</h2>
-<p>在 Windows PowerShell 执行以下命令：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">set-executionpolicy remotesigned</span><br></pre></td></tr></table></figure></div>
-<h2 id="效果">效果</h2>
-<p>再次执行 <code>vue --version</code> 命令，可正常查看 Vue 版本：</p>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/01/22/2UpOySQuL3ev5to.png"
-                      style="zoom: 50%;"
-                >
-<h2 id="引用">引用</h2>
+<p>未配置 <code>JAVA_HOME</code> 环境变量。</p>
+<blockquote>
+<p>问题排查过程：</p>
 <ul>
-<li><a class="link"   href="https://cloud.tencent.com/developer/article/1612513" >https://cloud.tencent.com/developer/article/1612513 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li>在 <code>startup.bat</code> 文件末尾添加一行 <code>pause</code> ，避免 Tomcat 立即退出；</li>
+<li>双击 <code>startup.bat</code> ，尝试启动；</li>
+<li>未成功启动，终端中提示 <code>JAVA_HOME</code> 与 <code>jre</code> 均未配置，需至少配置二者其一。</li>
+</ul>
+</blockquote>
+<h2 id="解决">解决</h2>
+<ul>
+<li>方法一：配置 Windows 系统 <code>JAVA_HOME</code> 环境变量（推荐）</li>
+<li>方法二：在 <code>startup.bat</code> 文件开头添加 <code>SET JAVA_HOME=Java安装目录</code></li>
+</ul>
+<h2 id="参考">参考</h2>
+<ul>
+<li><a class="link"   href="https://blog.51cto.com/u_14783151/2899251" >https://blog.51cto.com/u_14783151/2899251 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://blog.csdn.net/qq496013218/article/details/74517593" >https://blog.csdn.net/qq496013218/article/details/74517593 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
 </ul>
 ]]></content>
       <categories>
         <category>技术</category>
       </categories>
       <tags>
-        <tag>PowerShell</tag>
+        <tag>Tomcat</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>实现 Windows 环境下 Thunderbird 邮件客户端自启动</title>
+    <url>/2024/03/05/%E5%AE%9E%E7%8E%B0Windows%E7%8E%AF%E5%A2%83%E4%B8%8BThunderbird%E9%82%AE%E4%BB%B6%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%87%AA%E5%90%AF%E5%8A%A8/</url>
+    <content><![CDATA[<p>Thunderbird是一款优秀的开源邮件客户端，但在Windows环境下没有自启动选项，且关闭主界面后客户端也会关闭，这种设计不利于在后台接收新邮件提醒。因此，考虑通过其他途径实现Thunderbird的自启动。</p>
+<h2 id="实现">实现</h2>
+<p>在<code>C:\Users\[用户名]\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup</code>路径下创建一个Thunderbird主程序快捷方式，即可实现Thunderbird开机自启。</p>
+<blockquote>
+<p>推而广之，可用此方式实现其他（任何）程序的开机自启。</p>
+</blockquote>
+<h2 id="One-more-thing">One more thing</h2>
+<p>更进一步，可在Thunderbird客户端安装以下插件：</p>
+<ul>
+<li>Minimize at startup：启动时最小化到托盘。配合上述自启动设置，可实现开机自启且最小化。</li>
+<li>Minimize on Close：点击关闭按钮后最小化到托盘，而不是关闭程序。可避免误关，更重要的是可以拯救强迫症患者。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>工具</category>
+      </categories>
+      <tags>
+        <tag>Thunderbird</tag>
       </tags>
   </entry>
   <entry>
@@ -1917,59 +1973,45 @@
       </tags>
   </entry>
   <entry>
-    <title>Tomcat 双击 startup.bat 闪退</title>
-    <url>/2024/01/31/Tomcat%E5%8F%8C%E5%87%BBstartup-bat%E9%97%AA%E9%80%80/</url>
-    <content><![CDATA[<h2 id="问题">问题</h2>
-<p>在没有其他进程占用 8080 端口的情况下，双击 Tomcat 的 <code>startup.bat</code> 脚本发生闪退，无法启动。</p>
-<h2 id="原因">原因</h2>
-<p>未配置 <code>JAVA_HOME</code> 环境变量。</p>
-<blockquote>
-<p>问题排查过程：</p>
-<ul>
-<li>在 <code>startup.bat</code> 文件末尾添加一行 <code>pause</code> ，避免 Tomcat 立即退出；</li>
-<li>双击 <code>startup.bat</code> ，尝试启动；</li>
-<li>未成功启动，终端中提示 <code>JAVA_HOME</code> 与 <code>jre</code> 均未配置，需至少配置二者其一。</li>
-</ul>
-</blockquote>
-<h2 id="解决">解决</h2>
-<ul>
-<li>方法一：配置 Windows 系统 <code>JAVA_HOME</code> 环境变量（推荐）</li>
-<li>方法二：在 <code>startup.bat</code> 文件开头添加 <code>SET JAVA_HOME=Java安装目录</code></li>
-</ul>
-<h2 id="参考">参考</h2>
-<ul>
-<li><a class="link"   href="https://blog.51cto.com/u_14783151/2899251" >https://blog.51cto.com/u_14783151/2899251 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li><a class="link"   href="https://blog.csdn.net/qq496013218/article/details/74517593" >https://blog.csdn.net/qq496013218/article/details/74517593 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-</ul>
+    <title>SpringBoot 配置的优先级</title>
+    <url>/2024/03/07/SpringBoot%E9%85%8D%E7%BD%AE%E4%BC%98%E5%85%88%E7%BA%A7/</url>
+    <content><![CDATA[<h2 id="1-配置文件">1. 配置文件</h2>
+<p>配置文件优先级排名（从高到低）：</p>
+<ol>
+<li>properties配置文件</li>
+<li>yml配置文件</li>
+<li>yaml配置文件</li>
+</ol>
+<p>注意事项：虽然SpringBoot支持多种格式配置文件，但是在项目开发时，推荐统一使用一种格式的配置。（yml是主流）</p>
+<h2 id="2-系统属性和命令行参数">2. 系统属性和命令行参数</h2>
+<p>在SpringBoot项目当中除了以上3种配置文件外，SpringBoot为了增强程序的扩展性，除了支持配置文件的配置方式以外，还支持另外两种常见的配置方式：</p>
+<ol>
+<li>
+<p>Java系统属性配置 （格式： -Dkey=value）</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">-Dserver.port=9000</span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>命令行参数 （格式：–key=value）</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">--server.port=10010</span><br></pre></td></tr></table></figure></div>
+</li>
+</ol>
+<p>思考：如果项目已经打包上线了，这个时候我们又如何来设置Java系统属性和命令行参数呢？</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">java [-Dserver.port=9000] -jar XXXXX.jar [--server.port=10010]</span><br></pre></td></tr></table></figure></div>
+<h2 id="3-总结">3. 总结</h2>
+<p>在SpringBoot项目当中，常见的属性配置方式有5种： 3种配置文件，加上2种外部属性的配置(Java系统属性、命令行参数)，优先级从高到低：</p>
+<ol>
+<li>命令行参数（–xxx=xxx）</li>
+<li>java系统属性（-Dxxx=xxx）</li>
+<li>application.properties</li>
+<li>application.yml</li>
+<li>application.yaml（忽略）</li>
+</ol>
 ]]></content>
       <categories>
-        <category>技术</category>
+        <category>Java学习笔记</category>
       </categories>
       <tags>
-        <tag>Tomcat</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>实现 Windows 环境下 Thunderbird 邮件客户端自启动</title>
-    <url>/2024/03/05/%E5%AE%9E%E7%8E%B0Windows%E7%8E%AF%E5%A2%83%E4%B8%8BThunderbird%E9%82%AE%E4%BB%B6%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%87%AA%E5%90%AF%E5%8A%A8/</url>
-    <content><![CDATA[<p>Thunderbird是一款优秀的开源邮件客户端，但在Windows环境下没有自启动选项，且关闭主界面后客户端也会关闭，这种设计不利于在后台接收新邮件提醒。因此，考虑通过其他途径实现Thunderbird的自启动。</p>
-<h2 id="实现">实现</h2>
-<p>在<code>C:\Users\[用户名]\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup</code>路径下创建一个Thunderbird主程序快捷方式，即可实现Thunderbird开机自启。</p>
-<blockquote>
-<p>推而广之，可用此方式实现其他（任何）程序的开机自启。</p>
-</blockquote>
-<h2 id="One-more-thing">One more thing</h2>
-<p>更进一步，可在Thunderbird客户端安装以下插件：</p>
-<ul>
-<li>Minimize at startup：启动时最小化到托盘。配合上述自启动设置，可实现开机自启且最小化。</li>
-<li>Minimize on Close：点击关闭按钮后最小化到托盘，而不是关闭程序。可避免误关，更重要的是可以拯救强迫症患者。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>工具</category>
-      </categories>
-      <tags>
-        <tag>Thunderbird</tag>
+        <tag>Spring</tag>
       </tags>
   </entry>
   <entry>
@@ -2166,48 +2208,6 @@
       </tags>
   </entry>
   <entry>
-    <title>SpringBoot 配置的优先级</title>
-    <url>/2024/03/07/SpringBoot%E9%85%8D%E7%BD%AE%E4%BC%98%E5%85%88%E7%BA%A7/</url>
-    <content><![CDATA[<h2 id="1-配置文件">1. 配置文件</h2>
-<p>配置文件优先级排名（从高到低）：</p>
-<ol>
-<li>properties配置文件</li>
-<li>yml配置文件</li>
-<li>yaml配置文件</li>
-</ol>
-<p>注意事项：虽然SpringBoot支持多种格式配置文件，但是在项目开发时，推荐统一使用一种格式的配置。（yml是主流）</p>
-<h2 id="2-系统属性和命令行参数">2. 系统属性和命令行参数</h2>
-<p>在SpringBoot项目当中除了以上3种配置文件外，SpringBoot为了增强程序的扩展性，除了支持配置文件的配置方式以外，还支持另外两种常见的配置方式：</p>
-<ol>
-<li>
-<p>Java系统属性配置 （格式： -Dkey=value）</p>
-<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">-Dserver.port=9000</span><br></pre></td></tr></table></figure></div>
-</li>
-<li>
-<p>命令行参数 （格式：–key=value）</p>
-<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">--server.port=10010</span><br></pre></td></tr></table></figure></div>
-</li>
-</ol>
-<p>思考：如果项目已经打包上线了，这个时候我们又如何来设置Java系统属性和命令行参数呢？</p>
-<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">java [-Dserver.port=9000] -jar XXXXX.jar [--server.port=10010]</span><br></pre></td></tr></table></figure></div>
-<h2 id="3-总结">3. 总结</h2>
-<p>在SpringBoot项目当中，常见的属性配置方式有5种： 3种配置文件，加上2种外部属性的配置(Java系统属性、命令行参数)，优先级从高到低：</p>
-<ol>
-<li>命令行参数（–xxx=xxx）</li>
-<li>java系统属性（-Dxxx=xxx）</li>
-<li>application.properties</li>
-<li>application.yml</li>
-<li>application.yaml（忽略）</li>
-</ol>
-]]></content>
-      <categories>
-        <category>Java学习笔记</category>
-      </categories>
-      <tags>
-        <tag>Spring</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>转载 - SpringBoot 为什么不需要额外安装 Tomcat ？</title>
     <url>/2024/03/07/%E8%BD%AC%E8%BD%BD-SpringBoot%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E9%9C%80%E8%A6%81%E9%A2%9D%E5%A4%96%E5%AE%89%E8%A3%85Tomcat%EF%BC%9F/</url>
     <content><![CDATA[
@@ -2373,6 +2373,28 @@
 ]]></content>
       <categories>
         <category>Java学习笔记</category>
+      </categories>
+      <tags>
+        <tag>Spring</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>转载 - Spring 注解之 @RestController 与 @Controller 的区别</title>
+    <url>/2024/03/08/%E8%BD%AC%E8%BD%BD-Spring-%E6%B3%A8%E8%A7%A3%E4%B9%8B-RestController%E4%B8%8E-Controller%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
+    <content><![CDATA[
+  <div class="note-large yellow">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>链接</p>
+
+    </div>
+    <div class="notel-content">
+      <p><a class="link"   href="https://www.cnblogs.com/east7/p/10462279.html" >https://www.cnblogs.com/east7/p/10462279.html <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+
+    </div>
+  </div>
+]]></content>
+      <categories>
+        <category>转载</category>
       </categories>
       <tags>
         <tag>Spring</tag>
@@ -2619,28 +2641,6 @@
       </tags>
   </entry>
   <entry>
-    <title>转载 - Spring 注解之 @RestController 与 @Controller 的区别</title>
-    <url>/2024/03/08/%E8%BD%AC%E8%BD%BD-Spring-%E6%B3%A8%E8%A7%A3%E4%B9%8B-RestController%E4%B8%8E-Controller%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
-    <content><![CDATA[
-  <div class="note-large yellow">
-    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
-      <p>链接</p>
-
-    </div>
-    <div class="notel-content">
-      <p><a class="link"   href="https://www.cnblogs.com/east7/p/10462279.html" >https://www.cnblogs.com/east7/p/10462279.html <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-
-    </div>
-  </div>
-]]></content>
-      <categories>
-        <category>转载</category>
-      </categories>
-      <tags>
-        <tag>Spring</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Maven - 分模块设计与开发</title>
     <url>/2024/03/11/Maven-%E5%88%86%E6%A8%A1%E5%9D%97%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%BC%80%E5%8F%91/</url>
     <content><![CDATA[<p>所谓分模块设计，指的就是我们在设计一个 Java 项目的时候，将一个 Java 项目拆分成多个模块进行开发。</p>
@@ -2685,7 +2685,8 @@
   <entry>
     <title>Maven - 继承与聚合</title>
     <url>/2024/03/11/Maven-%E7%BB%A7%E6%89%BF%E4%B8%8E%E8%81%9A%E5%90%88/</url>
-    <content><![CDATA[<p>在案例项目分模块开发之后，tlias-pojo、tlias-utils、tlias-web-management中都引入了一个 lombok 的依赖。我们在三个模块中分别配置了一次。</p>
+    <content><![CDATA[<h2 id="1-继承">1. 继承</h2>
+<p>在案例项目分模块开发之后，tlias-pojo、tlias-utils、tlias-web-management中都引入了一个 lombok 的依赖。我们在三个模块中分别配置了一次。</p>
 <img  
                      lazyload
                      src="/images/loading.svg"
@@ -2694,7 +2695,6 @@
                 > 
 <p>如果是做一个大型的项目，这三个模块当中重复的依赖可能会很多很多。如果每一个 Maven 模块里面，我们都来单独的配置一次，功能虽然能实现，但是配置是比较<strong>繁琐</strong>的。</p>
 <p>而 Maven 的继承就是用来解决这问题的。</p>
-<h2 id="1-继承">1. 继承</h2>
 <h3 id="1-1-继承关系">1.1 继承关系</h3>
 <h4 id="1-1-1-思路分析">1.1.1 思路分析</h4>
 <p>我们可以再创建一个父工程 tlias-parent ，然后让上述的三个模块 tlias-pojo、tlias-utils、tlias-web-management 都来继承这个父工程 。 然后再将各个模块中都共有的依赖，都提取到父工程 tlias-parent中进行配置，只要子工程继承了父工程，依赖它也会继承下来，这样就无需在各个子工程中进行配置了。</p>
