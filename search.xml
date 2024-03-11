@@ -1,6 +1,192 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>MapReduce 配置与操作</title>
+    <url>/2024/01/11/MapReduce%E9%85%8D%E7%BD%AE%E4%B8%8E%E6%93%8D%E4%BD%9C/</url>
+    <content><![CDATA[<h3 id="一、通过eclipse连接hadoop">一、通过eclipse连接hadoop</h3>
+<h4 id="1-主要步骤">1. 主要步骤</h4>
+<ul>
+<li>
+<p>安装eclipse</p>
+</li>
+<li>
+<p>安装Hadoop-Eclipse-Plugin</p>
+</li>
+<li>
+<p>配置Hadoop-Eclipse-Plugin</p>
+</li>
+</ul>
+<p>参考资料已给出此部分详细步骤，因此此处不再展开，仅给出实现效果如下：</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2023/11/17/5e8bfMxDjoOsPVL.png"
+                      style="zoom: 67%;" 
+                >
+<h4 id="2-参考资料">2. 参考资料</h4>
+<ul>
+<li><a class="link"   href="https://blog.csdn.net/u010185220/article/details/79095179" >windows10上使用Eclipse配置Hadoop开发环境详细步骤+WordCount示例 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+<h4 id="3-遇到的问题">3. 遇到的问题</h4>
+<ul>
+<li>
+<h5 id="新添加的插件在Eclipse中不显示">新添加的插件在Eclipse中不显示</h5>
+<ul>
+<li>
+<p>解决方法</p>
+<p>在 <code>eclipse/configuration</code> 目录下的 <code>config.ini</code> 文件中加入一行 : <code>osgi.checkConfiguration=true</code>，这样它就会寻找并安装插件。</p>
+</li>
+<li>
+<p>参考资料</p>
+<p><a class="link"   href="https://blog.csdn.net/qq_38789941/article/details/86244990" >Eclipse 安装插件后不显示的解决办法 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="二、WordCount示例">二、WordCount示例</h3>
+<h4 id="1-主要步骤-2">1. 主要步骤</h4>
+<p>参考资料已给出此部分详细步骤，因此此处仅列举出主要步骤。</p>
+<ul>
+<li>
+<p>新建项目</p>
+</li>
+<li>
+<p>在项目的src目录下创建<code>WordCount.java</code>类，内容如下：</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> Package;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.util.StringTokenizer;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.conf.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.fs.Path;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.IntWritable;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.Text;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.Job;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.Mapper;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.Reducer;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.lib.input.FileInputFormat;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.util.GenericOptionsParser;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">WordCount</span> &#123;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">TokenizerMapper</span> <span class="keyword">extends</span> <span class="title class_">Mapper</span>&lt;Object, Text, Text, IntWritable&gt; &#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="type">IntWritable</span> <span class="variable">one</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">IntWritable</span>(<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">private</span> <span class="type">Text</span> <span class="variable">word</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Text</span>();</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">map</span><span class="params">(Object key, Text value, Context context)</span> <span class="keyword">throws</span> IOException, InterruptedException &#123;</span><br><span class="line">            <span class="type">StringTokenizer</span> <span class="variable">itr</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringTokenizer</span>(value.toString());</span><br><span class="line">            <span class="keyword">while</span> (itr.hasMoreTokens()) &#123;</span><br><span class="line">                word.set(itr.nextToken());</span><br><span class="line">                context.write(word, one);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">IntSumReducer</span> <span class="keyword">extends</span> <span class="title class_">Reducer</span>&lt;Text, IntWritable, Text, IntWritable&gt; &#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="type">IntWritable</span> <span class="variable">result</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">IntWritable</span>();</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">reduce</span><span class="params">(Text key, Iterable&lt;IntWritable&gt; values, Context context)</span></span><br><span class="line">                <span class="keyword">throws</span> IOException, InterruptedException &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">sum</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span> (IntWritable val : values) &#123;</span><br><span class="line">                sum += val.get();</span><br><span class="line">            &#125;</span><br><span class="line">            result.set(sum);</span><br><span class="line">            context.write(key, result);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="type">Configuration</span> <span class="variable">conf</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Configuration</span>();</span><br><span class="line">        String[] otherArgs = <span class="keyword">new</span> <span class="title class_">GenericOptionsParser</span>(conf, args).getRemainingArgs();</span><br><span class="line">        <span class="keyword">if</span> (otherArgs.length != <span class="number">2</span>) &#123;</span><br><span class="line">            System.err.println(<span class="string">&quot;Usage: wordcount &lt;in&gt; &lt;out&gt;&quot;</span>);</span><br><span class="line">            System.exit(<span class="number">2</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="meta">@SuppressWarnings(&quot;deprecation&quot;)</span></span><br><span class="line">		<span class="type">Job</span> <span class="variable">job</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Job</span>(conf, <span class="string">&quot;word count&quot;</span>);</span><br><span class="line">        job.setJarByClass(WordCount.class);</span><br><span class="line">        job.setMapperClass(TokenizerMapper.class);</span><br><span class="line">        job.setCombinerClass(IntSumReducer.class);</span><br><span class="line">        job.setReducerClass(IntSumReducer.class);</span><br><span class="line">        job.setOutputKeyClass(Text.class);</span><br><span class="line">        job.setOutputValueClass(IntWritable.class);</span><br><span class="line">        FileInputFormat.addInputPath(job, <span class="keyword">new</span> <span class="title class_">Path</span>(otherArgs[<span class="number">0</span>]));</span><br><span class="line">        FileOutputFormat.setOutputPath(job, <span class="keyword">new</span> <span class="title class_">Path</span>(otherArgs[<span class="number">1</span>]));</span><br><span class="line">        System.exit(job.waitForCompletion(<span class="literal">true</span>) ? <span class="number">0</span> : <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>在项目的src目录下创建<code>log4j.properties</code>文件，内容如下：</p>
+<div class="highlight-container" data-rel="Properties"><figure class="iseeu highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Configure logging for testing:optionally with log file </span></span><br><span class="line"><span class="comment">#log4j.rootLogger=debug,appender </span></span><br><span class="line"><span class="attr">log4j.rootLogger</span>=<span class="string">info,appender </span></span><br><span class="line"><span class="comment">#log4j.rootLogger=error,appender </span></span><br><span class="line"><span class="comment">#\u8F93\u51FA\u5230\u63A7\u5236\u53F0 </span></span><br><span class="line"><span class="attr">log4j.appender.appender</span>=<span class="string">org.apache.log4j.ConsoleAppender </span></span><br><span class="line"><span class="comment">#\u6837\u5F0F\u4E3ATTCCLayout </span></span><br><span class="line"><span class="attr">log4j.appender.appender.layout</span>=<span class="string">org.apache.log4j.TTCCLayout</span></span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>配置运行参数</p>
+</li>
+<li>
+<p>运行</p>
+</li>
+</ul>
+<h4 id="2-运行结果">2. 运行结果</h4>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2023/11/17/o6ERhliMpC85qPm.png"
+                      alt=""
+                ></p>
+<p>其中，<code>word.txt</code> 文件内容如下：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">a</span><br><span class="line">a</span><br><span class="line">a</span><br><span class="line"></span><br><span class="line">b</span><br><span class="line">b</span><br><span class="line">b</span><br><span class="line"></span><br><span class="line">c</span><br><span class="line">c</span><br><span class="line">c</span><br><span class="line"></span><br><span class="line">d</span><br><span class="line">e</span><br><span class="line">f</span><br><span class="line"></span><br><span class="line">hello hadoop !</span><br><span class="line">hello world !</span><br></pre></td></tr></table></figure></div>
+<p>程序输出 <code>hdfs://192.168.242.129:9000/hadoop-user/output.txt/part-r-00000</code> 文件内容如下：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">!	2</span><br><span class="line">a	3</span><br><span class="line">b	3</span><br><span class="line">c	3</span><br><span class="line">d	1</span><br><span class="line">e	1</span><br><span class="line">f	1</span><br><span class="line">hadoop	1</span><br><span class="line">hello	2</span><br><span class="line">world	1</span><br></pre></td></tr></table></figure></div>
+<p>词频统计结果无误。</p>
+<h4 id="3-参考资料">3. 参考资料</h4>
+<ul>
+<li><a class="link"   href="https://cwiki.apache.org/confluence/display/HADOOP2/WordCount" >WordCount Example <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://blog.csdn.net/u010185220/article/details/79095179" >windows10上使用Eclipse配置Hadoop开发环境详细步骤+WordCount示例 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+<h4 id="4-遇到的问题">4. 遇到的问题</h4>
+<ul>
+<li>
+<h5 id="环境变量问题">环境变量问题</h5>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">Exception in thread &quot;main&quot; java.lang.RuntimeException: java.io.FileNotFoundException: java.io.FileNotFoundException: HADOOP_HOME and hadoop.home.dir are unset.</span><br></pre></td></tr></table></figure></div>
+<ul>
+<li>
+<p>问题分析</p>
+<p>从错误信息中可以看到，Hadoop在执行<code>Shell.getWinUtilsPath</code>的时候抛出了异常。这是因为Hadoop在进行某些本地文件系统操作时，依赖于一些环境变量，其中包括<code>HADOOP_HOME</code>。这两个变量都没有被正确设置，导致了<code>FileNotFoundException</code>。</p>
+</li>
+<li>
+<p>解决方法</p>
+<p>在项目运行配置中指定<code>HADOOP_HOME</code>环境变量及其值：<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2023/11/17/3dmlWo9A8LMwkSU.png"
+                      alt=""
+                ></p>
+</li>
+<li>
+<p>参考资料</p>
+<ul>
+<li><a class="link"   href="https://cwiki.apache.org/confluence/display/HADOOP2/WindowsProblems" >Problems running Hadoop on Windows <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<h5 id="权限错误问题">权限错误问题</h5>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">[Thread-5] WARN org.apache.hadoop.mapred.LocalJobRunner - job_local2147375942_0001</span><br><span class="line">org.apache.hadoop.security.AccessControlException: Permission denied: user=23876, access=WRITE, inode=&quot;/hadoop-user&quot;:root:supergroup:drwxr-xr-x</span><br><span class="line">[main] INFO org.apache.hadoop.mapreduce.Job - Job job_local2147375942_0001 failed with state FAILED due to: NA</span><br></pre></td></tr></table></figure></div>
+<ul>
+<li>
+<p>问题分析</p>
+<p>这个错误表明在本地运行作业时，用户尝试写入目录<code>/hadoop-user</code>时遇到权限问题，并导致作业以失败结束。</p>
+</li>
+<li>
+<p>解决方法</p>
+<p>在master节点中执行以下代码，以赋予当前用户对目标HDFS文件夹的写权限：</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">sudo chmod -R 777 /hadoop-user/</span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>参考资料</p>
+<ul>
+<li><a class="link"   href="https://hadoop.apache.org/docs/r1.0.4/cn/hdfs_permissions_guide.html#%E8%B6%85%E7%BA%A7%E7%94%A8%E6%88%B7" >HDFS权限管理用户指南 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://www.cnblogs.com/yinzhengjie2020/p/13737254.html" >HDFS权限管理篇-博客园 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>MapReduce</tag>
+        <tag>Hadoop</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Git 报错：SSH连接超时</title>
+    <url>/2024/01/19/Git%E6%8A%A5%E9%94%99-SSH%E8%BF%9E%E6%8E%A5%E8%B6%85%E6%97%B6/</url>
+    <content><![CDATA[<h2 id="问题">问题</h2>
+<p>使用 Git 向 GitHub 部署代码时，报错如下（此前正常）：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh: connect to host github.com port 22: Connection timed out</span><br><span class="line">fatal: Could not read from remote repository.</span><br><span class="line">Please make sure you have the correct access rights and the repository exists.</span><br></pre></td></tr></table></figure></div>
+<h2 id="原因">原因</h2>
+<p>SSH 端口被占用，重新指定一个端口即可。</p>
+<p>注：<em>Windows 系统查看端口占用情况的命令为：<code>netstat -ano | findStr 端口号</code></em></p>
+<h2 id="解决">解决</h2>
+<ul>
+<li>
+<p>打开 <code>C:\用户\主机名\.ssh</code> 文件夹</p>
+</li>
+<li>
+<p>新建 <code>config</code> 文件（不带后缀）</p>
+</li>
+<li>
+<p>输入以下内容后保存：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">Host github.com</span><br><span class="line">User GitHub注册邮箱</span><br><span class="line">Hostname ssh.github.com</span><br><span class="line">PreferredAuthentications publickey</span><br><span class="line">IdentityFile ~/.ssh/id_rsa</span><br><span class="line">Port 443</span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>在 Git Bash 执行：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure></div>
+<p>出现询问是否连接的提示，输入 <code>yes</code> 回车：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ ssh -T git@github.com</span><br><span class="line">The authenticity of host &#x27;[ssh.github.com]:443 ([20.205.243.160]:443)&#x27; can&#x27;t be established.</span><br><span class="line">Are you sure you want to continue connecting (yes/no/[fingerprint])? yes</span><br><span class="line">Warning: Permanently added &#x27;[ssh.github.com]:443&#x27; (ED25519) to the list of known hosts.</span><br><span class="line">Hi x-Parker! You&#x27;ve successfully authenticated, but GitHub does not provide shell access.</span><br></pre></td></tr></table></figure></div>
+<p>成功重新建立 SSH 连接。</p>
+</li>
+</ul>
+<h2 id="另解">另解</h2>
+<p>抛弃 SSH 连接方式，使用 HTTPS 连接 Github。</p>
+<h2 id="参考">参考</h2>
+<ul>
+<li><a class="link"   href="https://blog.csdn.net/yunxiaobaobei/article/details/123474599" >https://blog.csdn.net/yunxiaobaobei/article/details/123474599 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://blog.csdn.net/weixin_41287260/article/details/124368189" >https://blog.csdn.net/weixin_41287260/article/details/124368189 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>Git</tag>
+        <tag>SSH</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hadoop 环境配置</title>
     <url>/2024/01/10/Hadoop%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/</url>
     <content><![CDATA[<h2 id="主要步骤">主要步骤</h2>
@@ -200,438 +386,6 @@
       </categories>
       <tags>
         <tag>Hadoop</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>MapReduce 配置与操作</title>
-    <url>/2024/01/11/MapReduce%E9%85%8D%E7%BD%AE%E4%B8%8E%E6%93%8D%E4%BD%9C/</url>
-    <content><![CDATA[<h3 id="一、通过eclipse连接hadoop">一、通过eclipse连接hadoop</h3>
-<h4 id="1-主要步骤">1. 主要步骤</h4>
-<ul>
-<li>
-<p>安装eclipse</p>
-</li>
-<li>
-<p>安装Hadoop-Eclipse-Plugin</p>
-</li>
-<li>
-<p>配置Hadoop-Eclipse-Plugin</p>
-</li>
-</ul>
-<p>参考资料已给出此部分详细步骤，因此此处不再展开，仅给出实现效果如下：</p>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2023/11/17/5e8bfMxDjoOsPVL.png"
-                      style="zoom: 67%;" 
-                >
-<h4 id="2-参考资料">2. 参考资料</h4>
-<ul>
-<li><a class="link"   href="https://blog.csdn.net/u010185220/article/details/79095179" >windows10上使用Eclipse配置Hadoop开发环境详细步骤+WordCount示例 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-</ul>
-<h4 id="3-遇到的问题">3. 遇到的问题</h4>
-<ul>
-<li>
-<h5 id="新添加的插件在Eclipse中不显示">新添加的插件在Eclipse中不显示</h5>
-<ul>
-<li>
-<p>解决方法</p>
-<p>在 <code>eclipse/configuration</code> 目录下的 <code>config.ini</code> 文件中加入一行 : <code>osgi.checkConfiguration=true</code>，这样它就会寻找并安装插件。</p>
-</li>
-<li>
-<p>参考资料</p>
-<p><a class="link"   href="https://blog.csdn.net/qq_38789941/article/details/86244990" >Eclipse 安装插件后不显示的解决办法 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="二、WordCount示例">二、WordCount示例</h3>
-<h4 id="1-主要步骤-2">1. 主要步骤</h4>
-<p>参考资料已给出此部分详细步骤，因此此处仅列举出主要步骤。</p>
-<ul>
-<li>
-<p>新建项目</p>
-</li>
-<li>
-<p>在项目的src目录下创建<code>WordCount.java</code>类，内容如下：</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> Package;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.util.StringTokenizer;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.conf.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.fs.Path;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.IntWritable;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.Text;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.Job;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.Mapper;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.Reducer;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.lib.input.FileInputFormat;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.util.GenericOptionsParser;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">WordCount</span> &#123;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">TokenizerMapper</span> <span class="keyword">extends</span> <span class="title class_">Mapper</span>&lt;Object, Text, Text, IntWritable&gt; &#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="type">IntWritable</span> <span class="variable">one</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">IntWritable</span>(<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">private</span> <span class="type">Text</span> <span class="variable">word</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Text</span>();</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">map</span><span class="params">(Object key, Text value, Context context)</span> <span class="keyword">throws</span> IOException, InterruptedException &#123;</span><br><span class="line">            <span class="type">StringTokenizer</span> <span class="variable">itr</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringTokenizer</span>(value.toString());</span><br><span class="line">            <span class="keyword">while</span> (itr.hasMoreTokens()) &#123;</span><br><span class="line">                word.set(itr.nextToken());</span><br><span class="line">                context.write(word, one);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">IntSumReducer</span> <span class="keyword">extends</span> <span class="title class_">Reducer</span>&lt;Text, IntWritable, Text, IntWritable&gt; &#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="type">IntWritable</span> <span class="variable">result</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">IntWritable</span>();</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">reduce</span><span class="params">(Text key, Iterable&lt;IntWritable&gt; values, Context context)</span></span><br><span class="line">                <span class="keyword">throws</span> IOException, InterruptedException &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">sum</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span> (IntWritable val : values) &#123;</span><br><span class="line">                sum += val.get();</span><br><span class="line">            &#125;</span><br><span class="line">            result.set(sum);</span><br><span class="line">            context.write(key, result);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="type">Configuration</span> <span class="variable">conf</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Configuration</span>();</span><br><span class="line">        String[] otherArgs = <span class="keyword">new</span> <span class="title class_">GenericOptionsParser</span>(conf, args).getRemainingArgs();</span><br><span class="line">        <span class="keyword">if</span> (otherArgs.length != <span class="number">2</span>) &#123;</span><br><span class="line">            System.err.println(<span class="string">&quot;Usage: wordcount &lt;in&gt; &lt;out&gt;&quot;</span>);</span><br><span class="line">            System.exit(<span class="number">2</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="meta">@SuppressWarnings(&quot;deprecation&quot;)</span></span><br><span class="line">		<span class="type">Job</span> <span class="variable">job</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Job</span>(conf, <span class="string">&quot;word count&quot;</span>);</span><br><span class="line">        job.setJarByClass(WordCount.class);</span><br><span class="line">        job.setMapperClass(TokenizerMapper.class);</span><br><span class="line">        job.setCombinerClass(IntSumReducer.class);</span><br><span class="line">        job.setReducerClass(IntSumReducer.class);</span><br><span class="line">        job.setOutputKeyClass(Text.class);</span><br><span class="line">        job.setOutputValueClass(IntWritable.class);</span><br><span class="line">        FileInputFormat.addInputPath(job, <span class="keyword">new</span> <span class="title class_">Path</span>(otherArgs[<span class="number">0</span>]));</span><br><span class="line">        FileOutputFormat.setOutputPath(job, <span class="keyword">new</span> <span class="title class_">Path</span>(otherArgs[<span class="number">1</span>]));</span><br><span class="line">        System.exit(job.waitForCompletion(<span class="literal">true</span>) ? <span class="number">0</span> : <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-</li>
-<li>
-<p>在项目的src目录下创建<code>log4j.properties</code>文件，内容如下：</p>
-<div class="highlight-container" data-rel="Properties"><figure class="iseeu highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Configure logging for testing:optionally with log file </span></span><br><span class="line"><span class="comment">#log4j.rootLogger=debug,appender </span></span><br><span class="line"><span class="attr">log4j.rootLogger</span>=<span class="string">info,appender </span></span><br><span class="line"><span class="comment">#log4j.rootLogger=error,appender </span></span><br><span class="line"><span class="comment">#\u8F93\u51FA\u5230\u63A7\u5236\u53F0 </span></span><br><span class="line"><span class="attr">log4j.appender.appender</span>=<span class="string">org.apache.log4j.ConsoleAppender </span></span><br><span class="line"><span class="comment">#\u6837\u5F0F\u4E3ATTCCLayout </span></span><br><span class="line"><span class="attr">log4j.appender.appender.layout</span>=<span class="string">org.apache.log4j.TTCCLayout</span></span><br></pre></td></tr></table></figure></div>
-</li>
-<li>
-<p>配置运行参数</p>
-</li>
-<li>
-<p>运行</p>
-</li>
-</ul>
-<h4 id="2-运行结果">2. 运行结果</h4>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2023/11/17/o6ERhliMpC85qPm.png"
-                      alt=""
-                ></p>
-<p>其中，<code>word.txt</code> 文件内容如下：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">a</span><br><span class="line">a</span><br><span class="line">a</span><br><span class="line"></span><br><span class="line">b</span><br><span class="line">b</span><br><span class="line">b</span><br><span class="line"></span><br><span class="line">c</span><br><span class="line">c</span><br><span class="line">c</span><br><span class="line"></span><br><span class="line">d</span><br><span class="line">e</span><br><span class="line">f</span><br><span class="line"></span><br><span class="line">hello hadoop !</span><br><span class="line">hello world !</span><br></pre></td></tr></table></figure></div>
-<p>程序输出 <code>hdfs://192.168.242.129:9000/hadoop-user/output.txt/part-r-00000</code> 文件内容如下：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">!	2</span><br><span class="line">a	3</span><br><span class="line">b	3</span><br><span class="line">c	3</span><br><span class="line">d	1</span><br><span class="line">e	1</span><br><span class="line">f	1</span><br><span class="line">hadoop	1</span><br><span class="line">hello	2</span><br><span class="line">world	1</span><br></pre></td></tr></table></figure></div>
-<p>词频统计结果无误。</p>
-<h4 id="3-参考资料">3. 参考资料</h4>
-<ul>
-<li><a class="link"   href="https://cwiki.apache.org/confluence/display/HADOOP2/WordCount" >WordCount Example <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li><a class="link"   href="https://blog.csdn.net/u010185220/article/details/79095179" >windows10上使用Eclipse配置Hadoop开发环境详细步骤+WordCount示例 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-</ul>
-<h4 id="4-遇到的问题">4. 遇到的问题</h4>
-<ul>
-<li>
-<h5 id="环境变量问题">环境变量问题</h5>
-<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">Exception in thread &quot;main&quot; java.lang.RuntimeException: java.io.FileNotFoundException: java.io.FileNotFoundException: HADOOP_HOME and hadoop.home.dir are unset.</span><br></pre></td></tr></table></figure></div>
-<ul>
-<li>
-<p>问题分析</p>
-<p>从错误信息中可以看到，Hadoop在执行<code>Shell.getWinUtilsPath</code>的时候抛出了异常。这是因为Hadoop在进行某些本地文件系统操作时，依赖于一些环境变量，其中包括<code>HADOOP_HOME</code>。这两个变量都没有被正确设置，导致了<code>FileNotFoundException</code>。</p>
-</li>
-<li>
-<p>解决方法</p>
-<p>在项目运行配置中指定<code>HADOOP_HOME</code>环境变量及其值：<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2023/11/17/3dmlWo9A8LMwkSU.png"
-                      alt=""
-                ></p>
-</li>
-<li>
-<p>参考资料</p>
-<ul>
-<li><a class="link"   href="https://cwiki.apache.org/confluence/display/HADOOP2/WindowsProblems" >Problems running Hadoop on Windows <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li>
-<h5 id="权限错误问题">权限错误问题</h5>
-<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">[Thread-5] WARN org.apache.hadoop.mapred.LocalJobRunner - job_local2147375942_0001</span><br><span class="line">org.apache.hadoop.security.AccessControlException: Permission denied: user=23876, access=WRITE, inode=&quot;/hadoop-user&quot;:root:supergroup:drwxr-xr-x</span><br><span class="line">[main] INFO org.apache.hadoop.mapreduce.Job - Job job_local2147375942_0001 failed with state FAILED due to: NA</span><br></pre></td></tr></table></figure></div>
-<ul>
-<li>
-<p>问题分析</p>
-<p>这个错误表明在本地运行作业时，用户尝试写入目录<code>/hadoop-user</code>时遇到权限问题，并导致作业以失败结束。</p>
-</li>
-<li>
-<p>解决方法</p>
-<p>在master节点中执行以下代码，以赋予当前用户对目标HDFS文件夹的写权限：</p>
-<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">sudo chmod -R 777 /hadoop-user/</span><br></pre></td></tr></table></figure></div>
-</li>
-<li>
-<p>参考资料</p>
-<ul>
-<li><a class="link"   href="https://hadoop.apache.org/docs/r1.0.4/cn/hdfs_permissions_guide.html#%E8%B6%85%E7%BA%A7%E7%94%A8%E6%88%B7" >HDFS权限管理用户指南 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li><a class="link"   href="https://www.cnblogs.com/yinzhengjie2020/p/13737254.html" >HDFS权限管理篇-博客园 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>Hadoop</tag>
-        <tag>MapReduce</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Git 报错：SSH连接超时</title>
-    <url>/2024/01/19/Git%E6%8A%A5%E9%94%99-SSH%E8%BF%9E%E6%8E%A5%E8%B6%85%E6%97%B6/</url>
-    <content><![CDATA[<h2 id="问题">问题</h2>
-<p>使用 Git 向 GitHub 部署代码时，报错如下（此前正常）：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh: connect to host github.com port 22: Connection timed out</span><br><span class="line">fatal: Could not read from remote repository.</span><br><span class="line">Please make sure you have the correct access rights and the repository exists.</span><br></pre></td></tr></table></figure></div>
-<h2 id="原因">原因</h2>
-<p>SSH 端口被占用，重新指定一个端口即可。</p>
-<p>注：<em>Windows 系统查看端口占用情况的命令为：<code>netstat -ano | findStr 端口号</code></em></p>
-<h2 id="解决">解决</h2>
-<ul>
-<li>
-<p>打开 <code>C:\用户\主机名\.ssh</code> 文件夹</p>
-</li>
-<li>
-<p>新建 <code>config</code> 文件（不带后缀）</p>
-</li>
-<li>
-<p>输入以下内容后保存：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">Host github.com</span><br><span class="line">User GitHub注册邮箱</span><br><span class="line">Hostname ssh.github.com</span><br><span class="line">PreferredAuthentications publickey</span><br><span class="line">IdentityFile ~/.ssh/id_rsa</span><br><span class="line">Port 443</span><br></pre></td></tr></table></figure></div>
-</li>
-<li>
-<p>在 Git Bash 执行：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure></div>
-<p>出现询问是否连接的提示，输入 <code>yes</code> 回车：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ ssh -T git@github.com</span><br><span class="line">The authenticity of host &#x27;[ssh.github.com]:443 ([20.205.243.160]:443)&#x27; can&#x27;t be established.</span><br><span class="line">Are you sure you want to continue connecting (yes/no/[fingerprint])? yes</span><br><span class="line">Warning: Permanently added &#x27;[ssh.github.com]:443&#x27; (ED25519) to the list of known hosts.</span><br><span class="line">Hi x-Parker! You&#x27;ve successfully authenticated, but GitHub does not provide shell access.</span><br></pre></td></tr></table></figure></div>
-<p>成功重新建立 SSH 连接。</p>
-</li>
-</ul>
-<h2 id="另解">另解</h2>
-<p>抛弃 SSH 连接方式，使用 HTTPS 连接 Github。</p>
-<h2 id="参考">参考</h2>
-<ul>
-<li><a class="link"   href="https://blog.csdn.net/yunxiaobaobei/article/details/123474599" >https://blog.csdn.net/yunxiaobaobei/article/details/123474599 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li><a class="link"   href="https://blog.csdn.net/weixin_41287260/article/details/124368189" >https://blog.csdn.net/weixin_41287260/article/details/124368189 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>Git</tag>
-        <tag>SSH</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Once Upon a Time in America</title>
-    <url>/2024/01/19/Once-Upon-a-Time-in-America/</url>
-    <content><![CDATA[<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/01/19/y9MTUVfmBbJcC5s.jpg"
-                      style="zoom: 200%;" 
-                >
-]]></content>
-      <categories>
-        <category>生活</category>
-      </categories>
-      <tags>
-        <tag>电影</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Git 报错：无法创建 index.lock 文件，因其已存在。</title>
-    <url>/2024/01/25/Git-%E6%8A%A5%E9%94%99%EF%BC%9A%E6%97%A0%E6%B3%95%E5%88%9B%E5%BB%BA-index-lock-%E6%96%87%E4%BB%B6%EF%BC%8C%E5%9B%A0%E5%85%B6%E5%B7%B2%E5%AD%98%E5%9C%A8/</url>
-    <content><![CDATA[<h2 id="问题">问题</h2>
-<p>使用 Git 向 Github 部署代码时，出现如下报错：</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/01/25/VTOAzyM2Jm9pEWH.png"
-                      alt=""
-                ></p>
-<h2 id="原因">原因</h2>
-<p>有两个 Git 命令同时运行，可能一种来自命令提示符，另一种来自 IDE 。</p>
-<h2 id="解决">解决</h2>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/01/25/V2x6Msj5KSDqFp3.png"
-                      alt=""
-                ><br>
-删除报错信息对应路径下已存在的 <code>index.lock</code> 文件即可。</p>
-<h2 id="引用">引用</h2>
-<ul>
-<li><a class="link"   href="https://stackoverflow.com/questions/38004148/another-git-process-seems-to-be-running-in-this-repository" >https://stackoverflow.com/questions/38004148/another-git-process-seems-to-be-running-in-this-repository <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>Git</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hexo 博客中的 Markdown 脚注渲染问题</title>
-    <url>/2024/01/25/Markdown-%E8%84%9A%E6%B3%A8%E6%B8%B2%E6%9F%93%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<h2 id="问题">问题</h2>
-<p>Hexo 博客无法正常渲染 Markdown 脚注，如下图所示：</p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/01/25/boT1YRUWje6kIHD.png"
-                      alt="Typora 渲染效果"
-                ><figcaption>Typora 渲染效果</figcaption></figure></p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/01/25/EbtSNxAl4hr681y.png"
-                      alt="Hexo 网页渲染效果"
-                ><figcaption>Hexo 网页渲染效果</figcaption></figure></p>
-<h2 id="原因">原因</h2>
-<p>Hexo 默认 Markdown 渲染插件为 <code>hexo-renderer-marked</code> ，而 <code>marked.js</code> 不支持脚注。</p>
-<h2 id="解决">解决</h2>
-<p>改用支持脚注的 Markdown 渲染插件，如 <code>hexo-renderer-markdown-it</code> 。</p>
-<ol>
-<li>
-<p>在 Hexo 根目录打开 Git Bash ，依次执行以下命令：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">npm un hexo-renderer-marked --save <span class="comment"># 卸载 marked 插件</span></span><br><span class="line">npm i hexo-renderer-markdown-it --save <span class="comment"># 安装 markdown-it 插件</span></span><br></pre></td></tr></table></figure></div>
-</li>
-<li>
-<p>在 Hexo 根目录打开 <code>_config.yml</code> 文件，添加如下配置信息：</p>
-<div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">markdown:</span></span><br><span class="line">    <span class="attr">plugins:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">markdown-it-footnote</span></span><br></pre></td></tr></table></figure></div>
-</li>
-<li>
-<p>重新生成静态文件，刷新配置信息使其生效。</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">hexo cl &amp;&amp; hexo g</span><br></pre></td></tr></table></figure></div>
-</li>
-</ol>
-<h2 id="效果">效果</h2>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/01/25/5YH4T6U9VxgkBcq.png"
-                      style="zoom:50%;" 
-                >
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/01/25/Gv3SotxEdrMzXpi.png"
-                      style="zoom:50%;" 
-                >
-<p>点击脚注可正常跳转。</p>
-<h2 id="引用">引用</h2>
-<ul>
-<li><a class="link"   href="https://github.com/ppoffice/hexo-theme-icarus/issues/572" >https://github.com/ppoffice/hexo-theme-icarus/issues/572 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li><a class="link"   href="https://seayj.cn/articles/33818/" >https://seayj.cn/articles/33818/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>博客</category>
-      </categories>
-      <tags>
-        <tag>Markdown</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>PowerShell 报错：在此系统上禁止运行脚本</title>
-    <url>/2024/01/22/PowerShell-vue%E6%97%A0%E6%B3%95%E5%8A%A0%E8%BD%BD%E6%96%87%E4%BB%B6-%E5%9B%A0%E4%B8%BA%E5%9C%A8%E6%AD%A4%E7%B3%BB%E7%BB%9F%E4%B8%8A%E7%A6%81%E6%AD%A2%E8%BF%90%E8%A1%8C%E8%84%9A%E6%9C%AC/</url>
-    <content><![CDATA[<h2 id="问题">问题</h2>
-<p>在 Windows PowerShell （管理员模式下）执行 <code>vue --version</code> 命令时报错如下：</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/01/22/IBWcwtCLqjm2ya3.png"
-                      alt=""
-                ></p>
-<h2 id="原因">原因</h2>
-<p>首次在计算机上启动 Windows PowerShell 时，现用执行策略很可能是 Restricted（默认设置）。Restricted 策略不允许任何脚本运行，以防止执行不信任的脚本。</p>
-<h2 id="解决">解决</h2>
-<p>在 Windows PowerShell 执行以下命令：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">set-executionpolicy remotesigned</span><br></pre></td></tr></table></figure></div>
-<h2 id="效果">效果</h2>
-<p>再次执行 <code>vue --version</code> 命令，可正常查看 Vue 版本：</p>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/01/22/2UpOySQuL3ev5to.png"
-                      style="zoom: 50%;"
-                >
-<h2 id="引用">引用</h2>
-<ul>
-<li><a class="link"   href="https://cloud.tencent.com/developer/article/1612513" >https://cloud.tencent.com/developer/article/1612513 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>PowerShell</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hexo 隐藏特定文章</title>
-    <url>/2024/01/25/Hexo-%E9%9A%90%E8%97%8F%E7%89%B9%E5%AE%9A%E6%96%87%E7%AB%A0/</url>
-    <content><![CDATA[<h2 id="问题">问题</h2>
-<p>写博客时有隐藏特定文章的需求</p>
-<h2 id="解决">解决</h2>
-<p>安装并配置 <code>hexo-hide-posts</code> 插件：</p>
-<ul>
-<li>
-<p>在站点根目录下执行 <code>npm install hexo-hide-posts --save</code> 命令</p>
-</li>
-<li>
-<p>在站点根目录下的 <code>_config.yml</code> 文件中添加如下配置：</p>
-<div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># hexo-hide-posts</span></span><br><span class="line"><span class="attr">hide_posts:</span></span><br><span class="line">  <span class="attr">filter:</span> <span class="string">hidden</span></span><br><span class="line">  </span><br><span class="line">  <span class="comment"># 指定你想要传递隐藏文章的位置，比如让所有隐藏文章在存档页面可见</span></span><br><span class="line">  <span class="comment"># 常见的位置有：index, tag, category, archive, sitemap, feed, etc.</span></span><br><span class="line">  <span class="comment"># 留空则默认全部隐藏</span></span><br><span class="line">  <span class="attr">public_generators:</span> []</span><br><span class="line">  </span><br><span class="line">  <span class="comment"># 为隐藏的文章添加 noindex meta 标签，阻止搜索引擎收录</span></span><br><span class="line">  <span class="attr">noindex:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure></div>
-</li>
-</ul>
-<p>之后写作文章时，在文章属性中添加 <code>hidden: true</code> 即可隐藏文章，形如：</p>
-<div class="highlight-container" data-rel="Markdown"><figure class="iseeu highlight markdown"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: &#x27;Hidden Post&#x27;</span><br><span class="line">date: &#x27;2024/01/25 16:21:16&#x27;</span><br><span class="line"><span class="section">hidden: true</span></span><br><span class="line"><span class="section">---</span></span><br></pre></td></tr></table></figure></div>
-<p>若要查看隐藏文章，可以运行 <code>hexo hidden:list</code> 命令来获取当前所有的已隐藏文章列表及其信息，并通过文章链接访问。</p>
-<h2 id="引用">引用</h2>
-<ul>
-<li><a class="link"   href="https://blog.garryde.com/archives/37712.html" >https://blog.garryde.com/archives/37712.html <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>博客</category>
-      </categories>
-      <tags>
-        <tag>Hexo</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Tomcat 双击 startup.bat 闪退</title>
-    <url>/2024/01/31/Tomcat%E5%8F%8C%E5%87%BBstartup-bat%E9%97%AA%E9%80%80/</url>
-    <content><![CDATA[<h2 id="问题">问题</h2>
-<p>在没有其他进程占用 8080 端口的情况下，双击 Tomcat 的 <code>startup.bat</code> 脚本发生闪退，无法启动。</p>
-<h2 id="原因">原因</h2>
-<p>未配置 <code>JAVA_HOME</code> 环境变量。</p>
-<blockquote>
-<p>问题排查过程：</p>
-<ul>
-<li>在 <code>startup.bat</code> 文件末尾添加一行 <code>pause</code> ，避免 Tomcat 立即退出；</li>
-<li>双击 <code>startup.bat</code> ，尝试启动；</li>
-<li>未成功启动，终端中提示 <code>JAVA_HOME</code> 与 <code>jre</code> 均未配置，需至少配置二者其一。</li>
-</ul>
-</blockquote>
-<h2 id="解决">解决</h2>
-<ul>
-<li>方法一：配置 Windows 系统 <code>JAVA_HOME</code> 环境变量（推荐）</li>
-<li>方法二：在 <code>startup.bat</code> 文件开头添加 <code>SET JAVA_HOME=Java安装目录</code></li>
-</ul>
-<h2 id="参考">参考</h2>
-<ul>
-<li><a class="link"   href="https://blog.51cto.com/u_14783151/2899251" >https://blog.51cto.com/u_14783151/2899251 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li><a class="link"   href="https://blog.csdn.net/qq496013218/article/details/74517593" >https://blog.csdn.net/qq496013218/article/details/74517593 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>Tomcat</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Windows cmd 执行 Java 命令无返回信息</title>
-    <url>/2024/02/18/Windows-cmd%E6%89%A7%E8%A1%8Cjava%E5%91%BD%E4%BB%A4%E6%97%A0%E8%BF%94%E5%9B%9E%E4%BF%A1%E6%81%AF/</url>
-    <content><![CDATA[<h2 id="问题">问题</h2>
-<p>在 Windows 命令行中无法执行 Java 命令且没有任何返回信息：</p>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/02/18/rmNVClcep816dXR.png"
-                      style="zoom:50%;" 
-                >
-<h2 id="原因">原因</h2>
-<p>装了多个 jdk 的话，系统环境变量的第一行可能会出现 <code>C:\ProgramData\Oracle\Java\javapath</code> 路径，系统按该路径查找 jdk 。然而该路径可能并不真实存在，因此命令行中的 Java 命令会因找不到 jdk 而并未运行。</p>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/02/18/3XM9B4wfPOlsyUi.png"
-                      style="zoom:50%;" 
-                >
-<h2 id="解决">解决</h2>
-<p>将自定义的 <code>%JAVA_HOME%\bin\</code> 路径移至第一行，让系统按该路径查找 jdk 。</p>
-<h2 id="参考">参考</h2>
-<ul>
-<li><a class="link"   href="https://blog.csdn.net/qq_41999034/article/details/111604649" >https://blog.csdn.net/qq_41999034/article/details/111604649 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>Windows环境变量</tag>
-        <tag>Java</tag>
       </tags>
   </entry>
   <entry>
@@ -1950,6 +1704,252 @@
       </tags>
   </entry>
   <entry>
+    <title>Once Upon a Time in America</title>
+    <url>/2024/01/19/Once-Upon-a-Time-in-America/</url>
+    <content><![CDATA[<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/01/19/y9MTUVfmBbJcC5s.jpg"
+                      style="zoom: 200%;" 
+                >
+]]></content>
+      <categories>
+        <category>生活</category>
+      </categories>
+      <tags>
+        <tag>电影</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>PowerShell 报错：在此系统上禁止运行脚本</title>
+    <url>/2024/01/22/PowerShell-vue%E6%97%A0%E6%B3%95%E5%8A%A0%E8%BD%BD%E6%96%87%E4%BB%B6-%E5%9B%A0%E4%B8%BA%E5%9C%A8%E6%AD%A4%E7%B3%BB%E7%BB%9F%E4%B8%8A%E7%A6%81%E6%AD%A2%E8%BF%90%E8%A1%8C%E8%84%9A%E6%9C%AC/</url>
+    <content><![CDATA[<h2 id="问题">问题</h2>
+<p>在 Windows PowerShell （管理员模式下）执行 <code>vue --version</code> 命令时报错如下：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/01/22/IBWcwtCLqjm2ya3.png"
+                      alt=""
+                ></p>
+<h2 id="原因">原因</h2>
+<p>首次在计算机上启动 Windows PowerShell 时，现用执行策略很可能是 Restricted（默认设置）。Restricted 策略不允许任何脚本运行，以防止执行不信任的脚本。</p>
+<h2 id="解决">解决</h2>
+<p>在 Windows PowerShell 执行以下命令：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">set-executionpolicy remotesigned</span><br></pre></td></tr></table></figure></div>
+<h2 id="效果">效果</h2>
+<p>再次执行 <code>vue --version</code> 命令，可正常查看 Vue 版本：</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/01/22/2UpOySQuL3ev5to.png"
+                      style="zoom: 50%;"
+                >
+<h2 id="引用">引用</h2>
+<ul>
+<li><a class="link"   href="https://cloud.tencent.com/developer/article/1612513" >https://cloud.tencent.com/developer/article/1612513 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>PowerShell</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Git 报错：无法创建 index.lock 文件，因其已存在。</title>
+    <url>/2024/01/25/Git-%E6%8A%A5%E9%94%99%EF%BC%9A%E6%97%A0%E6%B3%95%E5%88%9B%E5%BB%BA-index-lock-%E6%96%87%E4%BB%B6%EF%BC%8C%E5%9B%A0%E5%85%B6%E5%B7%B2%E5%AD%98%E5%9C%A8/</url>
+    <content><![CDATA[<h2 id="问题">问题</h2>
+<p>使用 Git 向 Github 部署代码时，出现如下报错：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/01/25/VTOAzyM2Jm9pEWH.png"
+                      alt=""
+                ></p>
+<h2 id="原因">原因</h2>
+<p>有两个 Git 命令同时运行，可能一种来自命令提示符，另一种来自 IDE 。</p>
+<h2 id="解决">解决</h2>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/01/25/V2x6Msj5KSDqFp3.png"
+                      alt=""
+                ><br>
+删除报错信息对应路径下已存在的 <code>index.lock</code> 文件即可。</p>
+<h2 id="引用">引用</h2>
+<ul>
+<li><a class="link"   href="https://stackoverflow.com/questions/38004148/another-git-process-seems-to-be-running-in-this-repository" >https://stackoverflow.com/questions/38004148/another-git-process-seems-to-be-running-in-this-repository <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>Git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo 隐藏特定文章</title>
+    <url>/2024/01/25/Hexo-%E9%9A%90%E8%97%8F%E7%89%B9%E5%AE%9A%E6%96%87%E7%AB%A0/</url>
+    <content><![CDATA[<h2 id="问题">问题</h2>
+<p>写博客时有隐藏特定文章的需求</p>
+<h2 id="解决">解决</h2>
+<p>安装并配置 <code>hexo-hide-posts</code> 插件：</p>
+<ul>
+<li>
+<p>在站点根目录下执行 <code>npm install hexo-hide-posts --save</code> 命令</p>
+</li>
+<li>
+<p>在站点根目录下的 <code>_config.yml</code> 文件中添加如下配置：</p>
+<div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># hexo-hide-posts</span></span><br><span class="line"><span class="attr">hide_posts:</span></span><br><span class="line">  <span class="attr">filter:</span> <span class="string">hidden</span></span><br><span class="line">  </span><br><span class="line">  <span class="comment"># 指定你想要传递隐藏文章的位置，比如让所有隐藏文章在存档页面可见</span></span><br><span class="line">  <span class="comment"># 常见的位置有：index, tag, category, archive, sitemap, feed, etc.</span></span><br><span class="line">  <span class="comment"># 留空则默认全部隐藏</span></span><br><span class="line">  <span class="attr">public_generators:</span> []</span><br><span class="line">  </span><br><span class="line">  <span class="comment"># 为隐藏的文章添加 noindex meta 标签，阻止搜索引擎收录</span></span><br><span class="line">  <span class="attr">noindex:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure></div>
+</li>
+</ul>
+<p>之后写作文章时，在文章属性中添加 <code>hidden: true</code> 即可隐藏文章，形如：</p>
+<div class="highlight-container" data-rel="Markdown"><figure class="iseeu highlight markdown"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: &#x27;Hidden Post&#x27;</span><br><span class="line">date: &#x27;2024/01/25 16:21:16&#x27;</span><br><span class="line"><span class="section">hidden: true</span></span><br><span class="line"><span class="section">---</span></span><br></pre></td></tr></table></figure></div>
+<p>若要查看隐藏文章，可以运行 <code>hexo hidden:list</code> 命令来获取当前所有的已隐藏文章列表及其信息，并通过文章链接访问。</p>
+<h2 id="引用">引用</h2>
+<ul>
+<li><a class="link"   href="https://blog.garryde.com/archives/37712.html" >https://blog.garryde.com/archives/37712.html <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>博客</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo 博客中的 Markdown 脚注渲染问题</title>
+    <url>/2024/01/25/Markdown-%E8%84%9A%E6%B3%A8%E6%B8%B2%E6%9F%93%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<h2 id="问题">问题</h2>
+<p>Hexo 博客无法正常渲染 Markdown 脚注，如下图所示：</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/01/25/boT1YRUWje6kIHD.png"
+                      alt="Typora 渲染效果"
+                ><figcaption>Typora 渲染效果</figcaption></figure></p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/01/25/EbtSNxAl4hr681y.png"
+                      alt="Hexo 网页渲染效果"
+                ><figcaption>Hexo 网页渲染效果</figcaption></figure></p>
+<h2 id="原因">原因</h2>
+<p>Hexo 默认 Markdown 渲染插件为 <code>hexo-renderer-marked</code> ，而 <code>marked.js</code> 不支持脚注。</p>
+<h2 id="解决">解决</h2>
+<p>改用支持脚注的 Markdown 渲染插件，如 <code>hexo-renderer-markdown-it</code> 。</p>
+<ol>
+<li>
+<p>在 Hexo 根目录打开 Git Bash ，依次执行以下命令：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">npm un hexo-renderer-marked --save <span class="comment"># 卸载 marked 插件</span></span><br><span class="line">npm i hexo-renderer-markdown-it --save <span class="comment"># 安装 markdown-it 插件</span></span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>在 Hexo 根目录打开 <code>_config.yml</code> 文件，添加如下配置信息：</p>
+<div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">markdown:</span></span><br><span class="line">    <span class="attr">plugins:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">markdown-it-footnote</span></span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>重新生成静态文件，刷新配置信息使其生效。</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">hexo cl &amp;&amp; hexo g</span><br></pre></td></tr></table></figure></div>
+</li>
+</ol>
+<h2 id="效果">效果</h2>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/01/25/5YH4T6U9VxgkBcq.png"
+                      style="zoom:50%;" 
+                >
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/01/25/Gv3SotxEdrMzXpi.png"
+                      style="zoom:50%;" 
+                >
+<p>点击脚注可正常跳转。</p>
+<h2 id="引用">引用</h2>
+<ul>
+<li><a class="link"   href="https://github.com/ppoffice/hexo-theme-icarus/issues/572" >https://github.com/ppoffice/hexo-theme-icarus/issues/572 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://seayj.cn/articles/33818/" >https://seayj.cn/articles/33818/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>博客</category>
+      </categories>
+      <tags>
+        <tag>Markdown</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Tomcat 双击 startup.bat 闪退</title>
+    <url>/2024/01/31/Tomcat%E5%8F%8C%E5%87%BBstartup-bat%E9%97%AA%E9%80%80/</url>
+    <content><![CDATA[<h2 id="问题">问题</h2>
+<p>在没有其他进程占用 8080 端口的情况下，双击 Tomcat 的 <code>startup.bat</code> 脚本发生闪退，无法启动。</p>
+<h2 id="原因">原因</h2>
+<p>未配置 <code>JAVA_HOME</code> 环境变量。</p>
+<blockquote>
+<p>问题排查过程：</p>
+<ul>
+<li>在 <code>startup.bat</code> 文件末尾添加一行 <code>pause</code> ，避免 Tomcat 立即退出；</li>
+<li>双击 <code>startup.bat</code> ，尝试启动；</li>
+<li>未成功启动，终端中提示 <code>JAVA_HOME</code> 与 <code>jre</code> 均未配置，需至少配置二者其一。</li>
+</ul>
+</blockquote>
+<h2 id="解决">解决</h2>
+<ul>
+<li>方法一：配置 Windows 系统 <code>JAVA_HOME</code> 环境变量（推荐）</li>
+<li>方法二：在 <code>startup.bat</code> 文件开头添加 <code>SET JAVA_HOME=Java安装目录</code></li>
+</ul>
+<h2 id="参考">参考</h2>
+<ul>
+<li><a class="link"   href="https://blog.51cto.com/u_14783151/2899251" >https://blog.51cto.com/u_14783151/2899251 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://blog.csdn.net/qq496013218/article/details/74517593" >https://blog.csdn.net/qq496013218/article/details/74517593 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>Tomcat</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Windows cmd 执行 Java 命令无返回信息</title>
+    <url>/2024/02/18/Windows-cmd%E6%89%A7%E8%A1%8Cjava%E5%91%BD%E4%BB%A4%E6%97%A0%E8%BF%94%E5%9B%9E%E4%BF%A1%E6%81%AF/</url>
+    <content><![CDATA[<h2 id="问题">问题</h2>
+<p>在 Windows 命令行中无法执行 Java 命令且没有任何返回信息：</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/02/18/rmNVClcep816dXR.png"
+                      style="zoom:50%;" 
+                >
+<h2 id="原因">原因</h2>
+<p>装了多个 jdk 的话，系统环境变量的第一行可能会出现 <code>C:\ProgramData\Oracle\Java\javapath</code> 路径，系统按该路径查找 jdk 。然而该路径可能并不真实存在，因此命令行中的 Java 命令会因找不到 jdk 而并未运行。</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/02/18/3XM9B4wfPOlsyUi.png"
+                      style="zoom:50%;" 
+                >
+<h2 id="解决">解决</h2>
+<p>将自定义的 <code>%JAVA_HOME%\bin\</code> 路径移至第一行，让系统按该路径查找 jdk 。</p>
+<h2 id="参考">参考</h2>
+<ul>
+<li><a class="link"   href="https://blog.csdn.net/qq_41999034/article/details/111604649" >https://blog.csdn.net/qq_41999034/article/details/111604649 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>Windows环境变量</tag>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>AOP - 面向切面编程</title>
     <url>/2024/03/05/AOP-%E9%9D%A2%E5%90%91%E5%88%87%E9%9D%A2%E7%BC%96%E7%A8%8B/</url>
     <content><![CDATA[<h2 id="1-基础">1. 基础</h2>
@@ -2166,29 +2166,6 @@
       </tags>
   </entry>
   <entry>
-    <title>转载 - SpringBoot 为什么不需要额外安装 Tomcat ？</title>
-    <url>/2024/03/07/%E8%BD%AC%E8%BD%BD-SpringBoot%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E9%9C%80%E8%A6%81%E9%A2%9D%E5%A4%96%E5%AE%89%E8%A3%85Tomcat%EF%BC%9F/</url>
-    <content><![CDATA[
-  <div class="note-large yellow">
-    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
-      <p>链接</p>
-
-    </div>
-    <div class="notel-content">
-      <p><a class="link"   href="https://javabetter.cn/springboot/tomcat.html" >https://javabetter.cn/springboot/tomcat.html <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-
-    </div>
-  </div>
-]]></content>
-      <categories>
-        <category>转载</category>
-      </categories>
-      <tags>
-        <tag>Tomcat</tag>
-        <tag>Spring</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>SpringBoot 配置的优先级</title>
     <url>/2024/03/07/SpringBoot%E9%85%8D%E7%BD%AE%E4%BC%98%E5%85%88%E7%BA%A7/</url>
     <content><![CDATA[<h2 id="1-配置文件">1. 配置文件</h2>
@@ -2227,6 +2204,29 @@
         <category>Java学习笔记</category>
       </categories>
       <tags>
+        <tag>Spring</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>转载 - SpringBoot 为什么不需要额外安装 Tomcat ？</title>
+    <url>/2024/03/07/%E8%BD%AC%E8%BD%BD-SpringBoot%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E9%9C%80%E8%A6%81%E9%A2%9D%E5%A4%96%E5%AE%89%E8%A3%85Tomcat%EF%BC%9F/</url>
+    <content><![CDATA[
+  <div class="note-large yellow">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>链接</p>
+
+    </div>
+    <div class="notel-content">
+      <p><a class="link"   href="https://javabetter.cn/springboot/tomcat.html" >https://javabetter.cn/springboot/tomcat.html <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+
+    </div>
+  </div>
+]]></content>
+      <categories>
+        <category>转载</category>
+      </categories>
+      <tags>
+        <tag>Tomcat</tag>
         <tag>Spring</tag>
       </tags>
   </entry>
@@ -2554,28 +2554,6 @@
       </tags>
   </entry>
   <entry>
-    <title>转载 - Spring 注解之 @RestController 与 @Controller 的区别</title>
-    <url>/2024/03/08/%E8%BD%AC%E8%BD%BD-Spring-%E6%B3%A8%E8%A7%A3%E4%B9%8B-RestController%E4%B8%8E-Controller%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
-    <content><![CDATA[
-  <div class="note-large yellow">
-    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
-      <p>链接</p>
-
-    </div>
-    <div class="notel-content">
-      <p><a class="link"   href="https://www.cnblogs.com/east7/p/10462279.html" >https://www.cnblogs.com/east7/p/10462279.html <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-
-    </div>
-  </div>
-]]></content>
-      <categories>
-        <category>转载</category>
-      </categories>
-      <tags>
-        <tag>Spring</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>JavaWeb 后端开发总结</title>
     <url>/2024/03/10/JavaWeb-%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91%E6%80%BB%E7%BB%93/</url>
     <content><![CDATA[<p>web后端开发现在基本上都是基于标准的三层架构进行开发的，在三层架构当中，Controller控制器层负责接收请求响应数据，Service业务层负责具体的业务逻辑处理，而Dao数据访问层也叫持久层，就是用来处理数据访问操作的，来完成数据库当中数据的增删改查操作。</p>
@@ -2641,45 +2619,25 @@
       </tags>
   </entry>
   <entry>
-    <title>Maven - 分模块设计与开发</title>
-    <url>/2024/03/11/Maven-%E5%88%86%E6%A8%A1%E5%9D%97%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%BC%80%E5%8F%91/</url>
-    <content><![CDATA[<p>所谓分模块设计，指的就是我们在设计一个 Java 项目的时候，将一个 Java 项目拆分成多个模块进行开发。</p>
-<h2 id="1-未分模块设计的问题">1. 未分模块设计的问题</h2>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/03/11/hUQJls9Z1mW74ot.png"
-                      style="zoom: 67%;" 
-                > 
-<p>如果项目不分模块，也就意味着所有的业务代码是不是都写在这一个 Java 项目当中。随着这个项目的业务扩张，项目当中的业务功能可能会越来越多。</p>
-<p>假如我们开发的是一个大型的电商项目，里面可能就包括了商品模块的功能、搜索模块的功能、购物车模块、订单模块、用户中心等等。这些所有的业务代码我们都在一个 Java 项目当中编写。</p>
-<p>此时大家可以试想一下，假如我们开发的是一个大型的电商网站，这个项目组至少几十号甚至几百号开发人员，这些开发人员全部操作这一个 Java 项目。此时大家就会发现我们项目管理和维护起来将会非常的困难。而且大家再来看，假如在我们的项目当中，我们自己定义了一些通用的工具类以及通用的组件，而公司还有其他的项目组，其他项目组也想使用我们所封装的这些组件和工具类，其实是非常不方便的。因为 Java 项目当中包含了当前项目的所有业务代码，所以就造成了这里面所封装的一些组件会难以复用。</p>
-<p><strong>总结起来，主要两点问题：不方便项目的维护和管理、项目中的通用组件难以复用。</strong></p>
-<h2 id="2-分模块设计">2. 分模块设计</h2>
-<p>分模块设计我们在进行项目设计阶段，就可以将一个大的项目拆分成若干个模块，每一个模块都是独立的。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/03/11/lb1yva64pVwJgAL.png"
-                      alt=""
-                ></p>
-<p>比如我们可以将商品的相关功能放在商品模块当中，搜索的相关业务功能我都封装在搜索模块当中，还有像购物车模块、订单模块。而为了组件的复用，我们也可以将项目当中的实体类、工具类以及我们定义的通用的组件都单独的抽取到一个模块当中。</p>
-<p>如果当前这个模块，比如订单模块需要用到这些实体类以及工具类或者这些通用组件，此时直接在订单模块当中引入工具类的坐标就可以了。这样我们就将一个项目拆分成了若干个模块儿，这就是分模块儿设计。</p>
-<p>分模块儿设计之后，大家再来看。我们在进行项目管理的时候，我就可以几个人一组，几个人来负责订单模块儿，另外几个人来负责购物车模块儿，这样更加便于项目的管理以及项目的后期维护。</p>
-<p>而且分模块设计之后，如果我们需要用到另外一个模块的功能，我们直接依赖模块就可以了。比如商品模块、搜索模块、购物车订单模块都需要依赖于通用组件当中封装的一些工具类，我只需要引入通用组件的坐标就可以了。</p>
-<p><strong>分模块设计就是将项目按照功能/结构拆分成若干个子模块，方便项目的管理维护、拓展，也方便模块键的相互调用、资源共享。</strong></p>
-<h2 id="3-总结">3. 总结</h2>
-<ul>
-<li>什么是分模块设计：将项目按照功能拆分成若干个子模块</li>
-<li>为什么要分模块设计：方便项目的管理维护、扩展，也方便模块间的相互调用，资源共享</li>
-<li>注意事项：分模块设计需要先针对模块功能进行设计，再进行编码。不会先将工程开发完毕，然后进行拆分</li>
-</ul>
+    <title>转载 - Spring 注解之 @RestController 与 @Controller 的区别</title>
+    <url>/2024/03/08/%E8%BD%AC%E8%BD%BD-Spring-%E6%B3%A8%E8%A7%A3%E4%B9%8B-RestController%E4%B8%8E-Controller%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
+    <content><![CDATA[
+  <div class="note-large yellow">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>链接</p>
+
+    </div>
+    <div class="notel-content">
+      <p><a class="link"   href="https://www.cnblogs.com/east7/p/10462279.html" >https://www.cnblogs.com/east7/p/10462279.html <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+
+    </div>
+  </div>
 ]]></content>
       <categories>
-        <category>Java学习笔记</category>
+        <category>转载</category>
       </categories>
       <tags>
-        <tag>Maven</tag>
+        <tag>Spring</tag>
       </tags>
   </entry>
   <entry>
@@ -2762,6 +2720,48 @@
 <p>发布项目，直接运行 deploy 生命周期即可 (发布时，建议跳过单元测试)</p>
 </li>
 </ol>
+]]></content>
+      <categories>
+        <category>Java学习笔记</category>
+      </categories>
+      <tags>
+        <tag>Maven</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Maven - 分模块设计与开发</title>
+    <url>/2024/03/11/Maven-%E5%88%86%E6%A8%A1%E5%9D%97%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%BC%80%E5%8F%91/</url>
+    <content><![CDATA[<p>所谓分模块设计，指的就是我们在设计一个 Java 项目的时候，将一个 Java 项目拆分成多个模块进行开发。</p>
+<h2 id="1-未分模块设计的问题">1. 未分模块设计的问题</h2>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/03/11/hUQJls9Z1mW74ot.png"
+                      style="zoom: 67%;" 
+                > 
+<p>如果项目不分模块，也就意味着所有的业务代码是不是都写在这一个 Java 项目当中。随着这个项目的业务扩张，项目当中的业务功能可能会越来越多。</p>
+<p>假如我们开发的是一个大型的电商项目，里面可能就包括了商品模块的功能、搜索模块的功能、购物车模块、订单模块、用户中心等等。这些所有的业务代码我们都在一个 Java 项目当中编写。</p>
+<p>此时大家可以试想一下，假如我们开发的是一个大型的电商网站，这个项目组至少几十号甚至几百号开发人员，这些开发人员全部操作这一个 Java 项目。此时大家就会发现我们项目管理和维护起来将会非常的困难。而且大家再来看，假如在我们的项目当中，我们自己定义了一些通用的工具类以及通用的组件，而公司还有其他的项目组，其他项目组也想使用我们所封装的这些组件和工具类，其实是非常不方便的。因为 Java 项目当中包含了当前项目的所有业务代码，所以就造成了这里面所封装的一些组件会难以复用。</p>
+<p><strong>总结起来，主要两点问题：不方便项目的维护和管理、项目中的通用组件难以复用。</strong></p>
+<h2 id="2-分模块设计">2. 分模块设计</h2>
+<p>分模块设计我们在进行项目设计阶段，就可以将一个大的项目拆分成若干个模块，每一个模块都是独立的。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/03/11/lb1yva64pVwJgAL.png"
+                      alt=""
+                ></p>
+<p>比如我们可以将商品的相关功能放在商品模块当中，搜索的相关业务功能我都封装在搜索模块当中，还有像购物车模块、订单模块。而为了组件的复用，我们也可以将项目当中的实体类、工具类以及我们定义的通用的组件都单独的抽取到一个模块当中。</p>
+<p>如果当前这个模块，比如订单模块需要用到这些实体类以及工具类或者这些通用组件，此时直接在订单模块当中引入工具类的坐标就可以了。这样我们就将一个项目拆分成了若干个模块儿，这就是分模块儿设计。</p>
+<p>分模块儿设计之后，大家再来看。我们在进行项目管理的时候，我就可以几个人一组，几个人来负责订单模块儿，另外几个人来负责购物车模块儿，这样更加便于项目的管理以及项目的后期维护。</p>
+<p>而且分模块设计之后，如果我们需要用到另外一个模块的功能，我们直接依赖模块就可以了。比如商品模块、搜索模块、购物车订单模块都需要依赖于通用组件当中封装的一些工具类，我只需要引入通用组件的坐标就可以了。</p>
+<p><strong>分模块设计就是将项目按照功能/结构拆分成若干个子模块，方便项目的管理维护、拓展，也方便模块键的相互调用、资源共享。</strong></p>
+<h2 id="3-总结">3. 总结</h2>
+<ul>
+<li>什么是分模块设计：将项目按照功能拆分成若干个子模块</li>
+<li>为什么要分模块设计：方便项目的管理维护、扩展，也方便模块间的相互调用，资源共享</li>
+<li>注意事项：分模块设计需要先针对模块功能进行设计，再进行编码。不会先将工程开发完毕，然后进行拆分</li>
+</ul>
 ]]></content>
       <categories>
         <category>Java学习笔记</category>
