@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://x-parker.github.io/2024/03/12/Swagger/</loc>
+    
+    <lastmod>2024-03-12</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://x-parker.github.io/2024/03/12/nginx-%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%E5%92%8C%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/</loc>
     
     <lastmod>2024-03-12</lastmod>
@@ -279,14 +288,14 @@
   </url>
   
   <url>
-    <loc>https://x-parker.github.io/tags/MapReduce/</loc>
+    <loc>https://x-parker.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
     <lastmod>2024-03-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://x-parker.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
+    <loc>https://x-parker.github.io/tags/MapReduce/</loc>
     <lastmod>2024-03-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -307,13 +316,6 @@
   </url>
   
   <url>
-    <loc>https://x-parker.github.io/tags/PowerShell/</loc>
-    <lastmod>2024-03-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://x-parker.github.io/tags/%E7%94%B5%E5%BD%B1/</loc>
     <lastmod>2024-03-12</lastmod>
     <changefreq>weekly</changefreq>
@@ -322,6 +324,13 @@
   
   <url>
     <loc>https://x-parker.github.io/tags/Hexo/</loc>
+    <lastmod>2024-03-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://x-parker.github.io/tags/PowerShell/</loc>
     <lastmod>2024-03-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -356,7 +365,7 @@
   </url>
   
   <url>
-    <loc>https://x-parker.github.io/tags/Spring/</loc>
+    <loc>https://x-parker.github.io/tags/JavaWeb/</loc>
     <lastmod>2024-03-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -370,7 +379,7 @@
   </url>
   
   <url>
-    <loc>https://x-parker.github.io/tags/JavaWeb/</loc>
+    <loc>https://x-parker.github.io/tags/Spring/</loc>
     <lastmod>2024-03-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -378,6 +387,13 @@
   
   <url>
     <loc>https://x-parker.github.io/tags/Maven/</loc>
+    <lastmod>2024-03-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://x-parker.github.io/tags/Swagger/</loc>
     <lastmod>2024-03-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
