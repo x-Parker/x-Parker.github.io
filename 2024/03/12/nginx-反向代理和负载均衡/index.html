@@ -34,7 +34,7 @@
 <meta property="og:image" content="https://s2.loli.net/2024/03/12/l49eSxMQXYjCRDq.png">
 <meta property="og:image" content="https://s2.loli.net/2024/03/12/hB7bzNMwkmKSPjR.png">
 <meta property="article:published_time" content="2024-03-12T11:57:44.000Z">
-<meta property="article:modified_time" content="2024-03-12T12:21:50.344Z">
+<meta property="article:modified_time" content="2024-03-12T12:23:27.957Z">
 <meta property="article:author" content="Parker">
 <meta property="article:tag" content="nginx">
 <meta name="twitter:card" content="summary">
@@ -606,8 +606,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2024-03-12 20:21:50</span>
-            <span class="mobile">2024-03-12 20:21:50</span>
+            <span class="desktop">2024-03-12 20:23:27</span>
+            <span class="mobile">2024-03-12 20:23:27</span>
             <span class="hover-info">更新</span>
         </span>
     
@@ -704,7 +704,7 @@
 <p>通过<code>[nginx安装目录]/conf/nginx.conf</code>配置文件进行配置，形如：</p>
 <div class="highlight-container" data-rel="Nginx"><figure class="iseeu highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">server&#123;</span><br><span class="line">    <span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line">    <span class="attribute">server_name</span> localhost;</span><br><span class="line">    </span><br><span class="line">    <span class="section">location</span> /api/&#123;</span><br><span class="line">        <span class="attribute">proxy_pass</span> http://localhost:8080/admin/; <span class="comment">#反向代理</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 <p><strong>proxy_pass</strong>：该指令是用来设置代理服务器的地址，可以是主机名称或IP地址加端口号等形式。</p>
-<p>如上代码的含义是：监听80端口号， 当访问 <a class="link"   target="_blank" rel="noopener" href="http://localhost:80/api/../" >http://localhost:80/api/../ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>…这样的接口的时候，它会通过 location /api/ {} 这样的反向代理到 <a class="link"   target="_blank" rel="noopener" href="http://localhost:8080/admin/%E4%B8%8A%E6%9D%A5%E3%80%82" >http://localhost:8080/admin/上来。 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p>如上代码的含义是：监听80端口号， 当访问<code>http://localhost:80/api/../..</code>这样的接口的时候，它会通过 location /api/ {} 这样的反向代理到<code>http://localhost:8080/admin/</code>上来。</p>
 <h2 id="2-nginx-负载均衡">2. nginx 负载均衡</h2>
 <p>当如果服务以集群的方式进行部署时，那 nginx 在转发请求到服务器时就需要做相应的负载均衡。其实，负载均衡从本质上来说也是基于反向代理来实现的，最终都是转发请求。</p>
 <h3 id="2-1-负载均衡策略">2.1 负载均衡策略</h3>
@@ -745,7 +745,7 @@
 <h3 id="2-2-配置方式">2.2 配置方式</h3>
 <p>通过<code>[nginx安装目录]/conf/nginx.conf</code>配置文件进行配置，形如：</p>
 <div class="highlight-container" data-rel="Nginx"><figure class="iseeu highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">upstream</span> webservers&#123;</span><br><span class="line">    <span class="attribute">server</span> <span class="number">192.168.100.128:8080</span>;</span><br><span class="line">    <span class="attribute">server</span> <span class="number">192.168.100.129:8080</span>;</span><br><span class="line">&#125;</span><br><span class="line">server&#123;</span><br><span class="line">    <span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line">    <span class="attribute">server_name</span> localhost;</span><br><span class="line">    </span><br><span class="line">    <span class="section">location</span> /api/&#123;</span><br><span class="line">        <span class="attribute">proxy_pass</span> http://webservers/admin;<span class="comment">#负载均衡</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<p>如上代码的含义是：监听80端口号， 当访问 <a class="link"   target="_blank" rel="noopener" href="http://localhost:80/api/../" >http://localhost:80/api/../ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>…这样的接口的时候，它会通过 location /api/ {} 这样的反向代理到 <a class="link"   target="_blank" rel="noopener" href="http://webservers/admin%EF%BC%8C%E6%A0%B9%E6%8D%AE" >http://webservers/admin，根据 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> webservers 名称找到一组服务器，根据设置的负载均衡策略(默认是轮询)转发到具体的服务器。</p>
+<p>如上代码的含义是：监听80端口号， 当访问<code>http://localhost:80/api/../..</code>这样的接口的时候，它会通过 location /api/ {} 这样的反向代理到<code>http://webservers/admin</code>，根据 webservers 名称找到一组服务器，根据设置的负载均衡策略(默认是轮询)转发到具体的服务器。</p>
 <p><strong>upstream</strong>：如果代理服务器是一组服务器的话，我们可以使用 upstream 指令配置后端服务器组。</p>
 <p><strong>注</strong>：upstream后面的名称可自定义，但要上下保持一致。</p>
 <p><strong>不同策略的具体配置方式</strong>：</p>
@@ -775,7 +775,7 @@
         
             <li>
                 <strong>更新于
-                    :</strong> 2024-03-12 20:21:50
+                    :</strong> 2024-03-12 20:23:27
             </li>
         
         <li>
