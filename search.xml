@@ -1721,6 +1721,70 @@
       </tags>
   </entry>
   <entry>
+    <title>Hexo 隐藏特定文章</title>
+    <url>/2024/01/25/Hexo-%E9%9A%90%E8%97%8F%E7%89%B9%E5%AE%9A%E6%96%87%E7%AB%A0/</url>
+    <content><![CDATA[<h2 id="问题">问题</h2>
+<p>写博客时有隐藏特定文章的需求</p>
+<h2 id="解决">解决</h2>
+<p>安装并配置 <code>hexo-hide-posts</code> 插件：</p>
+<ul>
+<li>
+<p>在站点根目录下执行 <code>npm install hexo-hide-posts --save</code> 命令</p>
+</li>
+<li>
+<p>在站点根目录下的 <code>_config.yml</code> 文件中添加如下配置：</p>
+<div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># hexo-hide-posts</span></span><br><span class="line"><span class="attr">hide_posts:</span></span><br><span class="line">  <span class="attr">filter:</span> <span class="string">hidden</span></span><br><span class="line">  </span><br><span class="line">  <span class="comment"># 指定你想要传递隐藏文章的位置，比如让所有隐藏文章在存档页面可见</span></span><br><span class="line">  <span class="comment"># 常见的位置有：index, tag, category, archive, sitemap, feed, etc.</span></span><br><span class="line">  <span class="comment"># 留空则默认全部隐藏</span></span><br><span class="line">  <span class="attr">public_generators:</span> []</span><br><span class="line">  </span><br><span class="line">  <span class="comment"># 为隐藏的文章添加 noindex meta 标签，阻止搜索引擎收录</span></span><br><span class="line">  <span class="attr">noindex:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure></div>
+</li>
+</ul>
+<p>之后写作文章时，在文章属性中添加 <code>hidden: true</code> 即可隐藏文章，形如：</p>
+<div class="highlight-container" data-rel="Markdown"><figure class="iseeu highlight markdown"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: &#x27;Hidden Post&#x27;</span><br><span class="line">date: &#x27;2024/01/25 16:21:16&#x27;</span><br><span class="line"><span class="section">hidden: true</span></span><br><span class="line"><span class="section">---</span></span><br></pre></td></tr></table></figure></div>
+<p>若要查看隐藏文章，可以运行 <code>hexo hidden:list</code> 命令来获取当前所有的已隐藏文章列表及其信息，并通过文章链接访问。</p>
+<h2 id="引用">引用</h2>
+<ul>
+<li><a class="link"   href="https://blog.garryde.com/archives/37712.html" >https://blog.garryde.com/archives/37712.html <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>博客</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Git 报错：无法创建 index.lock 文件，因其已存在。</title>
+    <url>/2024/01/25/Git-%E6%8A%A5%E9%94%99%EF%BC%9A%E6%97%A0%E6%B3%95%E5%88%9B%E5%BB%BA-index-lock-%E6%96%87%E4%BB%B6%EF%BC%8C%E5%9B%A0%E5%85%B6%E5%B7%B2%E5%AD%98%E5%9C%A8/</url>
+    <content><![CDATA[<h2 id="问题">问题</h2>
+<p>使用 Git 向 Github 部署代码时，出现如下报错：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/01/25/VTOAzyM2Jm9pEWH.png"
+                      alt=""
+                ></p>
+<h2 id="原因">原因</h2>
+<p>有两个 Git 命令同时运行，可能一种来自命令提示符，另一种来自 IDE 。</p>
+<h2 id="解决">解决</h2>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/01/25/V2x6Msj5KSDqFp3.png"
+                      alt=""
+                ><br>
+删除报错信息对应路径下已存在的 <code>index.lock</code> 文件即可。</p>
+<h2 id="引用">引用</h2>
+<ul>
+<li><a class="link"   href="https://stackoverflow.com/questions/38004148/another-git-process-seems-to-be-running-in-this-repository" >https://stackoverflow.com/questions/38004148/another-git-process-seems-to-be-running-in-this-repository <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>Git</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>PowerShell 报错：在此系统上禁止运行脚本</title>
     <url>/2024/01/22/PowerShell-vue%E6%97%A0%E6%B3%95%E5%8A%A0%E8%BD%BD%E6%96%87%E4%BB%B6-%E5%9B%A0%E4%B8%BA%E5%9C%A8%E6%AD%A4%E7%B3%BB%E7%BB%9F%E4%B8%8A%E7%A6%81%E6%AD%A2%E8%BF%90%E8%A1%8C%E8%84%9A%E6%9C%AC/</url>
     <content><![CDATA[<h2 id="问题">问题</h2>
@@ -1754,37 +1818,6 @@
       </categories>
       <tags>
         <tag>PowerShell</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hexo 隐藏特定文章</title>
-    <url>/2024/01/25/Hexo-%E9%9A%90%E8%97%8F%E7%89%B9%E5%AE%9A%E6%96%87%E7%AB%A0/</url>
-    <content><![CDATA[<h2 id="问题">问题</h2>
-<p>写博客时有隐藏特定文章的需求</p>
-<h2 id="解决">解决</h2>
-<p>安装并配置 <code>hexo-hide-posts</code> 插件：</p>
-<ul>
-<li>
-<p>在站点根目录下执行 <code>npm install hexo-hide-posts --save</code> 命令</p>
-</li>
-<li>
-<p>在站点根目录下的 <code>_config.yml</code> 文件中添加如下配置：</p>
-<div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># hexo-hide-posts</span></span><br><span class="line"><span class="attr">hide_posts:</span></span><br><span class="line">  <span class="attr">filter:</span> <span class="string">hidden</span></span><br><span class="line">  </span><br><span class="line">  <span class="comment"># 指定你想要传递隐藏文章的位置，比如让所有隐藏文章在存档页面可见</span></span><br><span class="line">  <span class="comment"># 常见的位置有：index, tag, category, archive, sitemap, feed, etc.</span></span><br><span class="line">  <span class="comment"># 留空则默认全部隐藏</span></span><br><span class="line">  <span class="attr">public_generators:</span> []</span><br><span class="line">  </span><br><span class="line">  <span class="comment"># 为隐藏的文章添加 noindex meta 标签，阻止搜索引擎收录</span></span><br><span class="line">  <span class="attr">noindex:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure></div>
-</li>
-</ul>
-<p>之后写作文章时，在文章属性中添加 <code>hidden: true</code> 即可隐藏文章，形如：</p>
-<div class="highlight-container" data-rel="Markdown"><figure class="iseeu highlight markdown"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: &#x27;Hidden Post&#x27;</span><br><span class="line">date: &#x27;2024/01/25 16:21:16&#x27;</span><br><span class="line"><span class="section">hidden: true</span></span><br><span class="line"><span class="section">---</span></span><br></pre></td></tr></table></figure></div>
-<p>若要查看隐藏文章，可以运行 <code>hexo hidden:list</code> 命令来获取当前所有的已隐藏文章列表及其信息，并通过文章链接访问。</p>
-<h2 id="引用">引用</h2>
-<ul>
-<li><a class="link"   href="https://blog.garryde.com/archives/37712.html" >https://blog.garryde.com/archives/37712.html <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>博客</category>
-      </categories>
-      <tags>
-        <tag>Hexo</tag>
       </tags>
   </entry>
   <entry>
@@ -1850,39 +1883,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Git 报错：无法创建 index.lock 文件，因其已存在。</title>
-    <url>/2024/01/25/Git-%E6%8A%A5%E9%94%99%EF%BC%9A%E6%97%A0%E6%B3%95%E5%88%9B%E5%BB%BA-index-lock-%E6%96%87%E4%BB%B6%EF%BC%8C%E5%9B%A0%E5%85%B6%E5%B7%B2%E5%AD%98%E5%9C%A8/</url>
-    <content><![CDATA[<h2 id="问题">问题</h2>
-<p>使用 Git 向 Github 部署代码时，出现如下报错：</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/01/25/VTOAzyM2Jm9pEWH.png"
-                      alt=""
-                ></p>
-<h2 id="原因">原因</h2>
-<p>有两个 Git 命令同时运行，可能一种来自命令提示符，另一种来自 IDE 。</p>
-<h2 id="解决">解决</h2>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/01/25/V2x6Msj5KSDqFp3.png"
-                      alt=""
-                ><br>
-删除报错信息对应路径下已存在的 <code>index.lock</code> 文件即可。</p>
-<h2 id="引用">引用</h2>
-<ul>
-<li><a class="link"   href="https://stackoverflow.com/questions/38004148/another-git-process-seems-to-be-running-in-this-repository" >https://stackoverflow.com/questions/38004148/another-git-process-seems-to-be-running-in-this-repository <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>Git</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Tomcat 双击 startup.bat 闪退</title>
     <url>/2024/01/31/Tomcat%E5%8F%8C%E5%87%BBstartup-bat%E9%97%AA%E9%80%80/</url>
     <content><![CDATA[<h2 id="问题">问题</h2>
@@ -1913,40 +1913,6 @@
       </categories>
       <tags>
         <tag>Tomcat</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Windows cmd 执行 Java 命令无返回信息</title>
-    <url>/2024/02/18/Windows-cmd%E6%89%A7%E8%A1%8Cjava%E5%91%BD%E4%BB%A4%E6%97%A0%E8%BF%94%E5%9B%9E%E4%BF%A1%E6%81%AF/</url>
-    <content><![CDATA[<h2 id="问题">问题</h2>
-<p>在 Windows 命令行中无法执行 Java 命令且没有任何返回信息：</p>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/02/18/rmNVClcep816dXR.png"
-                      style="zoom:50%;" 
-                >
-<h2 id="原因">原因</h2>
-<p>装了多个 jdk 的话，系统环境变量的第一行可能会出现 <code>C:\ProgramData\Oracle\Java\javapath</code> 路径，系统按该路径查找 jdk 。然而该路径可能并不真实存在，因此命令行中的 Java 命令会因找不到 jdk 而并未运行。</p>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/02/18/3XM9B4wfPOlsyUi.png"
-                      style="zoom:50%;" 
-                >
-<h2 id="解决">解决</h2>
-<p>将自定义的 <code>%JAVA_HOME%\bin\</code> 路径移至第一行，让系统按该路径查找 jdk 。</p>
-<h2 id="参考">参考</h2>
-<ul>
-<li><a class="link"   href="https://blog.csdn.net/qq_41999034/article/details/111604649" >https://blog.csdn.net/qq_41999034/article/details/111604649 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>Windows环境变量</tag>
-        <tag>Java</tag>
       </tags>
   </entry>
   <entry>
@@ -2143,6 +2109,40 @@
       </tags>
   </entry>
   <entry>
+    <title>Windows cmd 执行 Java 命令无返回信息</title>
+    <url>/2024/02/18/Windows-cmd%E6%89%A7%E8%A1%8Cjava%E5%91%BD%E4%BB%A4%E6%97%A0%E8%BF%94%E5%9B%9E%E4%BF%A1%E6%81%AF/</url>
+    <content><![CDATA[<h2 id="问题">问题</h2>
+<p>在 Windows 命令行中无法执行 Java 命令且没有任何返回信息：</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/02/18/rmNVClcep816dXR.png"
+                      style="zoom:50%;" 
+                >
+<h2 id="原因">原因</h2>
+<p>装了多个 jdk 的话，系统环境变量的第一行可能会出现 <code>C:\ProgramData\Oracle\Java\javapath</code> 路径，系统按该路径查找 jdk 。然而该路径可能并不真实存在，因此命令行中的 Java 命令会因找不到 jdk 而并未运行。</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/02/18/3XM9B4wfPOlsyUi.png"
+                      style="zoom:50%;" 
+                >
+<h2 id="解决">解决</h2>
+<p>将自定义的 <code>%JAVA_HOME%\bin\</code> 路径移至第一行，让系统按该路径查找 jdk 。</p>
+<h2 id="参考">参考</h2>
+<ul>
+<li><a class="link"   href="https://blog.csdn.net/qq_41999034/article/details/111604649" >https://blog.csdn.net/qq_41999034/article/details/111604649 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>Windows环境变量</tag>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>实现 Windows 环境下 Thunderbird 邮件客户端自启动</title>
     <url>/2024/03/05/%E5%AE%9E%E7%8E%B0Windows%E7%8E%AF%E5%A2%83%E4%B8%8BThunderbird%E9%82%AE%E4%BB%B6%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%87%AA%E5%90%AF%E5%8A%A8/</url>
     <content><![CDATA[<p>Thunderbird是一款优秀的开源邮件客户端，但在Windows环境下没有自启动选项，且关闭主界面后客户端也会关闭，这种设计不利于在后台接收新邮件提醒。因此，考虑通过其他途径实现Thunderbird的自启动。</p>
@@ -2242,6 +2242,134 @@
 <p>但是，如果开发者想要<strong>自定义 Bean 的名称</strong>，可以使用 <code>@Component</code>、<code>@Service</code>、<code>@Repository</code> 等注解，并<strong>在括号中指定 Bean 的名称</strong>，例如：</p>
 <div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Service(&quot;myCustomService&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyCustomServiceImpl</span> <span class="keyword">implements</span> <span class="title class_">MyCustomService</span> &#123;</span><br><span class="line">    <span class="comment">// 实现代码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 <p>在这个例子中，<code>MyCustomServiceImpl</code> 类会被注册到 Spring 容器中，并且 Bean 的名称将会是 <code>myCustomService</code>，而不是自动推断的 <code>myCustomServiceImpl</code>。</p>
+]]></content>
+      <categories>
+        <category>Java学习笔记</category>
+      </categories>
+      <tags>
+        <tag>Spring</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SpringBoot - Bean 的管理</title>
+    <url>/2024/03/08/SpringBoot-Bean%E7%9A%84%E7%AE%A1%E7%90%86/</url>
+    <content><![CDATA[<h2 id="1-Bean的获取">1. Bean的获取</h2>
+<p>默认情况下，SpringBoot项目在启动的时候会自动的创建IOC容器(也称为Spring容器)，并且在启动的过程当中会自动的将bean对象都创建好，存放在IOC容器当中。应用程序在运行时需要依赖什么bean对象，就直接进行依赖注入就可以了。</p>
+<p>而在Spring容器中提供了一些方法，可以主动从IOC容器中获取到bean对象，下面介绍3种常用方式：</p>
+<ol>
+<li>
+<p>根据name获取bean</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line">Object <span class="title function_">getBean</span><span class="params">(String name)</span></span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>根据类型获取bean</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line">&lt;T&gt; T <span class="title function_">getBean</span><span class="params">(Class&lt;T&gt; requiredType)</span></span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>根据name获取bean（带类型转换）</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line">&lt;T&gt; T <span class="title function_">getBean</span><span class="params">(String name, Class&lt;T&gt; requiredType)</span></span><br></pre></td></tr></table></figure></div>
+</li>
+</ol>
+<p>思考：要从IOC容器当中来获取到bean对象，需要先拿到IOC容器对象，怎么样才能拿到IOC容器呢？</p>
+<ul>
+<li>想获取到IOC容器，直接将IOC容器对象注入进来就可以了</li>
+</ul>
+<p>注意事项：</p>
+<ul>
+<li>上述所说的 【Spring项目启动时，会把其中的bean都创建好】还会受到作用域及延迟初始化影响，这里主要针对于默认的单例非延迟加载的bean而言。</li>
+</ul>
+<h2 id="2-Bean的作用域">2. Bean的作用域</h2>
+<p>在Spring中支持五种作用域，后三种在web环境才生效：</p>
+<table>
+<thead>
+<tr>
+<th><strong>作用域</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>singleton</td>
+<td>容器内同名称的bean只有一个实例（单例）（默认）</td>
+</tr>
+<tr>
+<td>prototype</td>
+<td>每次使用该bean时会创建新的实例（非单例）</td>
+</tr>
+<tr>
+<td>request</td>
+<td>每个请求范围内会创建新的实例（web环境中，了解）</td>
+</tr>
+<tr>
+<td>session</td>
+<td>每个会话范围内会创建新的实例（web环境中，了解）</td>
+</tr>
+<tr>
+<td>application</td>
+<td>每个应用范围内会创建新的实例（web环境中，了解）</td>
+</tr>
+</tbody>
+</table>
+<p>知道了bean的5种作用域了，我们要怎么去设置一个bean的作用域呢？</p>
+<ul>
+<li>可以借助Spring中的@Scope注解来进行配置作用域</li>
+</ul>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/03/08/GXCRYFwmTeKJILo.png"
+                      alt=""
+                ></p>
+<p>注意事项：</p>
+<ul>
+<li>
+<p>IOC容器中的bean默认使用的作用域：singleton (单例)。默认singleton的bean，在容器启动时被创建，可以使用@Lazy注解来延迟初始化(延迟到第一次使用时)</p>
+</li>
+<li>
+<p>prototype的bean，每一次使用该bean的时候都会创建一个新的实例</p>
+</li>
+<li>
+<p>实际开发当中，绝大部分的Bean是单例的，也就是说绝大部分Bean不需要配置scope属性</p>
+</li>
+</ul>
+<h2 id="3-第三方Bean">3. 第三方Bean</h2>
+<p>在我们项目开发当中，有的类不是我们自己编写的，而是我们引入的第三方依赖当中提供的。</p>
+<p>在pom.xml文件中，引入dom4j：</p>
+<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--Dom4j--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.dom4j<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>dom4j<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.1.3<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
+<blockquote>
+<p>dom4j就是第三方组织提供的。 dom4j中的SAXReader类就是第三方编写的。</p>
+</blockquote>
+<p>那么我们应该怎样使用并定义第三方的bean呢？</p>
+<ul>
+<li>如果要管理的bean对象来自于第三方（不是自定义的），是无法用@Component 及衍生注解声明bean的，而是需要用到**@Bean**注解。</li>
+</ul>
+<p><strong>解决方案1：在启动类上添加@Bean标识的方法</strong></p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SpringbootWebConfig2Application</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        SpringApplication.run(SpringbootWebConfig2Application.class, args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 声明第三方 Bean</span></span><br><span class="line">    <span class="meta">@Bean</span> <span class="comment">// 将当前方法的返回值对象交给 IOC 容器管理, 成为 IOC 容器 Bean</span></span><br><span class="line">    <span class="keyword">public</span> SAXReader <span class="title function_">saxReader</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">SAXReader</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<blockquote>
+<p><strong>说明：以上在启动类中声明第三方Bean的作法，不建议使用（项目中要保证启动类的纯粹性）</strong></p>
+</blockquote>
+<p><strong>解决方案2：在配置类中定义@Bean标识的方法</strong></p>
+<ul>
+<li>如果需要定义第三方Bean时， 通常会单独定义一个配置类</li>
+</ul>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Configuration</span> <span class="comment">// 配置类  (在配置类当中对第三方bean进行集中配置管理)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CommonConfig</span> &#123;</span><br><span class="line">    <span class="comment">// 声明第三方 bean</span></span><br><span class="line">    <span class="meta">@Bean</span> <span class="comment">// 将当前方法的返回值对象交给 IOC 容器管理, 成为 IOC 容器 bean</span></span><br><span class="line">          <span class="comment">// 通过 @Bean 注解的 name/value 属性指定 bean 名称, 如果未指定, 默认是方法名</span></span><br><span class="line">    <span class="keyword">public</span> SAXReader <span class="title function_">reader</span><span class="params">(DeptService deptService)</span>&#123;</span><br><span class="line">        System.out.println(deptService);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">SAXReader</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>在方法上加上一个@Bean注解，Spring 容器在启动的时候，它会自动的调用这个方法，并将方法的返回值声明为Spring容器当中的Bean对象。</p>
+<blockquote>
+<p>注意事项 ：</p>
+<ul>
+<li>
+<p>通过@Bean注解的name或value属性可以声明bean的名称，如果不指定，默认bean的名称就是方法名。</p>
+</li>
+<li>
+<p>如果第三方bean需要依赖其它bean对象，直接在bean定义<strong>方法</strong>中设置<strong>形参</strong>即可，容器会根据类型自动装配。</p>
+</li>
+</ul>
+</blockquote>
+<p><strong>关于Bean只需要保持一个原则：</strong></p>
+<ul>
+<li>如果是在项目当中自己定义的类，想将这些类交给IOC容器管理，我们直接使用@Component以及它的衍生注解来声明就可以。</li>
+<li>如果这个类它不是自己定义的，而是引入的第三方依赖当中提供的类，而且我们还想将这个类交给IOC容器管理。此时我们就需要在配置类中定义一个方法，在方法上加上一个@Bean注解，通过这种方式来声明第三方的bean对象。</li>
+</ul>
 ]]></content>
       <categories>
         <category>Java学习笔记</category>
@@ -2426,134 +2554,6 @@
       </tags>
   </entry>
   <entry>
-    <title>SpringBoot - Bean 的管理</title>
-    <url>/2024/03/08/SpringBoot-Bean%E7%9A%84%E7%AE%A1%E7%90%86/</url>
-    <content><![CDATA[<h2 id="1-Bean的获取">1. Bean的获取</h2>
-<p>默认情况下，SpringBoot项目在启动的时候会自动的创建IOC容器(也称为Spring容器)，并且在启动的过程当中会自动的将bean对象都创建好，存放在IOC容器当中。应用程序在运行时需要依赖什么bean对象，就直接进行依赖注入就可以了。</p>
-<p>而在Spring容器中提供了一些方法，可以主动从IOC容器中获取到bean对象，下面介绍3种常用方式：</p>
-<ol>
-<li>
-<p>根据name获取bean</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line">Object <span class="title function_">getBean</span><span class="params">(String name)</span></span><br></pre></td></tr></table></figure></div>
-</li>
-<li>
-<p>根据类型获取bean</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line">&lt;T&gt; T <span class="title function_">getBean</span><span class="params">(Class&lt;T&gt; requiredType)</span></span><br></pre></td></tr></table></figure></div>
-</li>
-<li>
-<p>根据name获取bean（带类型转换）</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line">&lt;T&gt; T <span class="title function_">getBean</span><span class="params">(String name, Class&lt;T&gt; requiredType)</span></span><br></pre></td></tr></table></figure></div>
-</li>
-</ol>
-<p>思考：要从IOC容器当中来获取到bean对象，需要先拿到IOC容器对象，怎么样才能拿到IOC容器呢？</p>
-<ul>
-<li>想获取到IOC容器，直接将IOC容器对象注入进来就可以了</li>
-</ul>
-<p>注意事项：</p>
-<ul>
-<li>上述所说的 【Spring项目启动时，会把其中的bean都创建好】还会受到作用域及延迟初始化影响，这里主要针对于默认的单例非延迟加载的bean而言。</li>
-</ul>
-<h2 id="2-Bean的作用域">2. Bean的作用域</h2>
-<p>在Spring中支持五种作用域，后三种在web环境才生效：</p>
-<table>
-<thead>
-<tr>
-<th><strong>作用域</strong></th>
-<th><strong>说明</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>singleton</td>
-<td>容器内同名称的bean只有一个实例（单例）（默认）</td>
-</tr>
-<tr>
-<td>prototype</td>
-<td>每次使用该bean时会创建新的实例（非单例）</td>
-</tr>
-<tr>
-<td>request</td>
-<td>每个请求范围内会创建新的实例（web环境中，了解）</td>
-</tr>
-<tr>
-<td>session</td>
-<td>每个会话范围内会创建新的实例（web环境中，了解）</td>
-</tr>
-<tr>
-<td>application</td>
-<td>每个应用范围内会创建新的实例（web环境中，了解）</td>
-</tr>
-</tbody>
-</table>
-<p>知道了bean的5种作用域了，我们要怎么去设置一个bean的作用域呢？</p>
-<ul>
-<li>可以借助Spring中的@Scope注解来进行配置作用域</li>
-</ul>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/03/08/GXCRYFwmTeKJILo.png"
-                      alt=""
-                ></p>
-<p>注意事项：</p>
-<ul>
-<li>
-<p>IOC容器中的bean默认使用的作用域：singleton (单例)。默认singleton的bean，在容器启动时被创建，可以使用@Lazy注解来延迟初始化(延迟到第一次使用时)</p>
-</li>
-<li>
-<p>prototype的bean，每一次使用该bean的时候都会创建一个新的实例</p>
-</li>
-<li>
-<p>实际开发当中，绝大部分的Bean是单例的，也就是说绝大部分Bean不需要配置scope属性</p>
-</li>
-</ul>
-<h2 id="3-第三方Bean">3. 第三方Bean</h2>
-<p>在我们项目开发当中，有的类不是我们自己编写的，而是我们引入的第三方依赖当中提供的。</p>
-<p>在pom.xml文件中，引入dom4j：</p>
-<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--Dom4j--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.dom4j<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>dom4j<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.1.3<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
-<blockquote>
-<p>dom4j就是第三方组织提供的。 dom4j中的SAXReader类就是第三方编写的。</p>
-</blockquote>
-<p>那么我们应该怎样使用并定义第三方的bean呢？</p>
-<ul>
-<li>如果要管理的bean对象来自于第三方（不是自定义的），是无法用@Component 及衍生注解声明bean的，而是需要用到**@Bean**注解。</li>
-</ul>
-<p><strong>解决方案1：在启动类上添加@Bean标识的方法</strong></p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SpringbootWebConfig2Application</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        SpringApplication.run(SpringbootWebConfig2Application.class, args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 声明第三方 Bean</span></span><br><span class="line">    <span class="meta">@Bean</span> <span class="comment">// 将当前方法的返回值对象交给 IOC 容器管理, 成为 IOC 容器 Bean</span></span><br><span class="line">    <span class="keyword">public</span> SAXReader <span class="title function_">saxReader</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">SAXReader</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<blockquote>
-<p><strong>说明：以上在启动类中声明第三方Bean的作法，不建议使用（项目中要保证启动类的纯粹性）</strong></p>
-</blockquote>
-<p><strong>解决方案2：在配置类中定义@Bean标识的方法</strong></p>
-<ul>
-<li>如果需要定义第三方Bean时， 通常会单独定义一个配置类</li>
-</ul>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Configuration</span> <span class="comment">// 配置类  (在配置类当中对第三方bean进行集中配置管理)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CommonConfig</span> &#123;</span><br><span class="line">    <span class="comment">// 声明第三方 bean</span></span><br><span class="line">    <span class="meta">@Bean</span> <span class="comment">// 将当前方法的返回值对象交给 IOC 容器管理, 成为 IOC 容器 bean</span></span><br><span class="line">          <span class="comment">// 通过 @Bean 注解的 name/value 属性指定 bean 名称, 如果未指定, 默认是方法名</span></span><br><span class="line">    <span class="keyword">public</span> SAXReader <span class="title function_">reader</span><span class="params">(DeptService deptService)</span>&#123;</span><br><span class="line">        System.out.println(deptService);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">SAXReader</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<p>在方法上加上一个@Bean注解，Spring 容器在启动的时候，它会自动的调用这个方法，并将方法的返回值声明为Spring容器当中的Bean对象。</p>
-<blockquote>
-<p>注意事项 ：</p>
-<ul>
-<li>
-<p>通过@Bean注解的name或value属性可以声明bean的名称，如果不指定，默认bean的名称就是方法名。</p>
-</li>
-<li>
-<p>如果第三方bean需要依赖其它bean对象，直接在bean定义<strong>方法</strong>中设置<strong>形参</strong>即可，容器会根据类型自动装配。</p>
-</li>
-</ul>
-</blockquote>
-<p><strong>关于Bean只需要保持一个原则：</strong></p>
-<ul>
-<li>如果是在项目当中自己定义的类，想将这些类交给IOC容器管理，我们直接使用@Component以及它的衍生注解来声明就可以。</li>
-<li>如果这个类它不是自己定义的，而是引入的第三方依赖当中提供的类，而且我们还想将这个类交给IOC容器管理。此时我们就需要在配置类中定义一个方法，在方法上加上一个@Bean注解，通过这种方式来声明第三方的bean对象。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>Java学习笔记</category>
-      </categories>
-      <tags>
-        <tag>Spring</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>转载 - Spring 注解之 @RestController 与 @Controller 的区别</title>
     <url>/2024/03/08/%E8%BD%AC%E8%BD%BD-Spring-%E6%B3%A8%E8%A7%A3%E4%B9%8B-RestController%E4%B8%8E-Controller%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
     <content><![CDATA[
@@ -2573,94 +2573,6 @@
       </categories>
       <tags>
         <tag>Spring</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Maven - 私服</title>
-    <url>/2024/03/11/Maven-%E7%A7%81%E6%9C%8D/</url>
-    <content><![CDATA[<h2 id="1-场景">1. 场景</h2>
-<p>私服其实就是架设在公司局域网内部的一台服务器，就是一种特殊的远程仓库。A 连接上私服之后，他就可以把jar包直接上传到私服当中。B 团队的所有开发人员也连接同一台私服之后，他们就能根据坐标的信息，直接从私服当中将对应的jar包下载到自己的本地仓库，使用依赖当中所提供的一些工具类了。这样我们就可以通过私服来完成资源的共享。</p>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/03/11/OSj7seIXlw6ofnL.png"
-                      style="zoom:80%;" 
-                > 
-<p>而如果我们在项目中需要使用其他第三方提供的依赖，如果本地仓库没有，也会自动连接私服下载，如果私服没有，私服此时会自动连接中央仓库，去中央仓库中下载依赖，然后将下载的依赖存储在私服仓库及本地仓库中。</p>
-<h2 id="2-介绍">2. 介绍</h2>
-<ul>
-<li>
-<p><strong>私服</strong>：是一种特殊的远程仓库，它是架设在局域网内的仓库服务，用来代理位于外部的中央仓库，用于解决团队内部的资源共享与资源同步问题。</p>
-</li>
-<li>
-<p><strong>依赖查找顺序</strong>：</p>
-<ul>
-<li>本地仓库</li>
-<li>私服仓库</li>
-<li>中央仓库</li>
-</ul>
-</li>
-<li>
-<p><strong>资源上传与下载</strong>：<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/03/11/2uxvsBiCMbI3wYO.png"
-                      style="zoom:80%;" 
-                ></p>
-<p>资源的上传与下载，我们需要做三步配置，执行一条指令：</p>
-<ol>
-<li>在maven的配置文件中配置连接私服的地址(url地址)。</li>
-<li>在maven的配置文件中配置访问私服的用户名、密码。</li>
-<li>在项目的pom.xml文件中配置上传资源的位置(url地址)。</li>
-</ol>
-<p>配置好了上述三步之后，要上传资源到私服仓库，就执行maven生命周期：deploy</p>
-<p>接下来，其他项目组的开发人员就可以在项目中直接通过依赖的坐标，引入对应的依赖。如果此时本地仓库没有，就会自动从私服仓库中下载。</p>
-<blockquote>
-<p>私服仓库说明：</p>
-<ul>
-<li>RELEASE：存储自己开发的RELEASE发布版本的资源。</li>
-<li>SNAPSHOT：存储自己开发的SNAPSHOT发布版本的资源。</li>
-<li>Central：存储的是从中央仓库下载下来的依赖。</li>
-</ul>
-</blockquote>
-<blockquote>
-<p>项目版本说明：</p>
-<ul>
-<li>RELEASE(发布版本)：功能趋于稳定、当前更新停止，可以用于发行的版本，存储在私服中的RELEASE仓库中。</li>
-<li>SNAPSHOT(快照版本)：功能不稳定、尚处于开发中的版本，即快照版本，存储在私服的SNAPSHOT仓库中。</li>
-</ul>
-</blockquote>
-</li>
-</ul>
-<h2 id="3-私服配置">3. 私服配置</h2>
-<p>使用私服，需要在maven的settings.xml配置文件中，做如下配置：</p>
-<ol>
-<li>
-<p>需要在 <strong>servers</strong> 标签中，配置访问私服的个人凭证(访问的用户名和密码)</p>
-<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">server</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">id</span>&gt;</span>maven-releases<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">username</span>&gt;</span>admin<span class="tag">&lt;/<span class="name">username</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">password</span>&gt;</span>admin<span class="tag">&lt;/<span class="name">password</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">server</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">server</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">id</span>&gt;</span>maven-snapshots<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">username</span>&gt;</span>admin<span class="tag">&lt;/<span class="name">username</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">password</span>&gt;</span>admin<span class="tag">&lt;/<span class="name">password</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">server</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
-</li>
-<li>
-<p>在 <strong>mirrors</strong> 标签中，配置自己私服的连接地址(如果之前配置过阿里云，需要直接替换掉)</p>
-<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mirror</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">id</span>&gt;</span>maven-public<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mirrorOf</span>&gt;</span>*<span class="tag">&lt;/<span class="name">mirrorOf</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://192.168.150.101:8081/repository/maven-public/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mirror</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
-</li>
-<li>
-<p>在 <strong>profiles</strong> 标签中，增加如下配置，来指定snapshot快照版本的依赖允许使用</p>
-<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">profile</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">id</span>&gt;</span>allow-snapshots<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">activation</span>&gt;</span></span><br><span class="line">        	<span class="tag">&lt;<span class="name">activeByDefault</span>&gt;</span>true<span class="tag">&lt;/<span class="name">activeByDefault</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">activation</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">repositories</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">repository</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">id</span>&gt;</span>maven-public<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://192.168.150.101:8081/repository/maven-public/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">releases</span>&gt;</span></span><br><span class="line">            	<span class="tag">&lt;<span class="name">enabled</span>&gt;</span>true<span class="tag">&lt;/<span class="name">enabled</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">releases</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">snapshots</span>&gt;</span></span><br><span class="line">            	<span class="tag">&lt;<span class="name">enabled</span>&gt;</span>true<span class="tag">&lt;/<span class="name">enabled</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">snapshots</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">repository</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">repositories</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">profile</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
-</li>
-<li>
-<p>如果需要上传自己的项目到私服上，需要在项目的pom.xml文件中，增加如下配置，来配置项目发布的地址(也就是私服的地址)</p>
-<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">distributionManagement</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- release版本的发布地址 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">repository</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span>&gt;</span>maven-releases<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://192.168.150.101:8081/repository/maven-releases/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">repository</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- snapshot版本的发布地址 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">snapshotRepository</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span>&gt;</span>maven-snapshots<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://192.168.150.101:8081/repository/maven-snapshots/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">snapshotRepository</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">distributionManagement</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
-</li>
-<li>
-<p>发布项目，直接运行 deploy 生命周期即可 (发布时，建议跳过单元测试)</p>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>Java学习笔记</category>
-      </categories>
-      <tags>
-        <tag>Maven</tag>
       </tags>
   </entry>
   <entry>
@@ -2762,6 +2674,94 @@
 <li>为什么要分模块设计：方便项目的管理维护、扩展，也方便模块间的相互调用，资源共享</li>
 <li>注意事项：分模块设计需要先针对模块功能进行设计，再进行编码。不会先将工程开发完毕，然后进行拆分</li>
 </ul>
+]]></content>
+      <categories>
+        <category>Java学习笔记</category>
+      </categories>
+      <tags>
+        <tag>Maven</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Maven - 私服</title>
+    <url>/2024/03/11/Maven-%E7%A7%81%E6%9C%8D/</url>
+    <content><![CDATA[<h2 id="1-场景">1. 场景</h2>
+<p>私服其实就是架设在公司局域网内部的一台服务器，就是一种特殊的远程仓库。A 连接上私服之后，他就可以把jar包直接上传到私服当中。B 团队的所有开发人员也连接同一台私服之后，他们就能根据坐标的信息，直接从私服当中将对应的jar包下载到自己的本地仓库，使用依赖当中所提供的一些工具类了。这样我们就可以通过私服来完成资源的共享。</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/03/11/OSj7seIXlw6ofnL.png"
+                      style="zoom:80%;" 
+                > 
+<p>而如果我们在项目中需要使用其他第三方提供的依赖，如果本地仓库没有，也会自动连接私服下载，如果私服没有，私服此时会自动连接中央仓库，去中央仓库中下载依赖，然后将下载的依赖存储在私服仓库及本地仓库中。</p>
+<h2 id="2-介绍">2. 介绍</h2>
+<ul>
+<li>
+<p><strong>私服</strong>：是一种特殊的远程仓库，它是架设在局域网内的仓库服务，用来代理位于外部的中央仓库，用于解决团队内部的资源共享与资源同步问题。</p>
+</li>
+<li>
+<p><strong>依赖查找顺序</strong>：</p>
+<ul>
+<li>本地仓库</li>
+<li>私服仓库</li>
+<li>中央仓库</li>
+</ul>
+</li>
+<li>
+<p><strong>资源上传与下载</strong>：<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/03/11/2uxvsBiCMbI3wYO.png"
+                      style="zoom:80%;" 
+                ></p>
+<p>资源的上传与下载，我们需要做三步配置，执行一条指令：</p>
+<ol>
+<li>在maven的配置文件中配置连接私服的地址(url地址)。</li>
+<li>在maven的配置文件中配置访问私服的用户名、密码。</li>
+<li>在项目的pom.xml文件中配置上传资源的位置(url地址)。</li>
+</ol>
+<p>配置好了上述三步之后，要上传资源到私服仓库，就执行maven生命周期：deploy</p>
+<p>接下来，其他项目组的开发人员就可以在项目中直接通过依赖的坐标，引入对应的依赖。如果此时本地仓库没有，就会自动从私服仓库中下载。</p>
+<blockquote>
+<p>私服仓库说明：</p>
+<ul>
+<li>RELEASE：存储自己开发的RELEASE发布版本的资源。</li>
+<li>SNAPSHOT：存储自己开发的SNAPSHOT发布版本的资源。</li>
+<li>Central：存储的是从中央仓库下载下来的依赖。</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>项目版本说明：</p>
+<ul>
+<li>RELEASE(发布版本)：功能趋于稳定、当前更新停止，可以用于发行的版本，存储在私服中的RELEASE仓库中。</li>
+<li>SNAPSHOT(快照版本)：功能不稳定、尚处于开发中的版本，即快照版本，存储在私服的SNAPSHOT仓库中。</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<h2 id="3-私服配置">3. 私服配置</h2>
+<p>使用私服，需要在maven的settings.xml配置文件中，做如下配置：</p>
+<ol>
+<li>
+<p>需要在 <strong>servers</strong> 标签中，配置访问私服的个人凭证(访问的用户名和密码)</p>
+<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">server</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">id</span>&gt;</span>maven-releases<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">username</span>&gt;</span>admin<span class="tag">&lt;/<span class="name">username</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">password</span>&gt;</span>admin<span class="tag">&lt;/<span class="name">password</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">server</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">server</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">id</span>&gt;</span>maven-snapshots<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">username</span>&gt;</span>admin<span class="tag">&lt;/<span class="name">username</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">password</span>&gt;</span>admin<span class="tag">&lt;/<span class="name">password</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">server</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>在 <strong>mirrors</strong> 标签中，配置自己私服的连接地址(如果之前配置过阿里云，需要直接替换掉)</p>
+<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mirror</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">id</span>&gt;</span>maven-public<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mirrorOf</span>&gt;</span>*<span class="tag">&lt;/<span class="name">mirrorOf</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://192.168.150.101:8081/repository/maven-public/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mirror</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>在 <strong>profiles</strong> 标签中，增加如下配置，来指定snapshot快照版本的依赖允许使用</p>
+<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">profile</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">id</span>&gt;</span>allow-snapshots<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">activation</span>&gt;</span></span><br><span class="line">        	<span class="tag">&lt;<span class="name">activeByDefault</span>&gt;</span>true<span class="tag">&lt;/<span class="name">activeByDefault</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">activation</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">repositories</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">repository</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">id</span>&gt;</span>maven-public<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://192.168.150.101:8081/repository/maven-public/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">releases</span>&gt;</span></span><br><span class="line">            	<span class="tag">&lt;<span class="name">enabled</span>&gt;</span>true<span class="tag">&lt;/<span class="name">enabled</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">releases</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">snapshots</span>&gt;</span></span><br><span class="line">            	<span class="tag">&lt;<span class="name">enabled</span>&gt;</span>true<span class="tag">&lt;/<span class="name">enabled</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">snapshots</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">repository</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">repositories</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">profile</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>如果需要上传自己的项目到私服上，需要在项目的pom.xml文件中，增加如下配置，来配置项目发布的地址(也就是私服的地址)</p>
+<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">distributionManagement</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- release版本的发布地址 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">repository</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span>&gt;</span>maven-releases<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://192.168.150.101:8081/repository/maven-releases/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">repository</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- snapshot版本的发布地址 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">snapshotRepository</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span>&gt;</span>maven-snapshots<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://192.168.150.101:8081/repository/maven-snapshots/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">snapshotRepository</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">distributionManagement</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>发布项目，直接运行 deploy 生命周期即可 (发布时，建议跳过单元测试)</p>
+</li>
+</ol>
 ]]></content>
       <categories>
         <category>Java学习笔记</category>
@@ -3174,7 +3174,7 @@ ThreadLocal为每个线程提供单独一份存储空间，具有线程隔离的
 <p>在sky-server模块中，拦截器：</p>
 <div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.sky.interceptor;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * jwt令牌校验的拦截器</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JwtTokenAdminInterceptor</span> <span class="keyword">implements</span> <span class="title class_">HandlerInterceptor</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> JwtProperties jwtProperties;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 校验jwt</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">preHandle</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object handler)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        </span><br><span class="line">		<span class="comment">//.............................</span></span><br><span class="line">       </span><br><span class="line">        <span class="comment">//2、校验令牌</span></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//.................</span></span><br><span class="line">            <span class="type">Claims</span> <span class="variable">claims</span> <span class="operator">=</span> JwtUtil.parseJWT(jwtProperties.getAdminSecretKey(), token);</span><br><span class="line">            <span class="type">Long</span> <span class="variable">empId</span> <span class="operator">=</span> Long.valueOf(claims.get(JwtClaimsConstant.EMP_ID).toString());</span><br><span class="line">            log.info(<span class="string">&quot;当前员工id：&quot;</span>, empId);</span><br><span class="line">            <span class="comment">/////将用户id存储到ThreadLocal////////</span></span><br><span class="line">            BaseContext.setCurrentId(empId);</span><br><span class="line">            <span class="comment">////////////////////////////////////</span></span><br><span class="line">            <span class="comment">//3、通过，放行</span></span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception ex) &#123;</span><br><span class="line">            <span class="comment">//......................</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 <p>在Service中获取线程局部变量中的值：</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 新增员工</span></span><br><span class="line"><span class="comment">    *</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span> employeeDTO</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">save</span><span class="params">(EmployeeDTO employeeDTO)</span> &#123;</span><br><span class="line">       <span class="comment">//.............................</span></span><br><span class="line"></span><br><span class="line">       <span class="comment">//设置当前记录创建人id和修改人id</span></span><br><span class="line">       employee.setCreateUser(BaseContext.getCurrentId());</span><br><span class="line">       employee.setUpdateUser(BaseContext.getCurrentId());</span><br><span class="line"></span><br><span class="line">       employeeMapper.insert(employee);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></div>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 新增员工</span></span><br><span class="line"><span class="comment">    *</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span> employeeDTO</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">save</span><span class="params">(EmployeeDTO employeeDTO)</span> &#123;</span><br><span class="line">       <span class="comment">//.............................</span></span><br><span class="line"></span><br><span class="line">       <span class="comment">//设置当前记录创建人id和修改人id</span></span><br><span class="line">       <span class="type">Long</span> <span class="variable">currentId</span> <span class="operator">=</span> BaseContext.getCurrentId();</span><br><span class="line">       employee.setCreateUser(currentId);</span><br><span class="line">       employee.setUpdateUser(currentId);</span><br><span class="line"></span><br><span class="line">       employeeMapper.insert(employee);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></div>
 ]]></content>
       <categories>
         <category>Java学习笔记</category>
