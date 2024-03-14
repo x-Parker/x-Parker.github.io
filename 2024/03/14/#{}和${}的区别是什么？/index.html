@@ -19,22 +19,22 @@
     
     <!--- Seo Part-->
     
-    <link rel="canonical" href="https://x-parker.github.io/2024/03/08/ioc-容器对-bean-的命名规则/"/>
+    <link rel="canonical" href="https://x-parker.github.io/2024/03/14/#{}和${}的区别是什么？/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
-        <meta name="description" content="1. 默认规则 在 Spring 中，IOC（控制反转）容器可以自动识别并创建 Bean，而且它默认遵循一定的命名规则。Spring 的 IOC 容器在自动识别 Bean 时通常使用的是基于类名的驼峰命名规则。 如果类名以大写字母开头，Spring 将会把它转换为以小写字母开头，并且在容器中注册为 Bean。 例如，假设你有一个名为 UserService 的类，Spring IOC 容器会将它识">
+        <meta name="description" content="区别 经常碰到这样的面试题目：#{}和${}的区别是什么？ 正确的答案是：#{}是预编译处理，${}是字符串替换。 内部原理  mybatis在处理#{}时，会将sql中的#{}替换为?号，调用PreparedStatement的set方法来赋值。 mybatis在处理时，就是把时，就是把{}替换成变量的值。 使用#{}可以有效的防止SQL注入，提高系统安全性。原因在于：预编译机制。预编译完成之后">
 <meta property="og:type" content="article">
-<meta property="og:title" content="IOC 容器对 Bean 的命名规则">
-<meta property="og:url" content="https://x-parker.github.io/2024/03/08/IOC-%E5%AE%B9%E5%99%A8%E5%AF%B9-Bean-%E7%9A%84%E5%91%BD%E5%90%8D%E8%A7%84%E5%88%99/index.html">
+<meta property="og:title" content="#{} 和 ${} 的区别是什么？">
+<meta property="og:url" content="https://x-parker.github.io/2024/03/14/#{}%E5%92%8C${}%E7%9A%84%E5%8C%BA%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F/index.html">
 <meta property="og:site_name" content="Parker&#39;s Blog">
-<meta property="og:description" content="1. 默认规则 在 Spring 中，IOC（控制反转）容器可以自动识别并创建 Bean，而且它默认遵循一定的命名规则。Spring 的 IOC 容器在自动识别 Bean 时通常使用的是基于类名的驼峰命名规则。 如果类名以大写字母开头，Spring 将会把它转换为以小写字母开头，并且在容器中注册为 Bean。 例如，假设你有一个名为 UserService 的类，Spring IOC 容器会将它识">
+<meta property="og:description" content="区别 经常碰到这样的面试题目：#{}和${}的区别是什么？ 正确的答案是：#{}是预编译处理，${}是字符串替换。 内部原理  mybatis在处理#{}时，会将sql中的#{}替换为?号，调用PreparedStatement的set方法来赋值。 mybatis在处理时，就是把时，就是把{}替换成变量的值。 使用#{}可以有效的防止SQL注入，提高系统安全性。原因在于：预编译机制。预编译完成之后">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-03-08T06:53:50.000Z">
-<meta property="article:modified_time" content="2024-03-08T07:07:27.276Z">
+<meta property="article:published_time" content="2024-03-14T06:57:49.000Z">
+<meta property="article:modified_time" content="2024-03-14T07:00:58.733Z">
 <meta property="article:author" content="Parker">
-<meta property="article:tag" content="Spring">
+<meta property="article:tag" content="MyBatis">
 <meta name="twitter:card" content="summary">
     
     
@@ -57,7 +57,7 @@
     
     <title>
         
-            IOC 容器对 Bean 的命名规则 -
+            #{} 和 ${} 的区别是什么？ -
         
         Parker&#39;s Blog
     </title>
@@ -577,7 +577,7 @@
         <div class="article-title relative w-full">
             
                 <div class="w-full flex items-center pt-6 justify-start">
-                    <h1 class="article-title-regular text-second-text-color text-4xl md:text-6xl font-bold px-2 sm:px-6 md:px-8 py-3">IOC 容器对 Bean 的命名规则</h1>
+                    <h1 class="article-title-regular text-second-text-color text-4xl md:text-6xl font-bold px-2 sm:px-6 md:px-8 py-3">#{} 和 ${} 的区别是什么？</h1>
                 </div>
             
             </div>
@@ -596,15 +596,15 @@
                         <div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fa-regular fa-pen-fancy"></i>&nbsp;
-        <span class="desktop">2024-03-08 14:53:50</span>
-        <span class="mobile">2024-03-08 14:53:50</span>
+        <span class="desktop">2024-03-14 14:57:49</span>
+        <span class="mobile">2024-03-14 14:57:49</span>
         <span class="hover-info">创建</span>
     </span>
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2024-03-08 15:07:27</span>
-            <span class="mobile">2024-03-08 15:07:27</span>
+            <span class="desktop">2024-03-14 15:58</span>
+            <span class="mobile">2024-03-14 15:58</span>
             <span class="hover-info">更新</span>
         </span>
     
@@ -632,7 +632,7 @@
             <ul>
                 
                     <li>
-                        <a href="/tags/Spring/">Spring</a>&nbsp;
+                        <a href="/tags/MyBatis/">MyBatis</a>&nbsp;
                     </li>
                 
             </ul>
@@ -642,7 +642,7 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>291 字</span>
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>449 字</span>
         </span>
     
     
@@ -666,15 +666,27 @@
 
 
         <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
-            <h2 id="1-默认规则">1. 默认规则</h2>
-<p>在 Spring 中，IOC（控制反转）容器可以自动识别并创建 Bean，而且它默认遵循一定的命名规则。Spring 的 IOC 容器在自动识别 Bean 时通常使用的是<strong>基于类名的驼峰命名规则</strong>。</p>
-<p><strong>如果类名以大写字母开头，Spring 将会把它转换为以小写字母开头，并且在容器中注册为 Bean。</strong></p>
-<p>例如，假设你有一个名为 <code>UserService</code> 的类，Spring IOC 容器会将它识别为 <code>userService</code> 的 Bean。类似地，<code>UserServiceImpl</code> 会变成 <code>userServiceImpl</code>。</p>
-<p>这种自动的 Bean 命名规则存在于 Spring 的默认行为中，这样开发者就不需要显式地在配置文件或注解中指定 Bean 的名称，Spring 会根据类名来自动推断。</p>
-<h2 id="2-自定义">2. 自定义</h2>
-<p>但是，如果开发者想要<strong>自定义 Bean 的名称</strong>，可以使用 <code>@Component</code>、<code>@Service</code>、<code>@Repository</code> 等注解，并<strong>在括号中指定 Bean 的名称</strong>，例如：</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service(&quot;myCustomService&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyCustomServiceImpl</span> <span class="keyword">implements</span> <span class="title class_">MyCustomService</span> &#123;</span><br><span class="line">    <span class="comment">// 实现代码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<p>在这个例子中，<code>MyCustomServiceImpl</code> 类会被注册到 Spring 容器中，并且 Bean 的名称将会是 <code>myCustomService</code>，而不是自动推断的 <code>myCustomServiceImpl</code>。</p>
+            <h2 id="区别">区别</h2>
+<p>经常碰到这样的面试题目：#{}和${}的区别是什么？</p>
+<p>正确的答案是：#{}是预编译处理，${}是字符串替换。</p>
+<h2 id="内部原理">内部原理</h2>
+<ol>
+<li>mybatis在处理#{}时，会将sql中的#{}替换为?号，调用PreparedStatement的set方法来赋值。</li>
+<li>mybatis在处理时，就是把时，就是把{}替换成变量的值。</li>
+<li>使用#{}可以有效的防止SQL注入，提高系统安全性。原因在于：预编译机制。预编译完成之后，SQL的结构已经固定，即便用户输入非法参数，也不会对SQL的结构产生影响，从而避免了潜在的安全风险。</li>
+<li>预编译是提前对SQL语句进行预编译，而其后注入的参数将不会再进行SQL编译。我们知道，SQL注入是发生在编译的过程中，因为恶意注入了某些特殊字符，最后被编译成了恶意的执行操作。而预编译机制则可以很好的防止SQL注入。</li>
+</ol>
+<h2 id="记忆方式">记忆方式</h2>
+<p>$符号一般用来当作占位符，常使用Linux脚本的人应该对此有更深的体会。</p>
+<p>例如：$1，$2等等表示输入参数的占位符。</p>
+<p>知道了这点就能很容易区分$和#，从而不容易记错了。</p>
+<h2 id="两种替换符存在的意义">两种替换符存在的意义</h2>
+<p>既然{}会引起sql注入，为什么有了#{}还需要有{}呢？那其存在的意义是什么？</p>
+<p>可以这么去理解：#{}主要用于预编译，而预编译的场景其实非常受限，而${}用于替换，很多场景会出现替换，而这种场景是不可预编译，例如：MyBatis XML配置对抗MyBatis注解的一大杀器：SQL片段，抽取可重用的SQL语句</p>
+<h2 id="参考">参考</h2>
+<ul>
+<li><a class="link"   target="_blank" rel="noopener" href="https://bbs.huaweicloud.com/blogs/394244" >https://bbs.huaweicloud.com/blogs/394244 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
 
         </div>
 
@@ -682,18 +694,18 @@
             <div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
                 <div class="article-copyright-info-container">
     <ul>
-        <li><strong>标题:</strong> IOC 容器对 Bean 的命名规则</li>
+        <li><strong>标题:</strong> #{} 和 ${} 的区别是什么？</li>
         <li><strong>作者:</strong> Parker</li>
         <li><strong>创建于
-                :</strong> 2024-03-08 14:53:50</li>
+                :</strong> 2024-03-14 14:57:49</li>
         
             <li>
                 <strong>更新于
-                    :</strong> 2024-03-08 15:07:27
+                    :</strong> 2024-03-14 15:00:58
             </li>
         
         <li>
-            <strong>链接:</strong> https://x-parker.github.io/2024/03/08/IOC-容器对-Bean-的命名规则/
+            <strong>链接:</strong> https://x-parker.github.io/2024/03/14/#{}和${}的区别是什么？/
         </li>
         <li>
             <strong>
@@ -715,7 +727,7 @@
             <ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
                 
                     <li class="tag-item mx-0.5">
-                        <a href="/tags/Spring/">#Spring</a>&nbsp;
+                        <a href="/tags/MyBatis/">#MyBatis</a>&nbsp;
                     </li>
                 
             </ul>
@@ -726,29 +738,14 @@
         
             <div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
                 
-                    <div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
-                        <a class="prev"
-                        rel="prev"
-                        href="/2024/03/08/SpringBoot-Bean%E7%9A%84%E7%AE%A1%E7%90%86/"
-                        >
-                            <span class="left arrow-icon flex justify-center items-center">
-                                <i class="fa-solid fa-chevron-left"></i>
-                            </span>
-                            <span class="title flex justify-center items-center">
-                                <span class="post-nav-title-item">SpringBoot - Bean 的管理</span>
-                                <span class="post-nav-item">上一篇</span>
-                            </span>
-                        </a>
-                    </div>
-                
                 
                     <div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
                         <a class="next"
                         rel="next"
-                        href="/2024/03/08/%E8%BD%AC%E8%BD%BD-Spring-%E6%B3%A8%E8%A7%A3%E4%B9%8B-RestController%E4%B8%8E-Controller%E7%9A%84%E5%8C%BA%E5%88%AB/"
+                        href="/2024/03/12/Swagger/"
                         >
                             <span class="title flex justify-center items-center">
-                                <span class="post-nav-title-item">转载 - Spring 注解之 @RestController 与 @Controller 的区别</span>
+                                <span class="post-nav-title-item">Swagger</span>
                                 <span class="post-nav-item">下一篇</span>
                             </span>
                             <span class="right arrow-icon flex justify-center items-center">
@@ -811,8 +808,8 @@
             <div class="post-toc-wrap">
     <div class="post-toc">
         <div class="toc-title">此页目录</div>
-        <div class="page-title">IOC 容器对 Bean 的命名规则</div>
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E9%BB%98%E8%AE%A4%E8%A7%84%E5%88%99"><span class="nav-text">1. 默认规则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E8%87%AA%E5%AE%9A%E4%B9%89"><span class="nav-text">2. 自定义</span></a></li></ol>
+        <div class="page-title">#{} 和 ${} 的区别是什么？</div>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8C%BA%E5%88%AB"><span class="nav-text">区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E9%83%A8%E5%8E%9F%E7%90%86"><span class="nav-text">内部原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%B0%E5%BF%86%E6%96%B9%E5%BC%8F"><span class="nav-text">记忆方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%A4%E7%A7%8D%E6%9B%BF%E6%8D%A2%E7%AC%A6%E5%AD%98%E5%9C%A8%E7%9A%84%E6%84%8F%E4%B9%89"><span class="nav-text">两种替换符存在的意义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-text">参考</span></a></li></ol>
 
     </div>
 </div>
