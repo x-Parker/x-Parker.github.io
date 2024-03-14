@@ -203,147 +203,6 @@
       </tags>
   </entry>
   <entry>
-    <title>MapReduce 配置与操作</title>
-    <url>/2024/01/11/MapReduce%E9%85%8D%E7%BD%AE%E4%B8%8E%E6%93%8D%E4%BD%9C/</url>
-    <content><![CDATA[<h3 id="一、通过eclipse连接hadoop">一、通过eclipse连接hadoop</h3>
-<h4 id="1-主要步骤">1. 主要步骤</h4>
-<ul>
-<li>
-<p>安装eclipse</p>
-</li>
-<li>
-<p>安装Hadoop-Eclipse-Plugin</p>
-</li>
-<li>
-<p>配置Hadoop-Eclipse-Plugin</p>
-</li>
-</ul>
-<p>参考资料已给出此部分详细步骤，因此此处不再展开，仅给出实现效果如下：</p>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2023/11/17/5e8bfMxDjoOsPVL.png"
-                      style="zoom: 67%;" 
-                >
-<h4 id="2-参考资料">2. 参考资料</h4>
-<ul>
-<li><a class="link"   href="https://blog.csdn.net/u010185220/article/details/79095179" >windows10上使用Eclipse配置Hadoop开发环境详细步骤+WordCount示例 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-</ul>
-<h4 id="3-遇到的问题">3. 遇到的问题</h4>
-<ul>
-<li>
-<h5 id="新添加的插件在Eclipse中不显示">新添加的插件在Eclipse中不显示</h5>
-<ul>
-<li>
-<p>解决方法</p>
-<p>在 <code>eclipse/configuration</code> 目录下的 <code>config.ini</code> 文件中加入一行 : <code>osgi.checkConfiguration=true</code>，这样它就会寻找并安装插件。</p>
-</li>
-<li>
-<p>参考资料</p>
-<p><a class="link"   href="https://blog.csdn.net/qq_38789941/article/details/86244990" >Eclipse 安装插件后不显示的解决办法 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="二、WordCount示例">二、WordCount示例</h3>
-<h4 id="1-主要步骤-2">1. 主要步骤</h4>
-<p>参考资料已给出此部分详细步骤，因此此处仅列举出主要步骤。</p>
-<ul>
-<li>
-<p>新建项目</p>
-</li>
-<li>
-<p>在项目的src目录下创建<code>WordCount.java</code>类，内容如下：</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> Package;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.util.StringTokenizer;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.conf.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.fs.Path;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.IntWritable;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.Text;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.Job;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.Mapper;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.Reducer;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.lib.input.FileInputFormat;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.util.GenericOptionsParser;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">WordCount</span> &#123;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">TokenizerMapper</span> <span class="keyword">extends</span> <span class="title class_">Mapper</span>&lt;Object, Text, Text, IntWritable&gt; &#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="type">IntWritable</span> <span class="variable">one</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">IntWritable</span>(<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">private</span> <span class="type">Text</span> <span class="variable">word</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Text</span>();</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">map</span><span class="params">(Object key, Text value, Context context)</span> <span class="keyword">throws</span> IOException, InterruptedException &#123;</span><br><span class="line">            <span class="type">StringTokenizer</span> <span class="variable">itr</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringTokenizer</span>(value.toString());</span><br><span class="line">            <span class="keyword">while</span> (itr.hasMoreTokens()) &#123;</span><br><span class="line">                word.set(itr.nextToken());</span><br><span class="line">                context.write(word, one);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">IntSumReducer</span> <span class="keyword">extends</span> <span class="title class_">Reducer</span>&lt;Text, IntWritable, Text, IntWritable&gt; &#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="type">IntWritable</span> <span class="variable">result</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">IntWritable</span>();</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">reduce</span><span class="params">(Text key, Iterable&lt;IntWritable&gt; values, Context context)</span></span><br><span class="line">                <span class="keyword">throws</span> IOException, InterruptedException &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">sum</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span> (IntWritable val : values) &#123;</span><br><span class="line">                sum += val.get();</span><br><span class="line">            &#125;</span><br><span class="line">            result.set(sum);</span><br><span class="line">            context.write(key, result);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="type">Configuration</span> <span class="variable">conf</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Configuration</span>();</span><br><span class="line">        String[] otherArgs = <span class="keyword">new</span> <span class="title class_">GenericOptionsParser</span>(conf, args).getRemainingArgs();</span><br><span class="line">        <span class="keyword">if</span> (otherArgs.length != <span class="number">2</span>) &#123;</span><br><span class="line">            System.err.println(<span class="string">&quot;Usage: wordcount &lt;in&gt; &lt;out&gt;&quot;</span>);</span><br><span class="line">            System.exit(<span class="number">2</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="meta">@SuppressWarnings(&quot;deprecation&quot;)</span></span><br><span class="line">		<span class="type">Job</span> <span class="variable">job</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Job</span>(conf, <span class="string">&quot;word count&quot;</span>);</span><br><span class="line">        job.setJarByClass(WordCount.class);</span><br><span class="line">        job.setMapperClass(TokenizerMapper.class);</span><br><span class="line">        job.setCombinerClass(IntSumReducer.class);</span><br><span class="line">        job.setReducerClass(IntSumReducer.class);</span><br><span class="line">        job.setOutputKeyClass(Text.class);</span><br><span class="line">        job.setOutputValueClass(IntWritable.class);</span><br><span class="line">        FileInputFormat.addInputPath(job, <span class="keyword">new</span> <span class="title class_">Path</span>(otherArgs[<span class="number">0</span>]));</span><br><span class="line">        FileOutputFormat.setOutputPath(job, <span class="keyword">new</span> <span class="title class_">Path</span>(otherArgs[<span class="number">1</span>]));</span><br><span class="line">        System.exit(job.waitForCompletion(<span class="literal">true</span>) ? <span class="number">0</span> : <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-</li>
-<li>
-<p>在项目的src目录下创建<code>log4j.properties</code>文件，内容如下：</p>
-<div class="highlight-container" data-rel="Properties"><figure class="iseeu highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Configure logging for testing:optionally with log file </span></span><br><span class="line"><span class="comment">#log4j.rootLogger=debug,appender </span></span><br><span class="line"><span class="attr">log4j.rootLogger</span>=<span class="string">info,appender </span></span><br><span class="line"><span class="comment">#log4j.rootLogger=error,appender </span></span><br><span class="line"><span class="comment">#\u8F93\u51FA\u5230\u63A7\u5236\u53F0 </span></span><br><span class="line"><span class="attr">log4j.appender.appender</span>=<span class="string">org.apache.log4j.ConsoleAppender </span></span><br><span class="line"><span class="comment">#\u6837\u5F0F\u4E3ATTCCLayout </span></span><br><span class="line"><span class="attr">log4j.appender.appender.layout</span>=<span class="string">org.apache.log4j.TTCCLayout</span></span><br></pre></td></tr></table></figure></div>
-</li>
-<li>
-<p>配置运行参数</p>
-</li>
-<li>
-<p>运行</p>
-</li>
-</ul>
-<h4 id="2-运行结果">2. 运行结果</h4>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2023/11/17/o6ERhliMpC85qPm.png"
-                      alt=""
-                ></p>
-<p>其中，<code>word.txt</code> 文件内容如下：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">a</span><br><span class="line">a</span><br><span class="line">a</span><br><span class="line"></span><br><span class="line">b</span><br><span class="line">b</span><br><span class="line">b</span><br><span class="line"></span><br><span class="line">c</span><br><span class="line">c</span><br><span class="line">c</span><br><span class="line"></span><br><span class="line">d</span><br><span class="line">e</span><br><span class="line">f</span><br><span class="line"></span><br><span class="line">hello hadoop !</span><br><span class="line">hello world !</span><br></pre></td></tr></table></figure></div>
-<p>程序输出 <code>hdfs://192.168.242.129:9000/hadoop-user/output.txt/part-r-00000</code> 文件内容如下：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">!	2</span><br><span class="line">a	3</span><br><span class="line">b	3</span><br><span class="line">c	3</span><br><span class="line">d	1</span><br><span class="line">e	1</span><br><span class="line">f	1</span><br><span class="line">hadoop	1</span><br><span class="line">hello	2</span><br><span class="line">world	1</span><br></pre></td></tr></table></figure></div>
-<p>词频统计结果无误。</p>
-<h4 id="3-参考资料">3. 参考资料</h4>
-<ul>
-<li><a class="link"   href="https://cwiki.apache.org/confluence/display/HADOOP2/WordCount" >WordCount Example <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li><a class="link"   href="https://blog.csdn.net/u010185220/article/details/79095179" >windows10上使用Eclipse配置Hadoop开发环境详细步骤+WordCount示例 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-</ul>
-<h4 id="4-遇到的问题">4. 遇到的问题</h4>
-<ul>
-<li>
-<h5 id="环境变量问题">环境变量问题</h5>
-<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">Exception in thread &quot;main&quot; java.lang.RuntimeException: java.io.FileNotFoundException: java.io.FileNotFoundException: HADOOP_HOME and hadoop.home.dir are unset.</span><br></pre></td></tr></table></figure></div>
-<ul>
-<li>
-<p>问题分析</p>
-<p>从错误信息中可以看到，Hadoop在执行<code>Shell.getWinUtilsPath</code>的时候抛出了异常。这是因为Hadoop在进行某些本地文件系统操作时，依赖于一些环境变量，其中包括<code>HADOOP_HOME</code>。这两个变量都没有被正确设置，导致了<code>FileNotFoundException</code>。</p>
-</li>
-<li>
-<p>解决方法</p>
-<p>在项目运行配置中指定<code>HADOOP_HOME</code>环境变量及其值：<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2023/11/17/3dmlWo9A8LMwkSU.png"
-                      alt=""
-                ></p>
-</li>
-<li>
-<p>参考资料</p>
-<ul>
-<li><a class="link"   href="https://cwiki.apache.org/confluence/display/HADOOP2/WindowsProblems" >Problems running Hadoop on Windows <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li>
-<h5 id="权限错误问题">权限错误问题</h5>
-<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">[Thread-5] WARN org.apache.hadoop.mapred.LocalJobRunner - job_local2147375942_0001</span><br><span class="line">org.apache.hadoop.security.AccessControlException: Permission denied: user=23876, access=WRITE, inode=&quot;/hadoop-user&quot;:root:supergroup:drwxr-xr-x</span><br><span class="line">[main] INFO org.apache.hadoop.mapreduce.Job - Job job_local2147375942_0001 failed with state FAILED due to: NA</span><br></pre></td></tr></table></figure></div>
-<ul>
-<li>
-<p>问题分析</p>
-<p>这个错误表明在本地运行作业时，用户尝试写入目录<code>/hadoop-user</code>时遇到权限问题，并导致作业以失败结束。</p>
-</li>
-<li>
-<p>解决方法</p>
-<p>在master节点中执行以下代码，以赋予当前用户对目标HDFS文件夹的写权限：</p>
-<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">sudo chmod -R 777 /hadoop-user/</span><br></pre></td></tr></table></figure></div>
-</li>
-<li>
-<p>参考资料</p>
-<ul>
-<li><a class="link"   href="https://hadoop.apache.org/docs/r1.0.4/cn/hdfs_permissions_guide.html#%E8%B6%85%E7%BA%A7%E7%94%A8%E6%88%B7" >HDFS权限管理用户指南 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li><a class="link"   href="https://www.cnblogs.com/yinzhengjie2020/p/13737254.html" >HDFS权限管理篇-博客园 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>Hadoop</tag>
-        <tag>MapReduce</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>高级数据库技术 - 复习</title>
     <url>/2024/01/13/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E6%8A%80%E6%9C%AF-%E5%A4%8D%E4%B9%A0/</url>
     <content><![CDATA[<blockquote>
@@ -1659,6 +1518,147 @@
       </tags>
   </entry>
   <entry>
+    <title>MapReduce 配置与操作</title>
+    <url>/2024/01/11/MapReduce%E9%85%8D%E7%BD%AE%E4%B8%8E%E6%93%8D%E4%BD%9C/</url>
+    <content><![CDATA[<h3 id="一、通过eclipse连接hadoop">一、通过eclipse连接hadoop</h3>
+<h4 id="1-主要步骤">1. 主要步骤</h4>
+<ul>
+<li>
+<p>安装eclipse</p>
+</li>
+<li>
+<p>安装Hadoop-Eclipse-Plugin</p>
+</li>
+<li>
+<p>配置Hadoop-Eclipse-Plugin</p>
+</li>
+</ul>
+<p>参考资料已给出此部分详细步骤，因此此处不再展开，仅给出实现效果如下：</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2023/11/17/5e8bfMxDjoOsPVL.png"
+                      style="zoom: 67%;" 
+                >
+<h4 id="2-参考资料">2. 参考资料</h4>
+<ul>
+<li><a class="link"   href="https://blog.csdn.net/u010185220/article/details/79095179" >windows10上使用Eclipse配置Hadoop开发环境详细步骤+WordCount示例 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+<h4 id="3-遇到的问题">3. 遇到的问题</h4>
+<ul>
+<li>
+<h5 id="新添加的插件在Eclipse中不显示">新添加的插件在Eclipse中不显示</h5>
+<ul>
+<li>
+<p>解决方法</p>
+<p>在 <code>eclipse/configuration</code> 目录下的 <code>config.ini</code> 文件中加入一行 : <code>osgi.checkConfiguration=true</code>，这样它就会寻找并安装插件。</p>
+</li>
+<li>
+<p>参考资料</p>
+<p><a class="link"   href="https://blog.csdn.net/qq_38789941/article/details/86244990" >Eclipse 安装插件后不显示的解决办法 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="二、WordCount示例">二、WordCount示例</h3>
+<h4 id="1-主要步骤-2">1. 主要步骤</h4>
+<p>参考资料已给出此部分详细步骤，因此此处仅列举出主要步骤。</p>
+<ul>
+<li>
+<p>新建项目</p>
+</li>
+<li>
+<p>在项目的src目录下创建<code>WordCount.java</code>类，内容如下：</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> Package;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.util.StringTokenizer;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.conf.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.fs.Path;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.IntWritable;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.Text;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.Job;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.Mapper;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.Reducer;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.lib.input.FileInputFormat;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.util.GenericOptionsParser;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">WordCount</span> &#123;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">TokenizerMapper</span> <span class="keyword">extends</span> <span class="title class_">Mapper</span>&lt;Object, Text, Text, IntWritable&gt; &#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="type">IntWritable</span> <span class="variable">one</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">IntWritable</span>(<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">private</span> <span class="type">Text</span> <span class="variable">word</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Text</span>();</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">map</span><span class="params">(Object key, Text value, Context context)</span> <span class="keyword">throws</span> IOException, InterruptedException &#123;</span><br><span class="line">            <span class="type">StringTokenizer</span> <span class="variable">itr</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringTokenizer</span>(value.toString());</span><br><span class="line">            <span class="keyword">while</span> (itr.hasMoreTokens()) &#123;</span><br><span class="line">                word.set(itr.nextToken());</span><br><span class="line">                context.write(word, one);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">IntSumReducer</span> <span class="keyword">extends</span> <span class="title class_">Reducer</span>&lt;Text, IntWritable, Text, IntWritable&gt; &#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="type">IntWritable</span> <span class="variable">result</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">IntWritable</span>();</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">reduce</span><span class="params">(Text key, Iterable&lt;IntWritable&gt; values, Context context)</span></span><br><span class="line">                <span class="keyword">throws</span> IOException, InterruptedException &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">sum</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span> (IntWritable val : values) &#123;</span><br><span class="line">                sum += val.get();</span><br><span class="line">            &#125;</span><br><span class="line">            result.set(sum);</span><br><span class="line">            context.write(key, result);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="type">Configuration</span> <span class="variable">conf</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Configuration</span>();</span><br><span class="line">        String[] otherArgs = <span class="keyword">new</span> <span class="title class_">GenericOptionsParser</span>(conf, args).getRemainingArgs();</span><br><span class="line">        <span class="keyword">if</span> (otherArgs.length != <span class="number">2</span>) &#123;</span><br><span class="line">            System.err.println(<span class="string">&quot;Usage: wordcount &lt;in&gt; &lt;out&gt;&quot;</span>);</span><br><span class="line">            System.exit(<span class="number">2</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="meta">@SuppressWarnings(&quot;deprecation&quot;)</span></span><br><span class="line">		<span class="type">Job</span> <span class="variable">job</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Job</span>(conf, <span class="string">&quot;word count&quot;</span>);</span><br><span class="line">        job.setJarByClass(WordCount.class);</span><br><span class="line">        job.setMapperClass(TokenizerMapper.class);</span><br><span class="line">        job.setCombinerClass(IntSumReducer.class);</span><br><span class="line">        job.setReducerClass(IntSumReducer.class);</span><br><span class="line">        job.setOutputKeyClass(Text.class);</span><br><span class="line">        job.setOutputValueClass(IntWritable.class);</span><br><span class="line">        FileInputFormat.addInputPath(job, <span class="keyword">new</span> <span class="title class_">Path</span>(otherArgs[<span class="number">0</span>]));</span><br><span class="line">        FileOutputFormat.setOutputPath(job, <span class="keyword">new</span> <span class="title class_">Path</span>(otherArgs[<span class="number">1</span>]));</span><br><span class="line">        System.exit(job.waitForCompletion(<span class="literal">true</span>) ? <span class="number">0</span> : <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>在项目的src目录下创建<code>log4j.properties</code>文件，内容如下：</p>
+<div class="highlight-container" data-rel="Properties"><figure class="iseeu highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Configure logging for testing:optionally with log file </span></span><br><span class="line"><span class="comment">#log4j.rootLogger=debug,appender </span></span><br><span class="line"><span class="attr">log4j.rootLogger</span>=<span class="string">info,appender </span></span><br><span class="line"><span class="comment">#log4j.rootLogger=error,appender </span></span><br><span class="line"><span class="comment">#\u8F93\u51FA\u5230\u63A7\u5236\u53F0 </span></span><br><span class="line"><span class="attr">log4j.appender.appender</span>=<span class="string">org.apache.log4j.ConsoleAppender </span></span><br><span class="line"><span class="comment">#\u6837\u5F0F\u4E3ATTCCLayout </span></span><br><span class="line"><span class="attr">log4j.appender.appender.layout</span>=<span class="string">org.apache.log4j.TTCCLayout</span></span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>配置运行参数</p>
+</li>
+<li>
+<p>运行</p>
+</li>
+</ul>
+<h4 id="2-运行结果">2. 运行结果</h4>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2023/11/17/o6ERhliMpC85qPm.png"
+                      alt=""
+                ></p>
+<p>其中，<code>word.txt</code> 文件内容如下：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">a</span><br><span class="line">a</span><br><span class="line">a</span><br><span class="line"></span><br><span class="line">b</span><br><span class="line">b</span><br><span class="line">b</span><br><span class="line"></span><br><span class="line">c</span><br><span class="line">c</span><br><span class="line">c</span><br><span class="line"></span><br><span class="line">d</span><br><span class="line">e</span><br><span class="line">f</span><br><span class="line"></span><br><span class="line">hello hadoop !</span><br><span class="line">hello world !</span><br></pre></td></tr></table></figure></div>
+<p>程序输出 <code>hdfs://192.168.242.129:9000/hadoop-user/output.txt/part-r-00000</code> 文件内容如下：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">!	2</span><br><span class="line">a	3</span><br><span class="line">b	3</span><br><span class="line">c	3</span><br><span class="line">d	1</span><br><span class="line">e	1</span><br><span class="line">f	1</span><br><span class="line">hadoop	1</span><br><span class="line">hello	2</span><br><span class="line">world	1</span><br></pre></td></tr></table></figure></div>
+<p>词频统计结果无误。</p>
+<h4 id="3-参考资料">3. 参考资料</h4>
+<ul>
+<li><a class="link"   href="https://cwiki.apache.org/confluence/display/HADOOP2/WordCount" >WordCount Example <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://blog.csdn.net/u010185220/article/details/79095179" >windows10上使用Eclipse配置Hadoop开发环境详细步骤+WordCount示例 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+<h4 id="4-遇到的问题">4. 遇到的问题</h4>
+<ul>
+<li>
+<h5 id="环境变量问题">环境变量问题</h5>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">Exception in thread &quot;main&quot; java.lang.RuntimeException: java.io.FileNotFoundException: java.io.FileNotFoundException: HADOOP_HOME and hadoop.home.dir are unset.</span><br></pre></td></tr></table></figure></div>
+<ul>
+<li>
+<p>问题分析</p>
+<p>从错误信息中可以看到，Hadoop在执行<code>Shell.getWinUtilsPath</code>的时候抛出了异常。这是因为Hadoop在进行某些本地文件系统操作时，依赖于一些环境变量，其中包括<code>HADOOP_HOME</code>。这两个变量都没有被正确设置，导致了<code>FileNotFoundException</code>。</p>
+</li>
+<li>
+<p>解决方法</p>
+<p>在项目运行配置中指定<code>HADOOP_HOME</code>环境变量及其值：<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2023/11/17/3dmlWo9A8LMwkSU.png"
+                      alt=""
+                ></p>
+</li>
+<li>
+<p>参考资料</p>
+<ul>
+<li><a class="link"   href="https://cwiki.apache.org/confluence/display/HADOOP2/WindowsProblems" >Problems running Hadoop on Windows <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<h5 id="权限错误问题">权限错误问题</h5>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">[Thread-5] WARN org.apache.hadoop.mapred.LocalJobRunner - job_local2147375942_0001</span><br><span class="line">org.apache.hadoop.security.AccessControlException: Permission denied: user=23876, access=WRITE, inode=&quot;/hadoop-user&quot;:root:supergroup:drwxr-xr-x</span><br><span class="line">[main] INFO org.apache.hadoop.mapreduce.Job - Job job_local2147375942_0001 failed with state FAILED due to: NA</span><br></pre></td></tr></table></figure></div>
+<ul>
+<li>
+<p>问题分析</p>
+<p>这个错误表明在本地运行作业时，用户尝试写入目录<code>/hadoop-user</code>时遇到权限问题，并导致作业以失败结束。</p>
+</li>
+<li>
+<p>解决方法</p>
+<p>在master节点中执行以下代码，以赋予当前用户对目标HDFS文件夹的写权限：</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">sudo chmod -R 777 /hadoop-user/</span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>参考资料</p>
+<ul>
+<li><a class="link"   href="https://hadoop.apache.org/docs/r1.0.4/cn/hdfs_permissions_guide.html#%E8%B6%85%E7%BA%A7%E7%94%A8%E6%88%B7" >HDFS权限管理用户指南 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://www.cnblogs.com/yinzhengjie2020/p/13737254.html" >HDFS权限管理篇-博客园 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>Hadoop</tag>
+        <tag>MapReduce</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Git 报错：SSH连接超时</title>
     <url>/2024/01/19/Git%E6%8A%A5%E9%94%99-SSH%E8%BF%9E%E6%8E%A5%E8%B6%85%E6%97%B6/</url>
     <content><![CDATA[<h2 id="问题">问题</h2>
@@ -1701,6 +1701,42 @@
       <tags>
         <tag>Git</tag>
         <tag>SSH</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>PowerShell 报错：在此系统上禁止运行脚本</title>
+    <url>/2024/01/22/PowerShell-vue%E6%97%A0%E6%B3%95%E5%8A%A0%E8%BD%BD%E6%96%87%E4%BB%B6-%E5%9B%A0%E4%B8%BA%E5%9C%A8%E6%AD%A4%E7%B3%BB%E7%BB%9F%E4%B8%8A%E7%A6%81%E6%AD%A2%E8%BF%90%E8%A1%8C%E8%84%9A%E6%9C%AC/</url>
+    <content><![CDATA[<h2 id="问题">问题</h2>
+<p>在 Windows PowerShell （管理员模式下）执行 <code>vue --version</code> 命令时报错如下：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/01/22/IBWcwtCLqjm2ya3.png"
+                      alt=""
+                ></p>
+<h2 id="原因">原因</h2>
+<p>首次在计算机上启动 Windows PowerShell 时，现用执行策略很可能是 Restricted（默认设置）。Restricted 策略不允许任何脚本运行，以防止执行不信任的脚本。</p>
+<h2 id="解决">解决</h2>
+<p>在 Windows PowerShell 执行以下命令：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">set-executionpolicy remotesigned</span><br></pre></td></tr></table></figure></div>
+<h2 id="效果">效果</h2>
+<p>再次执行 <code>vue --version</code> 命令，可正常查看 Vue 版本：</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/01/22/2UpOySQuL3ev5to.png"
+                      style="zoom: 50%;"
+                >
+<h2 id="引用">引用</h2>
+<ul>
+<li><a class="link"   href="https://cloud.tencent.com/developer/article/1612513" >https://cloud.tencent.com/developer/article/1612513 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>PowerShell</tag>
       </tags>
   </entry>
   <entry>
@@ -1749,42 +1785,6 @@
       </categories>
       <tags>
         <tag>Hexo</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>PowerShell 报错：在此系统上禁止运行脚本</title>
-    <url>/2024/01/22/PowerShell-vue%E6%97%A0%E6%B3%95%E5%8A%A0%E8%BD%BD%E6%96%87%E4%BB%B6-%E5%9B%A0%E4%B8%BA%E5%9C%A8%E6%AD%A4%E7%B3%BB%E7%BB%9F%E4%B8%8A%E7%A6%81%E6%AD%A2%E8%BF%90%E8%A1%8C%E8%84%9A%E6%9C%AC/</url>
-    <content><![CDATA[<h2 id="问题">问题</h2>
-<p>在 Windows PowerShell （管理员模式下）执行 <code>vue --version</code> 命令时报错如下：</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/01/22/IBWcwtCLqjm2ya3.png"
-                      alt=""
-                ></p>
-<h2 id="原因">原因</h2>
-<p>首次在计算机上启动 Windows PowerShell 时，现用执行策略很可能是 Restricted（默认设置）。Restricted 策略不允许任何脚本运行，以防止执行不信任的脚本。</p>
-<h2 id="解决">解决</h2>
-<p>在 Windows PowerShell 执行以下命令：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">set-executionpolicy remotesigned</span><br></pre></td></tr></table></figure></div>
-<h2 id="效果">效果</h2>
-<p>再次执行 <code>vue --version</code> 命令，可正常查看 Vue 版本：</p>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/01/22/2UpOySQuL3ev5to.png"
-                      style="zoom: 50%;"
-                >
-<h2 id="引用">引用</h2>
-<ul>
-<li><a class="link"   href="https://cloud.tencent.com/developer/article/1612513" >https://cloud.tencent.com/developer/article/1612513 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>PowerShell</tag>
       </tags>
   </entry>
   <entry>
@@ -2143,6 +2143,52 @@
       </tags>
   </entry>
   <entry>
+    <title>转载 - SpringBoot 为什么不需要额外安装 Tomcat ？</title>
+    <url>/2024/03/07/%E8%BD%AC%E8%BD%BD-SpringBoot%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E9%9C%80%E8%A6%81%E9%A2%9D%E5%A4%96%E5%AE%89%E8%A3%85Tomcat%EF%BC%9F/</url>
+    <content><![CDATA[
+  <div class="note-large yellow">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>链接</p>
+
+    </div>
+    <div class="notel-content">
+      <p><a class="link"   href="https://javabetter.cn/springboot/tomcat.html" >https://javabetter.cn/springboot/tomcat.html <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+
+    </div>
+  </div>
+]]></content>
+      <categories>
+        <category>转载</category>
+      </categories>
+      <tags>
+        <tag>Tomcat</tag>
+        <tag>Spring</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>实现 Windows 环境下 Thunderbird 邮件客户端自启动</title>
+    <url>/2024/03/05/%E5%AE%9E%E7%8E%B0Windows%E7%8E%AF%E5%A2%83%E4%B8%8BThunderbird%E9%82%AE%E4%BB%B6%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%87%AA%E5%90%AF%E5%8A%A8/</url>
+    <content><![CDATA[<p>Thunderbird是一款优秀的开源邮件客户端，但在Windows环境下没有自启动选项，且关闭主界面后客户端也会关闭，这种设计不利于在后台接收新邮件提醒。因此，考虑通过其他途径实现Thunderbird的自启动。</p>
+<h2 id="实现">实现</h2>
+<p>在<code>C:\Users\[用户名]\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup</code>路径下创建一个Thunderbird主程序快捷方式，即可实现Thunderbird开机自启。</p>
+<blockquote>
+<p>推而广之，可用此方式实现其他（任何）程序的开机自启。</p>
+</blockquote>
+<h2 id="One-more-thing">One more thing</h2>
+<p>更进一步，可在Thunderbird客户端安装以下插件：</p>
+<ul>
+<li>Minimize at startup：启动时最小化到托盘。配合上述自启动设置，可实现开机自启且最小化。</li>
+<li>Minimize on Close：点击关闭按钮后最小化到托盘，而不是关闭程序。可避免误关，更重要的是可以拯救强迫症患者。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>工具</category>
+      </categories>
+      <tags>
+        <tag>Thunderbird</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>SpringBoot 配置的优先级</title>
     <url>/2024/03/07/SpringBoot%E9%85%8D%E7%BD%AE%E4%BC%98%E5%85%88%E7%BA%A7/</url>
     <content><![CDATA[<h2 id="1-配置文件">1. 配置文件</h2>
@@ -2185,180 +2231,6 @@
       </tags>
   </entry>
   <entry>
-    <title>实现 Windows 环境下 Thunderbird 邮件客户端自启动</title>
-    <url>/2024/03/05/%E5%AE%9E%E7%8E%B0Windows%E7%8E%AF%E5%A2%83%E4%B8%8BThunderbird%E9%82%AE%E4%BB%B6%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%87%AA%E5%90%AF%E5%8A%A8/</url>
-    <content><![CDATA[<p>Thunderbird是一款优秀的开源邮件客户端，但在Windows环境下没有自启动选项，且关闭主界面后客户端也会关闭，这种设计不利于在后台接收新邮件提醒。因此，考虑通过其他途径实现Thunderbird的自启动。</p>
-<h2 id="实现">实现</h2>
-<p>在<code>C:\Users\[用户名]\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup</code>路径下创建一个Thunderbird主程序快捷方式，即可实现Thunderbird开机自启。</p>
-<blockquote>
-<p>推而广之，可用此方式实现其他（任何）程序的开机自启。</p>
-</blockquote>
-<h2 id="One-more-thing">One more thing</h2>
-<p>更进一步，可在Thunderbird客户端安装以下插件：</p>
-<ul>
-<li>Minimize at startup：启动时最小化到托盘。配合上述自启动设置，可实现开机自启且最小化。</li>
-<li>Minimize on Close：点击关闭按钮后最小化到托盘，而不是关闭程序。可避免误关，更重要的是可以拯救强迫症患者。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>工具</category>
-      </categories>
-      <tags>
-        <tag>Thunderbird</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>转载 - SpringBoot 为什么不需要额外安装 Tomcat ？</title>
-    <url>/2024/03/07/%E8%BD%AC%E8%BD%BD-SpringBoot%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E9%9C%80%E8%A6%81%E9%A2%9D%E5%A4%96%E5%AE%89%E8%A3%85Tomcat%EF%BC%9F/</url>
-    <content><![CDATA[
-  <div class="note-large yellow">
-    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
-      <p>链接</p>
-
-    </div>
-    <div class="notel-content">
-      <p><a class="link"   href="https://javabetter.cn/springboot/tomcat.html" >https://javabetter.cn/springboot/tomcat.html <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-
-    </div>
-  </div>
-]]></content>
-      <categories>
-        <category>转载</category>
-      </categories>
-      <tags>
-        <tag>Tomcat</tag>
-        <tag>Spring</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SpringBoot - Bean 的管理</title>
-    <url>/2024/03/08/SpringBoot-Bean%E7%9A%84%E7%AE%A1%E7%90%86/</url>
-    <content><![CDATA[<h2 id="1-Bean的获取">1. Bean的获取</h2>
-<p>默认情况下，SpringBoot项目在启动的时候会自动的创建IOC容器(也称为Spring容器)，并且在启动的过程当中会自动的将bean对象都创建好，存放在IOC容器当中。应用程序在运行时需要依赖什么bean对象，就直接进行依赖注入就可以了。</p>
-<p>而在Spring容器中提供了一些方法，可以主动从IOC容器中获取到bean对象，下面介绍3种常用方式：</p>
-<ol>
-<li>
-<p>根据name获取bean</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line">Object <span class="title function_">getBean</span><span class="params">(String name)</span></span><br></pre></td></tr></table></figure></div>
-</li>
-<li>
-<p>根据类型获取bean</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line">&lt;T&gt; T <span class="title function_">getBean</span><span class="params">(Class&lt;T&gt; requiredType)</span></span><br></pre></td></tr></table></figure></div>
-</li>
-<li>
-<p>根据name获取bean（带类型转换）</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line">&lt;T&gt; T <span class="title function_">getBean</span><span class="params">(String name, Class&lt;T&gt; requiredType)</span></span><br></pre></td></tr></table></figure></div>
-</li>
-</ol>
-<p>思考：要从IOC容器当中来获取到bean对象，需要先拿到IOC容器对象，怎么样才能拿到IOC容器呢？</p>
-<ul>
-<li>想获取到IOC容器，直接将IOC容器对象注入进来就可以了</li>
-</ul>
-<p>注意事项：</p>
-<ul>
-<li>上述所说的 【Spring项目启动时，会把其中的bean都创建好】还会受到作用域及延迟初始化影响，这里主要针对于默认的单例非延迟加载的bean而言。</li>
-</ul>
-<h2 id="2-Bean的作用域">2. Bean的作用域</h2>
-<p>在Spring中支持五种作用域，后三种在web环境才生效：</p>
-<table>
-<thead>
-<tr>
-<th><strong>作用域</strong></th>
-<th><strong>说明</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>singleton</td>
-<td>容器内同名称的bean只有一个实例（单例）（默认）</td>
-</tr>
-<tr>
-<td>prototype</td>
-<td>每次使用该bean时会创建新的实例（非单例）</td>
-</tr>
-<tr>
-<td>request</td>
-<td>每个请求范围内会创建新的实例（web环境中，了解）</td>
-</tr>
-<tr>
-<td>session</td>
-<td>每个会话范围内会创建新的实例（web环境中，了解）</td>
-</tr>
-<tr>
-<td>application</td>
-<td>每个应用范围内会创建新的实例（web环境中，了解）</td>
-</tr>
-</tbody>
-</table>
-<p>知道了bean的5种作用域了，我们要怎么去设置一个bean的作用域呢？</p>
-<ul>
-<li>可以借助Spring中的@Scope注解来进行配置作用域</li>
-</ul>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/03/08/GXCRYFwmTeKJILo.png"
-                      alt=""
-                ></p>
-<p>注意事项：</p>
-<ul>
-<li>
-<p>IOC容器中的bean默认使用的作用域：singleton (单例)。默认singleton的bean，在容器启动时被创建，可以使用@Lazy注解来延迟初始化(延迟到第一次使用时)</p>
-</li>
-<li>
-<p>prototype的bean，每一次使用该bean的时候都会创建一个新的实例</p>
-</li>
-<li>
-<p>实际开发当中，绝大部分的Bean是单例的，也就是说绝大部分Bean不需要配置scope属性</p>
-</li>
-</ul>
-<h2 id="3-第三方Bean">3. 第三方Bean</h2>
-<p>在我们项目开发当中，有的类不是我们自己编写的，而是我们引入的第三方依赖当中提供的。</p>
-<p>在pom.xml文件中，引入dom4j：</p>
-<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--Dom4j--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.dom4j<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>dom4j<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.1.3<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
-<blockquote>
-<p>dom4j就是第三方组织提供的。 dom4j中的SAXReader类就是第三方编写的。</p>
-</blockquote>
-<p>那么我们应该怎样使用并定义第三方的bean呢？</p>
-<ul>
-<li>如果要管理的bean对象来自于第三方（不是自定义的），是无法用@Component 及衍生注解声明bean的，而是需要用到**@Bean**注解。</li>
-</ul>
-<p><strong>解决方案1：在启动类上添加@Bean标识的方法</strong></p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SpringbootWebConfig2Application</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        SpringApplication.run(SpringbootWebConfig2Application.class, args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 声明第三方 Bean</span></span><br><span class="line">    <span class="meta">@Bean</span> <span class="comment">// 将当前方法的返回值对象交给 IOC 容器管理, 成为 IOC 容器 Bean</span></span><br><span class="line">    <span class="keyword">public</span> SAXReader <span class="title function_">saxReader</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">SAXReader</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<blockquote>
-<p><strong>说明：以上在启动类中声明第三方Bean的作法，不建议使用（项目中要保证启动类的纯粹性）</strong></p>
-</blockquote>
-<p><strong>解决方案2：在配置类中定义@Bean标识的方法</strong></p>
-<ul>
-<li>如果需要定义第三方Bean时， 通常会单独定义一个配置类</li>
-</ul>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Configuration</span> <span class="comment">// 配置类  (在配置类当中对第三方bean进行集中配置管理)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CommonConfig</span> &#123;</span><br><span class="line">    <span class="comment">// 声明第三方 bean</span></span><br><span class="line">    <span class="meta">@Bean</span> <span class="comment">// 将当前方法的返回值对象交给 IOC 容器管理, 成为 IOC 容器 bean</span></span><br><span class="line">          <span class="comment">// 通过 @Bean 注解的 name/value 属性指定 bean 名称, 如果未指定, 默认是方法名</span></span><br><span class="line">    <span class="keyword">public</span> SAXReader <span class="title function_">reader</span><span class="params">(DeptService deptService)</span>&#123;</span><br><span class="line">        System.out.println(deptService);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">SAXReader</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<p>在方法上加上一个@Bean注解，Spring 容器在启动的时候，它会自动的调用这个方法，并将方法的返回值声明为Spring容器当中的Bean对象。</p>
-<blockquote>
-<p>注意事项 ：</p>
-<ul>
-<li>
-<p>通过@Bean注解的name或value属性可以声明bean的名称，如果不指定，默认bean的名称就是方法名。</p>
-</li>
-<li>
-<p>如果第三方bean需要依赖其它bean对象，直接在bean定义<strong>方法</strong>中设置<strong>形参</strong>即可，容器会根据类型自动装配。</p>
-</li>
-</ul>
-</blockquote>
-<p><strong>关于Bean只需要保持一个原则：</strong></p>
-<ul>
-<li>如果是在项目当中自己定义的类，想将这些类交给IOC容器管理，我们直接使用@Component以及它的衍生注解来声明就可以。</li>
-<li>如果这个类它不是自己定义的，而是引入的第三方依赖当中提供的类，而且我们还想将这个类交给IOC容器管理。此时我们就需要在配置类中定义一个方法，在方法上加上一个@Bean注解，通过这种方式来声明第三方的bean对象。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>Java学习笔记</category>
-      </categories>
-      <tags>
-        <tag>Spring</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>IOC 容器对 Bean 的命名规则</title>
     <url>/2024/03/08/IOC-%E5%AE%B9%E5%99%A8%E5%AF%B9-Bean-%E7%9A%84%E5%91%BD%E5%90%8D%E8%A7%84%E5%88%99/</url>
     <content><![CDATA[<h2 id="1-默认规则">1. 默认规则</h2>
@@ -2376,71 +2248,6 @@
       </categories>
       <tags>
         <tag>Spring</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>JavaWeb 后端开发总结</title>
-    <url>/2024/03/10/JavaWeb-%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91%E6%80%BB%E7%BB%93/</url>
-    <content><![CDATA[<p>web后端开发现在基本上都是基于标准的三层架构进行开发的，在三层架构当中，Controller控制器层负责接收请求响应数据，Service业务层负责具体的业务逻辑处理，而Dao数据访问层也叫持久层，就是用来处理数据访问操作的，来完成数据库当中数据的增删改查操作。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/03/10/tgSJKPX3FBwZGx6.png"
-                      alt=""
-                ></p>
-<blockquote>
-<p>在三层架构当中，前端发起请求首先会到达Controller(不进行逻辑处理)，然后Controller会直接调用Service 进行逻辑处理， Service再调用Dao完成数据访问操作。</p>
-</blockquote>
-<p>如果我们在执行具体的业务处理之前，需要去做一些通用的业务处理，比如：我们要进行统一的登录校验，我们要进行统一的字符编码等这些操作时，我们就可以借助于Javaweb当中三大组件之一的过滤器Filter或者是Spring当中提供的拦截器Interceptor来实现。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/03/10/jIOK7DnacR2uVEG.png"
-                      alt=""
-                ></p>
-<p>而为了实现三层架构层与层之间的解耦，我们学习了Spring框架当中的第一大核心：IOC控制反转与DI依赖注入。</p>
-<blockquote>
-<p>所谓控制反转，指的是将对象创建的控制权由应用程序自身交给外部容器，这个容器就是我们常说的IOC容器或Spring容器。</p>
-<p>而DI依赖注入指的是容器为程序提供运行时所需要的资源。</p>
-</blockquote>
-<p>除了IOC与DI我们还讲到了AOP面向切面编程，还有Spring中的事务管理、全局异常处理器，以及传递会话技术Cookie、Session以及新的会话跟踪解决方案JWT令牌，阿里云OSS对象存储服务，以及通过Mybatis持久层架构操作数据库等技术。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/03/10/lOK2t8nTUq6EVp9.png"
-                      alt=""
-                ></p>
-<p>我们在学习这些web后端开发技术的时候，我们都是基于主流的SpringBoot进行整合使用的。而SpringBoot又是用来简化开发，提高开发效率的。像过滤器、拦截器、IOC、DI、AOP、事务管理等这些技术到底是哪个框架提供的核心功能？</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/03/10/c73xEmrLOfNjS8o.png"
-                      alt=""
-                ></p>
-<blockquote>
-<p>Filter过滤器、Cookie、 Session这些都是传统的JavaWeb提供的技术。</p>
-<p>JWT令牌、阿里云OSS对象存储服务，是现在企业项目中常见的一些解决方案。</p>
-<p>IOC控制反转、DI依赖注入、AOP面向切面编程、事务管理、全局异常处理、拦截器等，这些技术都是 Spring Framework框架当中提供的核心功能。</p>
-<p>Mybatis就是一个持久层的框架，是用来操作数据库的。</p>
-</blockquote>
-<p>在Spring框架的生态中，对web程序开发提供了很好的支持，如：全局异常处理器、拦截器这些都是Spring框架中web开发模块所提供的功能，而Spring框架的web开发模块，我们也称为：SpringMVC</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/03/10/Fvtu8Kz6OJyR2oE.png"
-                      alt=""
-                ></p>
-<blockquote>
-<p>SpringMVC不是一个单独的框架，它是Spring框架的一部分，是Spring框架中的web开发模块，是用来简化原始的Servlet程序开发的。</p>
-</blockquote>
-<p>外界俗称的SSM，就是由：SpringMVC、Spring Framework、Mybatis三块组成。</p>
-<p>基于传统的SSM框架进行整合开发项目会比较繁琐，而且效率也比较低，所以在现在的企业项目开发当中，基本上都是直接基于SpringBoot整合SSM进行项目开发的。</p>
-]]></content>
-      <categories>
-        <category>Java学习笔记</category>
-      </categories>
-      <tags>
-        <tag>JavaWeb</tag>
       </tags>
   </entry>
   <entry>
@@ -2619,25 +2426,196 @@
       </tags>
   </entry>
   <entry>
-    <title>转载 - Spring 注解之 @RestController 与 @Controller 的区别</title>
-    <url>/2024/03/08/%E8%BD%AC%E8%BD%BD-Spring-%E6%B3%A8%E8%A7%A3%E4%B9%8B-RestController%E4%B8%8E-Controller%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
-    <content><![CDATA[
-  <div class="note-large yellow">
-    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
-      <p>链接</p>
-
-    </div>
-    <div class="notel-content">
-      <p><a class="link"   href="https://www.cnblogs.com/east7/p/10462279.html" >https://www.cnblogs.com/east7/p/10462279.html <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-
-    </div>
-  </div>
+    <title>SpringBoot - Bean 的管理</title>
+    <url>/2024/03/08/SpringBoot-Bean%E7%9A%84%E7%AE%A1%E7%90%86/</url>
+    <content><![CDATA[<h2 id="1-Bean的获取">1. Bean的获取</h2>
+<p>默认情况下，SpringBoot项目在启动的时候会自动的创建IOC容器(也称为Spring容器)，并且在启动的过程当中会自动的将bean对象都创建好，存放在IOC容器当中。应用程序在运行时需要依赖什么bean对象，就直接进行依赖注入就可以了。</p>
+<p>而在Spring容器中提供了一些方法，可以主动从IOC容器中获取到bean对象，下面介绍3种常用方式：</p>
+<ol>
+<li>
+<p>根据name获取bean</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line">Object <span class="title function_">getBean</span><span class="params">(String name)</span></span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>根据类型获取bean</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line">&lt;T&gt; T <span class="title function_">getBean</span><span class="params">(Class&lt;T&gt; requiredType)</span></span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>根据name获取bean（带类型转换）</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line">&lt;T&gt; T <span class="title function_">getBean</span><span class="params">(String name, Class&lt;T&gt; requiredType)</span></span><br></pre></td></tr></table></figure></div>
+</li>
+</ol>
+<p>思考：要从IOC容器当中来获取到bean对象，需要先拿到IOC容器对象，怎么样才能拿到IOC容器呢？</p>
+<ul>
+<li>想获取到IOC容器，直接将IOC容器对象注入进来就可以了</li>
+</ul>
+<p>注意事项：</p>
+<ul>
+<li>上述所说的 【Spring项目启动时，会把其中的bean都创建好】还会受到作用域及延迟初始化影响，这里主要针对于默认的单例非延迟加载的bean而言。</li>
+</ul>
+<h2 id="2-Bean的作用域">2. Bean的作用域</h2>
+<p>在Spring中支持五种作用域，后三种在web环境才生效：</p>
+<table>
+<thead>
+<tr>
+<th><strong>作用域</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>singleton</td>
+<td>容器内同名称的bean只有一个实例（单例）（默认）</td>
+</tr>
+<tr>
+<td>prototype</td>
+<td>每次使用该bean时会创建新的实例（非单例）</td>
+</tr>
+<tr>
+<td>request</td>
+<td>每个请求范围内会创建新的实例（web环境中，了解）</td>
+</tr>
+<tr>
+<td>session</td>
+<td>每个会话范围内会创建新的实例（web环境中，了解）</td>
+</tr>
+<tr>
+<td>application</td>
+<td>每个应用范围内会创建新的实例（web环境中，了解）</td>
+</tr>
+</tbody>
+</table>
+<p>知道了bean的5种作用域了，我们要怎么去设置一个bean的作用域呢？</p>
+<ul>
+<li>可以借助Spring中的@Scope注解来进行配置作用域</li>
+</ul>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/03/08/GXCRYFwmTeKJILo.png"
+                      alt=""
+                ></p>
+<p>注意事项：</p>
+<ul>
+<li>
+<p>IOC容器中的bean默认使用的作用域：singleton (单例)。默认singleton的bean，在容器启动时被创建，可以使用@Lazy注解来延迟初始化(延迟到第一次使用时)</p>
+</li>
+<li>
+<p>prototype的bean，每一次使用该bean的时候都会创建一个新的实例</p>
+</li>
+<li>
+<p>实际开发当中，绝大部分的Bean是单例的，也就是说绝大部分Bean不需要配置scope属性</p>
+</li>
+</ul>
+<h2 id="3-第三方Bean">3. 第三方Bean</h2>
+<p>在我们项目开发当中，有的类不是我们自己编写的，而是我们引入的第三方依赖当中提供的。</p>
+<p>在pom.xml文件中，引入dom4j：</p>
+<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--Dom4j--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.dom4j<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>dom4j<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.1.3<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
+<blockquote>
+<p>dom4j就是第三方组织提供的。 dom4j中的SAXReader类就是第三方编写的。</p>
+</blockquote>
+<p>那么我们应该怎样使用并定义第三方的bean呢？</p>
+<ul>
+<li>如果要管理的bean对象来自于第三方（不是自定义的），是无法用@Component 及衍生注解声明bean的，而是需要用到**@Bean**注解。</li>
+</ul>
+<p><strong>解决方案1：在启动类上添加@Bean标识的方法</strong></p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SpringbootWebConfig2Application</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        SpringApplication.run(SpringbootWebConfig2Application.class, args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 声明第三方 Bean</span></span><br><span class="line">    <span class="meta">@Bean</span> <span class="comment">// 将当前方法的返回值对象交给 IOC 容器管理, 成为 IOC 容器 Bean</span></span><br><span class="line">    <span class="keyword">public</span> SAXReader <span class="title function_">saxReader</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">SAXReader</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<blockquote>
+<p><strong>说明：以上在启动类中声明第三方Bean的作法，不建议使用（项目中要保证启动类的纯粹性）</strong></p>
+</blockquote>
+<p><strong>解决方案2：在配置类中定义@Bean标识的方法</strong></p>
+<ul>
+<li>如果需要定义第三方Bean时， 通常会单独定义一个配置类</li>
+</ul>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Configuration</span> <span class="comment">// 配置类  (在配置类当中对第三方bean进行集中配置管理)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CommonConfig</span> &#123;</span><br><span class="line">    <span class="comment">// 声明第三方 bean</span></span><br><span class="line">    <span class="meta">@Bean</span> <span class="comment">// 将当前方法的返回值对象交给 IOC 容器管理, 成为 IOC 容器 bean</span></span><br><span class="line">          <span class="comment">// 通过 @Bean 注解的 name/value 属性指定 bean 名称, 如果未指定, 默认是方法名</span></span><br><span class="line">    <span class="keyword">public</span> SAXReader <span class="title function_">reader</span><span class="params">(DeptService deptService)</span>&#123;</span><br><span class="line">        System.out.println(deptService);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">SAXReader</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>在方法上加上一个@Bean注解，Spring 容器在启动的时候，它会自动的调用这个方法，并将方法的返回值声明为Spring容器当中的Bean对象。</p>
+<blockquote>
+<p>注意事项 ：</p>
+<ul>
+<li>
+<p>通过@Bean注解的name或value属性可以声明bean的名称，如果不指定，默认bean的名称就是方法名。</p>
+</li>
+<li>
+<p>如果第三方bean需要依赖其它bean对象，直接在bean定义<strong>方法</strong>中设置<strong>形参</strong>即可，容器会根据类型自动装配。</p>
+</li>
+</ul>
+</blockquote>
+<p><strong>关于Bean只需要保持一个原则：</strong></p>
+<ul>
+<li>如果是在项目当中自己定义的类，想将这些类交给IOC容器管理，我们直接使用@Component以及它的衍生注解来声明就可以。</li>
+<li>如果这个类它不是自己定义的，而是引入的第三方依赖当中提供的类，而且我们还想将这个类交给IOC容器管理。此时我们就需要在配置类中定义一个方法，在方法上加上一个@Bean注解，通过这种方式来声明第三方的bean对象。</li>
+</ul>
 ]]></content>
       <categories>
-        <category>转载</category>
+        <category>Java学习笔记</category>
       </categories>
       <tags>
         <tag>Spring</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>JavaWeb 后端开发总结</title>
+    <url>/2024/03/10/JavaWeb-%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<p>web后端开发现在基本上都是基于标准的三层架构进行开发的，在三层架构当中，Controller控制器层负责接收请求响应数据，Service业务层负责具体的业务逻辑处理，而Dao数据访问层也叫持久层，就是用来处理数据访问操作的，来完成数据库当中数据的增删改查操作。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/03/10/tgSJKPX3FBwZGx6.png"
+                      alt=""
+                ></p>
+<blockquote>
+<p>在三层架构当中，前端发起请求首先会到达Controller(不进行逻辑处理)，然后Controller会直接调用Service 进行逻辑处理， Service再调用Dao完成数据访问操作。</p>
+</blockquote>
+<p>如果我们在执行具体的业务处理之前，需要去做一些通用的业务处理，比如：我们要进行统一的登录校验，我们要进行统一的字符编码等这些操作时，我们就可以借助于Javaweb当中三大组件之一的过滤器Filter或者是Spring当中提供的拦截器Interceptor来实现。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/03/10/jIOK7DnacR2uVEG.png"
+                      alt=""
+                ></p>
+<p>而为了实现三层架构层与层之间的解耦，我们学习了Spring框架当中的第一大核心：IOC控制反转与DI依赖注入。</p>
+<blockquote>
+<p>所谓控制反转，指的是将对象创建的控制权由应用程序自身交给外部容器，这个容器就是我们常说的IOC容器或Spring容器。</p>
+<p>而DI依赖注入指的是容器为程序提供运行时所需要的资源。</p>
+</blockquote>
+<p>除了IOC与DI我们还讲到了AOP面向切面编程，还有Spring中的事务管理、全局异常处理器，以及传递会话技术Cookie、Session以及新的会话跟踪解决方案JWT令牌，阿里云OSS对象存储服务，以及通过Mybatis持久层架构操作数据库等技术。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/03/10/lOK2t8nTUq6EVp9.png"
+                      alt=""
+                ></p>
+<p>我们在学习这些web后端开发技术的时候，我们都是基于主流的SpringBoot进行整合使用的。而SpringBoot又是用来简化开发，提高开发效率的。像过滤器、拦截器、IOC、DI、AOP、事务管理等这些技术到底是哪个框架提供的核心功能？</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/03/10/c73xEmrLOfNjS8o.png"
+                      alt=""
+                ></p>
+<blockquote>
+<p>Filter过滤器、Cookie、 Session这些都是传统的JavaWeb提供的技术。</p>
+<p>JWT令牌、阿里云OSS对象存储服务，是现在企业项目中常见的一些解决方案。</p>
+<p>IOC控制反转、DI依赖注入、AOP面向切面编程、事务管理、全局异常处理、拦截器等，这些技术都是 Spring Framework框架当中提供的核心功能。</p>
+<p>Mybatis就是一个持久层的框架，是用来操作数据库的。</p>
+</blockquote>
+<p>在Spring框架的生态中，对web程序开发提供了很好的支持，如：全局异常处理器、拦截器这些都是Spring框架中web开发模块所提供的功能，而Spring框架的web开发模块，我们也称为：SpringMVC</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/03/10/Fvtu8Kz6OJyR2oE.png"
+                      alt=""
+                ></p>
+<blockquote>
+<p>SpringMVC不是一个单独的框架，它是Spring框架的一部分，是Spring框架中的web开发模块，是用来简化原始的Servlet程序开发的。</p>
+</blockquote>
+<p>外界俗称的SSM，就是由：SpringMVC、Spring Framework、Mybatis三块组成。</p>
+<p>基于传统的SSM框架进行整合开发项目会比较繁琐，而且效率也比较低，所以在现在的企业项目开发当中，基本上都是直接基于SpringBoot整合SSM进行项目开发的。</p>
+]]></content>
+      <categories>
+        <category>Java学习笔记</category>
+      </categories>
+      <tags>
+        <tag>JavaWeb</tag>
       </tags>
   </entry>
   <entry>
@@ -2683,91 +2661,25 @@
       </tags>
   </entry>
   <entry>
-    <title>Maven - 私服</title>
-    <url>/2024/03/11/Maven-%E7%A7%81%E6%9C%8D/</url>
-    <content><![CDATA[<h2 id="1-场景">1. 场景</h2>
-<p>私服其实就是架设在公司局域网内部的一台服务器，就是一种特殊的远程仓库。A 连接上私服之后，他就可以把jar包直接上传到私服当中。B 团队的所有开发人员也连接同一台私服之后，他们就能根据坐标的信息，直接从私服当中将对应的jar包下载到自己的本地仓库，使用依赖当中所提供的一些工具类了。这样我们就可以通过私服来完成资源的共享。</p>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/03/11/OSj7seIXlw6ofnL.png"
-                      style="zoom:80%;" 
-                > 
-<p>而如果我们在项目中需要使用其他第三方提供的依赖，如果本地仓库没有，也会自动连接私服下载，如果私服没有，私服此时会自动连接中央仓库，去中央仓库中下载依赖，然后将下载的依赖存储在私服仓库及本地仓库中。</p>
-<h2 id="2-介绍">2. 介绍</h2>
-<ul>
-<li>
-<p><strong>私服</strong>：是一种特殊的远程仓库，它是架设在局域网内的仓库服务，用来代理位于外部的中央仓库，用于解决团队内部的资源共享与资源同步问题。</p>
-</li>
-<li>
-<p><strong>依赖查找顺序</strong>：</p>
-<ul>
-<li>本地仓库</li>
-<li>私服仓库</li>
-<li>中央仓库</li>
-</ul>
-</li>
-<li>
-<p><strong>资源上传与下载</strong>：<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/03/11/2uxvsBiCMbI3wYO.png"
-                      style="zoom:80%;" 
-                ></p>
-<p>资源的上传与下载，我们需要做三步配置，执行一条指令：</p>
-<ol>
-<li>在maven的配置文件中配置连接私服的地址(url地址)。</li>
-<li>在maven的配置文件中配置访问私服的用户名、密码。</li>
-<li>在项目的pom.xml文件中配置上传资源的位置(url地址)。</li>
-</ol>
-<p>配置好了上述三步之后，要上传资源到私服仓库，就执行maven生命周期：deploy</p>
-<p>接下来，其他项目组的开发人员就可以在项目中直接通过依赖的坐标，引入对应的依赖。如果此时本地仓库没有，就会自动从私服仓库中下载。</p>
-<blockquote>
-<p>私服仓库说明：</p>
-<ul>
-<li>RELEASE：存储自己开发的RELEASE发布版本的资源。</li>
-<li>SNAPSHOT：存储自己开发的SNAPSHOT发布版本的资源。</li>
-<li>Central：存储的是从中央仓库下载下来的依赖。</li>
-</ul>
-</blockquote>
-<blockquote>
-<p>项目版本说明：</p>
-<ul>
-<li>RELEASE(发布版本)：功能趋于稳定、当前更新停止，可以用于发行的版本，存储在私服中的RELEASE仓库中。</li>
-<li>SNAPSHOT(快照版本)：功能不稳定、尚处于开发中的版本，即快照版本，存储在私服的SNAPSHOT仓库中。</li>
-</ul>
-</blockquote>
-</li>
-</ul>
-<h2 id="3-私服配置">3. 私服配置</h2>
-<p>使用私服，需要在maven的settings.xml配置文件中，做如下配置：</p>
-<ol>
-<li>
-<p>需要在 <strong>servers</strong> 标签中，配置访问私服的个人凭证(访问的用户名和密码)</p>
-<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">server</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">id</span>&gt;</span>maven-releases<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">username</span>&gt;</span>admin<span class="tag">&lt;/<span class="name">username</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">password</span>&gt;</span>admin<span class="tag">&lt;/<span class="name">password</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">server</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">server</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">id</span>&gt;</span>maven-snapshots<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">username</span>&gt;</span>admin<span class="tag">&lt;/<span class="name">username</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">password</span>&gt;</span>admin<span class="tag">&lt;/<span class="name">password</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">server</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
-</li>
-<li>
-<p>在 <strong>mirrors</strong> 标签中，配置自己私服的连接地址(如果之前配置过阿里云，需要直接替换掉)</p>
-<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mirror</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">id</span>&gt;</span>maven-public<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mirrorOf</span>&gt;</span>*<span class="tag">&lt;/<span class="name">mirrorOf</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://192.168.150.101:8081/repository/maven-public/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mirror</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
-</li>
-<li>
-<p>在 <strong>profiles</strong> 标签中，增加如下配置，来指定snapshot快照版本的依赖允许使用</p>
-<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">profile</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">id</span>&gt;</span>allow-snapshots<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">activation</span>&gt;</span></span><br><span class="line">        	<span class="tag">&lt;<span class="name">activeByDefault</span>&gt;</span>true<span class="tag">&lt;/<span class="name">activeByDefault</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">activation</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">repositories</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">repository</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">id</span>&gt;</span>maven-public<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://192.168.150.101:8081/repository/maven-public/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">releases</span>&gt;</span></span><br><span class="line">            	<span class="tag">&lt;<span class="name">enabled</span>&gt;</span>true<span class="tag">&lt;/<span class="name">enabled</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">releases</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">snapshots</span>&gt;</span></span><br><span class="line">            	<span class="tag">&lt;<span class="name">enabled</span>&gt;</span>true<span class="tag">&lt;/<span class="name">enabled</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">snapshots</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">repository</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">repositories</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">profile</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
-</li>
-<li>
-<p>如果需要上传自己的项目到私服上，需要在项目的pom.xml文件中，增加如下配置，来配置项目发布的地址(也就是私服的地址)</p>
-<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">distributionManagement</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- release版本的发布地址 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">repository</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span>&gt;</span>maven-releases<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://192.168.150.101:8081/repository/maven-releases/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">repository</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- snapshot版本的发布地址 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">snapshotRepository</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span>&gt;</span>maven-snapshots<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://192.168.150.101:8081/repository/maven-snapshots/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">snapshotRepository</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">distributionManagement</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
-</li>
-<li>
-<p>发布项目，直接运行 deploy 生命周期即可 (发布时，建议跳过单元测试)</p>
-</li>
-</ol>
+    <title>转载 - Spring 注解之 @RestController 与 @Controller 的区别</title>
+    <url>/2024/03/08/%E8%BD%AC%E8%BD%BD-Spring-%E6%B3%A8%E8%A7%A3%E4%B9%8B-RestController%E4%B8%8E-Controller%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
+    <content><![CDATA[
+  <div class="note-large yellow">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>链接</p>
+
+    </div>
+    <div class="notel-content">
+      <p><a class="link"   href="https://www.cnblogs.com/east7/p/10462279.html" >https://www.cnblogs.com/east7/p/10462279.html <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+
+    </div>
+  </div>
 ]]></content>
       <categories>
-        <category>Java学习笔记</category>
+        <category>转载</category>
       </categories>
       <tags>
-        <tag>Maven</tag>
+        <tag>Spring</tag>
       </tags>
   </entry>
   <entry>
@@ -2954,6 +2866,94 @@
 </ul>
 </li>
 </ul>
+]]></content>
+      <categories>
+        <category>Java学习笔记</category>
+      </categories>
+      <tags>
+        <tag>Maven</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Maven - 私服</title>
+    <url>/2024/03/11/Maven-%E7%A7%81%E6%9C%8D/</url>
+    <content><![CDATA[<h2 id="1-场景">1. 场景</h2>
+<p>私服其实就是架设在公司局域网内部的一台服务器，就是一种特殊的远程仓库。A 连接上私服之后，他就可以把jar包直接上传到私服当中。B 团队的所有开发人员也连接同一台私服之后，他们就能根据坐标的信息，直接从私服当中将对应的jar包下载到自己的本地仓库，使用依赖当中所提供的一些工具类了。这样我们就可以通过私服来完成资源的共享。</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/03/11/OSj7seIXlw6ofnL.png"
+                      style="zoom:80%;" 
+                > 
+<p>而如果我们在项目中需要使用其他第三方提供的依赖，如果本地仓库没有，也会自动连接私服下载，如果私服没有，私服此时会自动连接中央仓库，去中央仓库中下载依赖，然后将下载的依赖存储在私服仓库及本地仓库中。</p>
+<h2 id="2-介绍">2. 介绍</h2>
+<ul>
+<li>
+<p><strong>私服</strong>：是一种特殊的远程仓库，它是架设在局域网内的仓库服务，用来代理位于外部的中央仓库，用于解决团队内部的资源共享与资源同步问题。</p>
+</li>
+<li>
+<p><strong>依赖查找顺序</strong>：</p>
+<ul>
+<li>本地仓库</li>
+<li>私服仓库</li>
+<li>中央仓库</li>
+</ul>
+</li>
+<li>
+<p><strong>资源上传与下载</strong>：<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/03/11/2uxvsBiCMbI3wYO.png"
+                      style="zoom:80%;" 
+                ></p>
+<p>资源的上传与下载，我们需要做三步配置，执行一条指令：</p>
+<ol>
+<li>在maven的配置文件中配置连接私服的地址(url地址)。</li>
+<li>在maven的配置文件中配置访问私服的用户名、密码。</li>
+<li>在项目的pom.xml文件中配置上传资源的位置(url地址)。</li>
+</ol>
+<p>配置好了上述三步之后，要上传资源到私服仓库，就执行maven生命周期：deploy</p>
+<p>接下来，其他项目组的开发人员就可以在项目中直接通过依赖的坐标，引入对应的依赖。如果此时本地仓库没有，就会自动从私服仓库中下载。</p>
+<blockquote>
+<p>私服仓库说明：</p>
+<ul>
+<li>RELEASE：存储自己开发的RELEASE发布版本的资源。</li>
+<li>SNAPSHOT：存储自己开发的SNAPSHOT发布版本的资源。</li>
+<li>Central：存储的是从中央仓库下载下来的依赖。</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>项目版本说明：</p>
+<ul>
+<li>RELEASE(发布版本)：功能趋于稳定、当前更新停止，可以用于发行的版本，存储在私服中的RELEASE仓库中。</li>
+<li>SNAPSHOT(快照版本)：功能不稳定、尚处于开发中的版本，即快照版本，存储在私服的SNAPSHOT仓库中。</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<h2 id="3-私服配置">3. 私服配置</h2>
+<p>使用私服，需要在maven的settings.xml配置文件中，做如下配置：</p>
+<ol>
+<li>
+<p>需要在 <strong>servers</strong> 标签中，配置访问私服的个人凭证(访问的用户名和密码)</p>
+<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">server</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">id</span>&gt;</span>maven-releases<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">username</span>&gt;</span>admin<span class="tag">&lt;/<span class="name">username</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">password</span>&gt;</span>admin<span class="tag">&lt;/<span class="name">password</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">server</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">server</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">id</span>&gt;</span>maven-snapshots<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">username</span>&gt;</span>admin<span class="tag">&lt;/<span class="name">username</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">password</span>&gt;</span>admin<span class="tag">&lt;/<span class="name">password</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">server</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>在 <strong>mirrors</strong> 标签中，配置自己私服的连接地址(如果之前配置过阿里云，需要直接替换掉)</p>
+<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mirror</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">id</span>&gt;</span>maven-public<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mirrorOf</span>&gt;</span>*<span class="tag">&lt;/<span class="name">mirrorOf</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://192.168.150.101:8081/repository/maven-public/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mirror</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>在 <strong>profiles</strong> 标签中，增加如下配置，来指定snapshot快照版本的依赖允许使用</p>
+<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">profile</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">id</span>&gt;</span>allow-snapshots<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">activation</span>&gt;</span></span><br><span class="line">        	<span class="tag">&lt;<span class="name">activeByDefault</span>&gt;</span>true<span class="tag">&lt;/<span class="name">activeByDefault</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">activation</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">repositories</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">repository</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">id</span>&gt;</span>maven-public<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://192.168.150.101:8081/repository/maven-public/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">releases</span>&gt;</span></span><br><span class="line">            	<span class="tag">&lt;<span class="name">enabled</span>&gt;</span>true<span class="tag">&lt;/<span class="name">enabled</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">releases</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">snapshots</span>&gt;</span></span><br><span class="line">            	<span class="tag">&lt;<span class="name">enabled</span>&gt;</span>true<span class="tag">&lt;/<span class="name">enabled</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">snapshots</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">repository</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">repositories</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">profile</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>如果需要上传自己的项目到私服上，需要在项目的pom.xml文件中，增加如下配置，来配置项目发布的地址(也就是私服的地址)</p>
+<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">distributionManagement</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- release版本的发布地址 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">repository</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span>&gt;</span>maven-releases<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://192.168.150.101:8081/repository/maven-releases/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">repository</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- snapshot版本的发布地址 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">snapshotRepository</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span>&gt;</span>maven-snapshots<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://192.168.150.101:8081/repository/maven-snapshots/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">snapshotRepository</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">distributionManagement</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>发布项目，直接运行 deploy 生命周期即可 (发布时，建议跳过单元测试)</p>
+</li>
+</ol>
 ]]></content>
       <categories>
         <category>Java学习笔记</category>
@@ -3184,49 +3184,6 @@ ThreadLocal为每个线程提供单独一份存储空间，具有线程隔离的
       </tags>
   </entry>
   <entry>
-    <title>JavaWeb - 日期时间数据格式化</title>
-    <url>/2024/03/14/JavaWeb-%E6%97%A5%E6%9C%9F%E6%97%B6%E9%97%B4%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F%E5%8C%96/</url>
-    <content><![CDATA[<h2 id="问题描述">问题描述</h2>
-<p>在JavaWeb开发中，日期时间数据在后端往往以对象属性的形式存储。但当日期时间数据以json格式传到前端时，会丢失其格式而变成普通数组，无法正确显示为日期时间格式。</p>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/03/14/QOYTC2PciEM1lvt.png"
-                       
-                > 
-<h2 id="解决方式">解决方式</h2>
-<h3 id="方式一">方式一</h3>
-<p>在日期时间属性上加<code>@JsonFormat</code>注解，对日期进行格式化：</p>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/03/14/DZQ7rS9oOHwnGpI.png"
-                      style="zoom:67%;" 
-                > 
-<p>但这种方式，需要在每个时间属性上都要加上该注解，使用较麻烦，不能全局处理。</p>
-<h3 id="方式二（推荐">方式二（推荐 )</h3>
-<p>在<code>WebMvcConfiguration</code>中扩展SpringMVC的消息转换器，统一对日期类型进行格式处理</p>
-<p><strong>代码</strong>：</p>
-<p>在<code>sky-server</code>模块，<code>WebMvcConfiguration.java</code>中：</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 扩展Spring MVC框架的消息转化器</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span> converters</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">extendMessageConverters</span><span class="params">(List&lt;HttpMessageConverter&lt;?&gt;&gt; converters)</span> &#123;</span><br><span class="line">       <span class="comment">// 创建消息转换器对象</span></span><br><span class="line">       <span class="type">MappingJackson2HttpMessageConverter</span> <span class="variable">converter</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">MappingJackson2HttpMessageConverter</span>();</span><br><span class="line">       <span class="comment">// 为消息转换器设置一个对象转换器，对象转换器可以将Java对象序列化为json数据</span></span><br><span class="line">       converter.setObjectMapper(<span class="keyword">new</span> <span class="title class_">JacksonObjectMapper</span>());</span><br><span class="line">       <span class="comment">// 将自己的消息转化器加入容器中（index:0 指定将自己的消息转化器放在首位，优先使用）</span></span><br><span class="line">       converters.add(<span class="number">0</span>,converter);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></div>
-<p>在<code>sky-common</code>模块，<code>JacksonObjectMapper.java</code>中：</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 对象映射器:基于jackson将Java对象转为json，或者将json转为Java对象</span></span><br><span class="line"><span class="comment"> * 将JSON解析为Java对象的过程称为 [从JSON反序列化Java对象]</span></span><br><span class="line"><span class="comment"> * 从Java对象生成JSON的过程称为 [序列化Java对象到JSON]</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JacksonObjectMapper</span> <span class="keyword">extends</span> <span class="title class_">ObjectMapper</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">DEFAULT_DATE_FORMAT</span> <span class="operator">=</span> <span class="string">&quot;yyyy-MM-dd&quot;</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">DEFAULT_DATE_TIME_FORMAT</span> <span class="operator">=</span> <span class="string">&quot;yyyy-MM-dd HH:mm&quot;</span>;</span><br><span class="line">    <span class="comment">// 可指定为其他类型的日期时间格式</span></span><br><span class="line">    <span class="comment">// public static final String DEFAULT_DATE_TIME_FORMAT = &quot;yyyy-MM-dd HH:mm:ss&quot;;</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">DEFAULT_TIME_FORMAT</span> <span class="operator">=</span> <span class="string">&quot;HH:mm:ss&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">JacksonObjectMapper</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>();</span><br><span class="line">        <span class="comment">//收到未知属性时不报异常</span></span><br><span class="line">        <span class="built_in">this</span>.configure(FAIL_ON_UNKNOWN_PROPERTIES, <span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//反序列化时，属性不存在的兼容处理</span></span><br><span class="line">        <span class="built_in">this</span>.getDeserializationConfig().withoutFeatures(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);</span><br><span class="line"></span><br><span class="line">        <span class="type">SimpleModule</span> <span class="variable">simpleModule</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SimpleModule</span>()</span><br><span class="line">                .addDeserializer(LocalDateTime.class, <span class="keyword">new</span> <span class="title class_">LocalDateTimeDeserializer</span>(DateTimeFormatter.ofPattern(DEFAULT_DATE_TIME_FORMAT)))</span><br><span class="line">                .addDeserializer(LocalDate.class, <span class="keyword">new</span> <span class="title class_">LocalDateDeserializer</span>(DateTimeFormatter.ofPattern(DEFAULT_DATE_FORMAT)))</span><br><span class="line">                .addDeserializer(LocalTime.class, <span class="keyword">new</span> <span class="title class_">LocalTimeDeserializer</span>(DateTimeFormatter.ofPattern(DEFAULT_TIME_FORMAT)))</span><br><span class="line">                .addSerializer(LocalDateTime.class, <span class="keyword">new</span> <span class="title class_">LocalDateTimeSerializer</span>(DateTimeFormatter.ofPattern(DEFAULT_DATE_TIME_FORMAT)))</span><br><span class="line">                .addSerializer(LocalDate.class, <span class="keyword">new</span> <span class="title class_">LocalDateSerializer</span>(DateTimeFormatter.ofPattern(DEFAULT_DATE_FORMAT)))</span><br><span class="line">                .addSerializer(LocalTime.class, <span class="keyword">new</span> <span class="title class_">LocalTimeSerializer</span>(DateTimeFormatter.ofPattern(DEFAULT_TIME_FORMAT)));</span><br><span class="line"></span><br><span class="line">        <span class="comment">//注册功能模块 例如，可以添加自定义序列化器和反序列化器</span></span><br><span class="line">        <span class="built_in">this</span>.registerModule(simpleModule);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<p><strong>效果</strong>：</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/03/14/18nfoO7Qs3pyTmt.png"
-                      alt=""
-                ></p>
-]]></content>
-      <categories>
-        <category>Java学习笔记</category>
-      </categories>
-      <tags>
-        <tag>JavaWeb</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>#{} 和 ${} 的区别是什么？</title>
     <url>/2024/03/14/MyBatis%E4%B8%AD%E4%B8%A4%E7%A7%8D%E5%8D%A0%E4%BD%8D%E7%AC%A6%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
     <content><![CDATA[<h2 id="区别">区别</h2>
@@ -3256,6 +3213,49 @@ ThreadLocal为每个线程提供单独一份存储空间，具有线程隔离的
       </categories>
       <tags>
         <tag>MyBatis</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>JavaWeb - 日期时间数据格式化</title>
+    <url>/2024/03/14/JavaWeb-%E6%97%A5%E6%9C%9F%E6%97%B6%E9%97%B4%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F%E5%8C%96/</url>
+    <content><![CDATA[<h2 id="问题描述">问题描述</h2>
+<p>在JavaWeb开发中，日期时间数据在后端往往以对象属性的形式存储。但当日期时间数据以json格式传到前端时，会丢失其格式而变成普通数组，无法正确显示为日期时间格式。</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/03/14/QOYTC2PciEM1lvt.png"
+                       
+                > 
+<h2 id="解决方式">解决方式</h2>
+<h3 id="方式一">方式一</h3>
+<p>在日期时间属性上加<code>@JsonFormat</code>注解，对日期进行格式化：</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/03/14/DZQ7rS9oOHwnGpI.png"
+                      style="zoom:67%;" 
+                > 
+<p>但这种方式，需要在每个时间属性上都要加上该注解，使用较麻烦，不能全局处理。</p>
+<h3 id="方式二（推荐">方式二（推荐 )</h3>
+<p>在<code>WebMvcConfiguration</code>中扩展SpringMVC的消息转换器，统一对日期类型进行格式处理</p>
+<p><strong>代码</strong>：</p>
+<p>在<code>sky-server</code>模块，<code>WebMvcConfiguration.java</code>中：</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 扩展Spring MVC框架的消息转化器</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span> converters</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">extendMessageConverters</span><span class="params">(List&lt;HttpMessageConverter&lt;?&gt;&gt; converters)</span> &#123;</span><br><span class="line">       <span class="comment">// 创建消息转换器对象</span></span><br><span class="line">       <span class="type">MappingJackson2HttpMessageConverter</span> <span class="variable">converter</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">MappingJackson2HttpMessageConverter</span>();</span><br><span class="line">       <span class="comment">// 为消息转换器设置一个对象转换器，对象转换器可以将Java对象序列化为json数据</span></span><br><span class="line">       converter.setObjectMapper(<span class="keyword">new</span> <span class="title class_">JacksonObjectMapper</span>());</span><br><span class="line">       <span class="comment">// 将自己的消息转化器加入容器中（index:0 指定将自己的消息转化器放在首位，优先使用）</span></span><br><span class="line">       converters.add(<span class="number">0</span>,converter);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></div>
+<p>在<code>sky-common</code>模块，<code>JacksonObjectMapper.java</code>中：</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 对象映射器:基于jackson将Java对象转为json，或者将json转为Java对象</span></span><br><span class="line"><span class="comment"> * 从Java对象生成JSON的过程称为 [序列化Java对象到JSON]</span></span><br><span class="line"><span class="comment"> * 将JSON解析为Java对象的过程称为 [从JSON反序列化Java对象]</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JacksonObjectMapper</span> <span class="keyword">extends</span> <span class="title class_">ObjectMapper</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">DEFAULT_DATE_FORMAT</span> <span class="operator">=</span> <span class="string">&quot;yyyy-MM-dd&quot;</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">DEFAULT_DATE_TIME_FORMAT</span> <span class="operator">=</span> <span class="string">&quot;yyyy-MM-dd HH:mm&quot;</span>;</span><br><span class="line">    <span class="comment">// 可指定为其他类型的日期时间格式</span></span><br><span class="line">    <span class="comment">// public static final String DEFAULT_DATE_TIME_FORMAT = &quot;yyyy-MM-dd HH:mm:ss&quot;;</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">DEFAULT_TIME_FORMAT</span> <span class="operator">=</span> <span class="string">&quot;HH:mm:ss&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">JacksonObjectMapper</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>();</span><br><span class="line">        <span class="comment">//收到未知属性时不报异常</span></span><br><span class="line">        <span class="built_in">this</span>.configure(FAIL_ON_UNKNOWN_PROPERTIES, <span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//反序列化时，属性不存在的兼容处理</span></span><br><span class="line">        <span class="built_in">this</span>.getDeserializationConfig().withoutFeatures(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);</span><br><span class="line"></span><br><span class="line">        <span class="type">SimpleModule</span> <span class="variable">simpleModule</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SimpleModule</span>()</span><br><span class="line">                .addDeserializer(LocalDateTime.class, <span class="keyword">new</span> <span class="title class_">LocalDateTimeDeserializer</span>(DateTimeFormatter.ofPattern(DEFAULT_DATE_TIME_FORMAT)))</span><br><span class="line">                .addDeserializer(LocalDate.class, <span class="keyword">new</span> <span class="title class_">LocalDateDeserializer</span>(DateTimeFormatter.ofPattern(DEFAULT_DATE_FORMAT)))</span><br><span class="line">                .addDeserializer(LocalTime.class, <span class="keyword">new</span> <span class="title class_">LocalTimeDeserializer</span>(DateTimeFormatter.ofPattern(DEFAULT_TIME_FORMAT)))</span><br><span class="line">                .addSerializer(LocalDateTime.class, <span class="keyword">new</span> <span class="title class_">LocalDateTimeSerializer</span>(DateTimeFormatter.ofPattern(DEFAULT_DATE_TIME_FORMAT)))</span><br><span class="line">                .addSerializer(LocalDate.class, <span class="keyword">new</span> <span class="title class_">LocalDateSerializer</span>(DateTimeFormatter.ofPattern(DEFAULT_DATE_FORMAT)))</span><br><span class="line">                .addSerializer(LocalTime.class, <span class="keyword">new</span> <span class="title class_">LocalTimeSerializer</span>(DateTimeFormatter.ofPattern(DEFAULT_TIME_FORMAT)));</span><br><span class="line"></span><br><span class="line">        <span class="comment">//注册功能模块 例如，可以添加自定义序列化器和反序列化器</span></span><br><span class="line">        <span class="built_in">this</span>.registerModule(simpleModule);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p><strong>效果</strong>：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/03/14/18nfoO7Qs3pyTmt.png"
+                      alt=""
+                ></p>
+]]></content>
+      <categories>
+        <category>Java学习笔记</category>
+      </categories>
+      <tags>
+        <tag>JavaWeb</tag>
       </tags>
   </entry>
 </search>
