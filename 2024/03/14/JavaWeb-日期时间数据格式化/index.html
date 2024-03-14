@@ -19,21 +19,27 @@
     
     <!--- Seo Part-->
     
-    <link rel="canonical" href="https://x-parker.github.io/archives/2024/page/2/"/>
+    <link rel="canonical" href="https://x-parker.github.io/2024/03/14/javaweb-日期时间数据格式化/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
-        <meta name="description" content="Parker&#39;s Blog">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Parker&#39;s Blog">
-<meta property="og:url" content="https://x-parker.github.io/archives/2024/page/2/index.html">
+        <meta name="description" content="问题描述 在JavaWeb开发中，日期时间数据在后端往往以对象属性的形式存储。但当日期时间数据以json格式传到前端时，会丢失其格式而变成普通数组，无法正确显示为日期时间格式。   解决方式 方式一 在日期时间属性上加@JsonFormat注解，对日期进行格式化：   但这种方式，需要在每个时间属性上都要加上该注解，使用较麻烦，不能全局处理。 方式二（推荐 ) 在WebMvcConfigurati">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaWeb - 日期时间数据格式化">
+<meta property="og:url" content="https://x-parker.github.io/2024/03/14/JavaWeb-%E6%97%A5%E6%9C%9F%E6%97%B6%E9%97%B4%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F%E5%8C%96/index.html">
 <meta property="og:site_name" content="Parker&#39;s Blog">
-<meta property="og:description" content="Parker&#39;s Blog">
+<meta property="og:description" content="问题描述 在JavaWeb开发中，日期时间数据在后端往往以对象属性的形式存储。但当日期时间数据以json格式传到前端时，会丢失其格式而变成普通数组，无法正确显示为日期时间格式。   解决方式 方式一 在日期时间属性上加@JsonFormat注解，对日期进行格式化：   但这种方式，需要在每个时间属性上都要加上该注解，使用较麻烦，不能全局处理。 方式二（推荐 ) 在WebMvcConfigurati">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2024/03/14/QOYTC2PciEM1lvt.png">
+<meta property="og:image" content="https://s2.loli.net/2024/03/14/DZQ7rS9oOHwnGpI.png">
+<meta property="og:image" content="https://s2.loli.net/2024/03/14/18nfoO7Qs3pyTmt.png">
+<meta property="article:published_time" content="2024-03-14T12:21:07.000Z">
+<meta property="article:modified_time" content="2024-03-14T12:43:55.328Z">
 <meta property="article:author" content="Parker">
-<meta property="article:tag" content="Parker&#39;s Blog">
+<meta property="article:tag" content="JavaWeb">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2024/03/14/QOYTC2PciEM1lvt.png">
     
     
         <!-- Google tag (gtag.js) -->
@@ -55,7 +61,7 @@
     
     <title>
         
-            归档: 2024 -
+            JavaWeb - 日期时间数据格式化 -
         
         Parker&#39;s Blog
     </title>
@@ -310,7 +316,7 @@
 
                             <li class="navbar-item">
                                 <!-- Menu -->
-                                <a class="active"
+                                <a class=""
                                    href="/archives"
                                         >
                                     <i class="fa-solid fa-archive fa-fw"></i>
@@ -439,7 +445,7 @@
 
                     <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
                         
-                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
                            href="/archives"
                         >
                             <span>
@@ -569,265 +575,264 @@
             <div class="main-content">
 
                 
-                    <div class="archive-container shadow-none hover:shadow-none sm:shadow-redefine sm:hover:shadow-redefine-hover">
-    
+                    <div class="post-page-container flex relative justify-between box-border w-full h-full">
+    <div class="article-content-container">
 
-<div class="archive-list-container">
-    
-        <section class="archive-item mb-spacing-unit last:mb-0">
-            <div class="archive-item-header flex flex-row items-center mb-2">
-                <span class="archive-year font-semibold text-3xl mr-2">2024</span>
-                <span class="archive-year-post-count text-xs md:text-sm font-bold rounded-small bg-third-background-color py-[2px] px-[10px] border border-border-color">28</span>
+        <div class="article-title relative w-full">
+            
+                <div class="w-full flex items-center pt-6 justify-start">
+                    <h1 class="article-title-regular text-second-text-color text-4xl md:text-6xl font-bold px-2 sm:px-6 md:px-8 py-3">JavaWeb - 日期时间数据格式化</h1>
+                </div>
+            
             </div>
-            <ul class="article-list pl-0 md:pl-8 text-lg leading-[1.5]">
-              
+
+        
+            <div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+                <div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+                    <img src="/images/X.png">
+                </div>
+                <div class="info flex flex-col justify-between">
+                    <div class="author flex items-center">
+                        <span class="name text-default-text-color text-lg font-semibold">Parker</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2024-03-14 20:21:07</span>
+        <span class="mobile">2024-03-14 20:21:07</span>
+        <span class="hover-info">创建</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2024-03-14 20:43:55</span>
+            <span class="mobile">2024-03-14 20:43:55</span>
+            <span class="hover-info">更新</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
                 
                     
-                    <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='03-14'>
+                        
+                        <li>
+                            <a href="/categories/Java%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">Java学习笔记</a>&nbsp;
+                        </li>
+                    
+                    
                 
-                    
-                        <a href="/2024/03/14/JavaWeb-%E6%97%A5%E6%9C%9F%E6%97%B6%E9%97%B4%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F%E5%8C%96/" class="block overflow-hidden w-fit">
-                            <span class="article-title mb-0.5 text-2xl">JavaWeb - 日期时间数据格式化</span>
-                        </a>
-                    
-              
-                
-                    
-                        <a href="/2024/03/14/Java-ThreadLocal/" class="block overflow-hidden w-fit">
-                            <span class="article-title mb-0.5 text-2xl">Java - ThreadLocal</span>
-                        </a>
-                    
-              
-                
-                    
-                        <a href="/2024/03/14/MyBatis%E4%B8%AD%E4%B8%A4%E7%A7%8D%E5%8D%A0%E4%BD%8D%E7%AC%A6%E7%9A%84%E5%8C%BA%E5%88%AB/" class="block overflow-hidden w-fit">
-                            <span class="article-title mb-0.5 text-2xl">#{} 和 ${} 的区别是什么？</span>
-                        </a>
-                    
-              
-                
-                    
-                    <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='03-12'>
-                
-                    
-                        <a href="/2024/03/12/Swagger/" class="block overflow-hidden w-fit">
-                            <span class="article-title mb-0.5 text-2xl">Swagger</span>
-                        </a>
-                    
-              
-                
-                    
-                        <a href="/2024/03/12/nginx-%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%E5%92%8C%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/" class="block overflow-hidden w-fit">
-                            <span class="article-title mb-0.5 text-2xl">nginx - 反向代理和负载均衡</span>
-                        </a>
-                    
-              
-                
-                    
-                    <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='03-11'>
-                
-                    
-                        <a href="/2024/03/11/Maven-%E7%A7%81%E6%9C%8D/" class="block overflow-hidden w-fit">
-                            <span class="article-title mb-0.5 text-2xl">Maven - 私服</span>
-                        </a>
-                    
-              
-                
-                    
-                        <a href="/2024/03/11/Maven-%E7%BB%A7%E6%89%BF%E4%B8%8E%E8%81%9A%E5%90%88/" class="block overflow-hidden w-fit">
-                            <span class="article-title mb-0.5 text-2xl">Maven - 继承与聚合</span>
-                        </a>
-                    
-              
-                
-                    
-                        <a href="/2024/03/11/Maven-%E5%88%86%E6%A8%A1%E5%9D%97%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%BC%80%E5%8F%91/" class="block overflow-hidden w-fit">
-                            <span class="article-title mb-0.5 text-2xl">Maven - 分模块设计与开发</span>
-                        </a>
-                    
-              
-                
-                    
-                    <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='03-10'>
-                
-                    
-                        <a href="/2024/03/10/JavaWeb-%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91%E6%80%BB%E7%BB%93/" class="block overflow-hidden w-fit">
-                            <span class="article-title mb-0.5 text-2xl">JavaWeb 后端开发总结</span>
-                        </a>
-                    
-              
-                
-                    
-                    <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='03-08'>
-                
-                    
-                        <a href="/2024/03/08/SpringBoot-%E5%8E%9F%E7%90%86/" class="block overflow-hidden w-fit">
-                            <span class="article-title mb-0.5 text-2xl">SpringBoot 原理</span>
-                        </a>
-                    
-              
-                
-                    
-                        <a href="/2024/03/08/SpringBoot-Bean%E7%9A%84%E7%AE%A1%E7%90%86/" class="block overflow-hidden w-fit">
-                            <span class="article-title mb-0.5 text-2xl">SpringBoot - Bean 的管理</span>
-                        </a>
-                    
-              
-                
-                    
-                        <a href="/2024/03/08/IOC-%E5%AE%B9%E5%99%A8%E5%AF%B9-Bean-%E7%9A%84%E5%91%BD%E5%90%8D%E8%A7%84%E5%88%99/" class="block overflow-hidden w-fit">
-                            <span class="article-title mb-0.5 text-2xl">IOC 容器对 Bean 的命名规则</span>
-                        </a>
-                    
-              
-                
-                    
-                        <a href="/2024/03/08/%E8%BD%AC%E8%BD%BD-Spring-%E6%B3%A8%E8%A7%A3%E4%B9%8B-RestController%E4%B8%8E-Controller%E7%9A%84%E5%8C%BA%E5%88%AB/" class="block overflow-hidden w-fit">
-                            <span class="article-title mb-0.5 text-2xl">转载 - Spring 注解之 @RestController 与 @Controller 的区别</span>
-                        </a>
-                    
-              
-                
-                    
-                    <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='03-07'>
-                
-                    
-                        <a href="/2024/03/07/%E8%BD%AC%E8%BD%BD-SpringBoot%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E9%9C%80%E8%A6%81%E9%A2%9D%E5%A4%96%E5%AE%89%E8%A3%85Tomcat%EF%BC%9F/" class="block overflow-hidden w-fit">
-                            <span class="article-title mb-0.5 text-2xl">转载 - SpringBoot 为什么不需要额外安装 Tomcat ？</span>
-                        </a>
-                    
-              
-                
-                    
-                        <a href="/2024/03/07/SpringBoot%E9%85%8D%E7%BD%AE%E4%BC%98%E5%85%88%E7%BA%A7/" class="block overflow-hidden w-fit">
-                            <span class="article-title mb-0.5 text-2xl">SpringBoot 配置的优先级</span>
-                        </a>
-                    
-              
-                
-                    
-                    <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='03-05'>
-                
-                    
-                        <a href="/2024/03/05/%E5%AE%9E%E7%8E%B0Windows%E7%8E%AF%E5%A2%83%E4%B8%8BThunderbird%E9%82%AE%E4%BB%B6%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%87%AA%E5%90%AF%E5%8A%A8/" class="block overflow-hidden w-fit">
-                            <span class="article-title mb-0.5 text-2xl">实现 Windows 环境下 Thunderbird 邮件客户端自启动</span>
-                        </a>
-                    
-              
-                
-                    
-                        <a href="/2024/03/05/AOP-%E9%9D%A2%E5%90%91%E5%88%87%E9%9D%A2%E7%BC%96%E7%A8%8B/" class="block overflow-hidden w-fit">
-                            <span class="article-title mb-0.5 text-2xl">AOP - 面向切面编程</span>
-                        </a>
-                    
-              
-                
-                    
-                    <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='02-18'>
-                
-                    
-                        <a href="/2024/02/18/Windows-cmd%E6%89%A7%E8%A1%8Cjava%E5%91%BD%E4%BB%A4%E6%97%A0%E8%BF%94%E5%9B%9E%E4%BF%A1%E6%81%AF/" class="block overflow-hidden w-fit">
-                            <span class="article-title mb-0.5 text-2xl">Windows cmd 执行 Java 命令无返回信息</span>
-                        </a>
-                    
-              
-                
-                    
-                    <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='01-31'>
-                
-                    
-                        <a href="/2024/01/31/Tomcat%E5%8F%8C%E5%87%BBstartup-bat%E9%97%AA%E9%80%80/" class="block overflow-hidden w-fit">
-                            <span class="article-title mb-0.5 text-2xl">Tomcat 双击 startup.bat 闪退</span>
-                        </a>
-                    
-              
-                
-                    
-                    <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='01-25'>
-                
-                    
-                        <a href="/2024/01/25/Hexo-%E9%9A%90%E8%97%8F%E7%89%B9%E5%AE%9A%E6%96%87%E7%AB%A0/" class="block overflow-hidden w-fit">
-                            <span class="article-title mb-0.5 text-2xl">Hexo 隐藏特定文章</span>
-                        </a>
-                    
-              
-                
-                    
-                        <a href="/2024/01/25/Git-%E6%8A%A5%E9%94%99%EF%BC%9A%E6%97%A0%E6%B3%95%E5%88%9B%E5%BB%BA-index-lock-%E6%96%87%E4%BB%B6%EF%BC%8C%E5%9B%A0%E5%85%B6%E5%B7%B2%E5%AD%98%E5%9C%A8/" class="block overflow-hidden w-fit">
-                            <span class="article-title mb-0.5 text-2xl">Git 报错：无法创建 index.lock 文件，因其已存在。</span>
-                        </a>
-                    
-              
-                
-                    
-                        <a href="/2024/01/25/Markdown-%E8%84%9A%E6%B3%A8%E6%B8%B2%E6%9F%93%E9%97%AE%E9%A2%98/" class="block overflow-hidden w-fit">
-                            <span class="article-title mb-0.5 text-2xl">Hexo 博客中的 Markdown 脚注渲染问题</span>
-                        </a>
-                    
-              
-                
-                    
-                    <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='01-22'>
-                
-                    
-                        <a href="/2024/01/22/PowerShell-vue%E6%97%A0%E6%B3%95%E5%8A%A0%E8%BD%BD%E6%96%87%E4%BB%B6-%E5%9B%A0%E4%B8%BA%E5%9C%A8%E6%AD%A4%E7%B3%BB%E7%BB%9F%E4%B8%8A%E7%A6%81%E6%AD%A2%E8%BF%90%E8%A1%8C%E8%84%9A%E6%9C%AC/" class="block overflow-hidden w-fit">
-                            <span class="article-title mb-0.5 text-2xl">PowerShell 报错：在此系统上禁止运行脚本</span>
-                        </a>
-                    
-              
-                
-                    
-                    <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='01-19'>
-                
-                    
-                        <a href="/2024/01/19/Git%E6%8A%A5%E9%94%99-SSH%E8%BF%9E%E6%8E%A5%E8%B6%85%E6%97%B6/" class="block overflow-hidden w-fit">
-                            <span class="article-title mb-0.5 text-2xl">Git 报错：SSH连接超时</span>
-                        </a>
-                    
-              
-                
-                    
-                        <a href="/2024/01/19/Once-Upon-a-Time-in-America/" class="block overflow-hidden w-fit">
-                            <span class="article-title mb-0.5 text-2xl">Once Upon a Time in America</span>
-                        </a>
-                    
-              
-                
-                    
-                    <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='01-13'>
-                
-                    
-                        <a href="/2024/01/13/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E6%8A%80%E6%9C%AF-%E5%A4%8D%E4%B9%A0/" class="block overflow-hidden w-fit">
-                            <span class="article-title mb-0.5 text-2xl">高级数据库技术 - 复习</span>
-                        </a>
-                    
-              
-                
-                    
-                    <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='01-11'>
-                
-                    
-                        <a href="/2024/01/11/MapReduce%E9%85%8D%E7%BD%AE%E4%B8%8E%E6%93%8D%E4%BD%9C/" class="block overflow-hidden w-fit">
-                            <span class="article-title mb-0.5 text-2xl">MapReduce 配置与操作</span>
-                        </a>
-                    
-              
-                
-                    
-                    <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='01-10'>
-                
-                    
-                        <a href="/2024/01/10/Hadoop%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" class="block overflow-hidden w-fit">
-                            <span class="article-title mb-0.5 text-2xl">Hadoop 环境配置</span>
-                        </a>
-                    
-              
             </ul>
-        </section>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/JavaWeb/">JavaWeb</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>544 字</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>2 分钟</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
     
 </div>
 
+                    </div>
+                </div>
+            </div>
+        
+
+        
+
+
+        <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+            <h2 id="问题描述">问题描述</h2>
+<p>在JavaWeb开发中，日期时间数据在后端往往以对象属性的形式存储。但当日期时间数据以json格式传到前端时，会丢失其格式而变成普通数组，无法正确显示为日期时间格式。</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/03/14/QOYTC2PciEM1lvt.png"
+                       
+                > 
+<h2 id="解决方式">解决方式</h2>
+<h3 id="方式一">方式一</h3>
+<p>在日期时间属性上加<code>@JsonFormat</code>注解，对日期进行格式化：</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/03/14/DZQ7rS9oOHwnGpI.png"
+                      style="zoom:67%;" 
+                > 
+<p>但这种方式，需要在每个时间属性上都要加上该注解，使用较麻烦，不能全局处理。</p>
+<h3 id="方式二（推荐">方式二（推荐 )</h3>
+<p>在<code>WebMvcConfiguration</code>中扩展SpringMVC的消息转换器，统一对日期类型进行格式处理</p>
+<p><strong>代码</strong>：</p>
+<p>在<code>sky-server</code>模块，<code>WebMvcConfiguration.java</code>中：</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 扩展Spring MVC框架的消息转化器</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span> converters</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">extendMessageConverters</span><span class="params">(List&lt;HttpMessageConverter&lt;?&gt;&gt; converters)</span> &#123;</span><br><span class="line">       <span class="comment">// 创建消息转换器对象</span></span><br><span class="line">       <span class="type">MappingJackson2HttpMessageConverter</span> <span class="variable">converter</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">MappingJackson2HttpMessageConverter</span>();</span><br><span class="line">       <span class="comment">// 为消息转换器设置一个对象转换器，对象转换器可以将Java对象序列化为json数据</span></span><br><span class="line">       converter.setObjectMapper(<span class="keyword">new</span> <span class="title class_">JacksonObjectMapper</span>());</span><br><span class="line">       <span class="comment">// 将自己的消息转化器加入容器中（index:0 指定将自己的消息转化器放在首位，优先使用）</span></span><br><span class="line">       converters.add(<span class="number">0</span>,converter);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></div>
+<p>在<code>sky-common</code>模块，<code>JacksonObjectMapper.java</code>中：</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 对象映射器:基于jackson将Java对象转为json，或者将json转为Java对象</span></span><br><span class="line"><span class="comment"> * 将JSON解析为Java对象的过程称为 [从JSON反序列化Java对象]</span></span><br><span class="line"><span class="comment"> * 从Java对象生成JSON的过程称为 [序列化Java对象到JSON]</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JacksonObjectMapper</span> <span class="keyword">extends</span> <span class="title class_">ObjectMapper</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">DEFAULT_DATE_FORMAT</span> <span class="operator">=</span> <span class="string">&quot;yyyy-MM-dd&quot;</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">DEFAULT_DATE_TIME_FORMAT</span> <span class="operator">=</span> <span class="string">&quot;yyyy-MM-dd HH:mm&quot;</span>;</span><br><span class="line">    <span class="comment">// 可指定为其他类型的日期时间格式</span></span><br><span class="line">    <span class="comment">// public static final String DEFAULT_DATE_TIME_FORMAT = &quot;yyyy-MM-dd HH:mm:ss&quot;;</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">DEFAULT_TIME_FORMAT</span> <span class="operator">=</span> <span class="string">&quot;HH:mm:ss&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">JacksonObjectMapper</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>();</span><br><span class="line">        <span class="comment">//收到未知属性时不报异常</span></span><br><span class="line">        <span class="built_in">this</span>.configure(FAIL_ON_UNKNOWN_PROPERTIES, <span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//反序列化时，属性不存在的兼容处理</span></span><br><span class="line">        <span class="built_in">this</span>.getDeserializationConfig().withoutFeatures(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);</span><br><span class="line"></span><br><span class="line">        <span class="type">SimpleModule</span> <span class="variable">simpleModule</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SimpleModule</span>()</span><br><span class="line">                .addDeserializer(LocalDateTime.class, <span class="keyword">new</span> <span class="title class_">LocalDateTimeDeserializer</span>(DateTimeFormatter.ofPattern(DEFAULT_DATE_TIME_FORMAT)))</span><br><span class="line">                .addDeserializer(LocalDate.class, <span class="keyword">new</span> <span class="title class_">LocalDateDeserializer</span>(DateTimeFormatter.ofPattern(DEFAULT_DATE_FORMAT)))</span><br><span class="line">                .addDeserializer(LocalTime.class, <span class="keyword">new</span> <span class="title class_">LocalTimeDeserializer</span>(DateTimeFormatter.ofPattern(DEFAULT_TIME_FORMAT)))</span><br><span class="line">                .addSerializer(LocalDateTime.class, <span class="keyword">new</span> <span class="title class_">LocalDateTimeSerializer</span>(DateTimeFormatter.ofPattern(DEFAULT_DATE_TIME_FORMAT)))</span><br><span class="line">                .addSerializer(LocalDate.class, <span class="keyword">new</span> <span class="title class_">LocalDateSerializer</span>(DateTimeFormatter.ofPattern(DEFAULT_DATE_FORMAT)))</span><br><span class="line">                .addSerializer(LocalTime.class, <span class="keyword">new</span> <span class="title class_">LocalTimeSerializer</span>(DateTimeFormatter.ofPattern(DEFAULT_TIME_FORMAT)));</span><br><span class="line"></span><br><span class="line">        <span class="comment">//注册功能模块 例如，可以添加自定义序列化器和反序列化器</span></span><br><span class="line">        <span class="built_in">this</span>.registerModule(simpleModule);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p><strong>效果</strong>：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/03/14/18nfoO7Qs3pyTmt.png"
+                      alt=""
+                ></p>
+
+        </div>
+
+        
+            <div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>标题:</strong> JavaWeb - 日期时间数据格式化</li>
+        <li><strong>作者:</strong> Parker</li>
+        <li><strong>创建于
+                :</strong> 2024-03-14 20:21:07</li>
+        
+            <li>
+                <strong>更新于
+                    :</strong> 2024-03-14 20:43:55
+            </li>
+        
+        <li>
+            <strong>链接:</strong> https://x-parker.github.io/2024/03/14/JavaWeb-日期时间数据格式化/
+        </li>
+        <li>
+            <strong>
+                版权声明:
+            </strong>
+            
+
+            
+                本文章采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a> 进行许可。
+            
+        </li>
+    </ul>
 </div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+                
+                    <li class="tag-item mx-0.5">
+                        <a href="/tags/JavaWeb/">#JavaWeb</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+
+        
+            <div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+                
+                
+                    <div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="next"
+                        rel="next"
+                        href="/2024/03/14/Java-ThreadLocal/"
+                        >
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">Java - ThreadLocal</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+
+        
+            <div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+                <div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        评论
+    </div>
+    
+
+        
+            
+    <div class="twikoo-container">
+        <script data-swup-reload-script
+                src='https://cdn.staticfile.org/twikoo/1.6.31/twikoo.all.min.js'
+        ></script>
+        <div id="twikoo-comment"></div>
+        <script data-swup-reload-script>
+            function loadTwikoo() {
+                twikoo.init({
+                    el: '#twikoo-comment',
+                    envId: 'https://x-parker-twikoo.hf.space',
+                });
+            }
+
+            if ('true') {
+                const loadTwikooTimeout = setTimeout(() => {
+                    loadTwikoo();
+                    clearTimeout(loadTwikooTimeout);
+                }, 1000);
+            } else {
+                window.addEventListener('DOMContentLoaded', loadTwikoo);
+            }
+        </script>
+    </div>
+
+
+        
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+
+    
+        <div class="toc-content-container">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">此页目录</div>
+        <div class="page-title">JavaWeb - 日期时间数据格式化</div>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E6%8F%8F%E8%BF%B0"><span class="nav-text">问题描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E5%BC%8F"><span class="nav-text">解决方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E5%BC%8F%E4%B8%80"><span class="nav-text">方式一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E5%BC%8F%E4%BA%8C%EF%BC%88%E6%8E%A8%E8%8D%90"><span class="nav-text">方式二（推荐 )</span></a></li></ol></li></ol>
+
+    </div>
+</div>
+        </div>
+    
+</div>
+
+
 
                 
 
@@ -893,6 +898,27 @@
         </div>
     </div>
 
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
     
 
     <div class="right-side-tools-container">

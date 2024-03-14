@@ -1752,39 +1752,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Git 报错：无法创建 index.lock 文件，因其已存在。</title>
-    <url>/2024/01/25/Git-%E6%8A%A5%E9%94%99%EF%BC%9A%E6%97%A0%E6%B3%95%E5%88%9B%E5%BB%BA-index-lock-%E6%96%87%E4%BB%B6%EF%BC%8C%E5%9B%A0%E5%85%B6%E5%B7%B2%E5%AD%98%E5%9C%A8/</url>
-    <content><![CDATA[<h2 id="问题">问题</h2>
-<p>使用 Git 向 Github 部署代码时，出现如下报错：</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/01/25/VTOAzyM2Jm9pEWH.png"
-                      alt=""
-                ></p>
-<h2 id="原因">原因</h2>
-<p>有两个 Git 命令同时运行，可能一种来自命令提示符，另一种来自 IDE 。</p>
-<h2 id="解决">解决</h2>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/01/25/V2x6Msj5KSDqFp3.png"
-                      alt=""
-                ><br>
-删除报错信息对应路径下已存在的 <code>index.lock</code> 文件即可。</p>
-<h2 id="引用">引用</h2>
-<ul>
-<li><a class="link"   href="https://stackoverflow.com/questions/38004148/another-git-process-seems-to-be-running-in-this-repository" >https://stackoverflow.com/questions/38004148/another-git-process-seems-to-be-running-in-this-repository <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>Git</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>PowerShell 报错：在此系统上禁止运行脚本</title>
     <url>/2024/01/22/PowerShell-vue%E6%97%A0%E6%B3%95%E5%8A%A0%E8%BD%BD%E6%96%87%E4%BB%B6-%E5%9B%A0%E4%B8%BA%E5%9C%A8%E6%AD%A4%E7%B3%BB%E7%BB%9F%E4%B8%8A%E7%A6%81%E6%AD%A2%E8%BF%90%E8%A1%8C%E8%84%9A%E6%9C%AC/</url>
     <content><![CDATA[<h2 id="问题">问题</h2>
@@ -1818,6 +1785,39 @@
       </categories>
       <tags>
         <tag>PowerShell</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Git 报错：无法创建 index.lock 文件，因其已存在。</title>
+    <url>/2024/01/25/Git-%E6%8A%A5%E9%94%99%EF%BC%9A%E6%97%A0%E6%B3%95%E5%88%9B%E5%BB%BA-index-lock-%E6%96%87%E4%BB%B6%EF%BC%8C%E5%9B%A0%E5%85%B6%E5%B7%B2%E5%AD%98%E5%9C%A8/</url>
+    <content><![CDATA[<h2 id="问题">问题</h2>
+<p>使用 Git 向 Github 部署代码时，出现如下报错：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/01/25/VTOAzyM2Jm9pEWH.png"
+                      alt=""
+                ></p>
+<h2 id="原因">原因</h2>
+<p>有两个 Git 命令同时运行，可能一种来自命令提示符，另一种来自 IDE 。</p>
+<h2 id="解决">解决</h2>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/01/25/V2x6Msj5KSDqFp3.png"
+                      alt=""
+                ><br>
+删除报错信息对应路径下已存在的 <code>index.lock</code> 文件即可。</p>
+<h2 id="引用">引用</h2>
+<ul>
+<li><a class="link"   href="https://stackoverflow.com/questions/38004148/another-git-process-seems-to-be-running-in-this-repository" >https://stackoverflow.com/questions/38004148/another-git-process-seems-to-be-running-in-this-repository <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>Git</tag>
       </tags>
   </entry>
   <entry>
@@ -1913,6 +1913,40 @@
       </categories>
       <tags>
         <tag>Tomcat</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Windows cmd 执行 Java 命令无返回信息</title>
+    <url>/2024/02/18/Windows-cmd%E6%89%A7%E8%A1%8Cjava%E5%91%BD%E4%BB%A4%E6%97%A0%E8%BF%94%E5%9B%9E%E4%BF%A1%E6%81%AF/</url>
+    <content><![CDATA[<h2 id="问题">问题</h2>
+<p>在 Windows 命令行中无法执行 Java 命令且没有任何返回信息：</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/02/18/rmNVClcep816dXR.png"
+                      style="zoom:50%;" 
+                >
+<h2 id="原因">原因</h2>
+<p>装了多个 jdk 的话，系统环境变量的第一行可能会出现 <code>C:\ProgramData\Oracle\Java\javapath</code> 路径，系统按该路径查找 jdk 。然而该路径可能并不真实存在，因此命令行中的 Java 命令会因找不到 jdk 而并未运行。</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/02/18/3XM9B4wfPOlsyUi.png"
+                      style="zoom:50%;" 
+                >
+<h2 id="解决">解决</h2>
+<p>将自定义的 <code>%JAVA_HOME%\bin\</code> 路径移至第一行，让系统按该路径查找 jdk 。</p>
+<h2 id="参考">参考</h2>
+<ul>
+<li><a class="link"   href="https://blog.csdn.net/qq_41999034/article/details/111604649" >https://blog.csdn.net/qq_41999034/article/details/111604649 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>Windows环境变量</tag>
+        <tag>Java</tag>
       </tags>
   </entry>
   <entry>
@@ -2109,63 +2143,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Windows cmd 执行 Java 命令无返回信息</title>
-    <url>/2024/02/18/Windows-cmd%E6%89%A7%E8%A1%8Cjava%E5%91%BD%E4%BB%A4%E6%97%A0%E8%BF%94%E5%9B%9E%E4%BF%A1%E6%81%AF/</url>
-    <content><![CDATA[<h2 id="问题">问题</h2>
-<p>在 Windows 命令行中无法执行 Java 命令且没有任何返回信息：</p>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/02/18/rmNVClcep816dXR.png"
-                      style="zoom:50%;" 
-                >
-<h2 id="原因">原因</h2>
-<p>装了多个 jdk 的话，系统环境变量的第一行可能会出现 <code>C:\ProgramData\Oracle\Java\javapath</code> 路径，系统按该路径查找 jdk 。然而该路径可能并不真实存在，因此命令行中的 Java 命令会因找不到 jdk 而并未运行。</p>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/02/18/3XM9B4wfPOlsyUi.png"
-                      style="zoom:50%;" 
-                >
-<h2 id="解决">解决</h2>
-<p>将自定义的 <code>%JAVA_HOME%\bin\</code> 路径移至第一行，让系统按该路径查找 jdk 。</p>
-<h2 id="参考">参考</h2>
-<ul>
-<li><a class="link"   href="https://blog.csdn.net/qq_41999034/article/details/111604649" >https://blog.csdn.net/qq_41999034/article/details/111604649 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>Windows环境变量</tag>
-        <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>实现 Windows 环境下 Thunderbird 邮件客户端自启动</title>
-    <url>/2024/03/05/%E5%AE%9E%E7%8E%B0Windows%E7%8E%AF%E5%A2%83%E4%B8%8BThunderbird%E9%82%AE%E4%BB%B6%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%87%AA%E5%90%AF%E5%8A%A8/</url>
-    <content><![CDATA[<p>Thunderbird是一款优秀的开源邮件客户端，但在Windows环境下没有自启动选项，且关闭主界面后客户端也会关闭，这种设计不利于在后台接收新邮件提醒。因此，考虑通过其他途径实现Thunderbird的自启动。</p>
-<h2 id="实现">实现</h2>
-<p>在<code>C:\Users\[用户名]\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup</code>路径下创建一个Thunderbird主程序快捷方式，即可实现Thunderbird开机自启。</p>
-<blockquote>
-<p>推而广之，可用此方式实现其他（任何）程序的开机自启。</p>
-</blockquote>
-<h2 id="One-more-thing">One more thing</h2>
-<p>更进一步，可在Thunderbird客户端安装以下插件：</p>
-<ul>
-<li>Minimize at startup：启动时最小化到托盘。配合上述自启动设置，可实现开机自启且最小化。</li>
-<li>Minimize on Close：点击关闭按钮后最小化到托盘，而不是关闭程序。可避免误关，更重要的是可以拯救强迫症患者。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>工具</category>
-      </categories>
-      <tags>
-        <tag>Thunderbird</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>SpringBoot 配置的优先级</title>
     <url>/2024/03/07/SpringBoot%E9%85%8D%E7%BD%AE%E4%BC%98%E5%85%88%E7%BA%A7/</url>
     <content><![CDATA[<h2 id="1-配置文件">1. 配置文件</h2>
@@ -2208,6 +2185,29 @@
       </tags>
   </entry>
   <entry>
+    <title>实现 Windows 环境下 Thunderbird 邮件客户端自启动</title>
+    <url>/2024/03/05/%E5%AE%9E%E7%8E%B0Windows%E7%8E%AF%E5%A2%83%E4%B8%8BThunderbird%E9%82%AE%E4%BB%B6%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%87%AA%E5%90%AF%E5%8A%A8/</url>
+    <content><![CDATA[<p>Thunderbird是一款优秀的开源邮件客户端，但在Windows环境下没有自启动选项，且关闭主界面后客户端也会关闭，这种设计不利于在后台接收新邮件提醒。因此，考虑通过其他途径实现Thunderbird的自启动。</p>
+<h2 id="实现">实现</h2>
+<p>在<code>C:\Users\[用户名]\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup</code>路径下创建一个Thunderbird主程序快捷方式，即可实现Thunderbird开机自启。</p>
+<blockquote>
+<p>推而广之，可用此方式实现其他（任何）程序的开机自启。</p>
+</blockquote>
+<h2 id="One-more-thing">One more thing</h2>
+<p>更进一步，可在Thunderbird客户端安装以下插件：</p>
+<ul>
+<li>Minimize at startup：启动时最小化到托盘。配合上述自启动设置，可实现开机自启且最小化。</li>
+<li>Minimize on Close：点击关闭按钮后最小化到托盘，而不是关闭程序。可避免误关，更重要的是可以拯救强迫症患者。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>工具</category>
+      </categories>
+      <tags>
+        <tag>Thunderbird</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>转载 - SpringBoot 为什么不需要额外安装 Tomcat ？</title>
     <url>/2024/03/07/%E8%BD%AC%E8%BD%BD-SpringBoot%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E9%9C%80%E8%A6%81%E9%A2%9D%E5%A4%96%E5%AE%89%E8%A3%85Tomcat%EF%BC%9F/</url>
     <content><![CDATA[
@@ -2227,26 +2227,6 @@
       </categories>
       <tags>
         <tag>Tomcat</tag>
-        <tag>Spring</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>IOC 容器对 Bean 的命名规则</title>
-    <url>/2024/03/08/IOC-%E5%AE%B9%E5%99%A8%E5%AF%B9-Bean-%E7%9A%84%E5%91%BD%E5%90%8D%E8%A7%84%E5%88%99/</url>
-    <content><![CDATA[<h2 id="1-默认规则">1. 默认规则</h2>
-<p>在 Spring 中，IOC（控制反转）容器可以自动识别并创建 Bean，而且它默认遵循一定的命名规则。Spring 的 IOC 容器在自动识别 Bean 时通常使用的是<strong>基于类名的驼峰命名规则</strong>。</p>
-<p><strong>如果类名以大写字母开头，Spring 将会把它转换为以小写字母开头，并且在容器中注册为 Bean。</strong></p>
-<p>例如，假设你有一个名为 <code>UserService</code> 的类，Spring IOC 容器会将它识别为 <code>userService</code> 的 Bean。类似地，<code>UserServiceImpl</code> 会变成 <code>userServiceImpl</code>。</p>
-<p>这种自动的 Bean 命名规则存在于 Spring 的默认行为中，这样开发者就不需要显式地在配置文件或注解中指定 Bean 的名称，Spring 会根据类名来自动推断。</p>
-<h2 id="2-自定义">2. 自定义</h2>
-<p>但是，如果开发者想要<strong>自定义 Bean 的名称</strong>，可以使用 <code>@Component</code>、<code>@Service</code>、<code>@Repository</code> 等注解，并<strong>在括号中指定 Bean 的名称</strong>，例如：</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Service(&quot;myCustomService&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyCustomServiceImpl</span> <span class="keyword">implements</span> <span class="title class_">MyCustomService</span> &#123;</span><br><span class="line">    <span class="comment">// 实现代码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<p>在这个例子中，<code>MyCustomServiceImpl</code> 类会被注册到 Spring 容器中，并且 Bean 的名称将会是 <code>myCustomService</code>，而不是自动推断的 <code>myCustomServiceImpl</code>。</p>
-]]></content>
-      <categories>
-        <category>Java学习笔记</category>
-      </categories>
-      <tags>
         <tag>Spring</tag>
       </tags>
   </entry>
@@ -2376,6 +2356,91 @@
       </categories>
       <tags>
         <tag>Spring</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>IOC 容器对 Bean 的命名规则</title>
+    <url>/2024/03/08/IOC-%E5%AE%B9%E5%99%A8%E5%AF%B9-Bean-%E7%9A%84%E5%91%BD%E5%90%8D%E8%A7%84%E5%88%99/</url>
+    <content><![CDATA[<h2 id="1-默认规则">1. 默认规则</h2>
+<p>在 Spring 中，IOC（控制反转）容器可以自动识别并创建 Bean，而且它默认遵循一定的命名规则。Spring 的 IOC 容器在自动识别 Bean 时通常使用的是<strong>基于类名的驼峰命名规则</strong>。</p>
+<p><strong>如果类名以大写字母开头，Spring 将会把它转换为以小写字母开头，并且在容器中注册为 Bean。</strong></p>
+<p>例如，假设你有一个名为 <code>UserService</code> 的类，Spring IOC 容器会将它识别为 <code>userService</code> 的 Bean。类似地，<code>UserServiceImpl</code> 会变成 <code>userServiceImpl</code>。</p>
+<p>这种自动的 Bean 命名规则存在于 Spring 的默认行为中，这样开发者就不需要显式地在配置文件或注解中指定 Bean 的名称，Spring 会根据类名来自动推断。</p>
+<h2 id="2-自定义">2. 自定义</h2>
+<p>但是，如果开发者想要<strong>自定义 Bean 的名称</strong>，可以使用 <code>@Component</code>、<code>@Service</code>、<code>@Repository</code> 等注解，并<strong>在括号中指定 Bean 的名称</strong>，例如：</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Service(&quot;myCustomService&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyCustomServiceImpl</span> <span class="keyword">implements</span> <span class="title class_">MyCustomService</span> &#123;</span><br><span class="line">    <span class="comment">// 实现代码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>在这个例子中，<code>MyCustomServiceImpl</code> 类会被注册到 Spring 容器中，并且 Bean 的名称将会是 <code>myCustomService</code>，而不是自动推断的 <code>myCustomServiceImpl</code>。</p>
+]]></content>
+      <categories>
+        <category>Java学习笔记</category>
+      </categories>
+      <tags>
+        <tag>Spring</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>JavaWeb 后端开发总结</title>
+    <url>/2024/03/10/JavaWeb-%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<p>web后端开发现在基本上都是基于标准的三层架构进行开发的，在三层架构当中，Controller控制器层负责接收请求响应数据，Service业务层负责具体的业务逻辑处理，而Dao数据访问层也叫持久层，就是用来处理数据访问操作的，来完成数据库当中数据的增删改查操作。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/03/10/tgSJKPX3FBwZGx6.png"
+                      alt=""
+                ></p>
+<blockquote>
+<p>在三层架构当中，前端发起请求首先会到达Controller(不进行逻辑处理)，然后Controller会直接调用Service 进行逻辑处理， Service再调用Dao完成数据访问操作。</p>
+</blockquote>
+<p>如果我们在执行具体的业务处理之前，需要去做一些通用的业务处理，比如：我们要进行统一的登录校验，我们要进行统一的字符编码等这些操作时，我们就可以借助于Javaweb当中三大组件之一的过滤器Filter或者是Spring当中提供的拦截器Interceptor来实现。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/03/10/jIOK7DnacR2uVEG.png"
+                      alt=""
+                ></p>
+<p>而为了实现三层架构层与层之间的解耦，我们学习了Spring框架当中的第一大核心：IOC控制反转与DI依赖注入。</p>
+<blockquote>
+<p>所谓控制反转，指的是将对象创建的控制权由应用程序自身交给外部容器，这个容器就是我们常说的IOC容器或Spring容器。</p>
+<p>而DI依赖注入指的是容器为程序提供运行时所需要的资源。</p>
+</blockquote>
+<p>除了IOC与DI我们还讲到了AOP面向切面编程，还有Spring中的事务管理、全局异常处理器，以及传递会话技术Cookie、Session以及新的会话跟踪解决方案JWT令牌，阿里云OSS对象存储服务，以及通过Mybatis持久层架构操作数据库等技术。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/03/10/lOK2t8nTUq6EVp9.png"
+                      alt=""
+                ></p>
+<p>我们在学习这些web后端开发技术的时候，我们都是基于主流的SpringBoot进行整合使用的。而SpringBoot又是用来简化开发，提高开发效率的。像过滤器、拦截器、IOC、DI、AOP、事务管理等这些技术到底是哪个框架提供的核心功能？</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/03/10/c73xEmrLOfNjS8o.png"
+                      alt=""
+                ></p>
+<blockquote>
+<p>Filter过滤器、Cookie、 Session这些都是传统的JavaWeb提供的技术。</p>
+<p>JWT令牌、阿里云OSS对象存储服务，是现在企业项目中常见的一些解决方案。</p>
+<p>IOC控制反转、DI依赖注入、AOP面向切面编程、事务管理、全局异常处理、拦截器等，这些技术都是 Spring Framework框架当中提供的核心功能。</p>
+<p>Mybatis就是一个持久层的框架，是用来操作数据库的。</p>
+</blockquote>
+<p>在Spring框架的生态中，对web程序开发提供了很好的支持，如：全局异常处理器、拦截器这些都是Spring框架中web开发模块所提供的功能，而Spring框架的web开发模块，我们也称为：SpringMVC</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/03/10/Fvtu8Kz6OJyR2oE.png"
+                      alt=""
+                ></p>
+<blockquote>
+<p>SpringMVC不是一个单独的框架，它是Spring框架的一部分，是Spring框架中的web开发模块，是用来简化原始的Servlet程序开发的。</p>
+</blockquote>
+<p>外界俗称的SSM，就是由：SpringMVC、Spring Framework、Mybatis三块组成。</p>
+<p>基于传统的SSM框架进行整合开发项目会比较繁琐，而且效率也比较低，所以在现在的企业项目开发当中，基本上都是直接基于SpringBoot整合SSM进行项目开发的。</p>
+]]></content>
+      <categories>
+        <category>Java学习笔记</category>
+      </categories>
+      <tags>
+        <tag>JavaWeb</tag>
       </tags>
   </entry>
   <entry>
@@ -2573,71 +2638,6 @@
       </categories>
       <tags>
         <tag>Spring</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>JavaWeb 后端开发总结</title>
-    <url>/2024/03/10/JavaWeb-%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91%E6%80%BB%E7%BB%93/</url>
-    <content><![CDATA[<p>web后端开发现在基本上都是基于标准的三层架构进行开发的，在三层架构当中，Controller控制器层负责接收请求响应数据，Service业务层负责具体的业务逻辑处理，而Dao数据访问层也叫持久层，就是用来处理数据访问操作的，来完成数据库当中数据的增删改查操作。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/03/10/tgSJKPX3FBwZGx6.png"
-                      alt=""
-                ></p>
-<blockquote>
-<p>在三层架构当中，前端发起请求首先会到达Controller(不进行逻辑处理)，然后Controller会直接调用Service 进行逻辑处理， Service再调用Dao完成数据访问操作。</p>
-</blockquote>
-<p>如果我们在执行具体的业务处理之前，需要去做一些通用的业务处理，比如：我们要进行统一的登录校验，我们要进行统一的字符编码等这些操作时，我们就可以借助于Javaweb当中三大组件之一的过滤器Filter或者是Spring当中提供的拦截器Interceptor来实现。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/03/10/jIOK7DnacR2uVEG.png"
-                      alt=""
-                ></p>
-<p>而为了实现三层架构层与层之间的解耦，我们学习了Spring框架当中的第一大核心：IOC控制反转与DI依赖注入。</p>
-<blockquote>
-<p>所谓控制反转，指的是将对象创建的控制权由应用程序自身交给外部容器，这个容器就是我们常说的IOC容器或Spring容器。</p>
-<p>而DI依赖注入指的是容器为程序提供运行时所需要的资源。</p>
-</blockquote>
-<p>除了IOC与DI我们还讲到了AOP面向切面编程，还有Spring中的事务管理、全局异常处理器，以及传递会话技术Cookie、Session以及新的会话跟踪解决方案JWT令牌，阿里云OSS对象存储服务，以及通过Mybatis持久层架构操作数据库等技术。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/03/10/lOK2t8nTUq6EVp9.png"
-                      alt=""
-                ></p>
-<p>我们在学习这些web后端开发技术的时候，我们都是基于主流的SpringBoot进行整合使用的。而SpringBoot又是用来简化开发，提高开发效率的。像过滤器、拦截器、IOC、DI、AOP、事务管理等这些技术到底是哪个框架提供的核心功能？</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/03/10/c73xEmrLOfNjS8o.png"
-                      alt=""
-                ></p>
-<blockquote>
-<p>Filter过滤器、Cookie、 Session这些都是传统的JavaWeb提供的技术。</p>
-<p>JWT令牌、阿里云OSS对象存储服务，是现在企业项目中常见的一些解决方案。</p>
-<p>IOC控制反转、DI依赖注入、AOP面向切面编程、事务管理、全局异常处理、拦截器等，这些技术都是 Spring Framework框架当中提供的核心功能。</p>
-<p>Mybatis就是一个持久层的框架，是用来操作数据库的。</p>
-</blockquote>
-<p>在Spring框架的生态中，对web程序开发提供了很好的支持，如：全局异常处理器、拦截器这些都是Spring框架中web开发模块所提供的功能，而Spring框架的web开发模块，我们也称为：SpringMVC</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/03/10/Fvtu8Kz6OJyR2oE.png"
-                      alt=""
-                ></p>
-<blockquote>
-<p>SpringMVC不是一个单独的框架，它是Spring框架的一部分，是Spring框架中的web开发模块，是用来简化原始的Servlet程序开发的。</p>
-</blockquote>
-<p>外界俗称的SSM，就是由：SpringMVC、Spring Framework、Mybatis三块组成。</p>
-<p>基于传统的SSM框架进行整合开发项目会比较繁琐，而且效率也比较低，所以在现在的企业项目开发当中，基本上都是直接基于SpringBoot整合SSM进行项目开发的。</p>
-]]></content>
-      <categories>
-        <category>Java学习笔记</category>
-      </categories>
-      <tags>
-        <tag>JavaWeb</tag>
       </tags>
   </entry>
   <entry>
@@ -3044,6 +3044,43 @@ EmployeeLoginDTO.java</p>
       </tags>
   </entry>
   <entry>
+    <title>Java - ThreadLocal</title>
+    <url>/2024/03/14/Java-ThreadLocal/</url>
+    <content><![CDATA[<h2 id="介绍">介绍</h2>
+<p>ThreadLocal 并不是一个Thread，而是Thread的局部变量。<br>
+ThreadLocal为每个线程提供单独一份存储空间，具有线程隔离的效果，只有在线程内才能获取到对应的值，线程外则不能访问。</p>
+<h2 id="常用方法">常用方法</h2>
+<ul>
+<li>public void set(T value) 	设置当前线程的线程局部变量的值</li>
+<li>public T get() 		返回当前线程所对应的线程局部变量的值</li>
+<li>public void remove()        移除当前线程的线程局部变量</li>
+</ul>
+<h2 id="使用场景">使用场景</h2>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/03/14/oVUYBG9ujKg1ZHt.png"
+                      style="zoom: 80%;" 
+                >
+<p>在JavaWeb开发中，将从拦截器中解析到的当前登录用户ID传递给其他方法使用。</p>
+<p><strong>代码</strong>：</p>
+<p>封装了 ThreadLocal 操作的工具类：</p>
+<p>在sky-common模块</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.sky.context;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">BaseContext</span> &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> ThreadLocal&lt;Long&gt; threadLocal = <span class="keyword">new</span> <span class="title class_">ThreadLocal</span>&lt;&gt;();</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">setCurrentId</span><span class="params">(Long id)</span> &#123;</span><br><span class="line">        threadLocal.set(id);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Long <span class="title function_">getCurrentId</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> threadLocal.get();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">removeCurrentId</span><span class="params">()</span> &#123;</span><br><span class="line">        threadLocal.remove();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>在拦截器中解析出当前登录员工id，并放入线程局部变量中：</p>
+<p>在sky-server模块中，拦截器：</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.sky.interceptor;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * jwt令牌校验的拦截器</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JwtTokenAdminInterceptor</span> <span class="keyword">implements</span> <span class="title class_">HandlerInterceptor</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> JwtProperties jwtProperties;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 校验jwt</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">preHandle</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object handler)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        </span><br><span class="line">		<span class="comment">//.............................</span></span><br><span class="line">       </span><br><span class="line">        <span class="comment">//2、校验令牌</span></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//.................</span></span><br><span class="line">            <span class="type">Claims</span> <span class="variable">claims</span> <span class="operator">=</span> JwtUtil.parseJWT(jwtProperties.getAdminSecretKey(), token);</span><br><span class="line">            <span class="type">Long</span> <span class="variable">empId</span> <span class="operator">=</span> Long.valueOf(claims.get(JwtClaimsConstant.EMP_ID).toString());</span><br><span class="line">            log.info(<span class="string">&quot;当前员工id：&quot;</span>, empId);</span><br><span class="line">            <span class="comment">/////将用户id存储到ThreadLocal////////</span></span><br><span class="line">            BaseContext.setCurrentId(empId);</span><br><span class="line">            <span class="comment">////////////////////////////////////</span></span><br><span class="line">            <span class="comment">//3、通过，放行</span></span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception ex) &#123;</span><br><span class="line">            <span class="comment">//......................</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>在Service中获取线程局部变量中的值：</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 新增员工</span></span><br><span class="line"><span class="comment">    *</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span> employeeDTO</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">save</span><span class="params">(EmployeeDTO employeeDTO)</span> &#123;</span><br><span class="line">       <span class="comment">//.............................</span></span><br><span class="line"></span><br><span class="line">       <span class="comment">//设置当前记录创建人id和修改人id</span></span><br><span class="line">       <span class="type">Long</span> <span class="variable">currentId</span> <span class="operator">=</span> BaseContext.getCurrentId();</span><br><span class="line">       employee.setCreateUser(currentId);</span><br><span class="line">       employee.setUpdateUser(currentId);</span><br><span class="line"></span><br><span class="line">       employeeMapper.insert(employee);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></div>
+]]></content>
+      <categories>
+        <category>Java学习笔记</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>nginx - 反向代理和负载均衡</title>
     <url>/2024/03/12/nginx-%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%E5%92%8C%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/</url>
     <content><![CDATA[<img  
@@ -3147,40 +3184,46 @@ EmployeeLoginDTO.java</p>
       </tags>
   </entry>
   <entry>
-    <title>Java - ThreadLocal</title>
-    <url>/2024/03/14/Java-ThreadLocal/</url>
-    <content><![CDATA[<h2 id="介绍">介绍</h2>
-<p>ThreadLocal 并不是一个Thread，而是Thread的局部变量。<br>
-ThreadLocal为每个线程提供单独一份存储空间，具有线程隔离的效果，只有在线程内才能获取到对应的值，线程外则不能访问。</p>
-<h2 id="常用方法">常用方法</h2>
-<ul>
-<li>public void set(T value) 	设置当前线程的线程局部变量的值</li>
-<li>public T get() 		返回当前线程所对应的线程局部变量的值</li>
-<li>public void remove()        移除当前线程的线程局部变量</li>
-</ul>
-<h2 id="使用场景">使用场景</h2>
+    <title>JavaWeb - 日期时间数据格式化</title>
+    <url>/2024/03/14/JavaWeb-%E6%97%A5%E6%9C%9F%E6%97%B6%E9%97%B4%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F%E5%8C%96/</url>
+    <content><![CDATA[<h2 id="问题描述">问题描述</h2>
+<p>在JavaWeb开发中，日期时间数据在后端往往以对象属性的形式存储。但当日期时间数据以json格式传到前端时，会丢失其格式而变成普通数组，无法正确显示为日期时间格式。</p>
 <img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/03/14/oVUYBG9ujKg1ZHt.png"
-                      style="zoom: 80%;" 
-                >
-<p>在JavaWeb开发中，将从拦截器中解析到的当前登录用户ID传递给其他方法使用。</p>
+                     data-src="https://s2.loli.net/2024/03/14/QOYTC2PciEM1lvt.png"
+                       
+                > 
+<h2 id="解决方式">解决方式</h2>
+<h3 id="方式一">方式一</h3>
+<p>在日期时间属性上加<code>@JsonFormat</code>注解，对日期进行格式化：</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/03/14/DZQ7rS9oOHwnGpI.png"
+                      style="zoom:67%;" 
+                > 
+<p>但这种方式，需要在每个时间属性上都要加上该注解，使用较麻烦，不能全局处理。</p>
+<h3 id="方式二（推荐">方式二（推荐 )</h3>
+<p>在<code>WebMvcConfiguration</code>中扩展SpringMVC的消息转换器，统一对日期类型进行格式处理</p>
 <p><strong>代码</strong>：</p>
-<p>封装了 ThreadLocal 操作的工具类：</p>
-<p>在sky-common模块</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.sky.context;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">BaseContext</span> &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> ThreadLocal&lt;Long&gt; threadLocal = <span class="keyword">new</span> <span class="title class_">ThreadLocal</span>&lt;&gt;();</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">setCurrentId</span><span class="params">(Long id)</span> &#123;</span><br><span class="line">        threadLocal.set(id);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Long <span class="title function_">getCurrentId</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> threadLocal.get();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">removeCurrentId</span><span class="params">()</span> &#123;</span><br><span class="line">        threadLocal.remove();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<p>在拦截器中解析出当前登录员工id，并放入线程局部变量中：</p>
-<p>在sky-server模块中，拦截器：</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.sky.interceptor;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * jwt令牌校验的拦截器</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JwtTokenAdminInterceptor</span> <span class="keyword">implements</span> <span class="title class_">HandlerInterceptor</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> JwtProperties jwtProperties;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 校验jwt</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">preHandle</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object handler)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        </span><br><span class="line">		<span class="comment">//.............................</span></span><br><span class="line">       </span><br><span class="line">        <span class="comment">//2、校验令牌</span></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//.................</span></span><br><span class="line">            <span class="type">Claims</span> <span class="variable">claims</span> <span class="operator">=</span> JwtUtil.parseJWT(jwtProperties.getAdminSecretKey(), token);</span><br><span class="line">            <span class="type">Long</span> <span class="variable">empId</span> <span class="operator">=</span> Long.valueOf(claims.get(JwtClaimsConstant.EMP_ID).toString());</span><br><span class="line">            log.info(<span class="string">&quot;当前员工id：&quot;</span>, empId);</span><br><span class="line">            <span class="comment">/////将用户id存储到ThreadLocal////////</span></span><br><span class="line">            BaseContext.setCurrentId(empId);</span><br><span class="line">            <span class="comment">////////////////////////////////////</span></span><br><span class="line">            <span class="comment">//3、通过，放行</span></span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception ex) &#123;</span><br><span class="line">            <span class="comment">//......................</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<p>在Service中获取线程局部变量中的值：</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 新增员工</span></span><br><span class="line"><span class="comment">    *</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span> employeeDTO</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">save</span><span class="params">(EmployeeDTO employeeDTO)</span> &#123;</span><br><span class="line">       <span class="comment">//.............................</span></span><br><span class="line"></span><br><span class="line">       <span class="comment">//设置当前记录创建人id和修改人id</span></span><br><span class="line">       <span class="type">Long</span> <span class="variable">currentId</span> <span class="operator">=</span> BaseContext.getCurrentId();</span><br><span class="line">       employee.setCreateUser(currentId);</span><br><span class="line">       employee.setUpdateUser(currentId);</span><br><span class="line"></span><br><span class="line">       employeeMapper.insert(employee);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></div>
+<p>在<code>sky-server</code>模块，<code>WebMvcConfiguration.java</code>中：</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 扩展Spring MVC框架的消息转化器</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span> converters</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">extendMessageConverters</span><span class="params">(List&lt;HttpMessageConverter&lt;?&gt;&gt; converters)</span> &#123;</span><br><span class="line">       <span class="comment">// 创建消息转换器对象</span></span><br><span class="line">       <span class="type">MappingJackson2HttpMessageConverter</span> <span class="variable">converter</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">MappingJackson2HttpMessageConverter</span>();</span><br><span class="line">       <span class="comment">// 为消息转换器设置一个对象转换器，对象转换器可以将Java对象序列化为json数据</span></span><br><span class="line">       converter.setObjectMapper(<span class="keyword">new</span> <span class="title class_">JacksonObjectMapper</span>());</span><br><span class="line">       <span class="comment">// 将自己的消息转化器加入容器中（index:0 指定将自己的消息转化器放在首位，优先使用）</span></span><br><span class="line">       converters.add(<span class="number">0</span>,converter);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></div>
+<p>在<code>sky-common</code>模块，<code>JacksonObjectMapper.java</code>中：</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 对象映射器:基于jackson将Java对象转为json，或者将json转为Java对象</span></span><br><span class="line"><span class="comment"> * 将JSON解析为Java对象的过程称为 [从JSON反序列化Java对象]</span></span><br><span class="line"><span class="comment"> * 从Java对象生成JSON的过程称为 [序列化Java对象到JSON]</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JacksonObjectMapper</span> <span class="keyword">extends</span> <span class="title class_">ObjectMapper</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">DEFAULT_DATE_FORMAT</span> <span class="operator">=</span> <span class="string">&quot;yyyy-MM-dd&quot;</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">DEFAULT_DATE_TIME_FORMAT</span> <span class="operator">=</span> <span class="string">&quot;yyyy-MM-dd HH:mm&quot;</span>;</span><br><span class="line">    <span class="comment">// 可指定为其他类型的日期时间格式</span></span><br><span class="line">    <span class="comment">// public static final String DEFAULT_DATE_TIME_FORMAT = &quot;yyyy-MM-dd HH:mm:ss&quot;;</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">DEFAULT_TIME_FORMAT</span> <span class="operator">=</span> <span class="string">&quot;HH:mm:ss&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">JacksonObjectMapper</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>();</span><br><span class="line">        <span class="comment">//收到未知属性时不报异常</span></span><br><span class="line">        <span class="built_in">this</span>.configure(FAIL_ON_UNKNOWN_PROPERTIES, <span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//反序列化时，属性不存在的兼容处理</span></span><br><span class="line">        <span class="built_in">this</span>.getDeserializationConfig().withoutFeatures(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);</span><br><span class="line"></span><br><span class="line">        <span class="type">SimpleModule</span> <span class="variable">simpleModule</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SimpleModule</span>()</span><br><span class="line">                .addDeserializer(LocalDateTime.class, <span class="keyword">new</span> <span class="title class_">LocalDateTimeDeserializer</span>(DateTimeFormatter.ofPattern(DEFAULT_DATE_TIME_FORMAT)))</span><br><span class="line">                .addDeserializer(LocalDate.class, <span class="keyword">new</span> <span class="title class_">LocalDateDeserializer</span>(DateTimeFormatter.ofPattern(DEFAULT_DATE_FORMAT)))</span><br><span class="line">                .addDeserializer(LocalTime.class, <span class="keyword">new</span> <span class="title class_">LocalTimeDeserializer</span>(DateTimeFormatter.ofPattern(DEFAULT_TIME_FORMAT)))</span><br><span class="line">                .addSerializer(LocalDateTime.class, <span class="keyword">new</span> <span class="title class_">LocalDateTimeSerializer</span>(DateTimeFormatter.ofPattern(DEFAULT_DATE_TIME_FORMAT)))</span><br><span class="line">                .addSerializer(LocalDate.class, <span class="keyword">new</span> <span class="title class_">LocalDateSerializer</span>(DateTimeFormatter.ofPattern(DEFAULT_DATE_FORMAT)))</span><br><span class="line">                .addSerializer(LocalTime.class, <span class="keyword">new</span> <span class="title class_">LocalTimeSerializer</span>(DateTimeFormatter.ofPattern(DEFAULT_TIME_FORMAT)));</span><br><span class="line"></span><br><span class="line">        <span class="comment">//注册功能模块 例如，可以添加自定义序列化器和反序列化器</span></span><br><span class="line">        <span class="built_in">this</span>.registerModule(simpleModule);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p><strong>效果</strong>：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/03/14/18nfoO7Qs3pyTmt.png"
+                      alt=""
+                ></p>
 ]]></content>
       <categories>
         <category>Java学习笔记</category>
       </categories>
       <tags>
-        <tag>Java</tag>
+        <tag>JavaWeb</tag>
       </tags>
   </entry>
   <entry>
