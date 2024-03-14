@@ -203,101 +203,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Once Upon a Time in America</title>
-    <url>/2024/01/19/Once-Upon-a-Time-in-America/</url>
-    <content><![CDATA[<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/01/19/y9MTUVfmBbJcC5s.jpg"
-                      style="zoom: 200%;" 
-                >
-]]></content>
-      <categories>
-        <category>生活</category>
-      </categories>
-      <tags>
-        <tag>电影</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Git 报错：SSH连接超时</title>
-    <url>/2024/01/19/Git%E6%8A%A5%E9%94%99-SSH%E8%BF%9E%E6%8E%A5%E8%B6%85%E6%97%B6/</url>
-    <content><![CDATA[<h2 id="问题">问题</h2>
-<p>使用 Git 向 GitHub 部署代码时，报错如下（此前正常）：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh: connect to host github.com port 22: Connection timed out</span><br><span class="line">fatal: Could not read from remote repository.</span><br><span class="line">Please make sure you have the correct access rights and the repository exists.</span><br></pre></td></tr></table></figure></div>
-<h2 id="原因">原因</h2>
-<p>SSH 端口被占用，重新指定一个端口即可。</p>
-<p>注：<em>Windows 系统查看端口占用情况的命令为：<code>netstat -ano | findStr 端口号</code></em></p>
-<h2 id="解决">解决</h2>
-<ul>
-<li>
-<p>打开 <code>C:\用户\主机名\.ssh</code> 文件夹</p>
-</li>
-<li>
-<p>新建 <code>config</code> 文件（不带后缀）</p>
-</li>
-<li>
-<p>输入以下内容后保存：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">Host github.com</span><br><span class="line">User GitHub注册邮箱</span><br><span class="line">Hostname ssh.github.com</span><br><span class="line">PreferredAuthentications publickey</span><br><span class="line">IdentityFile ~/.ssh/id_rsa</span><br><span class="line">Port 443</span><br></pre></td></tr></table></figure></div>
-</li>
-<li>
-<p>在 Git Bash 执行：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure></div>
-<p>出现询问是否连接的提示，输入 <code>yes</code> 回车：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ ssh -T git@github.com</span><br><span class="line">The authenticity of host &#x27;[ssh.github.com]:443 ([20.205.243.160]:443)&#x27; can&#x27;t be established.</span><br><span class="line">Are you sure you want to continue connecting (yes/no/[fingerprint])? yes</span><br><span class="line">Warning: Permanently added &#x27;[ssh.github.com]:443&#x27; (ED25519) to the list of known hosts.</span><br><span class="line">Hi x-Parker! You&#x27;ve successfully authenticated, but GitHub does not provide shell access.</span><br></pre></td></tr></table></figure></div>
-<p>成功重新建立 SSH 连接。</p>
-</li>
-</ul>
-<h2 id="另解">另解</h2>
-<p>抛弃 SSH 连接方式，使用 HTTPS 连接 Github。</p>
-<h2 id="参考">参考</h2>
-<ul>
-<li><a class="link"   href="https://blog.csdn.net/yunxiaobaobei/article/details/123474599" >https://blog.csdn.net/yunxiaobaobei/article/details/123474599 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li><a class="link"   href="https://blog.csdn.net/weixin_41287260/article/details/124368189" >https://blog.csdn.net/weixin_41287260/article/details/124368189 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>Git</tag>
-        <tag>SSH</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Git 报错：无法创建 index.lock 文件，因其已存在。</title>
-    <url>/2024/01/25/Git-%E6%8A%A5%E9%94%99%EF%BC%9A%E6%97%A0%E6%B3%95%E5%88%9B%E5%BB%BA-index-lock-%E6%96%87%E4%BB%B6%EF%BC%8C%E5%9B%A0%E5%85%B6%E5%B7%B2%E5%AD%98%E5%9C%A8/</url>
-    <content><![CDATA[<h2 id="问题">问题</h2>
-<p>使用 Git 向 Github 部署代码时，出现如下报错：</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/01/25/VTOAzyM2Jm9pEWH.png"
-                      alt=""
-                ></p>
-<h2 id="原因">原因</h2>
-<p>有两个 Git 命令同时运行，可能一种来自命令提示符，另一种来自 IDE 。</p>
-<h2 id="解决">解决</h2>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/01/25/V2x6Msj5KSDqFp3.png"
-                      alt=""
-                ><br>
-删除报错信息对应路径下已存在的 <code>index.lock</code> 文件即可。</p>
-<h2 id="引用">引用</h2>
-<ul>
-<li><a class="link"   href="https://stackoverflow.com/questions/38004148/another-git-process-seems-to-be-running-in-this-repository" >https://stackoverflow.com/questions/38004148/another-git-process-seems-to-be-running-in-this-repository <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>Git</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>MapReduce 配置与操作</title>
     <url>/2024/01/11/MapReduce%E9%85%8D%E7%BD%AE%E4%B8%8E%E6%93%8D%E4%BD%9C/</url>
     <content><![CDATA[<h3 id="一、通过eclipse连接hadoop">一、通过eclipse连接hadoop</h3>
@@ -436,6 +341,68 @@
       <tags>
         <tag>Hadoop</tag>
         <tag>MapReduce</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Once Upon a Time in America</title>
+    <url>/2024/01/19/Once-Upon-a-Time-in-America/</url>
+    <content><![CDATA[<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/01/19/y9MTUVfmBbJcC5s.jpg"
+                      style="zoom: 200%;" 
+                >
+]]></content>
+      <categories>
+        <category>生活</category>
+      </categories>
+      <tags>
+        <tag>电影</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Git 报错：SSH连接超时</title>
+    <url>/2024/01/19/Git%E6%8A%A5%E9%94%99-SSH%E8%BF%9E%E6%8E%A5%E8%B6%85%E6%97%B6/</url>
+    <content><![CDATA[<h2 id="问题">问题</h2>
+<p>使用 Git 向 GitHub 部署代码时，报错如下（此前正常）：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh: connect to host github.com port 22: Connection timed out</span><br><span class="line">fatal: Could not read from remote repository.</span><br><span class="line">Please make sure you have the correct access rights and the repository exists.</span><br></pre></td></tr></table></figure></div>
+<h2 id="原因">原因</h2>
+<p>SSH 端口被占用，重新指定一个端口即可。</p>
+<p>注：<em>Windows 系统查看端口占用情况的命令为：<code>netstat -ano | findStr 端口号</code></em></p>
+<h2 id="解决">解决</h2>
+<ul>
+<li>
+<p>打开 <code>C:\用户\主机名\.ssh</code> 文件夹</p>
+</li>
+<li>
+<p>新建 <code>config</code> 文件（不带后缀）</p>
+</li>
+<li>
+<p>输入以下内容后保存：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">Host github.com</span><br><span class="line">User GitHub注册邮箱</span><br><span class="line">Hostname ssh.github.com</span><br><span class="line">PreferredAuthentications publickey</span><br><span class="line">IdentityFile ~/.ssh/id_rsa</span><br><span class="line">Port 443</span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>在 Git Bash 执行：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure></div>
+<p>出现询问是否连接的提示，输入 <code>yes</code> 回车：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ ssh -T git@github.com</span><br><span class="line">The authenticity of host &#x27;[ssh.github.com]:443 ([20.205.243.160]:443)&#x27; can&#x27;t be established.</span><br><span class="line">Are you sure you want to continue connecting (yes/no/[fingerprint])? yes</span><br><span class="line">Warning: Permanently added &#x27;[ssh.github.com]:443&#x27; (ED25519) to the list of known hosts.</span><br><span class="line">Hi x-Parker! You&#x27;ve successfully authenticated, but GitHub does not provide shell access.</span><br></pre></td></tr></table></figure></div>
+<p>成功重新建立 SSH 连接。</p>
+</li>
+</ul>
+<h2 id="另解">另解</h2>
+<p>抛弃 SSH 连接方式，使用 HTTPS 连接 Github。</p>
+<h2 id="参考">参考</h2>
+<ul>
+<li><a class="link"   href="https://blog.csdn.net/yunxiaobaobei/article/details/123474599" >https://blog.csdn.net/yunxiaobaobei/article/details/123474599 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://blog.csdn.net/weixin_41287260/article/details/124368189" >https://blog.csdn.net/weixin_41287260/article/details/124368189 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>Git</tag>
+        <tag>SSH</tag>
       </tags>
   </entry>
   <entry>
@@ -1754,6 +1721,39 @@
       </tags>
   </entry>
   <entry>
+    <title>Git 报错：无法创建 index.lock 文件，因其已存在。</title>
+    <url>/2024/01/25/Git-%E6%8A%A5%E9%94%99%EF%BC%9A%E6%97%A0%E6%B3%95%E5%88%9B%E5%BB%BA-index-lock-%E6%96%87%E4%BB%B6%EF%BC%8C%E5%9B%A0%E5%85%B6%E5%B7%B2%E5%AD%98%E5%9C%A8/</url>
+    <content><![CDATA[<h2 id="问题">问题</h2>
+<p>使用 Git 向 Github 部署代码时，出现如下报错：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/01/25/VTOAzyM2Jm9pEWH.png"
+                      alt=""
+                ></p>
+<h2 id="原因">原因</h2>
+<p>有两个 Git 命令同时运行，可能一种来自命令提示符，另一种来自 IDE 。</p>
+<h2 id="解决">解决</h2>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/01/25/V2x6Msj5KSDqFp3.png"
+                      alt=""
+                ><br>
+删除报错信息对应路径下已存在的 <code>index.lock</code> 文件即可。</p>
+<h2 id="引用">引用</h2>
+<ul>
+<li><a class="link"   href="https://stackoverflow.com/questions/38004148/another-git-process-seems-to-be-running-in-this-repository" >https://stackoverflow.com/questions/38004148/another-git-process-seems-to-be-running-in-this-repository <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>Git</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hexo 隐藏特定文章</title>
     <url>/2024/01/25/Hexo-%E9%9A%90%E8%97%8F%E7%89%B9%E5%AE%9A%E6%96%87%E7%AB%A0/</url>
     <content><![CDATA[<h2 id="问题">问题</h2>
@@ -1847,6 +1847,39 @@
       </tags>
   </entry>
   <entry>
+    <title>Tomcat 双击 startup.bat 闪退</title>
+    <url>/2024/01/31/Tomcat%E5%8F%8C%E5%87%BBstartup-bat%E9%97%AA%E9%80%80/</url>
+    <content><![CDATA[<h2 id="问题">问题</h2>
+<p>在没有其他进程占用 8080 端口的情况下，双击 Tomcat 的 <code>startup.bat</code> 脚本发生闪退，无法启动。</p>
+<h2 id="原因">原因</h2>
+<p>未配置 <code>JAVA_HOME</code> 环境变量。</p>
+<blockquote>
+<p>问题排查过程：</p>
+<ul>
+<li>在 <code>startup.bat</code> 文件末尾添加一行 <code>pause</code> ，避免 Tomcat 立即退出；</li>
+<li>双击 <code>startup.bat</code> ，尝试启动；</li>
+<li>未成功启动，终端中提示 <code>JAVA_HOME</code> 与 <code>jre</code> 均未配置，需至少配置二者其一。</li>
+</ul>
+</blockquote>
+<h2 id="解决">解决</h2>
+<ul>
+<li>方法一：配置 Windows 系统 <code>JAVA_HOME</code> 环境变量（推荐）</li>
+<li>方法二：在 <code>startup.bat</code> 文件开头添加 <code>SET JAVA_HOME=Java安装目录</code></li>
+</ul>
+<h2 id="参考">参考</h2>
+<ul>
+<li><a class="link"   href="https://blog.51cto.com/u_14783151/2899251" >https://blog.51cto.com/u_14783151/2899251 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://blog.csdn.net/qq496013218/article/details/74517593" >https://blog.csdn.net/qq496013218/article/details/74517593 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>Tomcat</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>PowerShell 报错：在此系统上禁止运行脚本</title>
     <url>/2024/01/22/PowerShell-vue%E6%97%A0%E6%B3%95%E5%8A%A0%E8%BD%BD%E6%96%87%E4%BB%B6-%E5%9B%A0%E4%B8%BA%E5%9C%A8%E6%AD%A4%E7%B3%BB%E7%BB%9F%E4%B8%8A%E7%A6%81%E6%AD%A2%E8%BF%90%E8%A1%8C%E8%84%9A%E6%9C%AC/</url>
     <content><![CDATA[<h2 id="问题">问题</h2>
@@ -1883,6 +1916,29 @@
       </tags>
   </entry>
   <entry>
+    <title>实现 Windows 环境下 Thunderbird 邮件客户端自启动</title>
+    <url>/2024/03/05/%E5%AE%9E%E7%8E%B0Windows%E7%8E%AF%E5%A2%83%E4%B8%8BThunderbird%E9%82%AE%E4%BB%B6%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%87%AA%E5%90%AF%E5%8A%A8/</url>
+    <content><![CDATA[<p>Thunderbird是一款优秀的开源邮件客户端，但在Windows环境下没有自启动选项，且关闭主界面后客户端也会关闭，这种设计不利于在后台接收新邮件提醒。因此，考虑通过其他途径实现Thunderbird的自启动。</p>
+<h2 id="实现">实现</h2>
+<p>在<code>C:\Users\[用户名]\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup</code>路径下创建一个Thunderbird主程序快捷方式，即可实现Thunderbird开机自启。</p>
+<blockquote>
+<p>推而广之，可用此方式实现其他（任何）程序的开机自启。</p>
+</blockquote>
+<h2 id="One-more-thing">One more thing</h2>
+<p>更进一步，可在Thunderbird客户端安装以下插件：</p>
+<ul>
+<li>Minimize at startup：启动时最小化到托盘。配合上述自启动设置，可实现开机自启且最小化。</li>
+<li>Minimize on Close：点击关闭按钮后最小化到托盘，而不是关闭程序。可避免误关，更重要的是可以拯救强迫症患者。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>工具</category>
+      </categories>
+      <tags>
+        <tag>Thunderbird</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Windows cmd 执行 Java 命令无返回信息</title>
     <url>/2024/02/18/Windows-cmd%E6%89%A7%E8%A1%8Cjava%E5%91%BD%E4%BB%A4%E6%97%A0%E8%BF%94%E5%9B%9E%E4%BF%A1%E6%81%AF/</url>
     <content><![CDATA[<h2 id="问题">问题</h2>
@@ -1914,6 +1970,29 @@
       <tags>
         <tag>Windows环境变量</tag>
         <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>转载 - SpringBoot 为什么不需要额外安装 Tomcat ？</title>
+    <url>/2024/03/07/%E8%BD%AC%E8%BD%BD-SpringBoot%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E9%9C%80%E8%A6%81%E9%A2%9D%E5%A4%96%E5%AE%89%E8%A3%85Tomcat%EF%BC%9F/</url>
+    <content><![CDATA[
+  <div class="note-large yellow">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>链接</p>
+
+    </div>
+    <div class="notel-content">
+      <p><a class="link"   href="https://javabetter.cn/springboot/tomcat.html" >https://javabetter.cn/springboot/tomcat.html <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+
+    </div>
+  </div>
+]]></content>
+      <categories>
+        <category>转载</category>
+      </categories>
+      <tags>
+        <tag>Tomcat</tag>
+        <tag>Spring</tag>
       </tags>
   </entry>
   <entry>
@@ -2110,29 +2189,6 @@
       </tags>
   </entry>
   <entry>
-    <title>实现 Windows 环境下 Thunderbird 邮件客户端自启动</title>
-    <url>/2024/03/05/%E5%AE%9E%E7%8E%B0Windows%E7%8E%AF%E5%A2%83%E4%B8%8BThunderbird%E9%82%AE%E4%BB%B6%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%87%AA%E5%90%AF%E5%8A%A8/</url>
-    <content><![CDATA[<p>Thunderbird是一款优秀的开源邮件客户端，但在Windows环境下没有自启动选项，且关闭主界面后客户端也会关闭，这种设计不利于在后台接收新邮件提醒。因此，考虑通过其他途径实现Thunderbird的自启动。</p>
-<h2 id="实现">实现</h2>
-<p>在<code>C:\Users\[用户名]\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup</code>路径下创建一个Thunderbird主程序快捷方式，即可实现Thunderbird开机自启。</p>
-<blockquote>
-<p>推而广之，可用此方式实现其他（任何）程序的开机自启。</p>
-</blockquote>
-<h2 id="One-more-thing">One more thing</h2>
-<p>更进一步，可在Thunderbird客户端安装以下插件：</p>
-<ul>
-<li>Minimize at startup：启动时最小化到托盘。配合上述自启动设置，可实现开机自启且最小化。</li>
-<li>Minimize on Close：点击关闭按钮后最小化到托盘，而不是关闭程序。可避免误关，更重要的是可以拯救强迫症患者。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>工具</category>
-      </categories>
-      <tags>
-        <tag>Thunderbird</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>SpringBoot 配置的优先级</title>
     <url>/2024/03/07/SpringBoot%E9%85%8D%E7%BD%AE%E4%BC%98%E5%85%88%E7%BA%A7/</url>
     <content><![CDATA[<h2 id="1-配置文件">1. 配置文件</h2>
@@ -2166,82 +2222,6 @@
 <li>application.yml</li>
 <li>application.yaml（忽略）</li>
 </ol>
-]]></content>
-      <categories>
-        <category>Java学习笔记</category>
-      </categories>
-      <tags>
-        <tag>Spring</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Tomcat 双击 startup.bat 闪退</title>
-    <url>/2024/01/31/Tomcat%E5%8F%8C%E5%87%BBstartup-bat%E9%97%AA%E9%80%80/</url>
-    <content><![CDATA[<h2 id="问题">问题</h2>
-<p>在没有其他进程占用 8080 端口的情况下，双击 Tomcat 的 <code>startup.bat</code> 脚本发生闪退，无法启动。</p>
-<h2 id="原因">原因</h2>
-<p>未配置 <code>JAVA_HOME</code> 环境变量。</p>
-<blockquote>
-<p>问题排查过程：</p>
-<ul>
-<li>在 <code>startup.bat</code> 文件末尾添加一行 <code>pause</code> ，避免 Tomcat 立即退出；</li>
-<li>双击 <code>startup.bat</code> ，尝试启动；</li>
-<li>未成功启动，终端中提示 <code>JAVA_HOME</code> 与 <code>jre</code> 均未配置，需至少配置二者其一。</li>
-</ul>
-</blockquote>
-<h2 id="解决">解决</h2>
-<ul>
-<li>方法一：配置 Windows 系统 <code>JAVA_HOME</code> 环境变量（推荐）</li>
-<li>方法二：在 <code>startup.bat</code> 文件开头添加 <code>SET JAVA_HOME=Java安装目录</code></li>
-</ul>
-<h2 id="参考">参考</h2>
-<ul>
-<li><a class="link"   href="https://blog.51cto.com/u_14783151/2899251" >https://blog.51cto.com/u_14783151/2899251 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li><a class="link"   href="https://blog.csdn.net/qq496013218/article/details/74517593" >https://blog.csdn.net/qq496013218/article/details/74517593 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>Tomcat</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>转载 - SpringBoot 为什么不需要额外安装 Tomcat ？</title>
-    <url>/2024/03/07/%E8%BD%AC%E8%BD%BD-SpringBoot%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E9%9C%80%E8%A6%81%E9%A2%9D%E5%A4%96%E5%AE%89%E8%A3%85Tomcat%EF%BC%9F/</url>
-    <content><![CDATA[
-  <div class="note-large yellow">
-    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
-      <p>链接</p>
-
-    </div>
-    <div class="notel-content">
-      <p><a class="link"   href="https://javabetter.cn/springboot/tomcat.html" >https://javabetter.cn/springboot/tomcat.html <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-
-    </div>
-  </div>
-]]></content>
-      <categories>
-        <category>转载</category>
-      </categories>
-      <tags>
-        <tag>Spring</tag>
-        <tag>Tomcat</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>IOC 容器对 Bean 的命名规则</title>
-    <url>/2024/03/08/IOC-%E5%AE%B9%E5%99%A8%E5%AF%B9-Bean-%E7%9A%84%E5%91%BD%E5%90%8D%E8%A7%84%E5%88%99/</url>
-    <content><![CDATA[<h2 id="1-默认规则">1. 默认规则</h2>
-<p>在 Spring 中，IOC（控制反转）容器可以自动识别并创建 Bean，而且它默认遵循一定的命名规则。Spring 的 IOC 容器在自动识别 Bean 时通常使用的是<strong>基于类名的驼峰命名规则</strong>。</p>
-<p><strong>如果类名以大写字母开头，Spring 将会把它转换为以小写字母开头，并且在容器中注册为 Bean。</strong></p>
-<p>例如，假设你有一个名为 <code>UserService</code> 的类，Spring IOC 容器会将它识别为 <code>userService</code> 的 Bean。类似地，<code>UserServiceImpl</code> 会变成 <code>userServiceImpl</code>。</p>
-<p>这种自动的 Bean 命名规则存在于 Spring 的默认行为中，这样开发者就不需要显式地在配置文件或注解中指定 Bean 的名称，Spring 会根据类名来自动推断。</p>
-<h2 id="2-自定义">2. 自定义</h2>
-<p>但是，如果开发者想要<strong>自定义 Bean 的名称</strong>，可以使用 <code>@Component</code>、<code>@Service</code>、<code>@Repository</code> 等注解，并<strong>在括号中指定 Bean 的名称</strong>，例如：</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Service(&quot;myCustomService&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyCustomServiceImpl</span> <span class="keyword">implements</span> <span class="title class_">MyCustomService</span> &#123;</span><br><span class="line">    <span class="comment">// 实现代码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<p>在这个例子中，<code>MyCustomServiceImpl</code> 类会被注册到 Spring 容器中，并且 Bean 的名称将会是 <code>myCustomService</code>，而不是自动推断的 <code>myCustomServiceImpl</code>。</p>
 ]]></content>
       <categories>
         <category>Java学习笔记</category>
@@ -2379,28 +2359,6 @@
       </tags>
   </entry>
   <entry>
-    <title>转载 - Spring 注解之 @RestController 与 @Controller 的区别</title>
-    <url>/2024/03/08/%E8%BD%AC%E8%BD%BD-Spring-%E6%B3%A8%E8%A7%A3%E4%B9%8B-RestController%E4%B8%8E-Controller%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
-    <content><![CDATA[
-  <div class="note-large yellow">
-    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
-      <p>链接</p>
-
-    </div>
-    <div class="notel-content">
-      <p><a class="link"   href="https://www.cnblogs.com/east7/p/10462279.html" >https://www.cnblogs.com/east7/p/10462279.html <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-
-    </div>
-  </div>
-]]></content>
-      <categories>
-        <category>转载</category>
-      </categories>
-      <tags>
-        <tag>Spring</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>JavaWeb 后端开发总结</title>
     <url>/2024/03/10/JavaWeb-%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91%E6%80%BB%E7%BB%93/</url>
     <content><![CDATA[<p>web后端开发现在基本上都是基于标准的三层架构进行开发的，在三层架构当中，Controller控制器层负责接收请求响应数据，Service业务层负责具体的业务逻辑处理，而Dao数据访问层也叫持久层，就是用来处理数据访问操作的，来完成数据库当中数据的增删改查操作。</p>
@@ -2463,48 +2421,6 @@
       </categories>
       <tags>
         <tag>JavaWeb</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Maven - 分模块设计与开发</title>
-    <url>/2024/03/11/Maven-%E5%88%86%E6%A8%A1%E5%9D%97%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%BC%80%E5%8F%91/</url>
-    <content><![CDATA[<p>所谓分模块设计，指的就是我们在设计一个 Java 项目的时候，将一个 Java 项目拆分成多个模块进行开发。</p>
-<h2 id="1-未分模块设计的问题">1. 未分模块设计的问题</h2>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/03/11/hUQJls9Z1mW74ot.png"
-                      style="zoom: 67%;" 
-                > 
-<p>如果项目不分模块，也就意味着所有的业务代码是不是都写在这一个 Java 项目当中。随着这个项目的业务扩张，项目当中的业务功能可能会越来越多。</p>
-<p>假如我们开发的是一个大型的电商项目，里面可能就包括了商品模块的功能、搜索模块的功能、购物车模块、订单模块、用户中心等等。这些所有的业务代码我们都在一个 Java 项目当中编写。</p>
-<p>此时大家可以试想一下，假如我们开发的是一个大型的电商网站，这个项目组至少几十号甚至几百号开发人员，这些开发人员全部操作这一个 Java 项目。此时大家就会发现我们项目管理和维护起来将会非常的困难。而且大家再来看，假如在我们的项目当中，我们自己定义了一些通用的工具类以及通用的组件，而公司还有其他的项目组，其他项目组也想使用我们所封装的这些组件和工具类，其实是非常不方便的。因为 Java 项目当中包含了当前项目的所有业务代码，所以就造成了这里面所封装的一些组件会难以复用。</p>
-<p><strong>总结起来，主要两点问题：不方便项目的维护和管理、项目中的通用组件难以复用。</strong></p>
-<h2 id="2-分模块设计">2. 分模块设计</h2>
-<p>分模块设计我们在进行项目设计阶段，就可以将一个大的项目拆分成若干个模块，每一个模块都是独立的。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/03/11/lb1yva64pVwJgAL.png"
-                      alt=""
-                ></p>
-<p>比如我们可以将商品的相关功能放在商品模块当中，搜索的相关业务功能我都封装在搜索模块当中，还有像购物车模块、订单模块。而为了组件的复用，我们也可以将项目当中的实体类、工具类以及我们定义的通用的组件都单独的抽取到一个模块当中。</p>
-<p>如果当前这个模块，比如订单模块需要用到这些实体类以及工具类或者这些通用组件，此时直接在订单模块当中引入工具类的坐标就可以了。这样我们就将一个项目拆分成了若干个模块儿，这就是分模块儿设计。</p>
-<p>分模块儿设计之后，大家再来看。我们在进行项目管理的时候，我就可以几个人一组，几个人来负责订单模块儿，另外几个人来负责购物车模块儿，这样更加便于项目的管理以及项目的后期维护。</p>
-<p>而且分模块设计之后，如果我们需要用到另外一个模块的功能，我们直接依赖模块就可以了。比如商品模块、搜索模块、购物车订单模块都需要依赖于通用组件当中封装的一些工具类，我只需要引入通用组件的坐标就可以了。</p>
-<p><strong>分模块设计就是将项目按照功能/结构拆分成若干个子模块，方便项目的管理维护、拓展，也方便模块键的相互调用、资源共享。</strong></p>
-<h2 id="3-总结">3. 总结</h2>
-<ul>
-<li>什么是分模块设计：将项目按照功能拆分成若干个子模块</li>
-<li>为什么要分模块设计：方便项目的管理维护、扩展，也方便模块间的相互调用，资源共享</li>
-<li>注意事项：分模块设计需要先针对模块功能进行设计，再进行编码。不会先将工程开发完毕，然后进行拆分</li>
-</ul>
-]]></content>
-      <categories>
-        <category>Java学习笔记</category>
-      </categories>
-      <tags>
-        <tag>Maven</tag>
       </tags>
   </entry>
   <entry>
@@ -2683,91 +2599,87 @@
       </tags>
   </entry>
   <entry>
-    <title>Maven - 私服</title>
-    <url>/2024/03/11/Maven-%E7%A7%81%E6%9C%8D/</url>
-    <content><![CDATA[<h2 id="1-场景">1. 场景</h2>
-<p>私服其实就是架设在公司局域网内部的一台服务器，就是一种特殊的远程仓库。A 连接上私服之后，他就可以把jar包直接上传到私服当中。B 团队的所有开发人员也连接同一台私服之后，他们就能根据坐标的信息，直接从私服当中将对应的jar包下载到自己的本地仓库，使用依赖当中所提供的一些工具类了。这样我们就可以通过私服来完成资源的共享。</p>
+    <title>IOC 容器对 Bean 的命名规则</title>
+    <url>/2024/03/08/IOC-%E5%AE%B9%E5%99%A8%E5%AF%B9-Bean-%E7%9A%84%E5%91%BD%E5%90%8D%E8%A7%84%E5%88%99/</url>
+    <content><![CDATA[<h2 id="1-默认规则">1. 默认规则</h2>
+<p>在 Spring 中，IOC（控制反转）容器可以自动识别并创建 Bean，而且它默认遵循一定的命名规则。Spring 的 IOC 容器在自动识别 Bean 时通常使用的是<strong>基于类名的驼峰命名规则</strong>。</p>
+<p><strong>如果类名以大写字母开头，Spring 将会把它转换为以小写字母开头，并且在容器中注册为 Bean。</strong></p>
+<p>例如，假设你有一个名为 <code>UserService</code> 的类，Spring IOC 容器会将它识别为 <code>userService</code> 的 Bean。类似地，<code>UserServiceImpl</code> 会变成 <code>userServiceImpl</code>。</p>
+<p>这种自动的 Bean 命名规则存在于 Spring 的默认行为中，这样开发者就不需要显式地在配置文件或注解中指定 Bean 的名称，Spring 会根据类名来自动推断。</p>
+<h2 id="2-自定义">2. 自定义</h2>
+<p>但是，如果开发者想要<strong>自定义 Bean 的名称</strong>，可以使用 <code>@Component</code>、<code>@Service</code>、<code>@Repository</code> 等注解，并<strong>在括号中指定 Bean 的名称</strong>，例如：</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Service(&quot;myCustomService&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyCustomServiceImpl</span> <span class="keyword">implements</span> <span class="title class_">MyCustomService</span> &#123;</span><br><span class="line">    <span class="comment">// 实现代码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>在这个例子中，<code>MyCustomServiceImpl</code> 类会被注册到 Spring 容器中，并且 Bean 的名称将会是 <code>myCustomService</code>，而不是自动推断的 <code>myCustomServiceImpl</code>。</p>
+]]></content>
+      <categories>
+        <category>Java学习笔记</category>
+      </categories>
+      <tags>
+        <tag>Spring</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Maven - 分模块设计与开发</title>
+    <url>/2024/03/11/Maven-%E5%88%86%E6%A8%A1%E5%9D%97%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%BC%80%E5%8F%91/</url>
+    <content><![CDATA[<p>所谓分模块设计，指的就是我们在设计一个 Java 项目的时候，将一个 Java 项目拆分成多个模块进行开发。</p>
+<h2 id="1-未分模块设计的问题">1. 未分模块设计的问题</h2>
 <img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/03/11/OSj7seIXlw6ofnL.png"
-                      style="zoom:80%;" 
+                     data-src="https://s2.loli.net/2024/03/11/hUQJls9Z1mW74ot.png"
+                      style="zoom: 67%;" 
                 > 
-<p>而如果我们在项目中需要使用其他第三方提供的依赖，如果本地仓库没有，也会自动连接私服下载，如果私服没有，私服此时会自动连接中央仓库，去中央仓库中下载依赖，然后将下载的依赖存储在私服仓库及本地仓库中。</p>
-<h2 id="2-介绍">2. 介绍</h2>
-<ul>
-<li>
-<p><strong>私服</strong>：是一种特殊的远程仓库，它是架设在局域网内的仓库服务，用来代理位于外部的中央仓库，用于解决团队内部的资源共享与资源同步问题。</p>
-</li>
-<li>
-<p><strong>依赖查找顺序</strong>：</p>
-<ul>
-<li>本地仓库</li>
-<li>私服仓库</li>
-<li>中央仓库</li>
-</ul>
-</li>
-<li>
-<p><strong>资源上传与下载</strong>：<img  
+<p>如果项目不分模块，也就意味着所有的业务代码是不是都写在这一个 Java 项目当中。随着这个项目的业务扩张，项目当中的业务功能可能会越来越多。</p>
+<p>假如我们开发的是一个大型的电商项目，里面可能就包括了商品模块的功能、搜索模块的功能、购物车模块、订单模块、用户中心等等。这些所有的业务代码我们都在一个 Java 项目当中编写。</p>
+<p>此时大家可以试想一下，假如我们开发的是一个大型的电商网站，这个项目组至少几十号甚至几百号开发人员，这些开发人员全部操作这一个 Java 项目。此时大家就会发现我们项目管理和维护起来将会非常的困难。而且大家再来看，假如在我们的项目当中，我们自己定义了一些通用的工具类以及通用的组件，而公司还有其他的项目组，其他项目组也想使用我们所封装的这些组件和工具类，其实是非常不方便的。因为 Java 项目当中包含了当前项目的所有业务代码，所以就造成了这里面所封装的一些组件会难以复用。</p>
+<p><strong>总结起来，主要两点问题：不方便项目的维护和管理、项目中的通用组件难以复用。</strong></p>
+<h2 id="2-分模块设计">2. 分模块设计</h2>
+<p>分模块设计我们在进行项目设计阶段，就可以将一个大的项目拆分成若干个模块，每一个模块都是独立的。</p>
+<p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/03/11/2uxvsBiCMbI3wYO.png"
-                      style="zoom:80%;" 
+                     data-src="https://s2.loli.net/2024/03/11/lb1yva64pVwJgAL.png"
+                      alt=""
                 ></p>
-<p>资源的上传与下载，我们需要做三步配置，执行一条指令：</p>
-<ol>
-<li>在maven的配置文件中配置连接私服的地址(url地址)。</li>
-<li>在maven的配置文件中配置访问私服的用户名、密码。</li>
-<li>在项目的pom.xml文件中配置上传资源的位置(url地址)。</li>
-</ol>
-<p>配置好了上述三步之后，要上传资源到私服仓库，就执行maven生命周期：deploy</p>
-<p>接下来，其他项目组的开发人员就可以在项目中直接通过依赖的坐标，引入对应的依赖。如果此时本地仓库没有，就会自动从私服仓库中下载。</p>
-<blockquote>
-<p>私服仓库说明：</p>
+<p>比如我们可以将商品的相关功能放在商品模块当中，搜索的相关业务功能我都封装在搜索模块当中，还有像购物车模块、订单模块。而为了组件的复用，我们也可以将项目当中的实体类、工具类以及我们定义的通用的组件都单独的抽取到一个模块当中。</p>
+<p>如果当前这个模块，比如订单模块需要用到这些实体类以及工具类或者这些通用组件，此时直接在订单模块当中引入工具类的坐标就可以了。这样我们就将一个项目拆分成了若干个模块儿，这就是分模块儿设计。</p>
+<p>分模块儿设计之后，大家再来看。我们在进行项目管理的时候，我就可以几个人一组，几个人来负责订单模块儿，另外几个人来负责购物车模块儿，这样更加便于项目的管理以及项目的后期维护。</p>
+<p>而且分模块设计之后，如果我们需要用到另外一个模块的功能，我们直接依赖模块就可以了。比如商品模块、搜索模块、购物车订单模块都需要依赖于通用组件当中封装的一些工具类，我只需要引入通用组件的坐标就可以了。</p>
+<p><strong>分模块设计就是将项目按照功能/结构拆分成若干个子模块，方便项目的管理维护、拓展，也方便模块键的相互调用、资源共享。</strong></p>
+<h2 id="3-总结">3. 总结</h2>
 <ul>
-<li>RELEASE：存储自己开发的RELEASE发布版本的资源。</li>
-<li>SNAPSHOT：存储自己开发的SNAPSHOT发布版本的资源。</li>
-<li>Central：存储的是从中央仓库下载下来的依赖。</li>
+<li>什么是分模块设计：将项目按照功能拆分成若干个子模块</li>
+<li>为什么要分模块设计：方便项目的管理维护、扩展，也方便模块间的相互调用，资源共享</li>
+<li>注意事项：分模块设计需要先针对模块功能进行设计，再进行编码。不会先将工程开发完毕，然后进行拆分</li>
 </ul>
-</blockquote>
-<blockquote>
-<p>项目版本说明：</p>
-<ul>
-<li>RELEASE(发布版本)：功能趋于稳定、当前更新停止，可以用于发行的版本，存储在私服中的RELEASE仓库中。</li>
-<li>SNAPSHOT(快照版本)：功能不稳定、尚处于开发中的版本，即快照版本，存储在私服的SNAPSHOT仓库中。</li>
-</ul>
-</blockquote>
-</li>
-</ul>
-<h2 id="3-私服配置">3. 私服配置</h2>
-<p>使用私服，需要在maven的settings.xml配置文件中，做如下配置：</p>
-<ol>
-<li>
-<p>需要在 <strong>servers</strong> 标签中，配置访问私服的个人凭证(访问的用户名和密码)</p>
-<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">server</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">id</span>&gt;</span>maven-releases<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">username</span>&gt;</span>admin<span class="tag">&lt;/<span class="name">username</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">password</span>&gt;</span>admin<span class="tag">&lt;/<span class="name">password</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">server</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">server</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">id</span>&gt;</span>maven-snapshots<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">username</span>&gt;</span>admin<span class="tag">&lt;/<span class="name">username</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">password</span>&gt;</span>admin<span class="tag">&lt;/<span class="name">password</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">server</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
-</li>
-<li>
-<p>在 <strong>mirrors</strong> 标签中，配置自己私服的连接地址(如果之前配置过阿里云，需要直接替换掉)</p>
-<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mirror</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">id</span>&gt;</span>maven-public<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mirrorOf</span>&gt;</span>*<span class="tag">&lt;/<span class="name">mirrorOf</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://192.168.150.101:8081/repository/maven-public/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mirror</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
-</li>
-<li>
-<p>在 <strong>profiles</strong> 标签中，增加如下配置，来指定snapshot快照版本的依赖允许使用</p>
-<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">profile</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">id</span>&gt;</span>allow-snapshots<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">activation</span>&gt;</span></span><br><span class="line">        	<span class="tag">&lt;<span class="name">activeByDefault</span>&gt;</span>true<span class="tag">&lt;/<span class="name">activeByDefault</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">activation</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">repositories</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">repository</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">id</span>&gt;</span>maven-public<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://192.168.150.101:8081/repository/maven-public/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">releases</span>&gt;</span></span><br><span class="line">            	<span class="tag">&lt;<span class="name">enabled</span>&gt;</span>true<span class="tag">&lt;/<span class="name">enabled</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">releases</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">snapshots</span>&gt;</span></span><br><span class="line">            	<span class="tag">&lt;<span class="name">enabled</span>&gt;</span>true<span class="tag">&lt;/<span class="name">enabled</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">snapshots</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">repository</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">repositories</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">profile</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
-</li>
-<li>
-<p>如果需要上传自己的项目到私服上，需要在项目的pom.xml文件中，增加如下配置，来配置项目发布的地址(也就是私服的地址)</p>
-<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">distributionManagement</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- release版本的发布地址 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">repository</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span>&gt;</span>maven-releases<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://192.168.150.101:8081/repository/maven-releases/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">repository</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- snapshot版本的发布地址 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">snapshotRepository</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span>&gt;</span>maven-snapshots<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://192.168.150.101:8081/repository/maven-snapshots/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">snapshotRepository</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">distributionManagement</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
-</li>
-<li>
-<p>发布项目，直接运行 deploy 生命周期即可 (发布时，建议跳过单元测试)</p>
-</li>
-</ol>
 ]]></content>
       <categories>
         <category>Java学习笔记</category>
       </categories>
       <tags>
         <tag>Maven</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>转载 - Spring 注解之 @RestController 与 @Controller 的区别</title>
+    <url>/2024/03/08/%E8%BD%AC%E8%BD%BD-Spring-%E6%B3%A8%E8%A7%A3%E4%B9%8B-RestController%E4%B8%8E-Controller%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
+    <content><![CDATA[
+  <div class="note-large yellow">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>链接</p>
+
+    </div>
+    <div class="notel-content">
+      <p><a class="link"   href="https://www.cnblogs.com/east7/p/10462279.html" >https://www.cnblogs.com/east7/p/10462279.html <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+
+    </div>
+  </div>
+]]></content>
+      <categories>
+        <category>转载</category>
+      </categories>
+      <tags>
+        <tag>Spring</tag>
       </tags>
   </entry>
   <entry>
@@ -2963,6 +2875,94 @@
       </tags>
   </entry>
   <entry>
+    <title>Maven - 私服</title>
+    <url>/2024/03/11/Maven-%E7%A7%81%E6%9C%8D/</url>
+    <content><![CDATA[<h2 id="1-场景">1. 场景</h2>
+<p>私服其实就是架设在公司局域网内部的一台服务器，就是一种特殊的远程仓库。A 连接上私服之后，他就可以把jar包直接上传到私服当中。B 团队的所有开发人员也连接同一台私服之后，他们就能根据坐标的信息，直接从私服当中将对应的jar包下载到自己的本地仓库，使用依赖当中所提供的一些工具类了。这样我们就可以通过私服来完成资源的共享。</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/03/11/OSj7seIXlw6ofnL.png"
+                      style="zoom:80%;" 
+                > 
+<p>而如果我们在项目中需要使用其他第三方提供的依赖，如果本地仓库没有，也会自动连接私服下载，如果私服没有，私服此时会自动连接中央仓库，去中央仓库中下载依赖，然后将下载的依赖存储在私服仓库及本地仓库中。</p>
+<h2 id="2-介绍">2. 介绍</h2>
+<ul>
+<li>
+<p><strong>私服</strong>：是一种特殊的远程仓库，它是架设在局域网内的仓库服务，用来代理位于外部的中央仓库，用于解决团队内部的资源共享与资源同步问题。</p>
+</li>
+<li>
+<p><strong>依赖查找顺序</strong>：</p>
+<ul>
+<li>本地仓库</li>
+<li>私服仓库</li>
+<li>中央仓库</li>
+</ul>
+</li>
+<li>
+<p><strong>资源上传与下载</strong>：<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/03/11/2uxvsBiCMbI3wYO.png"
+                      style="zoom:80%;" 
+                ></p>
+<p>资源的上传与下载，我们需要做三步配置，执行一条指令：</p>
+<ol>
+<li>在maven的配置文件中配置连接私服的地址(url地址)。</li>
+<li>在maven的配置文件中配置访问私服的用户名、密码。</li>
+<li>在项目的pom.xml文件中配置上传资源的位置(url地址)。</li>
+</ol>
+<p>配置好了上述三步之后，要上传资源到私服仓库，就执行maven生命周期：deploy</p>
+<p>接下来，其他项目组的开发人员就可以在项目中直接通过依赖的坐标，引入对应的依赖。如果此时本地仓库没有，就会自动从私服仓库中下载。</p>
+<blockquote>
+<p>私服仓库说明：</p>
+<ul>
+<li>RELEASE：存储自己开发的RELEASE发布版本的资源。</li>
+<li>SNAPSHOT：存储自己开发的SNAPSHOT发布版本的资源。</li>
+<li>Central：存储的是从中央仓库下载下来的依赖。</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>项目版本说明：</p>
+<ul>
+<li>RELEASE(发布版本)：功能趋于稳定、当前更新停止，可以用于发行的版本，存储在私服中的RELEASE仓库中。</li>
+<li>SNAPSHOT(快照版本)：功能不稳定、尚处于开发中的版本，即快照版本，存储在私服的SNAPSHOT仓库中。</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<h2 id="3-私服配置">3. 私服配置</h2>
+<p>使用私服，需要在maven的settings.xml配置文件中，做如下配置：</p>
+<ol>
+<li>
+<p>需要在 <strong>servers</strong> 标签中，配置访问私服的个人凭证(访问的用户名和密码)</p>
+<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">server</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">id</span>&gt;</span>maven-releases<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">username</span>&gt;</span>admin<span class="tag">&lt;/<span class="name">username</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">password</span>&gt;</span>admin<span class="tag">&lt;/<span class="name">password</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">server</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">server</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">id</span>&gt;</span>maven-snapshots<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">username</span>&gt;</span>admin<span class="tag">&lt;/<span class="name">username</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">password</span>&gt;</span>admin<span class="tag">&lt;/<span class="name">password</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">server</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>在 <strong>mirrors</strong> 标签中，配置自己私服的连接地址(如果之前配置过阿里云，需要直接替换掉)</p>
+<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mirror</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">id</span>&gt;</span>maven-public<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mirrorOf</span>&gt;</span>*<span class="tag">&lt;/<span class="name">mirrorOf</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://192.168.150.101:8081/repository/maven-public/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mirror</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>在 <strong>profiles</strong> 标签中，增加如下配置，来指定snapshot快照版本的依赖允许使用</p>
+<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">profile</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">id</span>&gt;</span>allow-snapshots<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">activation</span>&gt;</span></span><br><span class="line">        	<span class="tag">&lt;<span class="name">activeByDefault</span>&gt;</span>true<span class="tag">&lt;/<span class="name">activeByDefault</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">activation</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">repositories</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">repository</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">id</span>&gt;</span>maven-public<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://192.168.150.101:8081/repository/maven-public/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">releases</span>&gt;</span></span><br><span class="line">            	<span class="tag">&lt;<span class="name">enabled</span>&gt;</span>true<span class="tag">&lt;/<span class="name">enabled</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">releases</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">snapshots</span>&gt;</span></span><br><span class="line">            	<span class="tag">&lt;<span class="name">enabled</span>&gt;</span>true<span class="tag">&lt;/<span class="name">enabled</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">snapshots</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">repository</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">repositories</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">profile</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>如果需要上传自己的项目到私服上，需要在项目的pom.xml文件中，增加如下配置，来配置项目发布的地址(也就是私服的地址)</p>
+<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">distributionManagement</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- release版本的发布地址 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">repository</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span>&gt;</span>maven-releases<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://192.168.150.101:8081/repository/maven-releases/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">repository</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- snapshot版本的发布地址 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">snapshotRepository</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span>&gt;</span>maven-snapshots<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://192.168.150.101:8081/repository/maven-snapshots/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">snapshotRepository</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">distributionManagement</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>发布项目，直接运行 deploy 生命周期即可 (发布时，建议跳过单元测试)</p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Java学习笔记</category>
+      </categories>
+      <tags>
+        <tag>Maven</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Swagger</title>
     <url>/2024/03/12/Swagger/</url>
     <content><![CDATA[<h2 id="1-介绍">1. 介绍</h2>
@@ -3041,6 +3041,38 @@ EmployeeLoginDTO.java</p>
       </categories>
       <tags>
         <tag>Swagger</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>#{} 和 ${} 的区别是什么？</title>
+    <url>/2024/03/14/MyBatis%E4%B8%AD%E4%B8%A4%E7%A7%8D%E5%8D%A0%E4%BD%8D%E7%AC%A6%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
+    <content><![CDATA[<h2 id="区别">区别</h2>
+<p>经常碰到这样的面试题目：<code>#&#123;&#125;</code>和<code>$&#123;&#125;</code>的区别是什么？</p>
+<p>正确的答案是：<code>#&#123;&#125;</code>是预编译处理，<code>$&#123;&#125;</code>是字符串替换。</p>
+<h2 id="内部原理">内部原理</h2>
+<ol>
+<li>mybatis在处理<code>#&#123;&#125;</code>时，会将sql中的<code>#&#123;&#125;</code>替换为<code>?</code>号，调用PreparedStatement的set方法来赋值。</li>
+<li>mybatis在处理<code>$&#123;&#125;</code>时，就是把<code>$&#123;&#125;</code>替换成变量的值。</li>
+<li>使用<code>#&#123;&#125;</code>可以有效的防止SQL注入，提高系统安全性。原因在于：预编译机制。预编译完成之后，SQL的结构已经固定，即便用户输入非法参数，也不会对SQL的结构产生影响，从而避免了潜在的安全风险。</li>
+<li>预编译是提前对SQL语句进行预编译，而其后注入的参数将不会再进行SQL编译。我们知道，SQL注入是发生在编译的过程中，因为恶意注入了某些特殊字符，最后被编译成了恶意的执行操作。而预编译机制则可以很好的防止SQL注入。</li>
+</ol>
+<h2 id="记忆方式">记忆方式</h2>
+<p>$符号一般用来当作占位符，常使用Linux脚本的人应该对此有更深的体会。</p>
+<p>例如：$1，$2等等表示输入参数的占位符。</p>
+<p>知道了这点就能很容易区分$和#，从而不容易记错了。</p>
+<h2 id="两种替换符存在的意义">两种替换符存在的意义</h2>
+<p>既然<code>$&#123;&#125;</code>会引起sql注入，为什么有了<code>#&#123;&#125;</code>还需要有<code>$&#123;&#125;</code>呢？那其存在的意义是什么？</p>
+<p>可以这么去理解：<code>#&#123;&#125;</code>主要用于预编译，而预编译的场景其实非常受限，而<code>$&#123;&#125;</code>用于替换，很多场景会出现替换，而这种场景是不可预编译，例如：MyBatis XML配置对抗MyBatis注解的一大杀器：SQL片段，抽取可重用的SQL语句</p>
+<h2 id="参考">参考</h2>
+<ul>
+<li><a class="link"   href="https://bbs.huaweicloud.com/blogs/394244" >https://bbs.huaweicloud.com/blogs/394244 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>Java学习笔记</category>
+      </categories>
+      <tags>
+        <tag>MyBatis</tag>
       </tags>
   </entry>
   <entry>
@@ -3144,38 +3176,6 @@ EmployeeLoginDTO.java</p>
       </categories>
       <tags>
         <tag>nginx</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>#{} 和 ${} 的区别是什么？</title>
-    <url>/2024/03/14/MyBatis%E4%B8%AD%E4%B8%A4%E7%A7%8D%E5%8D%A0%E4%BD%8D%E7%AC%A6%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
-    <content><![CDATA[<h2 id="区别">区别</h2>
-<p>经常碰到这样的面试题目：#{}和${}的区别是什么？</p>
-<p>正确的答案是：#{}是预编译处理，${}是字符串替换。</p>
-<h2 id="内部原理">内部原理</h2>
-<ol>
-<li>mybatis在处理#{}时，会将sql中的#{}替换为?号，调用PreparedStatement的set方法来赋值。</li>
-<li>mybatis在处理时，就是把时，就是把{}替换成变量的值。</li>
-<li>使用#{}可以有效的防止SQL注入，提高系统安全性。原因在于：预编译机制。预编译完成之后，SQL的结构已经固定，即便用户输入非法参数，也不会对SQL的结构产生影响，从而避免了潜在的安全风险。</li>
-<li>预编译是提前对SQL语句进行预编译，而其后注入的参数将不会再进行SQL编译。我们知道，SQL注入是发生在编译的过程中，因为恶意注入了某些特殊字符，最后被编译成了恶意的执行操作。而预编译机制则可以很好的防止SQL注入。</li>
-</ol>
-<h2 id="记忆方式">记忆方式</h2>
-<p>$符号一般用来当作占位符，常使用Linux脚本的人应该对此有更深的体会。</p>
-<p>例如：$1，$2等等表示输入参数的占位符。</p>
-<p>知道了这点就能很容易区分$和#，从而不容易记错了。</p>
-<h2 id="两种替换符存在的意义">两种替换符存在的意义</h2>
-<p>既然{}会引起sql注入，为什么有了#{}还需要有{}呢？那其存在的意义是什么？</p>
-<p>可以这么去理解：#{}主要用于预编译，而预编译的场景其实非常受限，而${}用于替换，很多场景会出现替换，而这种场景是不可预编译，例如：MyBatis XML配置对抗MyBatis注解的一大杀器：SQL片段，抽取可重用的SQL语句</p>
-<h2 id="参考">参考</h2>
-<ul>
-<li><a class="link"   href="https://bbs.huaweicloud.com/blogs/394244" >https://bbs.huaweicloud.com/blogs/394244 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>Java学习笔记</category>
-      </categories>
-      <tags>
-        <tag>MyBatis</tag>
       </tags>
   </entry>
 </search>
