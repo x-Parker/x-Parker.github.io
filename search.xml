@@ -203,6 +203,228 @@
       </tags>
   </entry>
   <entry>
+    <title>MapReduce 配置与操作</title>
+    <url>/2024/01/11/MapReduce%E9%85%8D%E7%BD%AE%E4%B8%8E%E6%93%8D%E4%BD%9C/</url>
+    <content><![CDATA[<h3 id="一、通过eclipse连接hadoop">一、通过eclipse连接hadoop</h3>
+<h4 id="1-主要步骤">1. 主要步骤</h4>
+<ul>
+<li>
+<p>安装eclipse</p>
+</li>
+<li>
+<p>安装Hadoop-Eclipse-Plugin</p>
+</li>
+<li>
+<p>配置Hadoop-Eclipse-Plugin</p>
+</li>
+</ul>
+<p>参考资料已给出此部分详细步骤，因此此处不再展开，仅给出实现效果如下：</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2023/11/17/5e8bfMxDjoOsPVL.png"
+                      style="zoom: 67%;" 
+                >
+<h4 id="2-参考资料">2. 参考资料</h4>
+<ul>
+<li><a class="link"   href="https://blog.csdn.net/u010185220/article/details/79095179" >windows10上使用Eclipse配置Hadoop开发环境详细步骤+WordCount示例 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+<h4 id="3-遇到的问题">3. 遇到的问题</h4>
+<ul>
+<li>
+<h5 id="新添加的插件在Eclipse中不显示">新添加的插件在Eclipse中不显示</h5>
+<ul>
+<li>
+<p>解决方法</p>
+<p>在 <code>eclipse/configuration</code> 目录下的 <code>config.ini</code> 文件中加入一行 : <code>osgi.checkConfiguration=true</code>，这样它就会寻找并安装插件。</p>
+</li>
+<li>
+<p>参考资料</p>
+<p><a class="link"   href="https://blog.csdn.net/qq_38789941/article/details/86244990" >Eclipse 安装插件后不显示的解决办法 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="二、WordCount示例">二、WordCount示例</h3>
+<h4 id="1-主要步骤-2">1. 主要步骤</h4>
+<p>参考资料已给出此部分详细步骤，因此此处仅列举出主要步骤。</p>
+<ul>
+<li>
+<p>新建项目</p>
+</li>
+<li>
+<p>在项目的src目录下创建<code>WordCount.java</code>类，内容如下：</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> Package;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.util.StringTokenizer;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.conf.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.fs.Path;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.IntWritable;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.Text;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.Job;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.Mapper;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.Reducer;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.lib.input.FileInputFormat;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.util.GenericOptionsParser;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">WordCount</span> &#123;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">TokenizerMapper</span> <span class="keyword">extends</span> <span class="title class_">Mapper</span>&lt;Object, Text, Text, IntWritable&gt; &#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="type">IntWritable</span> <span class="variable">one</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">IntWritable</span>(<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">private</span> <span class="type">Text</span> <span class="variable">word</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Text</span>();</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">map</span><span class="params">(Object key, Text value, Context context)</span> <span class="keyword">throws</span> IOException, InterruptedException &#123;</span><br><span class="line">            <span class="type">StringTokenizer</span> <span class="variable">itr</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringTokenizer</span>(value.toString());</span><br><span class="line">            <span class="keyword">while</span> (itr.hasMoreTokens()) &#123;</span><br><span class="line">                word.set(itr.nextToken());</span><br><span class="line">                context.write(word, one);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">IntSumReducer</span> <span class="keyword">extends</span> <span class="title class_">Reducer</span>&lt;Text, IntWritable, Text, IntWritable&gt; &#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="type">IntWritable</span> <span class="variable">result</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">IntWritable</span>();</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">reduce</span><span class="params">(Text key, Iterable&lt;IntWritable&gt; values, Context context)</span></span><br><span class="line">                <span class="keyword">throws</span> IOException, InterruptedException &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">sum</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span> (IntWritable val : values) &#123;</span><br><span class="line">                sum += val.get();</span><br><span class="line">            &#125;</span><br><span class="line">            result.set(sum);</span><br><span class="line">            context.write(key, result);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="type">Configuration</span> <span class="variable">conf</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Configuration</span>();</span><br><span class="line">        String[] otherArgs = <span class="keyword">new</span> <span class="title class_">GenericOptionsParser</span>(conf, args).getRemainingArgs();</span><br><span class="line">        <span class="keyword">if</span> (otherArgs.length != <span class="number">2</span>) &#123;</span><br><span class="line">            System.err.println(<span class="string">&quot;Usage: wordcount &lt;in&gt; &lt;out&gt;&quot;</span>);</span><br><span class="line">            System.exit(<span class="number">2</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="meta">@SuppressWarnings(&quot;deprecation&quot;)</span></span><br><span class="line">		<span class="type">Job</span> <span class="variable">job</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Job</span>(conf, <span class="string">&quot;word count&quot;</span>);</span><br><span class="line">        job.setJarByClass(WordCount.class);</span><br><span class="line">        job.setMapperClass(TokenizerMapper.class);</span><br><span class="line">        job.setCombinerClass(IntSumReducer.class);</span><br><span class="line">        job.setReducerClass(IntSumReducer.class);</span><br><span class="line">        job.setOutputKeyClass(Text.class);</span><br><span class="line">        job.setOutputValueClass(IntWritable.class);</span><br><span class="line">        FileInputFormat.addInputPath(job, <span class="keyword">new</span> <span class="title class_">Path</span>(otherArgs[<span class="number">0</span>]));</span><br><span class="line">        FileOutputFormat.setOutputPath(job, <span class="keyword">new</span> <span class="title class_">Path</span>(otherArgs[<span class="number">1</span>]));</span><br><span class="line">        System.exit(job.waitForCompletion(<span class="literal">true</span>) ? <span class="number">0</span> : <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>在项目的src目录下创建<code>log4j.properties</code>文件，内容如下：</p>
+<div class="highlight-container" data-rel="Properties"><figure class="iseeu highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Configure logging for testing:optionally with log file </span></span><br><span class="line"><span class="comment">#log4j.rootLogger=debug,appender </span></span><br><span class="line"><span class="attr">log4j.rootLogger</span>=<span class="string">info,appender </span></span><br><span class="line"><span class="comment">#log4j.rootLogger=error,appender </span></span><br><span class="line"><span class="comment">#\u8F93\u51FA\u5230\u63A7\u5236\u53F0 </span></span><br><span class="line"><span class="attr">log4j.appender.appender</span>=<span class="string">org.apache.log4j.ConsoleAppender </span></span><br><span class="line"><span class="comment">#\u6837\u5F0F\u4E3ATTCCLayout </span></span><br><span class="line"><span class="attr">log4j.appender.appender.layout</span>=<span class="string">org.apache.log4j.TTCCLayout</span></span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>配置运行参数</p>
+</li>
+<li>
+<p>运行</p>
+</li>
+</ul>
+<h4 id="2-运行结果">2. 运行结果</h4>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2023/11/17/o6ERhliMpC85qPm.png"
+                      alt=""
+                ></p>
+<p>其中，<code>word.txt</code> 文件内容如下：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">a</span><br><span class="line">a</span><br><span class="line">a</span><br><span class="line"></span><br><span class="line">b</span><br><span class="line">b</span><br><span class="line">b</span><br><span class="line"></span><br><span class="line">c</span><br><span class="line">c</span><br><span class="line">c</span><br><span class="line"></span><br><span class="line">d</span><br><span class="line">e</span><br><span class="line">f</span><br><span class="line"></span><br><span class="line">hello hadoop !</span><br><span class="line">hello world !</span><br></pre></td></tr></table></figure></div>
+<p>程序输出 <code>hdfs://192.168.242.129:9000/hadoop-user/output.txt/part-r-00000</code> 文件内容如下：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">!	2</span><br><span class="line">a	3</span><br><span class="line">b	3</span><br><span class="line">c	3</span><br><span class="line">d	1</span><br><span class="line">e	1</span><br><span class="line">f	1</span><br><span class="line">hadoop	1</span><br><span class="line">hello	2</span><br><span class="line">world	1</span><br></pre></td></tr></table></figure></div>
+<p>词频统计结果无误。</p>
+<h4 id="3-参考资料">3. 参考资料</h4>
+<ul>
+<li><a class="link"   href="https://cwiki.apache.org/confluence/display/HADOOP2/WordCount" >WordCount Example <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://blog.csdn.net/u010185220/article/details/79095179" >windows10上使用Eclipse配置Hadoop开发环境详细步骤+WordCount示例 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+<h4 id="4-遇到的问题">4. 遇到的问题</h4>
+<ul>
+<li>
+<h5 id="环境变量问题">环境变量问题</h5>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">Exception in thread &quot;main&quot; java.lang.RuntimeException: java.io.FileNotFoundException: java.io.FileNotFoundException: HADOOP_HOME and hadoop.home.dir are unset.</span><br></pre></td></tr></table></figure></div>
+<ul>
+<li>
+<p>问题分析</p>
+<p>从错误信息中可以看到，Hadoop在执行<code>Shell.getWinUtilsPath</code>的时候抛出了异常。这是因为Hadoop在进行某些本地文件系统操作时，依赖于一些环境变量，其中包括<code>HADOOP_HOME</code>。这两个变量都没有被正确设置，导致了<code>FileNotFoundException</code>。</p>
+</li>
+<li>
+<p>解决方法</p>
+<p>在项目运行配置中指定<code>HADOOP_HOME</code>环境变量及其值：<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2023/11/17/3dmlWo9A8LMwkSU.png"
+                      alt=""
+                ></p>
+</li>
+<li>
+<p>参考资料</p>
+<ul>
+<li><a class="link"   href="https://cwiki.apache.org/confluence/display/HADOOP2/WindowsProblems" >Problems running Hadoop on Windows <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<h5 id="权限错误问题">权限错误问题</h5>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">[Thread-5] WARN org.apache.hadoop.mapred.LocalJobRunner - job_local2147375942_0001</span><br><span class="line">org.apache.hadoop.security.AccessControlException: Permission denied: user=23876, access=WRITE, inode=&quot;/hadoop-user&quot;:root:supergroup:drwxr-xr-x</span><br><span class="line">[main] INFO org.apache.hadoop.mapreduce.Job - Job job_local2147375942_0001 failed with state FAILED due to: NA</span><br></pre></td></tr></table></figure></div>
+<ul>
+<li>
+<p>问题分析</p>
+<p>这个错误表明在本地运行作业时，用户尝试写入目录<code>/hadoop-user</code>时遇到权限问题，并导致作业以失败结束。</p>
+</li>
+<li>
+<p>解决方法</p>
+<p>在master节点中执行以下代码，以赋予当前用户对目标HDFS文件夹的写权限：</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">sudo chmod -R 777 /hadoop-user/</span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>参考资料</p>
+<ul>
+<li><a class="link"   href="https://hadoop.apache.org/docs/r1.0.4/cn/hdfs_permissions_guide.html#%E8%B6%85%E7%BA%A7%E7%94%A8%E6%88%B7" >HDFS权限管理用户指南 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://www.cnblogs.com/yinzhengjie2020/p/13737254.html" >HDFS权限管理篇-博客园 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>Hadoop</tag>
+        <tag>MapReduce</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Git 报错：SSH连接超时</title>
+    <url>/2024/01/19/Git%E6%8A%A5%E9%94%99-SSH%E8%BF%9E%E6%8E%A5%E8%B6%85%E6%97%B6/</url>
+    <content><![CDATA[<h2 id="问题">问题</h2>
+<p>使用 Git 向 GitHub 部署代码时，报错如下（此前正常）：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh: connect to host github.com port 22: Connection timed out</span><br><span class="line">fatal: Could not read from remote repository.</span><br><span class="line">Please make sure you have the correct access rights and the repository exists.</span><br></pre></td></tr></table></figure></div>
+<h2 id="原因">原因</h2>
+<p>SSH 端口被占用，重新指定一个端口即可。</p>
+<p>注：<em>Windows 系统查看端口占用情况的命令为：<code>netstat -ano | findStr 端口号</code></em></p>
+<h2 id="解决">解决</h2>
+<ul>
+<li>
+<p>打开 <code>C:\用户\主机名\.ssh</code> 文件夹</p>
+</li>
+<li>
+<p>新建 <code>config</code> 文件（不带后缀）</p>
+</li>
+<li>
+<p>输入以下内容后保存：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">Host github.com</span><br><span class="line">User GitHub注册邮箱</span><br><span class="line">Hostname ssh.github.com</span><br><span class="line">PreferredAuthentications publickey</span><br><span class="line">IdentityFile ~/.ssh/id_rsa</span><br><span class="line">Port 443</span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>在 Git Bash 执行：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure></div>
+<p>出现询问是否连接的提示，输入 <code>yes</code> 回车：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ ssh -T git@github.com</span><br><span class="line">The authenticity of host &#x27;[ssh.github.com]:443 ([20.205.243.160]:443)&#x27; can&#x27;t be established.</span><br><span class="line">Are you sure you want to continue connecting (yes/no/[fingerprint])? yes</span><br><span class="line">Warning: Permanently added &#x27;[ssh.github.com]:443&#x27; (ED25519) to the list of known hosts.</span><br><span class="line">Hi x-Parker! You&#x27;ve successfully authenticated, but GitHub does not provide shell access.</span><br></pre></td></tr></table></figure></div>
+<p>成功重新建立 SSH 连接。</p>
+</li>
+</ul>
+<h2 id="另解">另解</h2>
+<p>抛弃 SSH 连接方式，使用 HTTPS 连接 Github。</p>
+<h2 id="参考">参考</h2>
+<ul>
+<li><a class="link"   href="https://blog.csdn.net/yunxiaobaobei/article/details/123474599" >https://blog.csdn.net/yunxiaobaobei/article/details/123474599 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://blog.csdn.net/weixin_41287260/article/details/124368189" >https://blog.csdn.net/weixin_41287260/article/details/124368189 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>Git</tag>
+        <tag>SSH</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>PowerShell 报错：在此系统上禁止运行脚本</title>
+    <url>/2024/01/22/PowerShell-vue%E6%97%A0%E6%B3%95%E5%8A%A0%E8%BD%BD%E6%96%87%E4%BB%B6-%E5%9B%A0%E4%B8%BA%E5%9C%A8%E6%AD%A4%E7%B3%BB%E7%BB%9F%E4%B8%8A%E7%A6%81%E6%AD%A2%E8%BF%90%E8%A1%8C%E8%84%9A%E6%9C%AC/</url>
+    <content><![CDATA[<h2 id="问题">问题</h2>
+<p>在 Windows PowerShell （管理员模式下）执行 <code>vue --version</code> 命令时报错如下：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/01/22/IBWcwtCLqjm2ya3.png"
+                      alt=""
+                ></p>
+<h2 id="原因">原因</h2>
+<p>首次在计算机上启动 Windows PowerShell 时，现用执行策略很可能是 Restricted（默认设置）。Restricted 策略不允许任何脚本运行，以防止执行不信任的脚本。</p>
+<h2 id="解决">解决</h2>
+<p>在 Windows PowerShell 执行以下命令：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">set-executionpolicy remotesigned</span><br></pre></td></tr></table></figure></div>
+<h2 id="效果">效果</h2>
+<p>再次执行 <code>vue --version</code> 命令，可正常查看 Vue 版本：</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/01/22/2UpOySQuL3ev5to.png"
+                      style="zoom: 50%;"
+                >
+<h2 id="引用">引用</h2>
+<ul>
+<li><a class="link"   href="https://cloud.tencent.com/developer/article/1612513" >https://cloud.tencent.com/developer/article/1612513 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>PowerShell</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>高级数据库技术 - 复习</title>
     <url>/2024/01/13/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E6%8A%80%E6%9C%AF-%E5%A4%8D%E4%B9%A0/</url>
     <content><![CDATA[<blockquote>
@@ -1518,228 +1740,6 @@
       </tags>
   </entry>
   <entry>
-    <title>MapReduce 配置与操作</title>
-    <url>/2024/01/11/MapReduce%E9%85%8D%E7%BD%AE%E4%B8%8E%E6%93%8D%E4%BD%9C/</url>
-    <content><![CDATA[<h3 id="一、通过eclipse连接hadoop">一、通过eclipse连接hadoop</h3>
-<h4 id="1-主要步骤">1. 主要步骤</h4>
-<ul>
-<li>
-<p>安装eclipse</p>
-</li>
-<li>
-<p>安装Hadoop-Eclipse-Plugin</p>
-</li>
-<li>
-<p>配置Hadoop-Eclipse-Plugin</p>
-</li>
-</ul>
-<p>参考资料已给出此部分详细步骤，因此此处不再展开，仅给出实现效果如下：</p>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2023/11/17/5e8bfMxDjoOsPVL.png"
-                      style="zoom: 67%;" 
-                >
-<h4 id="2-参考资料">2. 参考资料</h4>
-<ul>
-<li><a class="link"   href="https://blog.csdn.net/u010185220/article/details/79095179" >windows10上使用Eclipse配置Hadoop开发环境详细步骤+WordCount示例 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-</ul>
-<h4 id="3-遇到的问题">3. 遇到的问题</h4>
-<ul>
-<li>
-<h5 id="新添加的插件在Eclipse中不显示">新添加的插件在Eclipse中不显示</h5>
-<ul>
-<li>
-<p>解决方法</p>
-<p>在 <code>eclipse/configuration</code> 目录下的 <code>config.ini</code> 文件中加入一行 : <code>osgi.checkConfiguration=true</code>，这样它就会寻找并安装插件。</p>
-</li>
-<li>
-<p>参考资料</p>
-<p><a class="link"   href="https://blog.csdn.net/qq_38789941/article/details/86244990" >Eclipse 安装插件后不显示的解决办法 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="二、WordCount示例">二、WordCount示例</h3>
-<h4 id="1-主要步骤-2">1. 主要步骤</h4>
-<p>参考资料已给出此部分详细步骤，因此此处仅列举出主要步骤。</p>
-<ul>
-<li>
-<p>新建项目</p>
-</li>
-<li>
-<p>在项目的src目录下创建<code>WordCount.java</code>类，内容如下：</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> Package;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.util.StringTokenizer;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.conf.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.fs.Path;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.IntWritable;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.Text;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.Job;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.Mapper;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.Reducer;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.lib.input.FileInputFormat;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.util.GenericOptionsParser;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">WordCount</span> &#123;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">TokenizerMapper</span> <span class="keyword">extends</span> <span class="title class_">Mapper</span>&lt;Object, Text, Text, IntWritable&gt; &#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="type">IntWritable</span> <span class="variable">one</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">IntWritable</span>(<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">private</span> <span class="type">Text</span> <span class="variable">word</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Text</span>();</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">map</span><span class="params">(Object key, Text value, Context context)</span> <span class="keyword">throws</span> IOException, InterruptedException &#123;</span><br><span class="line">            <span class="type">StringTokenizer</span> <span class="variable">itr</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringTokenizer</span>(value.toString());</span><br><span class="line">            <span class="keyword">while</span> (itr.hasMoreTokens()) &#123;</span><br><span class="line">                word.set(itr.nextToken());</span><br><span class="line">                context.write(word, one);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">IntSumReducer</span> <span class="keyword">extends</span> <span class="title class_">Reducer</span>&lt;Text, IntWritable, Text, IntWritable&gt; &#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="type">IntWritable</span> <span class="variable">result</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">IntWritable</span>();</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">reduce</span><span class="params">(Text key, Iterable&lt;IntWritable&gt; values, Context context)</span></span><br><span class="line">                <span class="keyword">throws</span> IOException, InterruptedException &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">sum</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span> (IntWritable val : values) &#123;</span><br><span class="line">                sum += val.get();</span><br><span class="line">            &#125;</span><br><span class="line">            result.set(sum);</span><br><span class="line">            context.write(key, result);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="type">Configuration</span> <span class="variable">conf</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Configuration</span>();</span><br><span class="line">        String[] otherArgs = <span class="keyword">new</span> <span class="title class_">GenericOptionsParser</span>(conf, args).getRemainingArgs();</span><br><span class="line">        <span class="keyword">if</span> (otherArgs.length != <span class="number">2</span>) &#123;</span><br><span class="line">            System.err.println(<span class="string">&quot;Usage: wordcount &lt;in&gt; &lt;out&gt;&quot;</span>);</span><br><span class="line">            System.exit(<span class="number">2</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="meta">@SuppressWarnings(&quot;deprecation&quot;)</span></span><br><span class="line">		<span class="type">Job</span> <span class="variable">job</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Job</span>(conf, <span class="string">&quot;word count&quot;</span>);</span><br><span class="line">        job.setJarByClass(WordCount.class);</span><br><span class="line">        job.setMapperClass(TokenizerMapper.class);</span><br><span class="line">        job.setCombinerClass(IntSumReducer.class);</span><br><span class="line">        job.setReducerClass(IntSumReducer.class);</span><br><span class="line">        job.setOutputKeyClass(Text.class);</span><br><span class="line">        job.setOutputValueClass(IntWritable.class);</span><br><span class="line">        FileInputFormat.addInputPath(job, <span class="keyword">new</span> <span class="title class_">Path</span>(otherArgs[<span class="number">0</span>]));</span><br><span class="line">        FileOutputFormat.setOutputPath(job, <span class="keyword">new</span> <span class="title class_">Path</span>(otherArgs[<span class="number">1</span>]));</span><br><span class="line">        System.exit(job.waitForCompletion(<span class="literal">true</span>) ? <span class="number">0</span> : <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-</li>
-<li>
-<p>在项目的src目录下创建<code>log4j.properties</code>文件，内容如下：</p>
-<div class="highlight-container" data-rel="Properties"><figure class="iseeu highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Configure logging for testing:optionally with log file </span></span><br><span class="line"><span class="comment">#log4j.rootLogger=debug,appender </span></span><br><span class="line"><span class="attr">log4j.rootLogger</span>=<span class="string">info,appender </span></span><br><span class="line"><span class="comment">#log4j.rootLogger=error,appender </span></span><br><span class="line"><span class="comment">#\u8F93\u51FA\u5230\u63A7\u5236\u53F0 </span></span><br><span class="line"><span class="attr">log4j.appender.appender</span>=<span class="string">org.apache.log4j.ConsoleAppender </span></span><br><span class="line"><span class="comment">#\u6837\u5F0F\u4E3ATTCCLayout </span></span><br><span class="line"><span class="attr">log4j.appender.appender.layout</span>=<span class="string">org.apache.log4j.TTCCLayout</span></span><br></pre></td></tr></table></figure></div>
-</li>
-<li>
-<p>配置运行参数</p>
-</li>
-<li>
-<p>运行</p>
-</li>
-</ul>
-<h4 id="2-运行结果">2. 运行结果</h4>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2023/11/17/o6ERhliMpC85qPm.png"
-                      alt=""
-                ></p>
-<p>其中，<code>word.txt</code> 文件内容如下：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">a</span><br><span class="line">a</span><br><span class="line">a</span><br><span class="line"></span><br><span class="line">b</span><br><span class="line">b</span><br><span class="line">b</span><br><span class="line"></span><br><span class="line">c</span><br><span class="line">c</span><br><span class="line">c</span><br><span class="line"></span><br><span class="line">d</span><br><span class="line">e</span><br><span class="line">f</span><br><span class="line"></span><br><span class="line">hello hadoop !</span><br><span class="line">hello world !</span><br></pre></td></tr></table></figure></div>
-<p>程序输出 <code>hdfs://192.168.242.129:9000/hadoop-user/output.txt/part-r-00000</code> 文件内容如下：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">!	2</span><br><span class="line">a	3</span><br><span class="line">b	3</span><br><span class="line">c	3</span><br><span class="line">d	1</span><br><span class="line">e	1</span><br><span class="line">f	1</span><br><span class="line">hadoop	1</span><br><span class="line">hello	2</span><br><span class="line">world	1</span><br></pre></td></tr></table></figure></div>
-<p>词频统计结果无误。</p>
-<h4 id="3-参考资料">3. 参考资料</h4>
-<ul>
-<li><a class="link"   href="https://cwiki.apache.org/confluence/display/HADOOP2/WordCount" >WordCount Example <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li><a class="link"   href="https://blog.csdn.net/u010185220/article/details/79095179" >windows10上使用Eclipse配置Hadoop开发环境详细步骤+WordCount示例 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-</ul>
-<h4 id="4-遇到的问题">4. 遇到的问题</h4>
-<ul>
-<li>
-<h5 id="环境变量问题">环境变量问题</h5>
-<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">Exception in thread &quot;main&quot; java.lang.RuntimeException: java.io.FileNotFoundException: java.io.FileNotFoundException: HADOOP_HOME and hadoop.home.dir are unset.</span><br></pre></td></tr></table></figure></div>
-<ul>
-<li>
-<p>问题分析</p>
-<p>从错误信息中可以看到，Hadoop在执行<code>Shell.getWinUtilsPath</code>的时候抛出了异常。这是因为Hadoop在进行某些本地文件系统操作时，依赖于一些环境变量，其中包括<code>HADOOP_HOME</code>。这两个变量都没有被正确设置，导致了<code>FileNotFoundException</code>。</p>
-</li>
-<li>
-<p>解决方法</p>
-<p>在项目运行配置中指定<code>HADOOP_HOME</code>环境变量及其值：<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2023/11/17/3dmlWo9A8LMwkSU.png"
-                      alt=""
-                ></p>
-</li>
-<li>
-<p>参考资料</p>
-<ul>
-<li><a class="link"   href="https://cwiki.apache.org/confluence/display/HADOOP2/WindowsProblems" >Problems running Hadoop on Windows <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li>
-<h5 id="权限错误问题">权限错误问题</h5>
-<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">[Thread-5] WARN org.apache.hadoop.mapred.LocalJobRunner - job_local2147375942_0001</span><br><span class="line">org.apache.hadoop.security.AccessControlException: Permission denied: user=23876, access=WRITE, inode=&quot;/hadoop-user&quot;:root:supergroup:drwxr-xr-x</span><br><span class="line">[main] INFO org.apache.hadoop.mapreduce.Job - Job job_local2147375942_0001 failed with state FAILED due to: NA</span><br></pre></td></tr></table></figure></div>
-<ul>
-<li>
-<p>问题分析</p>
-<p>这个错误表明在本地运行作业时，用户尝试写入目录<code>/hadoop-user</code>时遇到权限问题，并导致作业以失败结束。</p>
-</li>
-<li>
-<p>解决方法</p>
-<p>在master节点中执行以下代码，以赋予当前用户对目标HDFS文件夹的写权限：</p>
-<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">sudo chmod -R 777 /hadoop-user/</span><br></pre></td></tr></table></figure></div>
-</li>
-<li>
-<p>参考资料</p>
-<ul>
-<li><a class="link"   href="https://hadoop.apache.org/docs/r1.0.4/cn/hdfs_permissions_guide.html#%E8%B6%85%E7%BA%A7%E7%94%A8%E6%88%B7" >HDFS权限管理用户指南 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li><a class="link"   href="https://www.cnblogs.com/yinzhengjie2020/p/13737254.html" >HDFS权限管理篇-博客园 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>Hadoop</tag>
-        <tag>MapReduce</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Git 报错：SSH连接超时</title>
-    <url>/2024/01/19/Git%E6%8A%A5%E9%94%99-SSH%E8%BF%9E%E6%8E%A5%E8%B6%85%E6%97%B6/</url>
-    <content><![CDATA[<h2 id="问题">问题</h2>
-<p>使用 Git 向 GitHub 部署代码时，报错如下（此前正常）：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh: connect to host github.com port 22: Connection timed out</span><br><span class="line">fatal: Could not read from remote repository.</span><br><span class="line">Please make sure you have the correct access rights and the repository exists.</span><br></pre></td></tr></table></figure></div>
-<h2 id="原因">原因</h2>
-<p>SSH 端口被占用，重新指定一个端口即可。</p>
-<p>注：<em>Windows 系统查看端口占用情况的命令为：<code>netstat -ano | findStr 端口号</code></em></p>
-<h2 id="解决">解决</h2>
-<ul>
-<li>
-<p>打开 <code>C:\用户\主机名\.ssh</code> 文件夹</p>
-</li>
-<li>
-<p>新建 <code>config</code> 文件（不带后缀）</p>
-</li>
-<li>
-<p>输入以下内容后保存：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">Host github.com</span><br><span class="line">User GitHub注册邮箱</span><br><span class="line">Hostname ssh.github.com</span><br><span class="line">PreferredAuthentications publickey</span><br><span class="line">IdentityFile ~/.ssh/id_rsa</span><br><span class="line">Port 443</span><br></pre></td></tr></table></figure></div>
-</li>
-<li>
-<p>在 Git Bash 执行：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure></div>
-<p>出现询问是否连接的提示，输入 <code>yes</code> 回车：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ ssh -T git@github.com</span><br><span class="line">The authenticity of host &#x27;[ssh.github.com]:443 ([20.205.243.160]:443)&#x27; can&#x27;t be established.</span><br><span class="line">Are you sure you want to continue connecting (yes/no/[fingerprint])? yes</span><br><span class="line">Warning: Permanently added &#x27;[ssh.github.com]:443&#x27; (ED25519) to the list of known hosts.</span><br><span class="line">Hi x-Parker! You&#x27;ve successfully authenticated, but GitHub does not provide shell access.</span><br></pre></td></tr></table></figure></div>
-<p>成功重新建立 SSH 连接。</p>
-</li>
-</ul>
-<h2 id="另解">另解</h2>
-<p>抛弃 SSH 连接方式，使用 HTTPS 连接 Github。</p>
-<h2 id="参考">参考</h2>
-<ul>
-<li><a class="link"   href="https://blog.csdn.net/yunxiaobaobei/article/details/123474599" >https://blog.csdn.net/yunxiaobaobei/article/details/123474599 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li><a class="link"   href="https://blog.csdn.net/weixin_41287260/article/details/124368189" >https://blog.csdn.net/weixin_41287260/article/details/124368189 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>Git</tag>
-        <tag>SSH</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>PowerShell 报错：在此系统上禁止运行脚本</title>
-    <url>/2024/01/22/PowerShell-vue%E6%97%A0%E6%B3%95%E5%8A%A0%E8%BD%BD%E6%96%87%E4%BB%B6-%E5%9B%A0%E4%B8%BA%E5%9C%A8%E6%AD%A4%E7%B3%BB%E7%BB%9F%E4%B8%8A%E7%A6%81%E6%AD%A2%E8%BF%90%E8%A1%8C%E8%84%9A%E6%9C%AC/</url>
-    <content><![CDATA[<h2 id="问题">问题</h2>
-<p>在 Windows PowerShell （管理员模式下）执行 <code>vue --version</code> 命令时报错如下：</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/01/22/IBWcwtCLqjm2ya3.png"
-                      alt=""
-                ></p>
-<h2 id="原因">原因</h2>
-<p>首次在计算机上启动 Windows PowerShell 时，现用执行策略很可能是 Restricted（默认设置）。Restricted 策略不允许任何脚本运行，以防止执行不信任的脚本。</p>
-<h2 id="解决">解决</h2>
-<p>在 Windows PowerShell 执行以下命令：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">set-executionpolicy remotesigned</span><br></pre></td></tr></table></figure></div>
-<h2 id="效果">效果</h2>
-<p>再次执行 <code>vue --version</code> 命令，可正常查看 Vue 版本：</p>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/01/22/2UpOySQuL3ev5to.png"
-                      style="zoom: 50%;"
-                >
-<h2 id="引用">引用</h2>
-<ul>
-<li><a class="link"   href="https://cloud.tencent.com/developer/article/1612513" >https://cloud.tencent.com/developer/article/1612513 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>PowerShell</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Once Upon a Time in America</title>
     <url>/2024/01/19/Once-Upon-a-Time-in-America/</url>
     <content><![CDATA[<img  
@@ -1754,37 +1754,6 @@
       </categories>
       <tags>
         <tag>电影</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hexo 隐藏特定文章</title>
-    <url>/2024/01/25/Hexo-%E9%9A%90%E8%97%8F%E7%89%B9%E5%AE%9A%E6%96%87%E7%AB%A0/</url>
-    <content><![CDATA[<h2 id="问题">问题</h2>
-<p>写博客时有隐藏特定文章的需求</p>
-<h2 id="解决">解决</h2>
-<p>安装并配置 <code>hexo-hide-posts</code> 插件：</p>
-<ul>
-<li>
-<p>在站点根目录下执行 <code>npm install hexo-hide-posts --save</code> 命令</p>
-</li>
-<li>
-<p>在站点根目录下的 <code>_config.yml</code> 文件中添加如下配置：</p>
-<div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># hexo-hide-posts</span></span><br><span class="line"><span class="attr">hide_posts:</span></span><br><span class="line">  <span class="attr">filter:</span> <span class="string">hidden</span></span><br><span class="line">  </span><br><span class="line">  <span class="comment"># 指定你想要传递隐藏文章的位置，比如让所有隐藏文章在存档页面可见</span></span><br><span class="line">  <span class="comment"># 常见的位置有：index, tag, category, archive, sitemap, feed, etc.</span></span><br><span class="line">  <span class="comment"># 留空则默认全部隐藏</span></span><br><span class="line">  <span class="attr">public_generators:</span> []</span><br><span class="line">  </span><br><span class="line">  <span class="comment"># 为隐藏的文章添加 noindex meta 标签，阻止搜索引擎收录</span></span><br><span class="line">  <span class="attr">noindex:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure></div>
-</li>
-</ul>
-<p>之后写作文章时，在文章属性中添加 <code>hidden: true</code> 即可隐藏文章，形如：</p>
-<div class="highlight-container" data-rel="Markdown"><figure class="iseeu highlight markdown"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: &#x27;Hidden Post&#x27;</span><br><span class="line">date: &#x27;2024/01/25 16:21:16&#x27;</span><br><span class="line"><span class="section">hidden: true</span></span><br><span class="line"><span class="section">---</span></span><br></pre></td></tr></table></figure></div>
-<p>若要查看隐藏文章，可以运行 <code>hexo hidden:list</code> 命令来获取当前所有的已隐藏文章列表及其信息，并通过文章链接访问。</p>
-<h2 id="引用">引用</h2>
-<ul>
-<li><a class="link"   href="https://blog.garryde.com/archives/37712.html" >https://blog.garryde.com/archives/37712.html <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>博客</category>
-      </categories>
-      <tags>
-        <tag>Hexo</tag>
       </tags>
   </entry>
   <entry>
@@ -1821,65 +1790,34 @@
       </tags>
   </entry>
   <entry>
-    <title>Hexo 博客中的 Markdown 脚注渲染问题</title>
-    <url>/2024/01/25/Markdown-%E8%84%9A%E6%B3%A8%E6%B8%B2%E6%9F%93%E9%97%AE%E9%A2%98/</url>
+    <title>Hexo 隐藏特定文章</title>
+    <url>/2024/01/25/Hexo-%E9%9A%90%E8%97%8F%E7%89%B9%E5%AE%9A%E6%96%87%E7%AB%A0/</url>
     <content><![CDATA[<h2 id="问题">问题</h2>
-<p>Hexo 博客无法正常渲染 Markdown 脚注，如下图所示：</p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/01/25/boT1YRUWje6kIHD.png"
-                      alt="Typora 渲染效果"
-                ><figcaption>Typora 渲染效果</figcaption></figure></p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/01/25/EbtSNxAl4hr681y.png"
-                      alt="Hexo 网页渲染效果"
-                ><figcaption>Hexo 网页渲染效果</figcaption></figure></p>
-<h2 id="原因">原因</h2>
-<p>Hexo 默认 Markdown 渲染插件为 <code>hexo-renderer-marked</code> ，而 <code>marked.js</code> 不支持脚注。</p>
+<p>写博客时有隐藏特定文章的需求</p>
 <h2 id="解决">解决</h2>
-<p>改用支持脚注的 Markdown 渲染插件，如 <code>hexo-renderer-markdown-it</code> 。</p>
-<ol>
+<p>安装并配置 <code>hexo-hide-posts</code> 插件：</p>
+<ul>
 <li>
-<p>在 Hexo 根目录打开 Git Bash ，依次执行以下命令：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">npm un hexo-renderer-marked --save <span class="comment"># 卸载 marked 插件</span></span><br><span class="line">npm i hexo-renderer-markdown-it --save <span class="comment"># 安装 markdown-it 插件</span></span><br></pre></td></tr></table></figure></div>
+<p>在站点根目录下执行 <code>npm install hexo-hide-posts --save</code> 命令</p>
 </li>
 <li>
-<p>在 Hexo 根目录打开 <code>_config.yml</code> 文件，添加如下配置信息：</p>
-<div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">markdown:</span></span><br><span class="line">    <span class="attr">plugins:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">markdown-it-footnote</span></span><br></pre></td></tr></table></figure></div>
+<p>在站点根目录下的 <code>_config.yml</code> 文件中添加如下配置：</p>
+<div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># hexo-hide-posts</span></span><br><span class="line"><span class="attr">hide_posts:</span></span><br><span class="line">  <span class="attr">filter:</span> <span class="string">hidden</span></span><br><span class="line">  </span><br><span class="line">  <span class="comment"># 指定你想要传递隐藏文章的位置，比如让所有隐藏文章在存档页面可见</span></span><br><span class="line">  <span class="comment"># 常见的位置有：index, tag, category, archive, sitemap, feed, etc.</span></span><br><span class="line">  <span class="comment"># 留空则默认全部隐藏</span></span><br><span class="line">  <span class="attr">public_generators:</span> []</span><br><span class="line">  </span><br><span class="line">  <span class="comment"># 为隐藏的文章添加 noindex meta 标签，阻止搜索引擎收录</span></span><br><span class="line">  <span class="attr">noindex:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure></div>
 </li>
-<li>
-<p>重新生成静态文件，刷新配置信息使其生效。</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">hexo cl &amp;&amp; hexo g</span><br></pre></td></tr></table></figure></div>
-</li>
-</ol>
-<h2 id="效果">效果</h2>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/01/25/5YH4T6U9VxgkBcq.png"
-                      style="zoom:50%;" 
-                >
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/01/25/Gv3SotxEdrMzXpi.png"
-                      style="zoom:50%;" 
-                >
-<p>点击脚注可正常跳转。</p>
+</ul>
+<p>之后写作文章时，在文章属性中添加 <code>hidden: true</code> 即可隐藏文章，形如：</p>
+<div class="highlight-container" data-rel="Markdown"><figure class="iseeu highlight markdown"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: &#x27;Hidden Post&#x27;</span><br><span class="line">date: &#x27;2024/01/25 16:21:16&#x27;</span><br><span class="line"><span class="section">hidden: true</span></span><br><span class="line"><span class="section">---</span></span><br></pre></td></tr></table></figure></div>
+<p>若要查看隐藏文章，可以运行 <code>hexo hidden:list</code> 命令来获取当前所有的已隐藏文章列表及其信息，并通过文章链接访问。</p>
 <h2 id="引用">引用</h2>
 <ul>
-<li><a class="link"   href="https://github.com/ppoffice/hexo-theme-icarus/issues/572" >https://github.com/ppoffice/hexo-theme-icarus/issues/572 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li><a class="link"   href="https://seayj.cn/articles/33818/" >https://seayj.cn/articles/33818/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://blog.garryde.com/archives/37712.html" >https://blog.garryde.com/archives/37712.html <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
 </ul>
 ]]></content>
       <categories>
         <category>博客</category>
       </categories>
       <tags>
-        <tag>Markdown</tag>
+        <tag>Hexo</tag>
       </tags>
   </entry>
   <entry>
@@ -1947,6 +1885,68 @@
       <tags>
         <tag>Windows环境变量</tag>
         <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo 博客中的 Markdown 脚注渲染问题</title>
+    <url>/2024/01/25/Markdown-%E8%84%9A%E6%B3%A8%E6%B8%B2%E6%9F%93%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<h2 id="问题">问题</h2>
+<p>Hexo 博客无法正常渲染 Markdown 脚注，如下图所示：</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/01/25/boT1YRUWje6kIHD.png"
+                      alt="Typora 渲染效果"
+                ><figcaption>Typora 渲染效果</figcaption></figure></p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/01/25/EbtSNxAl4hr681y.png"
+                      alt="Hexo 网页渲染效果"
+                ><figcaption>Hexo 网页渲染效果</figcaption></figure></p>
+<h2 id="原因">原因</h2>
+<p>Hexo 默认 Markdown 渲染插件为 <code>hexo-renderer-marked</code> ，而 <code>marked.js</code> 不支持脚注。</p>
+<h2 id="解决">解决</h2>
+<p>改用支持脚注的 Markdown 渲染插件，如 <code>hexo-renderer-markdown-it</code> 。</p>
+<ol>
+<li>
+<p>在 Hexo 根目录打开 Git Bash ，依次执行以下命令：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">npm un hexo-renderer-marked --save <span class="comment"># 卸载 marked 插件</span></span><br><span class="line">npm i hexo-renderer-markdown-it --save <span class="comment"># 安装 markdown-it 插件</span></span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>在 Hexo 根目录打开 <code>_config.yml</code> 文件，添加如下配置信息：</p>
+<div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">markdown:</span></span><br><span class="line">    <span class="attr">plugins:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">markdown-it-footnote</span></span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>重新生成静态文件，刷新配置信息使其生效。</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">hexo cl &amp;&amp; hexo g</span><br></pre></td></tr></table></figure></div>
+</li>
+</ol>
+<h2 id="效果">效果</h2>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/01/25/5YH4T6U9VxgkBcq.png"
+                      style="zoom:50%;" 
+                >
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/01/25/Gv3SotxEdrMzXpi.png"
+                      style="zoom:50%;" 
+                >
+<p>点击脚注可正常跳转。</p>
+<h2 id="引用">引用</h2>
+<ul>
+<li><a class="link"   href="https://github.com/ppoffice/hexo-theme-icarus/issues/572" >https://github.com/ppoffice/hexo-theme-icarus/issues/572 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://seayj.cn/articles/33818/" >https://seayj.cn/articles/33818/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>博客</category>
+      </categories>
+      <tags>
+        <tag>Markdown</tag>
       </tags>
   </entry>
   <entry>
@@ -2143,6 +2143,29 @@
       </tags>
   </entry>
   <entry>
+    <title>实现 Windows 环境下 Thunderbird 邮件客户端自启动</title>
+    <url>/2024/03/05/%E5%AE%9E%E7%8E%B0Windows%E7%8E%AF%E5%A2%83%E4%B8%8BThunderbird%E9%82%AE%E4%BB%B6%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%87%AA%E5%90%AF%E5%8A%A8/</url>
+    <content><![CDATA[<p>Thunderbird是一款优秀的开源邮件客户端，但在Windows环境下没有自启动选项，且关闭主界面后客户端也会关闭，这种设计不利于在后台接收新邮件提醒。因此，考虑通过其他途径实现Thunderbird的自启动。</p>
+<h2 id="实现">实现</h2>
+<p>在<code>C:\Users\[用户名]\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup</code>路径下创建一个Thunderbird主程序快捷方式，即可实现Thunderbird开机自启。</p>
+<blockquote>
+<p>推而广之，可用此方式实现其他（任何）程序的开机自启。</p>
+</blockquote>
+<h2 id="One-more-thing">One more thing</h2>
+<p>更进一步，可在Thunderbird客户端安装以下插件：</p>
+<ul>
+<li>Minimize at startup：启动时最小化到托盘。配合上述自启动设置，可实现开机自启且最小化。</li>
+<li>Minimize on Close：点击关闭按钮后最小化到托盘，而不是关闭程序。可避免误关，更重要的是可以拯救强迫症患者。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>工具</category>
+      </categories>
+      <tags>
+        <tag>Thunderbird</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>转载 - SpringBoot 为什么不需要额外安装 Tomcat ？</title>
     <url>/2024/03/07/%E8%BD%AC%E8%BD%BD-SpringBoot%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E9%9C%80%E8%A6%81%E9%A2%9D%E5%A4%96%E5%AE%89%E8%A3%85Tomcat%EF%BC%9F/</url>
     <content><![CDATA[
@@ -2166,26 +2189,23 @@
       </tags>
   </entry>
   <entry>
-    <title>实现 Windows 环境下 Thunderbird 邮件客户端自启动</title>
-    <url>/2024/03/05/%E5%AE%9E%E7%8E%B0Windows%E7%8E%AF%E5%A2%83%E4%B8%8BThunderbird%E9%82%AE%E4%BB%B6%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%87%AA%E5%90%AF%E5%8A%A8/</url>
-    <content><![CDATA[<p>Thunderbird是一款优秀的开源邮件客户端，但在Windows环境下没有自启动选项，且关闭主界面后客户端也会关闭，这种设计不利于在后台接收新邮件提醒。因此，考虑通过其他途径实现Thunderbird的自启动。</p>
-<h2 id="实现">实现</h2>
-<p>在<code>C:\Users\[用户名]\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup</code>路径下创建一个Thunderbird主程序快捷方式，即可实现Thunderbird开机自启。</p>
-<blockquote>
-<p>推而广之，可用此方式实现其他（任何）程序的开机自启。</p>
-</blockquote>
-<h2 id="One-more-thing">One more thing</h2>
-<p>更进一步，可在Thunderbird客户端安装以下插件：</p>
-<ul>
-<li>Minimize at startup：启动时最小化到托盘。配合上述自启动设置，可实现开机自启且最小化。</li>
-<li>Minimize on Close：点击关闭按钮后最小化到托盘，而不是关闭程序。可避免误关，更重要的是可以拯救强迫症患者。</li>
-</ul>
+    <title>IOC 容器对 Bean 的命名规则</title>
+    <url>/2024/03/08/IOC-%E5%AE%B9%E5%99%A8%E5%AF%B9-Bean-%E7%9A%84%E5%91%BD%E5%90%8D%E8%A7%84%E5%88%99/</url>
+    <content><![CDATA[<h2 id="1-默认规则">1. 默认规则</h2>
+<p>在 Spring 中，IOC（控制反转）容器可以自动识别并创建 Bean，而且它默认遵循一定的命名规则。Spring 的 IOC 容器在自动识别 Bean 时通常使用的是<strong>基于类名的驼峰命名规则</strong>。</p>
+<p><strong>如果类名以大写字母开头，Spring 将会把它转换为以小写字母开头，并且在容器中注册为 Bean。</strong></p>
+<p>例如，假设你有一个名为 <code>UserService</code> 的类，Spring IOC 容器会将它识别为 <code>userService</code> 的 Bean。类似地，<code>UserServiceImpl</code> 会变成 <code>userServiceImpl</code>。</p>
+<p>这种自动的 Bean 命名规则存在于 Spring 的默认行为中，这样开发者就不需要显式地在配置文件或注解中指定 Bean 的名称，Spring 会根据类名来自动推断。</p>
+<h2 id="2-自定义">2. 自定义</h2>
+<p>但是，如果开发者想要<strong>自定义 Bean 的名称</strong>，可以使用 <code>@Component</code>、<code>@Service</code>、<code>@Repository</code> 等注解，并<strong>在括号中指定 Bean 的名称</strong>，例如：</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Service(&quot;myCustomService&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyCustomServiceImpl</span> <span class="keyword">implements</span> <span class="title class_">MyCustomService</span> &#123;</span><br><span class="line">    <span class="comment">// 实现代码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>在这个例子中，<code>MyCustomServiceImpl</code> 类会被注册到 Spring 容器中，并且 Bean 的名称将会是 <code>myCustomService</code>，而不是自动推断的 <code>myCustomServiceImpl</code>。</p>
 ]]></content>
       <categories>
-        <category>工具</category>
+        <category>Java学习笔记</category>
       </categories>
       <tags>
-        <tag>Thunderbird</tag>
+        <tag>Spring</tag>
       </tags>
   </entry>
   <entry>
@@ -2231,17 +2251,125 @@
       </tags>
   </entry>
   <entry>
-    <title>IOC 容器对 Bean 的命名规则</title>
-    <url>/2024/03/08/IOC-%E5%AE%B9%E5%99%A8%E5%AF%B9-Bean-%E7%9A%84%E5%91%BD%E5%90%8D%E8%A7%84%E5%88%99/</url>
-    <content><![CDATA[<h2 id="1-默认规则">1. 默认规则</h2>
-<p>在 Spring 中，IOC（控制反转）容器可以自动识别并创建 Bean，而且它默认遵循一定的命名规则。Spring 的 IOC 容器在自动识别 Bean 时通常使用的是<strong>基于类名的驼峰命名规则</strong>。</p>
-<p><strong>如果类名以大写字母开头，Spring 将会把它转换为以小写字母开头，并且在容器中注册为 Bean。</strong></p>
-<p>例如，假设你有一个名为 <code>UserService</code> 的类，Spring IOC 容器会将它识别为 <code>userService</code> 的 Bean。类似地，<code>UserServiceImpl</code> 会变成 <code>userServiceImpl</code>。</p>
-<p>这种自动的 Bean 命名规则存在于 Spring 的默认行为中，这样开发者就不需要显式地在配置文件或注解中指定 Bean 的名称，Spring 会根据类名来自动推断。</p>
-<h2 id="2-自定义">2. 自定义</h2>
-<p>但是，如果开发者想要<strong>自定义 Bean 的名称</strong>，可以使用 <code>@Component</code>、<code>@Service</code>、<code>@Repository</code> 等注解，并<strong>在括号中指定 Bean 的名称</strong>，例如：</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Service(&quot;myCustomService&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyCustomServiceImpl</span> <span class="keyword">implements</span> <span class="title class_">MyCustomService</span> &#123;</span><br><span class="line">    <span class="comment">// 实现代码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<p>在这个例子中，<code>MyCustomServiceImpl</code> 类会被注册到 Spring 容器中，并且 Bean 的名称将会是 <code>myCustomService</code>，而不是自动推断的 <code>myCustomServiceImpl</code>。</p>
+    <title>SpringBoot - Bean 的管理</title>
+    <url>/2024/03/08/SpringBoot-Bean%E7%9A%84%E7%AE%A1%E7%90%86/</url>
+    <content><![CDATA[<h2 id="1-Bean的获取">1. Bean的获取</h2>
+<p>默认情况下，SpringBoot项目在启动的时候会自动的创建IOC容器(也称为Spring容器)，并且在启动的过程当中会自动的将bean对象都创建好，存放在IOC容器当中。应用程序在运行时需要依赖什么bean对象，就直接进行依赖注入就可以了。</p>
+<p>而在Spring容器中提供了一些方法，可以主动从IOC容器中获取到bean对象，下面介绍3种常用方式：</p>
+<ol>
+<li>
+<p>根据name获取bean</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line">Object <span class="title function_">getBean</span><span class="params">(String name)</span></span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>根据类型获取bean</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line">&lt;T&gt; T <span class="title function_">getBean</span><span class="params">(Class&lt;T&gt; requiredType)</span></span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>根据name获取bean（带类型转换）</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line">&lt;T&gt; T <span class="title function_">getBean</span><span class="params">(String name, Class&lt;T&gt; requiredType)</span></span><br></pre></td></tr></table></figure></div>
+</li>
+</ol>
+<p>思考：要从IOC容器当中来获取到bean对象，需要先拿到IOC容器对象，怎么样才能拿到IOC容器呢？</p>
+<ul>
+<li>想获取到IOC容器，直接将IOC容器对象注入进来就可以了</li>
+</ul>
+<p>注意事项：</p>
+<ul>
+<li>上述所说的 【Spring项目启动时，会把其中的bean都创建好】还会受到作用域及延迟初始化影响，这里主要针对于默认的单例非延迟加载的bean而言。</li>
+</ul>
+<h2 id="2-Bean的作用域">2. Bean的作用域</h2>
+<p>在Spring中支持五种作用域，后三种在web环境才生效：</p>
+<table>
+<thead>
+<tr>
+<th><strong>作用域</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>singleton</td>
+<td>容器内同名称的bean只有一个实例（单例）（默认）</td>
+</tr>
+<tr>
+<td>prototype</td>
+<td>每次使用该bean时会创建新的实例（非单例）</td>
+</tr>
+<tr>
+<td>request</td>
+<td>每个请求范围内会创建新的实例（web环境中，了解）</td>
+</tr>
+<tr>
+<td>session</td>
+<td>每个会话范围内会创建新的实例（web环境中，了解）</td>
+</tr>
+<tr>
+<td>application</td>
+<td>每个应用范围内会创建新的实例（web环境中，了解）</td>
+</tr>
+</tbody>
+</table>
+<p>知道了bean的5种作用域了，我们要怎么去设置一个bean的作用域呢？</p>
+<ul>
+<li>可以借助Spring中的@Scope注解来进行配置作用域</li>
+</ul>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/03/08/GXCRYFwmTeKJILo.png"
+                      alt=""
+                ></p>
+<p>注意事项：</p>
+<ul>
+<li>
+<p>IOC容器中的bean默认使用的作用域：singleton (单例)。默认singleton的bean，在容器启动时被创建，可以使用@Lazy注解来延迟初始化(延迟到第一次使用时)</p>
+</li>
+<li>
+<p>prototype的bean，每一次使用该bean的时候都会创建一个新的实例</p>
+</li>
+<li>
+<p>实际开发当中，绝大部分的Bean是单例的，也就是说绝大部分Bean不需要配置scope属性</p>
+</li>
+</ul>
+<h2 id="3-第三方Bean">3. 第三方Bean</h2>
+<p>在我们项目开发当中，有的类不是我们自己编写的，而是我们引入的第三方依赖当中提供的。</p>
+<p>在pom.xml文件中，引入dom4j：</p>
+<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--Dom4j--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.dom4j<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>dom4j<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.1.3<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
+<blockquote>
+<p>dom4j就是第三方组织提供的。 dom4j中的SAXReader类就是第三方编写的。</p>
+</blockquote>
+<p>那么我们应该怎样使用并定义第三方的bean呢？</p>
+<ul>
+<li>如果要管理的bean对象来自于第三方（不是自定义的），是无法用@Component 及衍生注解声明bean的，而是需要用到**@Bean**注解。</li>
+</ul>
+<p><strong>解决方案1：在启动类上添加@Bean标识的方法</strong></p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SpringbootWebConfig2Application</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        SpringApplication.run(SpringbootWebConfig2Application.class, args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 声明第三方 Bean</span></span><br><span class="line">    <span class="meta">@Bean</span> <span class="comment">// 将当前方法的返回值对象交给 IOC 容器管理, 成为 IOC 容器 Bean</span></span><br><span class="line">    <span class="keyword">public</span> SAXReader <span class="title function_">saxReader</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">SAXReader</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<blockquote>
+<p><strong>说明：以上在启动类中声明第三方Bean的作法，不建议使用（项目中要保证启动类的纯粹性）</strong></p>
+</blockquote>
+<p><strong>解决方案2：在配置类中定义@Bean标识的方法</strong></p>
+<ul>
+<li>如果需要定义第三方Bean时， 通常会单独定义一个配置类</li>
+</ul>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Configuration</span> <span class="comment">// 配置类  (在配置类当中对第三方bean进行集中配置管理)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CommonConfig</span> &#123;</span><br><span class="line">    <span class="comment">// 声明第三方 bean</span></span><br><span class="line">    <span class="meta">@Bean</span> <span class="comment">// 将当前方法的返回值对象交给 IOC 容器管理, 成为 IOC 容器 bean</span></span><br><span class="line">          <span class="comment">// 通过 @Bean 注解的 name/value 属性指定 bean 名称, 如果未指定, 默认是方法名</span></span><br><span class="line">    <span class="keyword">public</span> SAXReader <span class="title function_">reader</span><span class="params">(DeptService deptService)</span>&#123;</span><br><span class="line">        System.out.println(deptService);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">SAXReader</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>在方法上加上一个@Bean注解，Spring 容器在启动的时候，它会自动的调用这个方法，并将方法的返回值声明为Spring容器当中的Bean对象。</p>
+<blockquote>
+<p>注意事项 ：</p>
+<ul>
+<li>
+<p>通过@Bean注解的name或value属性可以声明bean的名称，如果不指定，默认bean的名称就是方法名。</p>
+</li>
+<li>
+<p>如果第三方bean需要依赖其它bean对象，直接在bean定义<strong>方法</strong>中设置<strong>形参</strong>即可，容器会根据类型自动装配。</p>
+</li>
+</ul>
+</blockquote>
+<p><strong>关于Bean只需要保持一个原则：</strong></p>
+<ul>
+<li>如果是在项目当中自己定义的类，想将这些类交给IOC容器管理，我们直接使用@Component以及它的衍生注解来声明就可以。</li>
+<li>如果这个类它不是自己定义的，而是引入的第三方依赖当中提供的类，而且我们还想将这个类交给IOC容器管理。此时我们就需要在配置类中定义一个方法，在方法上加上一个@Bean注解，通过这种方式来声明第三方的bean对象。</li>
+</ul>
 ]]></content>
       <categories>
         <category>Java学习笔记</category>
@@ -2426,134 +2554,6 @@
       </tags>
   </entry>
   <entry>
-    <title>SpringBoot - Bean 的管理</title>
-    <url>/2024/03/08/SpringBoot-Bean%E7%9A%84%E7%AE%A1%E7%90%86/</url>
-    <content><![CDATA[<h2 id="1-Bean的获取">1. Bean的获取</h2>
-<p>默认情况下，SpringBoot项目在启动的时候会自动的创建IOC容器(也称为Spring容器)，并且在启动的过程当中会自动的将bean对象都创建好，存放在IOC容器当中。应用程序在运行时需要依赖什么bean对象，就直接进行依赖注入就可以了。</p>
-<p>而在Spring容器中提供了一些方法，可以主动从IOC容器中获取到bean对象，下面介绍3种常用方式：</p>
-<ol>
-<li>
-<p>根据name获取bean</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line">Object <span class="title function_">getBean</span><span class="params">(String name)</span></span><br></pre></td></tr></table></figure></div>
-</li>
-<li>
-<p>根据类型获取bean</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line">&lt;T&gt; T <span class="title function_">getBean</span><span class="params">(Class&lt;T&gt; requiredType)</span></span><br></pre></td></tr></table></figure></div>
-</li>
-<li>
-<p>根据name获取bean（带类型转换）</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line">&lt;T&gt; T <span class="title function_">getBean</span><span class="params">(String name, Class&lt;T&gt; requiredType)</span></span><br></pre></td></tr></table></figure></div>
-</li>
-</ol>
-<p>思考：要从IOC容器当中来获取到bean对象，需要先拿到IOC容器对象，怎么样才能拿到IOC容器呢？</p>
-<ul>
-<li>想获取到IOC容器，直接将IOC容器对象注入进来就可以了</li>
-</ul>
-<p>注意事项：</p>
-<ul>
-<li>上述所说的 【Spring项目启动时，会把其中的bean都创建好】还会受到作用域及延迟初始化影响，这里主要针对于默认的单例非延迟加载的bean而言。</li>
-</ul>
-<h2 id="2-Bean的作用域">2. Bean的作用域</h2>
-<p>在Spring中支持五种作用域，后三种在web环境才生效：</p>
-<table>
-<thead>
-<tr>
-<th><strong>作用域</strong></th>
-<th><strong>说明</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>singleton</td>
-<td>容器内同名称的bean只有一个实例（单例）（默认）</td>
-</tr>
-<tr>
-<td>prototype</td>
-<td>每次使用该bean时会创建新的实例（非单例）</td>
-</tr>
-<tr>
-<td>request</td>
-<td>每个请求范围内会创建新的实例（web环境中，了解）</td>
-</tr>
-<tr>
-<td>session</td>
-<td>每个会话范围内会创建新的实例（web环境中，了解）</td>
-</tr>
-<tr>
-<td>application</td>
-<td>每个应用范围内会创建新的实例（web环境中，了解）</td>
-</tr>
-</tbody>
-</table>
-<p>知道了bean的5种作用域了，我们要怎么去设置一个bean的作用域呢？</p>
-<ul>
-<li>可以借助Spring中的@Scope注解来进行配置作用域</li>
-</ul>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/03/08/GXCRYFwmTeKJILo.png"
-                      alt=""
-                ></p>
-<p>注意事项：</p>
-<ul>
-<li>
-<p>IOC容器中的bean默认使用的作用域：singleton (单例)。默认singleton的bean，在容器启动时被创建，可以使用@Lazy注解来延迟初始化(延迟到第一次使用时)</p>
-</li>
-<li>
-<p>prototype的bean，每一次使用该bean的时候都会创建一个新的实例</p>
-</li>
-<li>
-<p>实际开发当中，绝大部分的Bean是单例的，也就是说绝大部分Bean不需要配置scope属性</p>
-</li>
-</ul>
-<h2 id="3-第三方Bean">3. 第三方Bean</h2>
-<p>在我们项目开发当中，有的类不是我们自己编写的，而是我们引入的第三方依赖当中提供的。</p>
-<p>在pom.xml文件中，引入dom4j：</p>
-<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--Dom4j--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.dom4j<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>dom4j<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.1.3<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
-<blockquote>
-<p>dom4j就是第三方组织提供的。 dom4j中的SAXReader类就是第三方编写的。</p>
-</blockquote>
-<p>那么我们应该怎样使用并定义第三方的bean呢？</p>
-<ul>
-<li>如果要管理的bean对象来自于第三方（不是自定义的），是无法用@Component 及衍生注解声明bean的，而是需要用到**@Bean**注解。</li>
-</ul>
-<p><strong>解决方案1：在启动类上添加@Bean标识的方法</strong></p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SpringbootWebConfig2Application</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        SpringApplication.run(SpringbootWebConfig2Application.class, args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 声明第三方 Bean</span></span><br><span class="line">    <span class="meta">@Bean</span> <span class="comment">// 将当前方法的返回值对象交给 IOC 容器管理, 成为 IOC 容器 Bean</span></span><br><span class="line">    <span class="keyword">public</span> SAXReader <span class="title function_">saxReader</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">SAXReader</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<blockquote>
-<p><strong>说明：以上在启动类中声明第三方Bean的作法，不建议使用（项目中要保证启动类的纯粹性）</strong></p>
-</blockquote>
-<p><strong>解决方案2：在配置类中定义@Bean标识的方法</strong></p>
-<ul>
-<li>如果需要定义第三方Bean时， 通常会单独定义一个配置类</li>
-</ul>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Configuration</span> <span class="comment">// 配置类  (在配置类当中对第三方bean进行集中配置管理)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CommonConfig</span> &#123;</span><br><span class="line">    <span class="comment">// 声明第三方 bean</span></span><br><span class="line">    <span class="meta">@Bean</span> <span class="comment">// 将当前方法的返回值对象交给 IOC 容器管理, 成为 IOC 容器 bean</span></span><br><span class="line">          <span class="comment">// 通过 @Bean 注解的 name/value 属性指定 bean 名称, 如果未指定, 默认是方法名</span></span><br><span class="line">    <span class="keyword">public</span> SAXReader <span class="title function_">reader</span><span class="params">(DeptService deptService)</span>&#123;</span><br><span class="line">        System.out.println(deptService);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">SAXReader</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<p>在方法上加上一个@Bean注解，Spring 容器在启动的时候，它会自动的调用这个方法，并将方法的返回值声明为Spring容器当中的Bean对象。</p>
-<blockquote>
-<p>注意事项 ：</p>
-<ul>
-<li>
-<p>通过@Bean注解的name或value属性可以声明bean的名称，如果不指定，默认bean的名称就是方法名。</p>
-</li>
-<li>
-<p>如果第三方bean需要依赖其它bean对象，直接在bean定义<strong>方法</strong>中设置<strong>形参</strong>即可，容器会根据类型自动装配。</p>
-</li>
-</ul>
-</blockquote>
-<p><strong>关于Bean只需要保持一个原则：</strong></p>
-<ul>
-<li>如果是在项目当中自己定义的类，想将这些类交给IOC容器管理，我们直接使用@Component以及它的衍生注解来声明就可以。</li>
-<li>如果这个类它不是自己定义的，而是引入的第三方依赖当中提供的类，而且我们还想将这个类交给IOC容器管理。此时我们就需要在配置类中定义一个方法，在方法上加上一个@Bean注解，通过这种方式来声明第三方的bean对象。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>Java学习笔记</category>
-      </categories>
-      <tags>
-        <tag>Spring</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>JavaWeb 后端开发总结</title>
     <url>/2024/03/10/JavaWeb-%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91%E6%80%BB%E7%BB%93/</url>
     <content><![CDATA[<p>web后端开发现在基本上都是基于标准的三层架构进行开发的，在三层架构当中，Controller控制器层负责接收请求响应数据，Service业务层负责具体的业务逻辑处理，而Dao数据访问层也叫持久层，就是用来处理数据访问操作的，来完成数据库当中数据的增删改查操作。</p>
@@ -2619,6 +2619,28 @@
       </tags>
   </entry>
   <entry>
+    <title>转载 - Spring 注解之 @RestController 与 @Controller 的区别</title>
+    <url>/2024/03/08/%E8%BD%AC%E8%BD%BD-Spring-%E6%B3%A8%E8%A7%A3%E4%B9%8B-RestController%E4%B8%8E-Controller%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
+    <content><![CDATA[
+  <div class="note-large yellow">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>链接</p>
+
+    </div>
+    <div class="notel-content">
+      <p><a class="link"   href="https://www.cnblogs.com/east7/p/10462279.html" >https://www.cnblogs.com/east7/p/10462279.html <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+
+    </div>
+  </div>
+]]></content>
+      <categories>
+        <category>转载</category>
+      </categories>
+      <tags>
+        <tag>Spring</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Maven - 分模块设计与开发</title>
     <url>/2024/03/11/Maven-%E5%88%86%E6%A8%A1%E5%9D%97%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%BC%80%E5%8F%91/</url>
     <content><![CDATA[<p>所谓分模块设计，指的就是我们在设计一个 Java 项目的时候，将一个 Java 项目拆分成多个模块进行开发。</p>
@@ -2661,25 +2683,275 @@
       </tags>
   </entry>
   <entry>
-    <title>转载 - Spring 注解之 @RestController 与 @Controller 的区别</title>
-    <url>/2024/03/08/%E8%BD%AC%E8%BD%BD-Spring-%E6%B3%A8%E8%A7%A3%E4%B9%8B-RestController%E4%B8%8E-Controller%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
-    <content><![CDATA[
-  <div class="note-large yellow">
-    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
-      <p>链接</p>
-
-    </div>
-    <div class="notel-content">
-      <p><a class="link"   href="https://www.cnblogs.com/east7/p/10462279.html" >https://www.cnblogs.com/east7/p/10462279.html <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-
-    </div>
-  </div>
+    <title>Maven - 私服</title>
+    <url>/2024/03/11/Maven-%E7%A7%81%E6%9C%8D/</url>
+    <content><![CDATA[<h2 id="1-场景">1. 场景</h2>
+<p>私服其实就是架设在公司局域网内部的一台服务器，就是一种特殊的远程仓库。A 连接上私服之后，他就可以把jar包直接上传到私服当中。B 团队的所有开发人员也连接同一台私服之后，他们就能根据坐标的信息，直接从私服当中将对应的jar包下载到自己的本地仓库，使用依赖当中所提供的一些工具类了。这样我们就可以通过私服来完成资源的共享。</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/03/11/OSj7seIXlw6ofnL.png"
+                      style="zoom:80%;" 
+                > 
+<p>而如果我们在项目中需要使用其他第三方提供的依赖，如果本地仓库没有，也会自动连接私服下载，如果私服没有，私服此时会自动连接中央仓库，去中央仓库中下载依赖，然后将下载的依赖存储在私服仓库及本地仓库中。</p>
+<h2 id="2-介绍">2. 介绍</h2>
+<ul>
+<li>
+<p><strong>私服</strong>：是一种特殊的远程仓库，它是架设在局域网内的仓库服务，用来代理位于外部的中央仓库，用于解决团队内部的资源共享与资源同步问题。</p>
+</li>
+<li>
+<p><strong>依赖查找顺序</strong>：</p>
+<ul>
+<li>本地仓库</li>
+<li>私服仓库</li>
+<li>中央仓库</li>
+</ul>
+</li>
+<li>
+<p><strong>资源上传与下载</strong>：<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/03/11/2uxvsBiCMbI3wYO.png"
+                      style="zoom:80%;" 
+                ></p>
+<p>资源的上传与下载，我们需要做三步配置，执行一条指令：</p>
+<ol>
+<li>在maven的配置文件中配置连接私服的地址(url地址)。</li>
+<li>在maven的配置文件中配置访问私服的用户名、密码。</li>
+<li>在项目的pom.xml文件中配置上传资源的位置(url地址)。</li>
+</ol>
+<p>配置好了上述三步之后，要上传资源到私服仓库，就执行maven生命周期：deploy</p>
+<p>接下来，其他项目组的开发人员就可以在项目中直接通过依赖的坐标，引入对应的依赖。如果此时本地仓库没有，就会自动从私服仓库中下载。</p>
+<blockquote>
+<p>私服仓库说明：</p>
+<ul>
+<li>RELEASE：存储自己开发的RELEASE发布版本的资源。</li>
+<li>SNAPSHOT：存储自己开发的SNAPSHOT发布版本的资源。</li>
+<li>Central：存储的是从中央仓库下载下来的依赖。</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>项目版本说明：</p>
+<ul>
+<li>RELEASE(发布版本)：功能趋于稳定、当前更新停止，可以用于发行的版本，存储在私服中的RELEASE仓库中。</li>
+<li>SNAPSHOT(快照版本)：功能不稳定、尚处于开发中的版本，即快照版本，存储在私服的SNAPSHOT仓库中。</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<h2 id="3-私服配置">3. 私服配置</h2>
+<p>使用私服，需要在maven的settings.xml配置文件中，做如下配置：</p>
+<ol>
+<li>
+<p>需要在 <strong>servers</strong> 标签中，配置访问私服的个人凭证(访问的用户名和密码)</p>
+<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">server</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">id</span>&gt;</span>maven-releases<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">username</span>&gt;</span>admin<span class="tag">&lt;/<span class="name">username</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">password</span>&gt;</span>admin<span class="tag">&lt;/<span class="name">password</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">server</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">server</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">id</span>&gt;</span>maven-snapshots<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">username</span>&gt;</span>admin<span class="tag">&lt;/<span class="name">username</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">password</span>&gt;</span>admin<span class="tag">&lt;/<span class="name">password</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">server</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>在 <strong>mirrors</strong> 标签中，配置自己私服的连接地址(如果之前配置过阿里云，需要直接替换掉)</p>
+<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mirror</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">id</span>&gt;</span>maven-public<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mirrorOf</span>&gt;</span>*<span class="tag">&lt;/<span class="name">mirrorOf</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://192.168.150.101:8081/repository/maven-public/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mirror</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>在 <strong>profiles</strong> 标签中，增加如下配置，来指定snapshot快照版本的依赖允许使用</p>
+<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">profile</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">id</span>&gt;</span>allow-snapshots<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">activation</span>&gt;</span></span><br><span class="line">        	<span class="tag">&lt;<span class="name">activeByDefault</span>&gt;</span>true<span class="tag">&lt;/<span class="name">activeByDefault</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">activation</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">repositories</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">repository</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">id</span>&gt;</span>maven-public<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://192.168.150.101:8081/repository/maven-public/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">releases</span>&gt;</span></span><br><span class="line">            	<span class="tag">&lt;<span class="name">enabled</span>&gt;</span>true<span class="tag">&lt;/<span class="name">enabled</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">releases</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">snapshots</span>&gt;</span></span><br><span class="line">            	<span class="tag">&lt;<span class="name">enabled</span>&gt;</span>true<span class="tag">&lt;/<span class="name">enabled</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">snapshots</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">repository</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">repositories</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">profile</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>如果需要上传自己的项目到私服上，需要在项目的pom.xml文件中，增加如下配置，来配置项目发布的地址(也就是私服的地址)</p>
+<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">distributionManagement</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- release版本的发布地址 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">repository</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span>&gt;</span>maven-releases<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://192.168.150.101:8081/repository/maven-releases/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">repository</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- snapshot版本的发布地址 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">snapshotRepository</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span>&gt;</span>maven-snapshots<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://192.168.150.101:8081/repository/maven-snapshots/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">snapshotRepository</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">distributionManagement</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>发布项目，直接运行 deploy 生命周期即可 (发布时，建议跳过单元测试)</p>
+</li>
+</ol>
 ]]></content>
       <categories>
-        <category>转载</category>
+        <category>Java学习笔记</category>
       </categories>
       <tags>
-        <tag>Spring</tag>
+        <tag>Maven</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Swagger</title>
+    <url>/2024/03/12/Swagger/</url>
+    <content><![CDATA[<h2 id="1-介绍">1. 介绍</h2>
+<p>Swagger 是一个规范和完整的框架，用于生成、描述、调用和可视化 RESTful 风格的 Web 服务（<a class="link"   href="https://swagger.io/" >https://swagger.io/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>）。 它的主要作用是：</p>
+<ul>
+<li>使得前后端分离开发更加方便，有利于团队协作</li>
+<li>接口的文档在线自动生成，降低后端开发人员编写接口文档的负担</li>
+<li>功能测试</li>
+</ul>
+<p>Spring已经将Swagger纳入自身的标准，建立了Spring-swagger项目，现在叫Springfox。通过在项目中引入Springfox ，即可非常简单快捷的使用Swagger。</p>
+<p>knife4j是为Java MVC框架集成Swagger生成Api文档的增强解决方案，前身是swagger-bootstrap-ui，取名kni4j是希望它能像一把匕首一样小巧，轻量，并且功能强悍。</p>
+<p>目前，一般都使用knife4j框架。</p>
+<h2 id="2-使用步骤">2 使用步骤</h2>
+<h3 id="2-1-导入-knife4j-的maven坐标">2.1 导入 knife4j 的maven坐标</h3>
+<p>在pom.xml中添加依赖</p>
+<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.github.xiaoymin<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>knife4j-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
+<h3 id="2-2-在配置类中加入-knife4j-相关配置">2.2 在配置类中加入 knife4j 相关配置</h3>
+<p>WebMvcConfiguration.java</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 通过knife4j生成接口文档</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> Docket <span class="title function_">docket</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">ApiInfo</span> <span class="variable">apiInfo</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ApiInfoBuilder</span>()</span><br><span class="line">                .title(<span class="string">&quot;苍穹外卖项目接口文档&quot;</span>)</span><br><span class="line">                .version(<span class="string">&quot;2.0&quot;</span>)</span><br><span class="line">                .description(<span class="string">&quot;苍穹外卖项目接口文档&quot;</span>)</span><br><span class="line">                .build();</span><br><span class="line">        <span class="type">Docket</span> <span class="variable">docket</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Docket</span>(DocumentationType.SWAGGER_2)</span><br><span class="line">                .apiInfo(apiInfo)</span><br><span class="line">                .select()</span><br><span class="line">                .apis(RequestHandlerSelectors.basePackage(<span class="string">&quot;com.sky.controller&quot;</span>))</span><br><span class="line">                .paths(PathSelectors.any())</span><br><span class="line">                .build();</span><br><span class="line">        <span class="keyword">return</span> docket;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></div>
+<h3 id="2-3-设置静态资源映射">2.3 设置静态资源映射</h3>
+<p>WebMvcConfiguration.java</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 设置静态资源映射</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> registry</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">addResourceHandlers</span><span class="params">(ResourceHandlerRegistry registry)</span> &#123;</span><br><span class="line">        registry.addResourceHandler(<span class="string">&quot;/doc.html&quot;</span>).addResourceLocations(<span class="string">&quot;classpath:/META-INF/resources/&quot;</span>);</span><br><span class="line">        registry.addResourceHandler(<span class="string">&quot;/webjars/**&quot;</span>).addResourceLocations(<span class="string">&quot;classpath:/META-INF/resources/webjars/&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h3 id="2-4-访问测试">2.4 访问测试</h3>
+<p>接口文档访问路径为 <code>http://ip:port/doc.html</code> -&gt; <code>http://localhost:8080/doc.html</code></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/03/12/YAHX2qBR7kI4m1y.png"
+                      alt=""
+                ></p>
+<blockquote>
+<p><strong>思考</strong>：通过 Swagger 就可以生成接口文档，那么我们就不需要 Yapi 了？答案：需要。</p>
+<ul>
+<li>Yapi 是设计阶段使用的工具，管理和维护接口</li>
+<li>Swagger 在开发阶段使用的框架，帮助后端开发人员做后端的接口测试</li>
+</ul>
+</blockquote>
+<h2 id="3-常用注解">3. 常用注解</h2>
+<p>通过注解可以控制生成的接口文档，使接口文档拥有更好的可读性，常用注解如下：</p>
+<table>
+<thead>
+<tr>
+<th><strong>注解</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>@Api</td>
+<td>用在类上，例如Controller，表示对类的说明</td>
+</tr>
+<tr>
+<td>@ApiOperation</td>
+<td>用在方法上，例如Controller的方法，说明方法的用途、作用</td>
+</tr>
+<tr>
+<td>@ApiModel</td>
+<td>用在类上，例如entity、DTO、VO</td>
+</tr>
+<tr>
+<td>@ApiModelProperty</td>
+<td>用在属性上，描述属性信息</td>
+</tr>
+</tbody>
+</table>
+<p><strong>例如</strong>：</p>
+<p>在sky-server模块中：<br>
+EmployeeController.java</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping(&quot;/admin/employee&quot;)</span></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="meta">@Api(tags = &quot;员工相关接口&quot;)</span>	<span class="comment">// @Api 注解</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">EmployeeController</span> &#123;</span><br><span class="line">	……</span><br><span class="line">    <span class="meta">@PostMapping(&quot;/login&quot;)</span></span><br><span class="line">    <span class="meta">@ApiOperation(value = &quot;员工登录&quot;)</span>	<span class="comment">// @ApiOperation 注解</span></span><br><span class="line">    <span class="keyword">public</span> Result&lt;EmployeeLoginVO&gt; <span class="title function_">login</span><span class="params">(<span class="meta">@RequestBody</span> EmployeeLoginDTO employeeLoginDTO)</span> 	&#123;</span><br><span class="line">        <span class="comment">//..............</span></span><br><span class="line">    &#125;</span><br><span class="line">    ……</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+<p>在sky-pojo模块中：<br>
+EmployeeLoginDTO.java</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@ApiModel(description = &quot;员工登录时传递的数据模型&quot;)</span>	<span class="comment">// @ApiModel 注解</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">EmployeeLoginDTO</span> <span class="keyword">implements</span> <span class="title class_">Serializable</span> &#123;</span><br><span class="line">    <span class="meta">@ApiModelProperty(&quot;用户名&quot;)</span>	<span class="comment">// @ApiModelProperty 注解</span></span><br><span class="line">    <span class="keyword">private</span> String username;</span><br><span class="line">    <span class="meta">@ApiModelProperty(&quot;密码&quot;)</span>	<span class="comment">// @ApiModelProperty 注解</span></span><br><span class="line">    <span class="keyword">private</span> String password;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+]]></content>
+      <categories>
+        <category>Java学习笔记</category>
+      </categories>
+      <tags>
+        <tag>Swagger</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>nginx - 反向代理和负载均衡</title>
+    <url>/2024/03/12/nginx-%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%E5%92%8C%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/</url>
+    <content><![CDATA[<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/03/12/l49eSxMQXYjCRDq.png"
+                      style="zoom:67%;" 
+                >
+<h2 id="1-nginx-反向代理">1. nginx 反向代理</h2>
+<h3 id="1-1-介绍">1.1 介绍</h3>
+<p><strong>nginx 反向代理</strong>：就是将前端发送的动态请求由 nginx 转发到后端服务器</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/03/12/hB7bzNMwkmKSPjR.png"
+                      style="zoom:67%;" 
+                >
+<p>那为什么不直接通过浏览器直接请求后台服务端，需要通过nginx反向代理呢？</p>
+<h3 id="1-2-作用">1.2 作用</h3>
+<ul>
+<li>
+<p>提高访问速度</p>
+<p>因为nginx本身可以进行缓存，如果访问的同一接口，并且做了数据缓存，nginx就直接可把数据返回，不需要真正地访问服务端，从而提高访问速度。</p>
+</li>
+<li>
+<p>进行负载均衡</p>
+<p>所谓负载均衡,就是把大量的请求按照我们指定的方式均衡的分配给集群中的每台服务器。</p>
+</li>
+<li>
+<p>保证后端服务安全</p>
+<p>因为一般后台服务地址不会暴露，所以使用浏览器不能直接访问，可以把nginx作为请求访问的入口，请求到达nginx后转发到具体的服务中，从而保证后端服务的安全。</p>
+</li>
+</ul>
+<h3 id="1-3-配置方式">1.3 配置方式</h3>
+<p>通过<code>[nginx安装目录]/conf/nginx.conf</code>配置文件进行配置，形如：</p>
+<div class="highlight-container" data-rel="Nginx"><figure class="iseeu highlight nginx"><table><tr><td class="code"><pre><span class="line">server&#123;</span><br><span class="line">    <span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line">    <span class="attribute">server_name</span> localhost;</span><br><span class="line">    </span><br><span class="line">    <span class="section">location</span> /api/&#123;</span><br><span class="line">        <span class="attribute">proxy_pass</span> http://localhost:8080/admin/; <span class="comment">#反向代理</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p><strong>proxy_pass</strong>：该指令是用来设置代理服务器的地址，可以是主机名称或IP地址加端口号等形式。</p>
+<p>如上代码的含义是：监听80端口号， 当访问<code>http://localhost:80/api/../..</code>这样的接口的时候，它会通过 location /api/ {} 这样的反向代理到<code>http://localhost:8080/admin/</code>上来。</p>
+<h2 id="2-nginx-负载均衡">2. nginx 负载均衡</h2>
+<p>当如果服务以集群的方式进行部署时，那 nginx 在转发请求到服务器时就需要做相应的负载均衡。其实，负载均衡从本质上来说也是基于反向代理来实现的，最终都是转发请求。</p>
+<h3 id="2-1-负载均衡策略">2.1 负载均衡策略</h3>
+<table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>轮询</td>
+<td>默认方式</td>
+</tr>
+<tr>
+<td>weight</td>
+<td>权重方式，默认为1，权重越高，被分配的客户端请求就越多</td>
+</tr>
+<tr>
+<td>ip_hash</td>
+<td>依据ip分配方式，这样每个访客可以固定访问一个后端服务</td>
+</tr>
+<tr>
+<td>least_conn</td>
+<td>依据最少连接方式，把请求优先分配给连接数少的后端服务</td>
+</tr>
+<tr>
+<td>url_hash</td>
+<td>依据url分配方式，这样相同的url会被分配到同一个后端服务</td>
+</tr>
+<tr>
+<td>fair</td>
+<td>依据响应时间方式，响应时间短的服务将会被优先分配</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2-2-配置方式">2.2 配置方式</h3>
+<p>通过<code>[nginx安装目录]/conf/nginx.conf</code>配置文件进行配置，形如：</p>
+<div class="highlight-container" data-rel="Nginx"><figure class="iseeu highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="section">upstream</span> webservers&#123;</span><br><span class="line">    <span class="attribute">server</span> <span class="number">192.168.100.128:8080</span>;</span><br><span class="line">    <span class="attribute">server</span> <span class="number">192.168.100.129:8080</span>;</span><br><span class="line">&#125;</span><br><span class="line">server&#123;</span><br><span class="line">    <span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line">    <span class="attribute">server_name</span> localhost;</span><br><span class="line">    </span><br><span class="line">    <span class="section">location</span> /api/&#123;</span><br><span class="line">        <span class="attribute">proxy_pass</span> http://webservers/admin;<span class="comment">#负载均衡</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>如上代码的含义是：监听80端口号， 当访问<code>http://localhost:80/api/../..</code>这样的接口的时候，它会通过 location /api/ {} 这样的反向代理到<code>http://webservers/admin</code>，根据 webservers 名称找到一组服务器，根据设置的负载均衡策略(默认是轮询)转发到具体的服务器。</p>
+<p><strong>upstream</strong>：如果代理服务器是一组服务器的话，我们可以使用 upstream 指令配置后端服务器组。</p>
+<p><strong>注</strong>：upstream后面的名称可自定义，但要上下保持一致。</p>
+<p><strong>不同策略的具体配置方式</strong>：</p>
+<h4 id="轮询">轮询</h4>
+<div class="highlight-container" data-rel="Nginx"><figure class="iseeu highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="section">upstream</span> webservers&#123;</span><br><span class="line">    <span class="attribute">server</span> <span class="number">192.168.100.128:8080</span>;</span><br><span class="line">    <span class="attribute">server</span> <span class="number">192.168.100.129:8080</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h4 id="weight">weight</h4>
+<div class="highlight-container" data-rel="Nginx"><figure class="iseeu highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="section">upstream</span> webservers&#123;</span><br><span class="line">    <span class="attribute">server</span> <span class="number">192.168.100.128:8080</span> weight=<span class="number">90</span>;</span><br><span class="line">    <span class="attribute">server</span> <span class="number">192.168.100.129:8080</span> weight=<span class="number">10</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h4 id="ip-hash">ip_hash</h4>
+<div class="highlight-container" data-rel="Nginx"><figure class="iseeu highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="section">upstream</span> webservers&#123;</span><br><span class="line">    ip_hash;</span><br><span class="line">    <span class="attribute">server</span> <span class="number">192.168.100.128:8080</span>;</span><br><span class="line">    <span class="attribute">server</span> <span class="number">192.168.100.129:8080</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h4 id="least-conn">least_conn</h4>
+<div class="highlight-container" data-rel="Nginx"><figure class="iseeu highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="section">upstream</span> webservers&#123;</span><br><span class="line">    least_conn;</span><br><span class="line">    <span class="attribute">server</span> <span class="number">192.168.100.128:8080</span>;</span><br><span class="line">    <span class="attribute">server</span> <span class="number">192.168.100.129:8080</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h4 id="url-hash">url_hash</h4>
+<div class="highlight-container" data-rel="Nginx"><figure class="iseeu highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="section">upstream</span> webservers&#123;</span><br><span class="line">    <span class="attribute">hash</span> &amp;request_uri;</span><br><span class="line">    <span class="attribute">server</span> <span class="number">192.168.100.128:8080</span>;</span><br><span class="line">    <span class="attribute">server</span> <span class="number">192.168.100.129:8080</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h4 id="fair">fair</h4>
+<div class="highlight-container" data-rel="Nginx"><figure class="iseeu highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="section">upstream</span> webservers&#123;</span><br><span class="line">    <span class="attribute">server</span> <span class="number">192.168.100.128:8080</span>;</span><br><span class="line">    <span class="attribute">server</span> <span class="number">192.168.100.129:8080</span>;</span><br><span class="line">    fair;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+]]></content>
+      <categories>
+        <category>Java学习笔记</category>
+      </categories>
+      <tags>
+        <tag>nginx</tag>
       </tags>
   </entry>
   <entry>
@@ -2875,175 +3147,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Maven - 私服</title>
-    <url>/2024/03/11/Maven-%E7%A7%81%E6%9C%8D/</url>
-    <content><![CDATA[<h2 id="1-场景">1. 场景</h2>
-<p>私服其实就是架设在公司局域网内部的一台服务器，就是一种特殊的远程仓库。A 连接上私服之后，他就可以把jar包直接上传到私服当中。B 团队的所有开发人员也连接同一台私服之后，他们就能根据坐标的信息，直接从私服当中将对应的jar包下载到自己的本地仓库，使用依赖当中所提供的一些工具类了。这样我们就可以通过私服来完成资源的共享。</p>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/03/11/OSj7seIXlw6ofnL.png"
-                      style="zoom:80%;" 
-                > 
-<p>而如果我们在项目中需要使用其他第三方提供的依赖，如果本地仓库没有，也会自动连接私服下载，如果私服没有，私服此时会自动连接中央仓库，去中央仓库中下载依赖，然后将下载的依赖存储在私服仓库及本地仓库中。</p>
-<h2 id="2-介绍">2. 介绍</h2>
-<ul>
-<li>
-<p><strong>私服</strong>：是一种特殊的远程仓库，它是架设在局域网内的仓库服务，用来代理位于外部的中央仓库，用于解决团队内部的资源共享与资源同步问题。</p>
-</li>
-<li>
-<p><strong>依赖查找顺序</strong>：</p>
-<ul>
-<li>本地仓库</li>
-<li>私服仓库</li>
-<li>中央仓库</li>
-</ul>
-</li>
-<li>
-<p><strong>资源上传与下载</strong>：<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/03/11/2uxvsBiCMbI3wYO.png"
-                      style="zoom:80%;" 
-                ></p>
-<p>资源的上传与下载，我们需要做三步配置，执行一条指令：</p>
-<ol>
-<li>在maven的配置文件中配置连接私服的地址(url地址)。</li>
-<li>在maven的配置文件中配置访问私服的用户名、密码。</li>
-<li>在项目的pom.xml文件中配置上传资源的位置(url地址)。</li>
-</ol>
-<p>配置好了上述三步之后，要上传资源到私服仓库，就执行maven生命周期：deploy</p>
-<p>接下来，其他项目组的开发人员就可以在项目中直接通过依赖的坐标，引入对应的依赖。如果此时本地仓库没有，就会自动从私服仓库中下载。</p>
-<blockquote>
-<p>私服仓库说明：</p>
-<ul>
-<li>RELEASE：存储自己开发的RELEASE发布版本的资源。</li>
-<li>SNAPSHOT：存储自己开发的SNAPSHOT发布版本的资源。</li>
-<li>Central：存储的是从中央仓库下载下来的依赖。</li>
-</ul>
-</blockquote>
-<blockquote>
-<p>项目版本说明：</p>
-<ul>
-<li>RELEASE(发布版本)：功能趋于稳定、当前更新停止，可以用于发行的版本，存储在私服中的RELEASE仓库中。</li>
-<li>SNAPSHOT(快照版本)：功能不稳定、尚处于开发中的版本，即快照版本，存储在私服的SNAPSHOT仓库中。</li>
-</ul>
-</blockquote>
-</li>
-</ul>
-<h2 id="3-私服配置">3. 私服配置</h2>
-<p>使用私服，需要在maven的settings.xml配置文件中，做如下配置：</p>
-<ol>
-<li>
-<p>需要在 <strong>servers</strong> 标签中，配置访问私服的个人凭证(访问的用户名和密码)</p>
-<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">server</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">id</span>&gt;</span>maven-releases<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">username</span>&gt;</span>admin<span class="tag">&lt;/<span class="name">username</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">password</span>&gt;</span>admin<span class="tag">&lt;/<span class="name">password</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">server</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">server</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">id</span>&gt;</span>maven-snapshots<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">username</span>&gt;</span>admin<span class="tag">&lt;/<span class="name">username</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">password</span>&gt;</span>admin<span class="tag">&lt;/<span class="name">password</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">server</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
-</li>
-<li>
-<p>在 <strong>mirrors</strong> 标签中，配置自己私服的连接地址(如果之前配置过阿里云，需要直接替换掉)</p>
-<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mirror</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">id</span>&gt;</span>maven-public<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mirrorOf</span>&gt;</span>*<span class="tag">&lt;/<span class="name">mirrorOf</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://192.168.150.101:8081/repository/maven-public/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mirror</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
-</li>
-<li>
-<p>在 <strong>profiles</strong> 标签中，增加如下配置，来指定snapshot快照版本的依赖允许使用</p>
-<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">profile</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">id</span>&gt;</span>allow-snapshots<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">activation</span>&gt;</span></span><br><span class="line">        	<span class="tag">&lt;<span class="name">activeByDefault</span>&gt;</span>true<span class="tag">&lt;/<span class="name">activeByDefault</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">activation</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">repositories</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">repository</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">id</span>&gt;</span>maven-public<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://192.168.150.101:8081/repository/maven-public/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">releases</span>&gt;</span></span><br><span class="line">            	<span class="tag">&lt;<span class="name">enabled</span>&gt;</span>true<span class="tag">&lt;/<span class="name">enabled</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">releases</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">snapshots</span>&gt;</span></span><br><span class="line">            	<span class="tag">&lt;<span class="name">enabled</span>&gt;</span>true<span class="tag">&lt;/<span class="name">enabled</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">snapshots</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">repository</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">repositories</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">profile</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
-</li>
-<li>
-<p>如果需要上传自己的项目到私服上，需要在项目的pom.xml文件中，增加如下配置，来配置项目发布的地址(也就是私服的地址)</p>
-<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">distributionManagement</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- release版本的发布地址 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">repository</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span>&gt;</span>maven-releases<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://192.168.150.101:8081/repository/maven-releases/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">repository</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- snapshot版本的发布地址 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">snapshotRepository</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span>&gt;</span>maven-snapshots<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://192.168.150.101:8081/repository/maven-snapshots/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">snapshotRepository</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">distributionManagement</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
-</li>
-<li>
-<p>发布项目，直接运行 deploy 生命周期即可 (发布时，建议跳过单元测试)</p>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>Java学习笔记</category>
-      </categories>
-      <tags>
-        <tag>Maven</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Swagger</title>
-    <url>/2024/03/12/Swagger/</url>
-    <content><![CDATA[<h2 id="1-介绍">1. 介绍</h2>
-<p>Swagger 是一个规范和完整的框架，用于生成、描述、调用和可视化 RESTful 风格的 Web 服务（<a class="link"   href="https://swagger.io/" >https://swagger.io/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>）。 它的主要作用是：</p>
-<ul>
-<li>使得前后端分离开发更加方便，有利于团队协作</li>
-<li>接口的文档在线自动生成，降低后端开发人员编写接口文档的负担</li>
-<li>功能测试</li>
-</ul>
-<p>Spring已经将Swagger纳入自身的标准，建立了Spring-swagger项目，现在叫Springfox。通过在项目中引入Springfox ，即可非常简单快捷的使用Swagger。</p>
-<p>knife4j是为Java MVC框架集成Swagger生成Api文档的增强解决方案，前身是swagger-bootstrap-ui，取名kni4j是希望它能像一把匕首一样小巧，轻量，并且功能强悍。</p>
-<p>目前，一般都使用knife4j框架。</p>
-<h2 id="2-使用步骤">2 使用步骤</h2>
-<h3 id="2-1-导入-knife4j-的maven坐标">2.1 导入 knife4j 的maven坐标</h3>
-<p>在pom.xml中添加依赖</p>
-<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.github.xiaoymin<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>knife4j-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
-<h3 id="2-2-在配置类中加入-knife4j-相关配置">2.2 在配置类中加入 knife4j 相关配置</h3>
-<p>WebMvcConfiguration.java</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 通过knife4j生成接口文档</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> Docket <span class="title function_">docket</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">ApiInfo</span> <span class="variable">apiInfo</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ApiInfoBuilder</span>()</span><br><span class="line">                .title(<span class="string">&quot;苍穹外卖项目接口文档&quot;</span>)</span><br><span class="line">                .version(<span class="string">&quot;2.0&quot;</span>)</span><br><span class="line">                .description(<span class="string">&quot;苍穹外卖项目接口文档&quot;</span>)</span><br><span class="line">                .build();</span><br><span class="line">        <span class="type">Docket</span> <span class="variable">docket</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Docket</span>(DocumentationType.SWAGGER_2)</span><br><span class="line">                .apiInfo(apiInfo)</span><br><span class="line">                .select()</span><br><span class="line">                .apis(RequestHandlerSelectors.basePackage(<span class="string">&quot;com.sky.controller&quot;</span>))</span><br><span class="line">                .paths(PathSelectors.any())</span><br><span class="line">                .build();</span><br><span class="line">        <span class="keyword">return</span> docket;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></div>
-<h3 id="2-3-设置静态资源映射">2.3 设置静态资源映射</h3>
-<p>WebMvcConfiguration.java</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 设置静态资源映射</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> registry</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">addResourceHandlers</span><span class="params">(ResourceHandlerRegistry registry)</span> &#123;</span><br><span class="line">        registry.addResourceHandler(<span class="string">&quot;/doc.html&quot;</span>).addResourceLocations(<span class="string">&quot;classpath:/META-INF/resources/&quot;</span>);</span><br><span class="line">        registry.addResourceHandler(<span class="string">&quot;/webjars/**&quot;</span>).addResourceLocations(<span class="string">&quot;classpath:/META-INF/resources/webjars/&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<h3 id="2-4-访问测试">2.4 访问测试</h3>
-<p>接口文档访问路径为 <code>http://ip:port/doc.html</code> -&gt; <code>http://localhost:8080/doc.html</code></p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/03/12/YAHX2qBR7kI4m1y.png"
-                      alt=""
-                ></p>
-<blockquote>
-<p><strong>思考</strong>：通过 Swagger 就可以生成接口文档，那么我们就不需要 Yapi 了？答案：需要。</p>
-<ul>
-<li>Yapi 是设计阶段使用的工具，管理和维护接口</li>
-<li>Swagger 在开发阶段使用的框架，帮助后端开发人员做后端的接口测试</li>
-</ul>
-</blockquote>
-<h2 id="3-常用注解">3. 常用注解</h2>
-<p>通过注解可以控制生成的接口文档，使接口文档拥有更好的可读性，常用注解如下：</p>
-<table>
-<thead>
-<tr>
-<th><strong>注解</strong></th>
-<th><strong>说明</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>@Api</td>
-<td>用在类上，例如Controller，表示对类的说明</td>
-</tr>
-<tr>
-<td>@ApiOperation</td>
-<td>用在方法上，例如Controller的方法，说明方法的用途、作用</td>
-</tr>
-<tr>
-<td>@ApiModel</td>
-<td>用在类上，例如entity、DTO、VO</td>
-</tr>
-<tr>
-<td>@ApiModelProperty</td>
-<td>用在属性上，描述属性信息</td>
-</tr>
-</tbody>
-</table>
-<p><strong>例如</strong>：</p>
-<p>在sky-server模块中：<br>
-EmployeeController.java</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping(&quot;/admin/employee&quot;)</span></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="meta">@Api(tags = &quot;员工相关接口&quot;)</span>	<span class="comment">// @Api 注解</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">EmployeeController</span> &#123;</span><br><span class="line">	……</span><br><span class="line">    <span class="meta">@PostMapping(&quot;/login&quot;)</span></span><br><span class="line">    <span class="meta">@ApiOperation(value = &quot;员工登录&quot;)</span>	<span class="comment">// @ApiOperation 注解</span></span><br><span class="line">    <span class="keyword">public</span> Result&lt;EmployeeLoginVO&gt; <span class="title function_">login</span><span class="params">(<span class="meta">@RequestBody</span> EmployeeLoginDTO employeeLoginDTO)</span> 	&#123;</span><br><span class="line">        <span class="comment">//..............</span></span><br><span class="line">    &#125;</span><br><span class="line">    ……</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
-<p>在sky-pojo模块中：<br>
-EmployeeLoginDTO.java</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@ApiModel(description = &quot;员工登录时传递的数据模型&quot;)</span>	<span class="comment">// @ApiModel 注解</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">EmployeeLoginDTO</span> <span class="keyword">implements</span> <span class="title class_">Serializable</span> &#123;</span><br><span class="line">    <span class="meta">@ApiModelProperty(&quot;用户名&quot;)</span>	<span class="comment">// @ApiModelProperty 注解</span></span><br><span class="line">    <span class="keyword">private</span> String username;</span><br><span class="line">    <span class="meta">@ApiModelProperty(&quot;密码&quot;)</span>	<span class="comment">// @ApiModelProperty 注解</span></span><br><span class="line">    <span class="keyword">private</span> String password;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-]]></content>
-      <categories>
-        <category>Java学习笔记</category>
-      </categories>
-      <tags>
-        <tag>Swagger</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Java - ThreadLocal</title>
     <url>/2024/03/14/Java-ThreadLocal/</url>
     <content><![CDATA[<h2 id="介绍">介绍</h2>
@@ -3078,141 +3181,6 @@ ThreadLocal为每个线程提供单独一份存储空间，具有线程隔离的
       </categories>
       <tags>
         <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>nginx - 反向代理和负载均衡</title>
-    <url>/2024/03/12/nginx-%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%E5%92%8C%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/</url>
-    <content><![CDATA[<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/03/12/l49eSxMQXYjCRDq.png"
-                      style="zoom:67%;" 
-                >
-<h2 id="1-nginx-反向代理">1. nginx 反向代理</h2>
-<h3 id="1-1-介绍">1.1 介绍</h3>
-<p><strong>nginx 反向代理</strong>：就是将前端发送的动态请求由 nginx 转发到后端服务器</p>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/03/12/hB7bzNMwkmKSPjR.png"
-                      style="zoom:67%;" 
-                >
-<p>那为什么不直接通过浏览器直接请求后台服务端，需要通过nginx反向代理呢？</p>
-<h3 id="1-2-作用">1.2 作用</h3>
-<ul>
-<li>
-<p>提高访问速度</p>
-<p>因为nginx本身可以进行缓存，如果访问的同一接口，并且做了数据缓存，nginx就直接可把数据返回，不需要真正地访问服务端，从而提高访问速度。</p>
-</li>
-<li>
-<p>进行负载均衡</p>
-<p>所谓负载均衡,就是把大量的请求按照我们指定的方式均衡的分配给集群中的每台服务器。</p>
-</li>
-<li>
-<p>保证后端服务安全</p>
-<p>因为一般后台服务地址不会暴露，所以使用浏览器不能直接访问，可以把nginx作为请求访问的入口，请求到达nginx后转发到具体的服务中，从而保证后端服务的安全。</p>
-</li>
-</ul>
-<h3 id="1-3-配置方式">1.3 配置方式</h3>
-<p>通过<code>[nginx安装目录]/conf/nginx.conf</code>配置文件进行配置，形如：</p>
-<div class="highlight-container" data-rel="Nginx"><figure class="iseeu highlight nginx"><table><tr><td class="code"><pre><span class="line">server&#123;</span><br><span class="line">    <span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line">    <span class="attribute">server_name</span> localhost;</span><br><span class="line">    </span><br><span class="line">    <span class="section">location</span> /api/&#123;</span><br><span class="line">        <span class="attribute">proxy_pass</span> http://localhost:8080/admin/; <span class="comment">#反向代理</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<p><strong>proxy_pass</strong>：该指令是用来设置代理服务器的地址，可以是主机名称或IP地址加端口号等形式。</p>
-<p>如上代码的含义是：监听80端口号， 当访问<code>http://localhost:80/api/../..</code>这样的接口的时候，它会通过 location /api/ {} 这样的反向代理到<code>http://localhost:8080/admin/</code>上来。</p>
-<h2 id="2-nginx-负载均衡">2. nginx 负载均衡</h2>
-<p>当如果服务以集群的方式进行部署时，那 nginx 在转发请求到服务器时就需要做相应的负载均衡。其实，负载均衡从本质上来说也是基于反向代理来实现的，最终都是转发请求。</p>
-<h3 id="2-1-负载均衡策略">2.1 负载均衡策略</h3>
-<table>
-<thead>
-<tr>
-<th><strong>名称</strong></th>
-<th><strong>说明</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>轮询</td>
-<td>默认方式</td>
-</tr>
-<tr>
-<td>weight</td>
-<td>权重方式，默认为1，权重越高，被分配的客户端请求就越多</td>
-</tr>
-<tr>
-<td>ip_hash</td>
-<td>依据ip分配方式，这样每个访客可以固定访问一个后端服务</td>
-</tr>
-<tr>
-<td>least_conn</td>
-<td>依据最少连接方式，把请求优先分配给连接数少的后端服务</td>
-</tr>
-<tr>
-<td>url_hash</td>
-<td>依据url分配方式，这样相同的url会被分配到同一个后端服务</td>
-</tr>
-<tr>
-<td>fair</td>
-<td>依据响应时间方式，响应时间短的服务将会被优先分配</td>
-</tr>
-</tbody>
-</table>
-<h3 id="2-2-配置方式">2.2 配置方式</h3>
-<p>通过<code>[nginx安装目录]/conf/nginx.conf</code>配置文件进行配置，形如：</p>
-<div class="highlight-container" data-rel="Nginx"><figure class="iseeu highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="section">upstream</span> webservers&#123;</span><br><span class="line">    <span class="attribute">server</span> <span class="number">192.168.100.128:8080</span>;</span><br><span class="line">    <span class="attribute">server</span> <span class="number">192.168.100.129:8080</span>;</span><br><span class="line">&#125;</span><br><span class="line">server&#123;</span><br><span class="line">    <span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line">    <span class="attribute">server_name</span> localhost;</span><br><span class="line">    </span><br><span class="line">    <span class="section">location</span> /api/&#123;</span><br><span class="line">        <span class="attribute">proxy_pass</span> http://webservers/admin;<span class="comment">#负载均衡</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<p>如上代码的含义是：监听80端口号， 当访问<code>http://localhost:80/api/../..</code>这样的接口的时候，它会通过 location /api/ {} 这样的反向代理到<code>http://webservers/admin</code>，根据 webservers 名称找到一组服务器，根据设置的负载均衡策略(默认是轮询)转发到具体的服务器。</p>
-<p><strong>upstream</strong>：如果代理服务器是一组服务器的话，我们可以使用 upstream 指令配置后端服务器组。</p>
-<p><strong>注</strong>：upstream后面的名称可自定义，但要上下保持一致。</p>
-<p><strong>不同策略的具体配置方式</strong>：</p>
-<h4 id="轮询">轮询</h4>
-<div class="highlight-container" data-rel="Nginx"><figure class="iseeu highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="section">upstream</span> webservers&#123;</span><br><span class="line">    <span class="attribute">server</span> <span class="number">192.168.100.128:8080</span>;</span><br><span class="line">    <span class="attribute">server</span> <span class="number">192.168.100.129:8080</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<h4 id="weight">weight</h4>
-<div class="highlight-container" data-rel="Nginx"><figure class="iseeu highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="section">upstream</span> webservers&#123;</span><br><span class="line">    <span class="attribute">server</span> <span class="number">192.168.100.128:8080</span> weight=<span class="number">90</span>;</span><br><span class="line">    <span class="attribute">server</span> <span class="number">192.168.100.129:8080</span> weight=<span class="number">10</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<h4 id="ip-hash">ip_hash</h4>
-<div class="highlight-container" data-rel="Nginx"><figure class="iseeu highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="section">upstream</span> webservers&#123;</span><br><span class="line">    ip_hash;</span><br><span class="line">    <span class="attribute">server</span> <span class="number">192.168.100.128:8080</span>;</span><br><span class="line">    <span class="attribute">server</span> <span class="number">192.168.100.129:8080</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<h4 id="least-conn">least_conn</h4>
-<div class="highlight-container" data-rel="Nginx"><figure class="iseeu highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="section">upstream</span> webservers&#123;</span><br><span class="line">    least_conn;</span><br><span class="line">    <span class="attribute">server</span> <span class="number">192.168.100.128:8080</span>;</span><br><span class="line">    <span class="attribute">server</span> <span class="number">192.168.100.129:8080</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<h4 id="url-hash">url_hash</h4>
-<div class="highlight-container" data-rel="Nginx"><figure class="iseeu highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="section">upstream</span> webservers&#123;</span><br><span class="line">    <span class="attribute">hash</span> &amp;request_uri;</span><br><span class="line">    <span class="attribute">server</span> <span class="number">192.168.100.128:8080</span>;</span><br><span class="line">    <span class="attribute">server</span> <span class="number">192.168.100.129:8080</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<h4 id="fair">fair</h4>
-<div class="highlight-container" data-rel="Nginx"><figure class="iseeu highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="section">upstream</span> webservers&#123;</span><br><span class="line">    <span class="attribute">server</span> <span class="number">192.168.100.128:8080</span>;</span><br><span class="line">    <span class="attribute">server</span> <span class="number">192.168.100.129:8080</span>;</span><br><span class="line">    fair;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-]]></content>
-      <categories>
-        <category>Java学习笔记</category>
-      </categories>
-      <tags>
-        <tag>nginx</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>#{} 和 ${} 的区别是什么？</title>
-    <url>/2024/03/14/MyBatis%E4%B8%AD%E4%B8%A4%E7%A7%8D%E5%8D%A0%E4%BD%8D%E7%AC%A6%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
-    <content><![CDATA[<h2 id="区别">区别</h2>
-<p>经常碰到这样的面试题目：<code>#&#123;&#125;</code>和<code>$&#123;&#125;</code>的区别是什么？</p>
-<p>正确的答案是：<code>#&#123;&#125;</code>是预编译处理，<code>$&#123;&#125;</code>是字符串替换。</p>
-<h2 id="内部原理">内部原理</h2>
-<ol>
-<li>mybatis在处理<code>#&#123;&#125;</code>时，会将sql中的<code>#&#123;&#125;</code>替换为<code>?</code>号，调用PreparedStatement的set方法来赋值。</li>
-<li>mybatis在处理<code>$&#123;&#125;</code>时，就是把<code>$&#123;&#125;</code>替换成变量的值。</li>
-<li>使用<code>#&#123;&#125;</code>可以有效的防止SQL注入，提高系统安全性。原因在于：预编译机制。预编译完成之后，SQL的结构已经固定，即便用户输入非法参数，也不会对SQL的结构产生影响，从而避免了潜在的安全风险。</li>
-<li>预编译是提前对SQL语句进行预编译，而其后注入的参数将不会再进行SQL编译。我们知道，SQL注入是发生在编译的过程中，因为恶意注入了某些特殊字符，最后被编译成了恶意的执行操作。而预编译机制则可以很好的防止SQL注入。</li>
-</ol>
-<h2 id="记忆方式">记忆方式</h2>
-<p>$符号一般用来当作占位符，常使用Linux脚本的人应该对此有更深的体会。</p>
-<p>例如：$1，$2等等表示输入参数的占位符。</p>
-<p>知道了这点就能很容易区分$和#，从而不容易记错了。</p>
-<h2 id="两种替换符存在的意义">两种替换符存在的意义</h2>
-<p>既然<code>$&#123;&#125;</code>会引起sql注入，为什么有了<code>#&#123;&#125;</code>还需要有<code>$&#123;&#125;</code>呢？那其存在的意义是什么？</p>
-<p>可以这么去理解：<code>#&#123;&#125;</code>主要用于预编译，而预编译的场景其实非常受限，而<code>$&#123;&#125;</code>用于替换，很多场景会出现替换，而这种场景是不可预编译，例如：MyBatis XML配置对抗MyBatis注解的一大杀器：SQL片段，抽取可重用的SQL语句</p>
-<h2 id="参考">参考</h2>
-<ul>
-<li><a class="link"   href="https://bbs.huaweicloud.com/blogs/394244" >https://bbs.huaweicloud.com/blogs/394244 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>Java学习笔记</category>
-      </categories>
-      <tags>
-        <tag>MyBatis</tag>
       </tags>
   </entry>
   <entry>
@@ -3256,6 +3224,153 @@ ThreadLocal为每个线程提供单独一份存储空间，具有线程隔离的
       </categories>
       <tags>
         <tag>JavaWeb</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Redis 数据类型与常用命令</title>
+    <url>/2024/03/21/Redis%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B8%8E%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
+    <content><![CDATA[<h2 id="1-Redis-数据类型">1. Redis 数据类型</h2>
+<h3 id="1-1-五种常用数据类型">1.1 五种常用数据类型</h3>
+<p>Redis存储的是key-value结构的数据，其中key是字符串类型，value有5种常用的数据类型：</p>
+<ul>
+<li>字符串 string</li>
+<li>哈希 hash</li>
+<li>列表 list</li>
+<li>集合 set</li>
+<li>有序集合 sorted set / zset</li>
+</ul>
+<h3 id="1-2-各种数据类型特点">1.2 各种数据类型特点</h3>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/03/21/wuvLqBfzWjDSPiM.png"
+                      style="zoom:50%;" 
+                > 
+<p><strong>解释说明</strong>：</p>
+<ul>
+<li>字符串(string)：普通字符串，Redis中最简单的数据类型</li>
+<li>哈希(hash)：也叫散列，类似于Java中的HashMap结构</li>
+<li>列表(list)：按照插入顺序排序，可以有重复元素，类似于Java中的LinkedList</li>
+<li>集合(set)：无序集合，没有重复元素，类似于Java中的HashSet</li>
+<li>有序集合(sorted set/zset)：集合中每个元素关联一个分数(score)，根据分数升序排序，没有重复元素</li>
+</ul>
+<h2 id="2-Redis-常用命令">2. Redis 常用命令</h2>
+<h3 id="2-1-字符串操作命令">2.1 字符串操作命令</h3>
+<p>Redis 中字符串类型常用命令：</p>
+<ul>
+<li><code>SET key value</code> ：设置指定key的值</li>
+<li><code>GET key</code> ：获取指定key的值</li>
+<li><code>SETEX key seconds value</code> ：设置指定key的值，并将 key 的过期时间设为 seconds 秒</li>
+<li><code>SETNX key value</code> ：只有在 key 不存在时设置 key 的值</li>
+</ul>
+<p>更多命令可以参考Redis中文网：<a class="link"   href="https://www.redis.net.cn" >https://www.redis.net.cn <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h3 id="2-2-哈希操作命令">2.2 哈希操作命令</h3>
+<p>Redis hash 是一个string类型的 field 和 value 的映射表，hash特别适合用于存储对象，常用命令：</p>
+<ul>
+<li><code>HSET key field value</code> ：将哈希表 key 中的字段 field 的值设为 value</li>
+<li><code>HGET key field</code> ：获取存储在哈希表中指定字段的值</li>
+<li><code>HDEL key field</code> ：删除存储在哈希表中的指定字段</li>
+<li><code>HKEYS key</code> ：获取哈希表中所有字段</li>
+<li><code>HVALS key</code> ：获取哈希表中所有值</li>
+</ul>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/03/21/4ijqElTNOrympbx.png"
+                      style="zoom: 67%;" 
+                > 
+<h3 id="2-3-列表操作命令">2.3 列表操作命令</h3>
+<p>Redis 列表是简单的字符串列表，按照插入顺序排序，常用命令：</p>
+<ul>
+<li><code>LPUSH key value1 [value2]</code> ：将一个或多个值插入到列表头部</li>
+<li><code>LRANGE key start stop</code> ：获取列表指定范围内的元素</li>
+<li><code>RPOP key</code> ：移除并获取列表最后一个元素</li>
+<li><code>LLEN key</code> ：获取列表长度</li>
+<li><code>BRPOP key1 [key2 ] timeout</code> ：移出并获取列表的最后一个元素， 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止</li>
+</ul>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/03/21/7FSamg6GzrOvxUH.png"
+                      style="zoom: 67%;" 
+                > 
+<h3 id="2-4-集合操作命令">2.4 集合操作命令</h3>
+<p>Redis set 是string类型的无序集合。集合成员是唯一的，这就意味着集合中不能出现重复的数据，常用命令：</p>
+<ul>
+<li><code>SADD key member1 [member2]</code> ：向集合添加一个或多个成员</li>
+<li><code>SMEMBERS key</code> ：返回集合中的所有成员</li>
+<li><code>SCARD key</code> ：获取集合的成员数</li>
+<li><code>SINTER key1 [key2]</code> ：返回给定所有集合的交集</li>
+<li><code>SUNION key1 [key2]</code> ：返回所有给定集合的并集</li>
+<li><code>SREM key member1 [member2]</code> ：移除集合中一个或多个成员</li>
+</ul>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/03/21/hyU1z25WdQJgTiq.png"
+                      style="zoom:67%;" 
+                >
+<h3 id="2-5-有序集合操作命令">2.5 有序集合操作命令</h3>
+<p>Redis有序集合是string类型元素的集合，且不允许有重复成员。每个元素都会关联一个double类型的分数。常用命令：</p>
+<p>常用命令：</p>
+<ul>
+<li><code>ZADD key score1 member1 [score2 member2]</code> ：向有序集合添加一个或多个成员</li>
+<li><code>ZRANGE key start stop [WITHSCORES]</code> ：通过索引区间返回有序集合中指定区间内的成员</li>
+<li><code>ZINCRBY key increment member</code> ：有序集合中对指定成员的分数加上增量 increment</li>
+<li><code>ZREM key member [member ...]</code> ：移除有序集合中的一个或多个成员</li>
+</ul>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/03/21/hivMjBQAFzuKtdy.png"
+                      style="zoom: 67%;" 
+                > 
+<h3 id="2-6-通用命令">2.6 通用命令</h3>
+<p>Redis的通用命令是不分数据类型的，都可以使用的命令：</p>
+<ul>
+<li><code>KEYS pattern</code> ：查找所有符合给定模式( pattern)的 key</li>
+<li><code>EXISTS key</code> ：检查给定 key 是否存在</li>
+<li><code>TYPE key</code> ：返回 key 所储存的值的类型</li>
+<li><code>DEL key</code> ：该命令用于在 key 存在是删除 key</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Java学习笔记</category>
+      </categories>
+      <tags>
+        <tag>Redis</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>#{} 和 ${} 的区别是什么？</title>
+    <url>/2024/03/14/MyBatis%E4%B8%AD%E4%B8%A4%E7%A7%8D%E5%8D%A0%E4%BD%8D%E7%AC%A6%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
+    <content><![CDATA[<h2 id="区别">区别</h2>
+<p>经常碰到这样的面试题目：<code>#&#123;&#125;</code>和<code>$&#123;&#125;</code>的区别是什么？</p>
+<p>正确的答案是：<code>#&#123;&#125;</code>是预编译处理，<code>$&#123;&#125;</code>是字符串替换。</p>
+<h2 id="内部原理">内部原理</h2>
+<ol>
+<li>mybatis在处理<code>#&#123;&#125;</code>时，会将sql中的<code>#&#123;&#125;</code>替换为<code>?</code>号，调用PreparedStatement的set方法来赋值。</li>
+<li>mybatis在处理<code>$&#123;&#125;</code>时，就是把<code>$&#123;&#125;</code>替换成变量的值。</li>
+<li>使用<code>#&#123;&#125;</code>可以有效的防止SQL注入，提高系统安全性。原因在于：预编译机制。预编译完成之后，SQL的结构已经固定，即便用户输入非法参数，也不会对SQL的结构产生影响，从而避免了潜在的安全风险。</li>
+<li>预编译是提前对SQL语句进行预编译，而其后注入的参数将不会再进行SQL编译。我们知道，SQL注入是发生在编译的过程中，因为恶意注入了某些特殊字符，最后被编译成了恶意的执行操作。而预编译机制则可以很好的防止SQL注入。</li>
+</ol>
+<h2 id="记忆方式">记忆方式</h2>
+<p>$符号一般用来当作占位符，常使用Linux脚本的人应该对此有更深的体会。</p>
+<p>例如：$1，$2等等表示输入参数的占位符。</p>
+<p>知道了这点就能很容易区分$和#，从而不容易记错了。</p>
+<h2 id="两种替换符存在的意义">两种替换符存在的意义</h2>
+<p>既然<code>$&#123;&#125;</code>会引起sql注入，为什么有了<code>#&#123;&#125;</code>还需要有<code>$&#123;&#125;</code>呢？那其存在的意义是什么？</p>
+<p>可以这么去理解：<code>#&#123;&#125;</code>主要用于预编译，而预编译的场景其实非常受限，而<code>$&#123;&#125;</code>用于替换，很多场景会出现替换，而这种场景是不可预编译，例如：MyBatis XML配置对抗MyBatis注解的一大杀器：SQL片段，抽取可重用的SQL语句</p>
+<h2 id="参考">参考</h2>
+<ul>
+<li><a class="link"   href="https://bbs.huaweicloud.com/blogs/394244" >https://bbs.huaweicloud.com/blogs/394244 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>Java学习笔记</category>
+      </categories>
+      <tags>
+        <tag>MyBatis</tag>
       </tags>
   </entry>
 </search>
