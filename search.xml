@@ -389,42 +389,6 @@
       </tags>
   </entry>
   <entry>
-    <title>PowerShell 报错：在此系统上禁止运行脚本</title>
-    <url>/2024/01/22/PowerShell-vue%E6%97%A0%E6%B3%95%E5%8A%A0%E8%BD%BD%E6%96%87%E4%BB%B6-%E5%9B%A0%E4%B8%BA%E5%9C%A8%E6%AD%A4%E7%B3%BB%E7%BB%9F%E4%B8%8A%E7%A6%81%E6%AD%A2%E8%BF%90%E8%A1%8C%E8%84%9A%E6%9C%AC/</url>
-    <content><![CDATA[<h2 id="问题">问题</h2>
-<p>在 Windows PowerShell （管理员模式下）执行 <code>vue --version</code> 命令时报错如下：</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/01/22/IBWcwtCLqjm2ya3.png"
-                      alt=""
-                ></p>
-<h2 id="原因">原因</h2>
-<p>首次在计算机上启动 Windows PowerShell 时，现用执行策略很可能是 Restricted（默认设置）。Restricted 策略不允许任何脚本运行，以防止执行不信任的脚本。</p>
-<h2 id="解决">解决</h2>
-<p>在 Windows PowerShell 执行以下命令：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">set-executionpolicy remotesigned</span><br></pre></td></tr></table></figure></div>
-<h2 id="效果">效果</h2>
-<p>再次执行 <code>vue --version</code> 命令，可正常查看 Vue 版本：</p>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/01/22/2UpOySQuL3ev5to.png"
-                      style="zoom: 50%;"
-                >
-<h2 id="引用">引用</h2>
-<ul>
-<li><a class="link"   href="https://cloud.tencent.com/developer/article/1612513" >https://cloud.tencent.com/developer/article/1612513 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>PowerShell</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>高级数据库技术 - 复习</title>
     <url>/2024/01/13/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E6%8A%80%E6%9C%AF-%E5%A4%8D%E4%B9%A0/</url>
     <content><![CDATA[<blockquote>
@@ -1740,56 +1704,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Once Upon a Time in America</title>
-    <url>/2024/01/19/Once-Upon-a-Time-in-America/</url>
-    <content><![CDATA[<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/01/19/y9MTUVfmBbJcC5s.jpg"
-                      style="zoom: 200%;" 
-                >
-]]></content>
-      <categories>
-        <category>生活</category>
-      </categories>
-      <tags>
-        <tag>电影</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Git 报错：无法创建 index.lock 文件，因其已存在。</title>
-    <url>/2024/01/25/Git-%E6%8A%A5%E9%94%99%EF%BC%9A%E6%97%A0%E6%B3%95%E5%88%9B%E5%BB%BA-index-lock-%E6%96%87%E4%BB%B6%EF%BC%8C%E5%9B%A0%E5%85%B6%E5%B7%B2%E5%AD%98%E5%9C%A8/</url>
-    <content><![CDATA[<h2 id="问题">问题</h2>
-<p>使用 Git 向 Github 部署代码时，出现如下报错：</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/01/25/VTOAzyM2Jm9pEWH.png"
-                      alt=""
-                ></p>
-<h2 id="原因">原因</h2>
-<p>有两个 Git 命令同时运行，可能一种来自命令提示符，另一种来自 IDE 。</p>
-<h2 id="解决">解决</h2>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/01/25/V2x6Msj5KSDqFp3.png"
-                      alt=""
-                ><br>
-删除报错信息对应路径下已存在的 <code>index.lock</code> 文件即可。</p>
-<h2 id="引用">引用</h2>
-<ul>
-<li><a class="link"   href="https://stackoverflow.com/questions/38004148/another-git-process-seems-to-be-running-in-this-repository" >https://stackoverflow.com/questions/38004148/another-git-process-seems-to-be-running-in-this-repository <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>Git</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Hexo 隐藏特定文章</title>
     <url>/2024/01/25/Hexo-%E9%9A%90%E8%97%8F%E7%89%B9%E5%AE%9A%E6%96%87%E7%AB%A0/</url>
     <content><![CDATA[<h2 id="问题">问题</h2>
@@ -1821,70 +1735,56 @@
       </tags>
   </entry>
   <entry>
-    <title>Tomcat 双击 startup.bat 闪退</title>
-    <url>/2024/01/31/Tomcat%E5%8F%8C%E5%87%BBstartup-bat%E9%97%AA%E9%80%80/</url>
+    <title>PowerShell 报错：在此系统上禁止运行脚本</title>
+    <url>/2024/01/22/PowerShell-vue%E6%97%A0%E6%B3%95%E5%8A%A0%E8%BD%BD%E6%96%87%E4%BB%B6-%E5%9B%A0%E4%B8%BA%E5%9C%A8%E6%AD%A4%E7%B3%BB%E7%BB%9F%E4%B8%8A%E7%A6%81%E6%AD%A2%E8%BF%90%E8%A1%8C%E8%84%9A%E6%9C%AC/</url>
     <content><![CDATA[<h2 id="问题">问题</h2>
-<p>在没有其他进程占用 8080 端口的情况下，双击 Tomcat 的 <code>startup.bat</code> 脚本发生闪退，无法启动。</p>
+<p>在 Windows PowerShell （管理员模式下）执行 <code>vue --version</code> 命令时报错如下：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/01/22/IBWcwtCLqjm2ya3.png"
+                      alt=""
+                ></p>
 <h2 id="原因">原因</h2>
-<p>未配置 <code>JAVA_HOME</code> 环境变量。</p>
-<blockquote>
-<p>问题排查过程：</p>
-<ul>
-<li>在 <code>startup.bat</code> 文件末尾添加一行 <code>pause</code> ，避免 Tomcat 立即退出；</li>
-<li>双击 <code>startup.bat</code> ，尝试启动；</li>
-<li>未成功启动，终端中提示 <code>JAVA_HOME</code> 与 <code>jre</code> 均未配置，需至少配置二者其一。</li>
-</ul>
-</blockquote>
+<p>首次在计算机上启动 Windows PowerShell 时，现用执行策略很可能是 Restricted（默认设置）。Restricted 策略不允许任何脚本运行，以防止执行不信任的脚本。</p>
 <h2 id="解决">解决</h2>
+<p>在 Windows PowerShell 执行以下命令：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">set-executionpolicy remotesigned</span><br></pre></td></tr></table></figure></div>
+<h2 id="效果">效果</h2>
+<p>再次执行 <code>vue --version</code> 命令，可正常查看 Vue 版本：</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/01/22/2UpOySQuL3ev5to.png"
+                      style="zoom: 50%;"
+                >
+<h2 id="引用">引用</h2>
 <ul>
-<li>方法一：配置 Windows 系统 <code>JAVA_HOME</code> 环境变量（推荐）</li>
-<li>方法二：在 <code>startup.bat</code> 文件开头添加 <code>SET JAVA_HOME=Java安装目录</code></li>
-</ul>
-<h2 id="参考">参考</h2>
-<ul>
-<li><a class="link"   href="https://blog.51cto.com/u_14783151/2899251" >https://blog.51cto.com/u_14783151/2899251 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li><a class="link"   href="https://blog.csdn.net/qq496013218/article/details/74517593" >https://blog.csdn.net/qq496013218/article/details/74517593 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://cloud.tencent.com/developer/article/1612513" >https://cloud.tencent.com/developer/article/1612513 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
 </ul>
 ]]></content>
       <categories>
         <category>技术</category>
       </categories>
       <tags>
-        <tag>Tomcat</tag>
+        <tag>PowerShell</tag>
       </tags>
   </entry>
   <entry>
-    <title>Windows cmd 执行 Java 命令无返回信息</title>
-    <url>/2024/02/18/Windows-cmd%E6%89%A7%E8%A1%8Cjava%E5%91%BD%E4%BB%A4%E6%97%A0%E8%BF%94%E5%9B%9E%E4%BF%A1%E6%81%AF/</url>
-    <content><![CDATA[<h2 id="问题">问题</h2>
-<p>在 Windows 命令行中无法执行 Java 命令且没有任何返回信息：</p>
-<img  
+    <title>Once Upon a Time in America</title>
+    <url>/2024/01/19/Once-Upon-a-Time-in-America/</url>
+    <content><![CDATA[<img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/02/18/rmNVClcep816dXR.png"
-                      style="zoom:50%;" 
+                     data-src="https://s2.loli.net/2024/01/19/y9MTUVfmBbJcC5s.jpg"
+                      style="zoom: 200%;" 
                 >
-<h2 id="原因">原因</h2>
-<p>装了多个 jdk 的话，系统环境变量的第一行可能会出现 <code>C:\ProgramData\Oracle\Java\javapath</code> 路径，系统按该路径查找 jdk 。然而该路径可能并不真实存在，因此命令行中的 Java 命令会因找不到 jdk 而并未运行。</p>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/02/18/3XM9B4wfPOlsyUi.png"
-                      style="zoom:50%;" 
-                >
-<h2 id="解决">解决</h2>
-<p>将自定义的 <code>%JAVA_HOME%\bin\</code> 路径移至第一行，让系统按该路径查找 jdk 。</p>
-<h2 id="参考">参考</h2>
-<ul>
-<li><a class="link"   href="https://blog.csdn.net/qq_41999034/article/details/111604649" >https://blog.csdn.net/qq_41999034/article/details/111604649 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-</ul>
 ]]></content>
       <categories>
-        <category>技术</category>
+        <category>生活</category>
       </categories>
       <tags>
-        <tag>Windows环境变量</tag>
-        <tag>Java</tag>
+        <tag>电影</tag>
       </tags>
   </entry>
   <entry>
@@ -1947,6 +1847,106 @@
       </categories>
       <tags>
         <tag>Markdown</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Tomcat 双击 startup.bat 闪退</title>
+    <url>/2024/01/31/Tomcat%E5%8F%8C%E5%87%BBstartup-bat%E9%97%AA%E9%80%80/</url>
+    <content><![CDATA[<h2 id="问题">问题</h2>
+<p>在没有其他进程占用 8080 端口的情况下，双击 Tomcat 的 <code>startup.bat</code> 脚本发生闪退，无法启动。</p>
+<h2 id="原因">原因</h2>
+<p>未配置 <code>JAVA_HOME</code> 环境变量。</p>
+<blockquote>
+<p>问题排查过程：</p>
+<ul>
+<li>在 <code>startup.bat</code> 文件末尾添加一行 <code>pause</code> ，避免 Tomcat 立即退出；</li>
+<li>双击 <code>startup.bat</code> ，尝试启动；</li>
+<li>未成功启动，终端中提示 <code>JAVA_HOME</code> 与 <code>jre</code> 均未配置，需至少配置二者其一。</li>
+</ul>
+</blockquote>
+<h2 id="解决">解决</h2>
+<ul>
+<li>方法一：配置 Windows 系统 <code>JAVA_HOME</code> 环境变量（推荐）</li>
+<li>方法二：在 <code>startup.bat</code> 文件开头添加 <code>SET JAVA_HOME=Java安装目录</code></li>
+</ul>
+<h2 id="参考">参考</h2>
+<ul>
+<li><a class="link"   href="https://blog.51cto.com/u_14783151/2899251" >https://blog.51cto.com/u_14783151/2899251 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://blog.csdn.net/qq496013218/article/details/74517593" >https://blog.csdn.net/qq496013218/article/details/74517593 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>Tomcat</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Git 报错：无法创建 index.lock 文件，因其已存在。</title>
+    <url>/2024/01/25/Git-%E6%8A%A5%E9%94%99%EF%BC%9A%E6%97%A0%E6%B3%95%E5%88%9B%E5%BB%BA-index-lock-%E6%96%87%E4%BB%B6%EF%BC%8C%E5%9B%A0%E5%85%B6%E5%B7%B2%E5%AD%98%E5%9C%A8/</url>
+    <content><![CDATA[<h2 id="问题">问题</h2>
+<p>使用 Git 向 Github 部署代码时，出现如下报错：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/01/25/VTOAzyM2Jm9pEWH.png"
+                      alt=""
+                ></p>
+<h2 id="原因">原因</h2>
+<p>有两个 Git 命令同时运行，可能一种来自命令提示符，另一种来自 IDE 。</p>
+<h2 id="解决">解决</h2>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/01/25/V2x6Msj5KSDqFp3.png"
+                      alt=""
+                ><br>
+删除报错信息对应路径下已存在的 <code>index.lock</code> 文件即可。</p>
+<h2 id="引用">引用</h2>
+<ul>
+<li><a class="link"   href="https://stackoverflow.com/questions/38004148/another-git-process-seems-to-be-running-in-this-repository" >https://stackoverflow.com/questions/38004148/another-git-process-seems-to-be-running-in-this-repository <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>Git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Windows cmd 执行 Java 命令无返回信息</title>
+    <url>/2024/02/18/Windows-cmd%E6%89%A7%E8%A1%8Cjava%E5%91%BD%E4%BB%A4%E6%97%A0%E8%BF%94%E5%9B%9E%E4%BF%A1%E6%81%AF/</url>
+    <content><![CDATA[<h2 id="问题">问题</h2>
+<p>在 Windows 命令行中无法执行 Java 命令且没有任何返回信息：</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/02/18/rmNVClcep816dXR.png"
+                      style="zoom:50%;" 
+                >
+<h2 id="原因">原因</h2>
+<p>装了多个 jdk 的话，系统环境变量的第一行可能会出现 <code>C:\ProgramData\Oracle\Java\javapath</code> 路径，系统按该路径查找 jdk 。然而该路径可能并不真实存在，因此命令行中的 Java 命令会因找不到 jdk 而并未运行。</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/02/18/3XM9B4wfPOlsyUi.png"
+                      style="zoom:50%;" 
+                >
+<h2 id="解决">解决</h2>
+<p>将自定义的 <code>%JAVA_HOME%\bin\</code> 路径移至第一行，让系统按该路径查找 jdk 。</p>
+<h2 id="参考">参考</h2>
+<ul>
+<li><a class="link"   href="https://blog.csdn.net/qq_41999034/article/details/111604649" >https://blog.csdn.net/qq_41999034/article/details/111604649 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>Windows环境变量</tag>
+        <tag>Java</tag>
       </tags>
   </entry>
   <entry>
@@ -2143,29 +2143,6 @@
       </tags>
   </entry>
   <entry>
-    <title>实现 Windows 环境下 Thunderbird 邮件客户端自启动</title>
-    <url>/2024/03/05/%E5%AE%9E%E7%8E%B0Windows%E7%8E%AF%E5%A2%83%E4%B8%8BThunderbird%E9%82%AE%E4%BB%B6%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%87%AA%E5%90%AF%E5%8A%A8/</url>
-    <content><![CDATA[<p>Thunderbird是一款优秀的开源邮件客户端，但在Windows环境下没有自启动选项，且关闭主界面后客户端也会关闭，这种设计不利于在后台接收新邮件提醒。因此，考虑通过其他途径实现Thunderbird的自启动。</p>
-<h2 id="实现">实现</h2>
-<p>在<code>C:\Users\[用户名]\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup</code>路径下创建一个Thunderbird主程序快捷方式，即可实现Thunderbird开机自启。</p>
-<blockquote>
-<p>推而广之，可用此方式实现其他（任何）程序的开机自启。</p>
-</blockquote>
-<h2 id="One-more-thing">One more thing</h2>
-<p>更进一步，可在Thunderbird客户端安装以下插件：</p>
-<ul>
-<li>Minimize at startup：启动时最小化到托盘。配合上述自启动设置，可实现开机自启且最小化。</li>
-<li>Minimize on Close：点击关闭按钮后最小化到托盘，而不是关闭程序。可避免误关，更重要的是可以拯救强迫症患者。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>工具</category>
-      </categories>
-      <tags>
-        <tag>Thunderbird</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>转载 - SpringBoot 为什么不需要额外安装 Tomcat ？</title>
     <url>/2024/03/07/%E8%BD%AC%E8%BD%BD-SpringBoot%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E9%9C%80%E8%A6%81%E9%A2%9D%E5%A4%96%E5%AE%89%E8%A3%85Tomcat%EF%BC%9F/</url>
     <content><![CDATA[
@@ -2189,23 +2166,26 @@
       </tags>
   </entry>
   <entry>
-    <title>IOC 容器对 Bean 的命名规则</title>
-    <url>/2024/03/08/IOC-%E5%AE%B9%E5%99%A8%E5%AF%B9-Bean-%E7%9A%84%E5%91%BD%E5%90%8D%E8%A7%84%E5%88%99/</url>
-    <content><![CDATA[<h2 id="1-默认规则">1. 默认规则</h2>
-<p>在 Spring 中，IOC（控制反转）容器可以自动识别并创建 Bean，而且它默认遵循一定的命名规则。Spring 的 IOC 容器在自动识别 Bean 时通常使用的是<strong>基于类名的驼峰命名规则</strong>。</p>
-<p><strong>如果类名以大写字母开头，Spring 将会把它转换为以小写字母开头，并且在容器中注册为 Bean。</strong></p>
-<p>例如，假设你有一个名为 <code>UserService</code> 的类，Spring IOC 容器会将它识别为 <code>userService</code> 的 Bean。类似地，<code>UserServiceImpl</code> 会变成 <code>userServiceImpl</code>。</p>
-<p>这种自动的 Bean 命名规则存在于 Spring 的默认行为中，这样开发者就不需要显式地在配置文件或注解中指定 Bean 的名称，Spring 会根据类名来自动推断。</p>
-<h2 id="2-自定义">2. 自定义</h2>
-<p>但是，如果开发者想要<strong>自定义 Bean 的名称</strong>，可以使用 <code>@Component</code>、<code>@Service</code>、<code>@Repository</code> 等注解，并<strong>在括号中指定 Bean 的名称</strong>，例如：</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Service(&quot;myCustomService&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyCustomServiceImpl</span> <span class="keyword">implements</span> <span class="title class_">MyCustomService</span> &#123;</span><br><span class="line">    <span class="comment">// 实现代码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<p>在这个例子中，<code>MyCustomServiceImpl</code> 类会被注册到 Spring 容器中，并且 Bean 的名称将会是 <code>myCustomService</code>，而不是自动推断的 <code>myCustomServiceImpl</code>。</p>
+    <title>实现 Windows 环境下 Thunderbird 邮件客户端自启动</title>
+    <url>/2024/03/05/%E5%AE%9E%E7%8E%B0Windows%E7%8E%AF%E5%A2%83%E4%B8%8BThunderbird%E9%82%AE%E4%BB%B6%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%87%AA%E5%90%AF%E5%8A%A8/</url>
+    <content><![CDATA[<p>Thunderbird是一款优秀的开源邮件客户端，但在Windows环境下没有自启动选项，且关闭主界面后客户端也会关闭，这种设计不利于在后台接收新邮件提醒。因此，考虑通过其他途径实现Thunderbird的自启动。</p>
+<h2 id="实现">实现</h2>
+<p>在<code>C:\Users\[用户名]\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup</code>路径下创建一个Thunderbird主程序快捷方式，即可实现Thunderbird开机自启。</p>
+<blockquote>
+<p>推而广之，可用此方式实现其他（任何）程序的开机自启。</p>
+</blockquote>
+<h2 id="One-more-thing">One more thing</h2>
+<p>更进一步，可在Thunderbird客户端安装以下插件：</p>
+<ul>
+<li>Minimize at startup：启动时最小化到托盘。配合上述自启动设置，可实现开机自启且最小化。</li>
+<li>Minimize on Close：点击关闭按钮后最小化到托盘，而不是关闭程序。可避免误关，更重要的是可以拯救强迫症患者。</li>
+</ul>
 ]]></content>
       <categories>
-        <category>Java学习笔记</category>
+        <category>工具</category>
       </categories>
       <tags>
-        <tag>Spring</tag>
+        <tag>Thunderbird</tag>
       </tags>
   </entry>
   <entry>
@@ -2242,6 +2222,26 @@
 <li>application.yml</li>
 <li>application.yaml（忽略）</li>
 </ol>
+]]></content>
+      <categories>
+        <category>Java学习笔记</category>
+      </categories>
+      <tags>
+        <tag>Spring</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>IOC 容器对 Bean 的命名规则</title>
+    <url>/2024/03/08/IOC-%E5%AE%B9%E5%99%A8%E5%AF%B9-Bean-%E7%9A%84%E5%91%BD%E5%90%8D%E8%A7%84%E5%88%99/</url>
+    <content><![CDATA[<h2 id="1-默认规则">1. 默认规则</h2>
+<p>在 Spring 中，IOC（控制反转）容器可以自动识别并创建 Bean，而且它默认遵循一定的命名规则。Spring 的 IOC 容器在自动识别 Bean 时通常使用的是<strong>基于类名的驼峰命名规则</strong>。</p>
+<p><strong>如果类名以大写字母开头，Spring 将会把它转换为以小写字母开头，并且在容器中注册为 Bean。</strong></p>
+<p>例如，假设你有一个名为 <code>UserService</code> 的类，Spring IOC 容器会将它识别为 <code>userService</code> 的 Bean。类似地，<code>UserServiceImpl</code> 会变成 <code>userServiceImpl</code>。</p>
+<p>这种自动的 Bean 命名规则存在于 Spring 的默认行为中，这样开发者就不需要显式地在配置文件或注解中指定 Bean 的名称，Spring 会根据类名来自动推断。</p>
+<h2 id="2-自定义">2. 自定义</h2>
+<p>但是，如果开发者想要<strong>自定义 Bean 的名称</strong>，可以使用 <code>@Component</code>、<code>@Service</code>、<code>@Repository</code> 等注解，并<strong>在括号中指定 Bean 的名称</strong>，例如：</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Service(&quot;myCustomService&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyCustomServiceImpl</span> <span class="keyword">implements</span> <span class="title class_">MyCustomService</span> &#123;</span><br><span class="line">    <span class="comment">// 实现代码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>在这个例子中，<code>MyCustomServiceImpl</code> 类会被注册到 Spring 容器中，并且 Bean 的名称将会是 <code>myCustomService</code>，而不是自动推断的 <code>myCustomServiceImpl</code>。</p>
 ]]></content>
       <categories>
         <category>Java学习笔记</category>
@@ -2376,6 +2376,71 @@
       </categories>
       <tags>
         <tag>Spring</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>JavaWeb 后端开发总结</title>
+    <url>/2024/03/10/JavaWeb-%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<p>web后端开发现在基本上都是基于标准的三层架构进行开发的，在三层架构当中，Controller控制器层负责接收请求响应数据，Service业务层负责具体的业务逻辑处理，而Dao数据访问层也叫持久层，就是用来处理数据访问操作的，来完成数据库当中数据的增删改查操作。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/03/10/tgSJKPX3FBwZGx6.png"
+                      alt=""
+                ></p>
+<blockquote>
+<p>在三层架构当中，前端发起请求首先会到达Controller(不进行逻辑处理)，然后Controller会直接调用Service 进行逻辑处理， Service再调用Dao完成数据访问操作。</p>
+</blockquote>
+<p>如果我们在执行具体的业务处理之前，需要去做一些通用的业务处理，比如：我们要进行统一的登录校验，我们要进行统一的字符编码等这些操作时，我们就可以借助于Javaweb当中三大组件之一的过滤器Filter或者是Spring当中提供的拦截器Interceptor来实现。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/03/10/jIOK7DnacR2uVEG.png"
+                      alt=""
+                ></p>
+<p>而为了实现三层架构层与层之间的解耦，我们学习了Spring框架当中的第一大核心：IOC控制反转与DI依赖注入。</p>
+<blockquote>
+<p>所谓控制反转，指的是将对象创建的控制权由应用程序自身交给外部容器，这个容器就是我们常说的IOC容器或Spring容器。</p>
+<p>而DI依赖注入指的是容器为程序提供运行时所需要的资源。</p>
+</blockquote>
+<p>除了IOC与DI我们还讲到了AOP面向切面编程，还有Spring中的事务管理、全局异常处理器，以及传递会话技术Cookie、Session以及新的会话跟踪解决方案JWT令牌，阿里云OSS对象存储服务，以及通过Mybatis持久层架构操作数据库等技术。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/03/10/lOK2t8nTUq6EVp9.png"
+                      alt=""
+                ></p>
+<p>我们在学习这些web后端开发技术的时候，我们都是基于主流的SpringBoot进行整合使用的。而SpringBoot又是用来简化开发，提高开发效率的。像过滤器、拦截器、IOC、DI、AOP、事务管理等这些技术到底是哪个框架提供的核心功能？</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/03/10/c73xEmrLOfNjS8o.png"
+                      alt=""
+                ></p>
+<blockquote>
+<p>Filter过滤器、Cookie、 Session这些都是传统的JavaWeb提供的技术。</p>
+<p>JWT令牌、阿里云OSS对象存储服务，是现在企业项目中常见的一些解决方案。</p>
+<p>IOC控制反转、DI依赖注入、AOP面向切面编程、事务管理、全局异常处理、拦截器等，这些技术都是 Spring Framework框架当中提供的核心功能。</p>
+<p>Mybatis就是一个持久层的框架，是用来操作数据库的。</p>
+</blockquote>
+<p>在Spring框架的生态中，对web程序开发提供了很好的支持，如：全局异常处理器、拦截器这些都是Spring框架中web开发模块所提供的功能，而Spring框架的web开发模块，我们也称为：SpringMVC</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/03/10/Fvtu8Kz6OJyR2oE.png"
+                      alt=""
+                ></p>
+<blockquote>
+<p>SpringMVC不是一个单独的框架，它是Spring框架的一部分，是Spring框架中的web开发模块，是用来简化原始的Servlet程序开发的。</p>
+</blockquote>
+<p>外界俗称的SSM，就是由：SpringMVC、Spring Framework、Mybatis三块组成。</p>
+<p>基于传统的SSM框架进行整合开发项目会比较繁琐，而且效率也比较低，所以在现在的企业项目开发当中，基本上都是直接基于SpringBoot整合SSM进行项目开发的。</p>
+]]></content>
+      <categories>
+        <category>Java学习笔记</category>
+      </categories>
+      <tags>
+        <tag>JavaWeb</tag>
       </tags>
   </entry>
   <entry>
@@ -2554,93 +2619,6 @@
       </tags>
   </entry>
   <entry>
-    <title>JavaWeb 后端开发总结</title>
-    <url>/2024/03/10/JavaWeb-%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91%E6%80%BB%E7%BB%93/</url>
-    <content><![CDATA[<p>web后端开发现在基本上都是基于标准的三层架构进行开发的，在三层架构当中，Controller控制器层负责接收请求响应数据，Service业务层负责具体的业务逻辑处理，而Dao数据访问层也叫持久层，就是用来处理数据访问操作的，来完成数据库当中数据的增删改查操作。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/03/10/tgSJKPX3FBwZGx6.png"
-                      alt=""
-                ></p>
-<blockquote>
-<p>在三层架构当中，前端发起请求首先会到达Controller(不进行逻辑处理)，然后Controller会直接调用Service 进行逻辑处理， Service再调用Dao完成数据访问操作。</p>
-</blockquote>
-<p>如果我们在执行具体的业务处理之前，需要去做一些通用的业务处理，比如：我们要进行统一的登录校验，我们要进行统一的字符编码等这些操作时，我们就可以借助于Javaweb当中三大组件之一的过滤器Filter或者是Spring当中提供的拦截器Interceptor来实现。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/03/10/jIOK7DnacR2uVEG.png"
-                      alt=""
-                ></p>
-<p>而为了实现三层架构层与层之间的解耦，我们学习了Spring框架当中的第一大核心：IOC控制反转与DI依赖注入。</p>
-<blockquote>
-<p>所谓控制反转，指的是将对象创建的控制权由应用程序自身交给外部容器，这个容器就是我们常说的IOC容器或Spring容器。</p>
-<p>而DI依赖注入指的是容器为程序提供运行时所需要的资源。</p>
-</blockquote>
-<p>除了IOC与DI我们还讲到了AOP面向切面编程，还有Spring中的事务管理、全局异常处理器，以及传递会话技术Cookie、Session以及新的会话跟踪解决方案JWT令牌，阿里云OSS对象存储服务，以及通过Mybatis持久层架构操作数据库等技术。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/03/10/lOK2t8nTUq6EVp9.png"
-                      alt=""
-                ></p>
-<p>我们在学习这些web后端开发技术的时候，我们都是基于主流的SpringBoot进行整合使用的。而SpringBoot又是用来简化开发，提高开发效率的。像过滤器、拦截器、IOC、DI、AOP、事务管理等这些技术到底是哪个框架提供的核心功能？</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/03/10/c73xEmrLOfNjS8o.png"
-                      alt=""
-                ></p>
-<blockquote>
-<p>Filter过滤器、Cookie、 Session这些都是传统的JavaWeb提供的技术。</p>
-<p>JWT令牌、阿里云OSS对象存储服务，是现在企业项目中常见的一些解决方案。</p>
-<p>IOC控制反转、DI依赖注入、AOP面向切面编程、事务管理、全局异常处理、拦截器等，这些技术都是 Spring Framework框架当中提供的核心功能。</p>
-<p>Mybatis就是一个持久层的框架，是用来操作数据库的。</p>
-</blockquote>
-<p>在Spring框架的生态中，对web程序开发提供了很好的支持，如：全局异常处理器、拦截器这些都是Spring框架中web开发模块所提供的功能，而Spring框架的web开发模块，我们也称为：SpringMVC</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/03/10/Fvtu8Kz6OJyR2oE.png"
-                      alt=""
-                ></p>
-<blockquote>
-<p>SpringMVC不是一个单独的框架，它是Spring框架的一部分，是Spring框架中的web开发模块，是用来简化原始的Servlet程序开发的。</p>
-</blockquote>
-<p>外界俗称的SSM，就是由：SpringMVC、Spring Framework、Mybatis三块组成。</p>
-<p>基于传统的SSM框架进行整合开发项目会比较繁琐，而且效率也比较低，所以在现在的企业项目开发当中，基本上都是直接基于SpringBoot整合SSM进行项目开发的。</p>
-]]></content>
-      <categories>
-        <category>Java学习笔记</category>
-      </categories>
-      <tags>
-        <tag>JavaWeb</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>转载 - Spring 注解之 @RestController 与 @Controller 的区别</title>
-    <url>/2024/03/08/%E8%BD%AC%E8%BD%BD-Spring-%E6%B3%A8%E8%A7%A3%E4%B9%8B-RestController%E4%B8%8E-Controller%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
-    <content><![CDATA[
-  <div class="note-large yellow">
-    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
-      <p>链接</p>
-
-    </div>
-    <div class="notel-content">
-      <p><a class="link"   href="https://www.cnblogs.com/east7/p/10462279.html" >https://www.cnblogs.com/east7/p/10462279.html <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-
-    </div>
-  </div>
-]]></content>
-      <categories>
-        <category>转载</category>
-      </categories>
-      <tags>
-        <tag>Spring</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Maven - 分模块设计与开发</title>
     <url>/2024/03/11/Maven-%E5%88%86%E6%A8%A1%E5%9D%97%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%BC%80%E5%8F%91/</url>
     <content><![CDATA[<p>所谓分模块设计，指的就是我们在设计一个 Java 项目的时候，将一个 Java 项目拆分成多个模块进行开发。</p>
@@ -2673,6 +2651,220 @@
 <li>什么是分模块设计：将项目按照功能拆分成若干个子模块</li>
 <li>为什么要分模块设计：方便项目的管理维护、扩展，也方便模块间的相互调用，资源共享</li>
 <li>注意事项：分模块设计需要先针对模块功能进行设计，再进行编码。不会先将工程开发完毕，然后进行拆分</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Java学习笔记</category>
+      </categories>
+      <tags>
+        <tag>Maven</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>转载 - Spring 注解之 @RestController 与 @Controller 的区别</title>
+    <url>/2024/03/08/%E8%BD%AC%E8%BD%BD-Spring-%E6%B3%A8%E8%A7%A3%E4%B9%8B-RestController%E4%B8%8E-Controller%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
+    <content><![CDATA[
+  <div class="note-large yellow">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>链接</p>
+
+    </div>
+    <div class="notel-content">
+      <p><a class="link"   href="https://www.cnblogs.com/east7/p/10462279.html" >https://www.cnblogs.com/east7/p/10462279.html <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+
+    </div>
+  </div>
+]]></content>
+      <categories>
+        <category>转载</category>
+      </categories>
+      <tags>
+        <tag>Spring</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Maven - 继承与聚合</title>
+    <url>/2024/03/11/Maven-%E7%BB%A7%E6%89%BF%E4%B8%8E%E8%81%9A%E5%90%88/</url>
+    <content><![CDATA[<h2 id="1-继承">1. 继承</h2>
+<p>在案例项目分模块开发之后，tlias-pojo、tlias-utils、tlias-web-management中都引入了一个 lombok 的依赖。我们在三个模块中分别配置了一次。</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/03/11/9wSRAKUvh6YtlMP.png"
+                      style="zoom:80%;" 
+                > 
+<p>如果是做一个大型的项目，这三个模块当中重复的依赖可能会很多很多。如果每一个 Maven 模块里面，我们都来单独的配置一次，功能虽然能实现，但是配置是比较<strong>繁琐</strong>的。</p>
+<p>而 Maven 的继承就是用来解决这问题的。</p>
+<h3 id="1-1-继承关系">1.1 继承关系</h3>
+<h4 id="1-1-1-思路分析">1.1.1 思路分析</h4>
+<p>我们可以再创建一个父工程 tlias-parent ，然后让上述的三个模块 tlias-pojo、tlias-utils、tlias-web-management 都来继承这个父工程 。 然后再将各个模块中都共有的依赖，都提取到父工程 tlias-parent中进行配置，只要子工程继承了父工程，依赖它也会继承下来，这样就无需在各个子工程中进行配置了。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/03/11/OpPHAedtEmB5NLv.png"
+                      alt=""
+                ></p>
+<ul>
+<li>
+<p>概念：继承描述的是两个工程间的关系，与java中的继承相似，子工程可以继承父工程中的配置信息，常见于依赖关系的继承。</p>
+</li>
+<li>
+<p>作用：简化依赖配置、统一管理依赖</p>
+</li>
+<li>
+<p>实现：</p>
+<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>...<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>...<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>...<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">relativePath</span>&gt;</span>....<span class="tag">&lt;/<span class="name">relativePath</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
+</li>
+</ul>
+<h4 id="1-1-2-具体实现">1.1.2 具体实现</h4>
+<ol>
+<li>
+<p>创建maven模块 tlias-parent ，该工程为父工程，设置打包方式pom(默认jar)。</p>
+<p>父工程 tlias-parent 的 pom.xml 文件配置如下：</p>
+<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.7.5<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">relativePath</span>/&gt;</span> <span class="comment">&lt;!-- lookup parent from repository --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.itheima<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>tlias-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">packaging</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span> <span class="comment">&lt;!-- 设置打包方式为 pom --&gt;</span></span><br></pre></td></tr></table></figure></div>
+<blockquote>
+<p>Maven打包方式：</p>
+<ul>
+<li>jar：普通模块打包，springboot项目基本都是jar包（内嵌tomcat运行）</li>
+<li>war：普通web程序打包，需要部署在外部的tomcat服务器中运行</li>
+<li>pom：父工程或聚合工程，该模块不写代码，仅进行依赖管理</li>
+</ul>
+</blockquote>
+</li>
+<li>
+<p>在子工程的 pom.xml 文件中，配置继承关系</p>
+<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.itheima<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>tlias-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">relativePath</span>&gt;</span>../tlias-parent/pom.xml<span class="tag">&lt;/<span class="name">relativePath</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>tlias-utils<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
+<blockquote>
+<p>注意：</p>
+<ul>
+<li>在子工程中，配置了继承关系之后，坐标中的 groupId 是可以省略的，因为会自动继承父工程的</li>
+<li>relativePath指定父工程的 pom 文件的相对位置（如果不指定，将从本地仓库/远程仓库查找该工程）</li>
+<li>…/ 代表上一级目录</li>
+</ul>
+</blockquote>
+</li>
+<li>
+<p>在父工程中配置各个工程共有的依赖（子工程会自动继承父工程的依赖）</p>
+</li>
+</ol>
+   <div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.projectlombok<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>lombok<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.18.24<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
+<p>此时，我们已经将各个子工程中共有的依赖（lombok），都定义在了父工程中，子工程中的这一项依赖，就可以直接删除了。</p>
+<h3 id="1-2-版本锁定">1.2 版本锁定</h3>
+<h4 id="1-2-1-场景">1.2.1 场景</h4>
+<p>项目中各个模块共有的这部分依赖，我们可以直接定义在父工程中，从而简化子工程的配置。 然而在项目开发中，还有一部分依赖，并不是各个模块都共有的，可能只是其中的一小部分模块中使用到了这个依赖。</p>
+<p>比如：在tlias-web-management、tlias-web-system、tlias-web-report这三个子工程中，都使用到了jwt的依赖。 但是 tlias-pojo、tlias-utils中并不需要这个依赖，那此时，这个依赖，我们不会直接配置在父工程 tlias-parent中，而是哪个模块需要，就在哪个模块中配置。</p>
+<p>而由于是一个项目中的多个模块，我们要使用的同一个依赖的版本要一致，这样便于项目依赖的统一管理。比如：jwt依赖，我们都使用的是 0.9.1 这个版本。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/03/11/9C48MvVHm1jOa6K.png"
+                      alt="image-20230113122213954"
+                ><figcaption>image-20230113122213954</figcaption></figure></p>
+<p>假如说，项目要升级，要使用到jwt最新版本 0.9.2 中的一个新功能，此时需要将依赖的版本升级到0.9.2，该怎么做呢 ？<br>
+第一步：去找当前项目中所有的模块的pom.xml配置文件，看哪些模块用到了jwt的依赖。<br>
+第二步：找到这个依赖之后，将其版本version，更换为 0.9.2。</p>
+<p><strong>问题：如果项目拆分的模块比较多，每一次更换版本，我们都得找到这个项目中的每一个模块，一个一个的更改。 很容易就会出现，遗漏掉一个模块，忘记更换版本的情况。</strong></p>
+<p>那我们又该如何来解决这个问题，统一管理各个依赖的版本呢？<br>
+答案：Maven的版本锁定功能。</p>
+<h4 id="1-2-2-介绍">1.2.2 介绍</h4>
+<p>在maven中，可以在父工程的pom文件中通过 <code>&lt;dependencyManagement&gt;</code> 来统一管理依赖版本</p>
+<p>父工程：</p>
+<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--统一管理依赖版本--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--JWT令牌--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.jsonwebtoken<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jjwt<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>0.9.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencyManagement</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
+<p>子工程：</p>
+<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--JWT令牌--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.jsonwebtoken<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jjwt<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
+<blockquote>
+<p>注意：</p>
+<ul>
+<li>
+<p>在父工程中所配置的 <code>&lt;dependencyManagement&gt;</code> 只能统一管理依赖版本，并不会将这个依赖直接引入进来。 这点和 <code>&lt;dependencies&gt;</code> 是不同的。</p>
+</li>
+<li>
+<p>子工程要使用这个依赖，还是需要引入的，只是此时就无需指定 <code>&lt;version&gt;</code> 版本号了，父工程统一管理。变更依赖版本，只需在父工程中统一变更。</p>
+</li>
+</ul>
+</blockquote>
+<h4 id="1-2-3-属性配置">1.2.3 属性配置</h4>
+<p>我们也可以通过自定义属性及属性引用的形式，在父工程中将依赖的版本号进行集中管理维护。 具体语法为：</p>
+<ul>
+<li>自定义属性</li>
+</ul>
+<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">lombok.version</span>&gt;</span>1.18.24<span class="tag">&lt;/<span class="name">lombok.version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
+<ul>
+<li>引用属性</li>
+</ul>
+<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.projectlombok<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>lombok<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;lombok.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
+<p>版本集中管理之后，要想修改依赖的版本，就只需要在父工程中自定义属性的位置，修改对应的属性值即可。</p>
+<p>例如：</p>
+<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">maven.compiler.source</span>&gt;</span>11<span class="tag">&lt;/<span class="name">maven.compiler.source</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">maven.compiler.target</span>&gt;</span>11<span class="tag">&lt;/<span class="name">maven.compiler.target</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">lombok.version</span>&gt;</span>1.18.24<span class="tag">&lt;/<span class="name">lombok.version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">jjwt.version</span>&gt;</span>0.9.1<span class="tag">&lt;/<span class="name">jjwt.version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">aliyun.oss.version</span>&gt;</span>3.15.1<span class="tag">&lt;/<span class="name">aliyun.oss.version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">jaxb.version</span>&gt;</span>2.3.1<span class="tag">&lt;/<span class="name">jaxb.version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">activation.version</span>&gt;</span>1.1.1<span class="tag">&lt;/<span class="name">activation.version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">jaxb.runtime.version</span>&gt;</span>2.3.3<span class="tag">&lt;/<span class="name">jaxb.runtime.version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--统一管理依赖版本--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--JWT令牌--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.jsonwebtoken<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jjwt<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;jjwt.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--阿里云OSS--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.aliyun.oss<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>aliyun-sdk-oss<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;aliyun.oss.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>javax.xml.bind<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jaxb-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;jaxb.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>javax.activation<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>activation<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;activation.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- no more than 2.3.3--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.glassfish.jaxb<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jaxb-runtime<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;jaxb.runtime.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencyManagement</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
+<blockquote>
+<p><strong>面试题：<code>&lt;dependencyManagement&gt;</code> 与 <code>&lt;dependencies&gt;</code> 的区别是什么?</strong></p>
+<ul>
+<li><code>&lt;dependencies&gt;</code> 是直接依赖，在父工程配置了依赖，子工程会直接继承下来。</li>
+<li><code>&lt;dependencyManagement&gt;</code> 是统一管理依赖版本，不会直接依赖，还需要在子工程中引入所需依赖(无需指定版本)</li>
+</ul>
+</blockquote>
+<h2 id="2-聚合">2. 聚合</h2>
+<p>分模块设计与开发之后，我们的项目被拆分为多个模块，而模块之间的关系，可能错综复杂。 那就比如我们当前的案例项目，结构如下（相对还是比较简单的）：</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/03/11/KT1FSfDEi2PNA8L.png"
+                      style="zoom:67%;" 
+                > 
+<p>此时，tlias-web-management 模块的父工程是 tlias-parent，该模块又依赖了tlias-pojo、tlias-utils模块。 那此时，我们要想将 tlias-web-management 模块打包，是比较繁琐的。因为在进行项目打包时，maven会从本地仓库中来查找tlias-parent父工程，以及它所依赖的模块tlias-pojo、tlias-utils，而本地仓库目前是没有这几个依赖的。</p>
+<p>所以，我们再打包tlias-web-management 模块前，需要将 tlias-parent、tlias-pojo、tlias-utils分别执行install生命周期安装到maven的本地仓库，然后再针对于 tlias-web-management 模块执行package进行打包操作。</p>
+<p>如果开发一个大型项目，拆分的模块很多，模块之间的依赖关系错综复杂，那此时要进行项目的打包、安装操作，是非常繁琐的。 而maven的聚合就是来解决这个问题的，通过maven的聚合可以轻松实现项目的一键构建（清理、编译、测试、打包、安装等）。</p>
+<h3 id="2-1-介绍">2.1 介绍</h3>
+ <img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/03/11/FTVYsobm538lp1c.png"
+                      style="zoom: 80%;" 
+                >
+<ul>
+<li>**聚合：**将多个模块组织成一个整体，同时进行项目的构建。</li>
+<li>**聚合工程：**一个不具有业务功能的“空”工程（有且仅有一个pom文件） 【PS：一般来说，继承关系中的父工程与聚合关系中的聚合工程是同一个】</li>
+<li>**作用：**快速构建项目（无需根据依赖关系手动构建，直接在聚合工程上构建即可）</li>
+</ul>
+<h3 id="2-2-实现">2.2 实现</h3>
+<p>在maven中，我们可以在聚合工程中通过 <code>&lt;moudules&gt;</code> 设置当前聚合工程所包含的子模块的名称。例如，我们可以在 tlias-parent中，添加如下配置，来指定当前聚合工程，需要聚合的模块：</p>
+<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--聚合其他模块--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">modules</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">module</span>&gt;</span>../tlias-pojo<span class="tag">&lt;/<span class="name">module</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">module</span>&gt;</span>../tlias-utils<span class="tag">&lt;/<span class="name">module</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">module</span>&gt;</span>../tlias-web-management<span class="tag">&lt;/<span class="name">module</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">modules</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
+<p>我们要进行编译、打包、安装操作，就无需在每一个模块上操作了。只需要在聚合工程上，统一进行操作就可以了。</p>
+<h2 id="3-继承与聚合的对比">3 继承与聚合的对比</h2>
+<ul>
+<li>
+<p><strong>作用</strong></p>
+<ul>
+<li>
+<p>聚合用于快速构建项目</p>
+</li>
+<li>
+<p>继承用于简化依赖配置、统一管理依赖</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>相同点：</strong></p>
+<ul>
+<li>
+<p>聚合与继承的pom.xml文件打包方式均为pom，通常将两种关系制作到同一个pom文件中</p>
+</li>
+<li>
+<p>聚合与继承均属于设计型模块，并无实际的模块内容</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>不同点：</strong></p>
+<ul>
+<li>
+<p>聚合是在聚合工程中配置关系，聚合可以感知到参与聚合的模块有哪些</p>
+</li>
+<li>
+<p>继承是在子模块中配置关系，父模块无法感知哪些子模块继承了自己</p>
+</li>
+</ul>
+</li>
 </ul>
 ]]></content>
       <categories>
@@ -2955,198 +3147,6 @@ EmployeeLoginDTO.java</p>
       </tags>
   </entry>
   <entry>
-    <title>Maven - 继承与聚合</title>
-    <url>/2024/03/11/Maven-%E7%BB%A7%E6%89%BF%E4%B8%8E%E8%81%9A%E5%90%88/</url>
-    <content><![CDATA[<h2 id="1-继承">1. 继承</h2>
-<p>在案例项目分模块开发之后，tlias-pojo、tlias-utils、tlias-web-management中都引入了一个 lombok 的依赖。我们在三个模块中分别配置了一次。</p>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/03/11/9wSRAKUvh6YtlMP.png"
-                      style="zoom:80%;" 
-                > 
-<p>如果是做一个大型的项目，这三个模块当中重复的依赖可能会很多很多。如果每一个 Maven 模块里面，我们都来单独的配置一次，功能虽然能实现，但是配置是比较<strong>繁琐</strong>的。</p>
-<p>而 Maven 的继承就是用来解决这问题的。</p>
-<h3 id="1-1-继承关系">1.1 继承关系</h3>
-<h4 id="1-1-1-思路分析">1.1.1 思路分析</h4>
-<p>我们可以再创建一个父工程 tlias-parent ，然后让上述的三个模块 tlias-pojo、tlias-utils、tlias-web-management 都来继承这个父工程 。 然后再将各个模块中都共有的依赖，都提取到父工程 tlias-parent中进行配置，只要子工程继承了父工程，依赖它也会继承下来，这样就无需在各个子工程中进行配置了。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/03/11/OpPHAedtEmB5NLv.png"
-                      alt=""
-                ></p>
-<ul>
-<li>
-<p>概念：继承描述的是两个工程间的关系，与java中的继承相似，子工程可以继承父工程中的配置信息，常见于依赖关系的继承。</p>
-</li>
-<li>
-<p>作用：简化依赖配置、统一管理依赖</p>
-</li>
-<li>
-<p>实现：</p>
-<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>...<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>...<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>...<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">relativePath</span>&gt;</span>....<span class="tag">&lt;/<span class="name">relativePath</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
-</li>
-</ul>
-<h4 id="1-1-2-具体实现">1.1.2 具体实现</h4>
-<ol>
-<li>
-<p>创建maven模块 tlias-parent ，该工程为父工程，设置打包方式pom(默认jar)。</p>
-<p>父工程 tlias-parent 的 pom.xml 文件配置如下：</p>
-<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.7.5<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">relativePath</span>/&gt;</span> <span class="comment">&lt;!-- lookup parent from repository --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.itheima<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>tlias-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">packaging</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span> <span class="comment">&lt;!-- 设置打包方式为 pom --&gt;</span></span><br></pre></td></tr></table></figure></div>
-<blockquote>
-<p>Maven打包方式：</p>
-<ul>
-<li>jar：普通模块打包，springboot项目基本都是jar包（内嵌tomcat运行）</li>
-<li>war：普通web程序打包，需要部署在外部的tomcat服务器中运行</li>
-<li>pom：父工程或聚合工程，该模块不写代码，仅进行依赖管理</li>
-</ul>
-</blockquote>
-</li>
-<li>
-<p>在子工程的 pom.xml 文件中，配置继承关系</p>
-<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.itheima<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>tlias-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">relativePath</span>&gt;</span>../tlias-parent/pom.xml<span class="tag">&lt;/<span class="name">relativePath</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>tlias-utils<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
-<blockquote>
-<p>注意：</p>
-<ul>
-<li>在子工程中，配置了继承关系之后，坐标中的 groupId 是可以省略的，因为会自动继承父工程的</li>
-<li>relativePath指定父工程的 pom 文件的相对位置（如果不指定，将从本地仓库/远程仓库查找该工程）</li>
-<li>…/ 代表上一级目录</li>
-</ul>
-</blockquote>
-</li>
-<li>
-<p>在父工程中配置各个工程共有的依赖（子工程会自动继承父工程的依赖）</p>
-</li>
-</ol>
-   <div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.projectlombok<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>lombok<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.18.24<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
-<p>此时，我们已经将各个子工程中共有的依赖（lombok），都定义在了父工程中，子工程中的这一项依赖，就可以直接删除了。</p>
-<h3 id="1-2-版本锁定">1.2 版本锁定</h3>
-<h4 id="1-2-1-场景">1.2.1 场景</h4>
-<p>项目中各个模块共有的这部分依赖，我们可以直接定义在父工程中，从而简化子工程的配置。 然而在项目开发中，还有一部分依赖，并不是各个模块都共有的，可能只是其中的一小部分模块中使用到了这个依赖。</p>
-<p>比如：在tlias-web-management、tlias-web-system、tlias-web-report这三个子工程中，都使用到了jwt的依赖。 但是 tlias-pojo、tlias-utils中并不需要这个依赖，那此时，这个依赖，我们不会直接配置在父工程 tlias-parent中，而是哪个模块需要，就在哪个模块中配置。</p>
-<p>而由于是一个项目中的多个模块，我们要使用的同一个依赖的版本要一致，这样便于项目依赖的统一管理。比如：jwt依赖，我们都使用的是 0.9.1 这个版本。</p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/03/11/9C48MvVHm1jOa6K.png"
-                      alt="image-20230113122213954"
-                ><figcaption>image-20230113122213954</figcaption></figure></p>
-<p>假如说，项目要升级，要使用到jwt最新版本 0.9.2 中的一个新功能，此时需要将依赖的版本升级到0.9.2，该怎么做呢 ？<br>
-第一步：去找当前项目中所有的模块的pom.xml配置文件，看哪些模块用到了jwt的依赖。<br>
-第二步：找到这个依赖之后，将其版本version，更换为 0.9.2。</p>
-<p><strong>问题：如果项目拆分的模块比较多，每一次更换版本，我们都得找到这个项目中的每一个模块，一个一个的更改。 很容易就会出现，遗漏掉一个模块，忘记更换版本的情况。</strong></p>
-<p>那我们又该如何来解决这个问题，统一管理各个依赖的版本呢？<br>
-答案：Maven的版本锁定功能。</p>
-<h4 id="1-2-2-介绍">1.2.2 介绍</h4>
-<p>在maven中，可以在父工程的pom文件中通过 <code>&lt;dependencyManagement&gt;</code> 来统一管理依赖版本</p>
-<p>父工程：</p>
-<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--统一管理依赖版本--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--JWT令牌--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.jsonwebtoken<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jjwt<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>0.9.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencyManagement</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
-<p>子工程：</p>
-<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--JWT令牌--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.jsonwebtoken<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jjwt<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
-<blockquote>
-<p>注意：</p>
-<ul>
-<li>
-<p>在父工程中所配置的 <code>&lt;dependencyManagement&gt;</code> 只能统一管理依赖版本，并不会将这个依赖直接引入进来。 这点和 <code>&lt;dependencies&gt;</code> 是不同的。</p>
-</li>
-<li>
-<p>子工程要使用这个依赖，还是需要引入的，只是此时就无需指定 <code>&lt;version&gt;</code> 版本号了，父工程统一管理。变更依赖版本，只需在父工程中统一变更。</p>
-</li>
-</ul>
-</blockquote>
-<h4 id="1-2-3-属性配置">1.2.3 属性配置</h4>
-<p>我们也可以通过自定义属性及属性引用的形式，在父工程中将依赖的版本号进行集中管理维护。 具体语法为：</p>
-<ul>
-<li>自定义属性</li>
-</ul>
-<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">lombok.version</span>&gt;</span>1.18.24<span class="tag">&lt;/<span class="name">lombok.version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
-<ul>
-<li>引用属性</li>
-</ul>
-<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.projectlombok<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>lombok<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;lombok.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
-<p>版本集中管理之后，要想修改依赖的版本，就只需要在父工程中自定义属性的位置，修改对应的属性值即可。</p>
-<p>例如：</p>
-<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">maven.compiler.source</span>&gt;</span>11<span class="tag">&lt;/<span class="name">maven.compiler.source</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">maven.compiler.target</span>&gt;</span>11<span class="tag">&lt;/<span class="name">maven.compiler.target</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">lombok.version</span>&gt;</span>1.18.24<span class="tag">&lt;/<span class="name">lombok.version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">jjwt.version</span>&gt;</span>0.9.1<span class="tag">&lt;/<span class="name">jjwt.version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">aliyun.oss.version</span>&gt;</span>3.15.1<span class="tag">&lt;/<span class="name">aliyun.oss.version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">jaxb.version</span>&gt;</span>2.3.1<span class="tag">&lt;/<span class="name">jaxb.version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">activation.version</span>&gt;</span>1.1.1<span class="tag">&lt;/<span class="name">activation.version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">jaxb.runtime.version</span>&gt;</span>2.3.3<span class="tag">&lt;/<span class="name">jaxb.runtime.version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--统一管理依赖版本--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--JWT令牌--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.jsonwebtoken<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jjwt<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;jjwt.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--阿里云OSS--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.aliyun.oss<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>aliyun-sdk-oss<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;aliyun.oss.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>javax.xml.bind<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jaxb-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;jaxb.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>javax.activation<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>activation<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;activation.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- no more than 2.3.3--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.glassfish.jaxb<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jaxb-runtime<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;jaxb.runtime.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencyManagement</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
-<blockquote>
-<p><strong>面试题：<code>&lt;dependencyManagement&gt;</code> 与 <code>&lt;dependencies&gt;</code> 的区别是什么?</strong></p>
-<ul>
-<li><code>&lt;dependencies&gt;</code> 是直接依赖，在父工程配置了依赖，子工程会直接继承下来。</li>
-<li><code>&lt;dependencyManagement&gt;</code> 是统一管理依赖版本，不会直接依赖，还需要在子工程中引入所需依赖(无需指定版本)</li>
-</ul>
-</blockquote>
-<h2 id="2-聚合">2. 聚合</h2>
-<p>分模块设计与开发之后，我们的项目被拆分为多个模块，而模块之间的关系，可能错综复杂。 那就比如我们当前的案例项目，结构如下（相对还是比较简单的）：</p>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/03/11/KT1FSfDEi2PNA8L.png"
-                      style="zoom:67%;" 
-                > 
-<p>此时，tlias-web-management 模块的父工程是 tlias-parent，该模块又依赖了tlias-pojo、tlias-utils模块。 那此时，我们要想将 tlias-web-management 模块打包，是比较繁琐的。因为在进行项目打包时，maven会从本地仓库中来查找tlias-parent父工程，以及它所依赖的模块tlias-pojo、tlias-utils，而本地仓库目前是没有这几个依赖的。</p>
-<p>所以，我们再打包tlias-web-management 模块前，需要将 tlias-parent、tlias-pojo、tlias-utils分别执行install生命周期安装到maven的本地仓库，然后再针对于 tlias-web-management 模块执行package进行打包操作。</p>
-<p>如果开发一个大型项目，拆分的模块很多，模块之间的依赖关系错综复杂，那此时要进行项目的打包、安装操作，是非常繁琐的。 而maven的聚合就是来解决这个问题的，通过maven的聚合可以轻松实现项目的一键构建（清理、编译、测试、打包、安装等）。</p>
-<h3 id="2-1-介绍">2.1 介绍</h3>
- <img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/03/11/FTVYsobm538lp1c.png"
-                      style="zoom: 80%;" 
-                >
-<ul>
-<li>**聚合：**将多个模块组织成一个整体，同时进行项目的构建。</li>
-<li>**聚合工程：**一个不具有业务功能的“空”工程（有且仅有一个pom文件） 【PS：一般来说，继承关系中的父工程与聚合关系中的聚合工程是同一个】</li>
-<li>**作用：**快速构建项目（无需根据依赖关系手动构建，直接在聚合工程上构建即可）</li>
-</ul>
-<h3 id="2-2-实现">2.2 实现</h3>
-<p>在maven中，我们可以在聚合工程中通过 <code>&lt;moudules&gt;</code> 设置当前聚合工程所包含的子模块的名称。例如，我们可以在 tlias-parent中，添加如下配置，来指定当前聚合工程，需要聚合的模块：</p>
-<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--聚合其他模块--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">modules</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">module</span>&gt;</span>../tlias-pojo<span class="tag">&lt;/<span class="name">module</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">module</span>&gt;</span>../tlias-utils<span class="tag">&lt;/<span class="name">module</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">module</span>&gt;</span>../tlias-web-management<span class="tag">&lt;/<span class="name">module</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">modules</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
-<p>我们要进行编译、打包、安装操作，就无需在每一个模块上操作了。只需要在聚合工程上，统一进行操作就可以了。</p>
-<h2 id="3-继承与聚合的对比">3 继承与聚合的对比</h2>
-<ul>
-<li>
-<p><strong>作用</strong></p>
-<ul>
-<li>
-<p>聚合用于快速构建项目</p>
-</li>
-<li>
-<p>继承用于简化依赖配置、统一管理依赖</p>
-</li>
-</ul>
-</li>
-<li>
-<p><strong>相同点：</strong></p>
-<ul>
-<li>
-<p>聚合与继承的pom.xml文件打包方式均为pom，通常将两种关系制作到同一个pom文件中</p>
-</li>
-<li>
-<p>聚合与继承均属于设计型模块，并无实际的模块内容</p>
-</li>
-</ul>
-</li>
-<li>
-<p><strong>不同点：</strong></p>
-<ul>
-<li>
-<p>聚合是在聚合工程中配置关系，聚合可以感知到参与聚合的模块有哪些</p>
-</li>
-<li>
-<p>继承是在子模块中配置关系，父模块无法感知哪些子模块继承了自己</p>
-</li>
-</ul>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>Java学习笔记</category>
-      </categories>
-      <tags>
-        <tag>Maven</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Java - ThreadLocal</title>
     <url>/2024/03/14/Java-ThreadLocal/</url>
     <content><![CDATA[<h2 id="介绍">介绍</h2>
@@ -3224,6 +3224,38 @@ ThreadLocal为每个线程提供单独一份存储空间，具有线程隔离的
       </categories>
       <tags>
         <tag>JavaWeb</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>#{} 和 ${} 的区别是什么？</title>
+    <url>/2024/03/14/MyBatis%E4%B8%AD%E4%B8%A4%E7%A7%8D%E5%8D%A0%E4%BD%8D%E7%AC%A6%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
+    <content><![CDATA[<h2 id="区别">区别</h2>
+<p>经常碰到这样的面试题目：<code>#&#123;&#125;</code>和<code>$&#123;&#125;</code>的区别是什么？</p>
+<p>正确的答案是：<code>#&#123;&#125;</code>是预编译处理，<code>$&#123;&#125;</code>是字符串替换。</p>
+<h2 id="内部原理">内部原理</h2>
+<ol>
+<li>mybatis在处理<code>#&#123;&#125;</code>时，会将sql中的<code>#&#123;&#125;</code>替换为<code>?</code>号，调用PreparedStatement的set方法来赋值。</li>
+<li>mybatis在处理<code>$&#123;&#125;</code>时，就是把<code>$&#123;&#125;</code>替换成变量的值。</li>
+<li>使用<code>#&#123;&#125;</code>可以有效的防止SQL注入，提高系统安全性。原因在于：预编译机制。预编译完成之后，SQL的结构已经固定，即便用户输入非法参数，也不会对SQL的结构产生影响，从而避免了潜在的安全风险。</li>
+<li>预编译是提前对SQL语句进行预编译，而其后注入的参数将不会再进行SQL编译。我们知道，SQL注入是发生在编译的过程中，因为恶意注入了某些特殊字符，最后被编译成了恶意的执行操作。而预编译机制则可以很好的防止SQL注入。</li>
+</ol>
+<h2 id="记忆方式">记忆方式</h2>
+<p>$符号一般用来当作占位符，常使用Linux脚本的人应该对此有更深的体会。</p>
+<p>例如：$1，$2等等表示输入参数的占位符。</p>
+<p>知道了这点就能很容易区分$和#，从而不容易记错了。</p>
+<h2 id="两种替换符存在的意义">两种替换符存在的意义</h2>
+<p>既然<code>$&#123;&#125;</code>会引起sql注入，为什么有了<code>#&#123;&#125;</code>还需要有<code>$&#123;&#125;</code>呢？那其存在的意义是什么？</p>
+<p>可以这么去理解：<code>#&#123;&#125;</code>主要用于预编译，而预编译的场景其实非常受限，而<code>$&#123;&#125;</code>用于替换，很多场景会出现替换，而这种场景是不可预编译，例如：MyBatis XML配置对抗MyBatis注解的一大杀器：SQL片段，抽取可重用的SQL语句</p>
+<h2 id="参考">参考</h2>
+<ul>
+<li><a class="link"   href="https://bbs.huaweicloud.com/blogs/394244" >https://bbs.huaweicloud.com/blogs/394244 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>Java学习笔记</category>
+      </categories>
+      <tags>
+        <tag>MyBatis</tag>
       </tags>
   </entry>
   <entry>
@@ -3339,38 +3371,6 @@ ThreadLocal为每个线程提供单独一份存储空间，具有线程隔离的
       </categories>
       <tags>
         <tag>Redis</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>#{} 和 ${} 的区别是什么？</title>
-    <url>/2024/03/14/MyBatis%E4%B8%AD%E4%B8%A4%E7%A7%8D%E5%8D%A0%E4%BD%8D%E7%AC%A6%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
-    <content><![CDATA[<h2 id="区别">区别</h2>
-<p>经常碰到这样的面试题目：<code>#&#123;&#125;</code>和<code>$&#123;&#125;</code>的区别是什么？</p>
-<p>正确的答案是：<code>#&#123;&#125;</code>是预编译处理，<code>$&#123;&#125;</code>是字符串替换。</p>
-<h2 id="内部原理">内部原理</h2>
-<ol>
-<li>mybatis在处理<code>#&#123;&#125;</code>时，会将sql中的<code>#&#123;&#125;</code>替换为<code>?</code>号，调用PreparedStatement的set方法来赋值。</li>
-<li>mybatis在处理<code>$&#123;&#125;</code>时，就是把<code>$&#123;&#125;</code>替换成变量的值。</li>
-<li>使用<code>#&#123;&#125;</code>可以有效的防止SQL注入，提高系统安全性。原因在于：预编译机制。预编译完成之后，SQL的结构已经固定，即便用户输入非法参数，也不会对SQL的结构产生影响，从而避免了潜在的安全风险。</li>
-<li>预编译是提前对SQL语句进行预编译，而其后注入的参数将不会再进行SQL编译。我们知道，SQL注入是发生在编译的过程中，因为恶意注入了某些特殊字符，最后被编译成了恶意的执行操作。而预编译机制则可以很好的防止SQL注入。</li>
-</ol>
-<h2 id="记忆方式">记忆方式</h2>
-<p>$符号一般用来当作占位符，常使用Linux脚本的人应该对此有更深的体会。</p>
-<p>例如：$1，$2等等表示输入参数的占位符。</p>
-<p>知道了这点就能很容易区分$和#，从而不容易记错了。</p>
-<h2 id="两种替换符存在的意义">两种替换符存在的意义</h2>
-<p>既然<code>$&#123;&#125;</code>会引起sql注入，为什么有了<code>#&#123;&#125;</code>还需要有<code>$&#123;&#125;</code>呢？那其存在的意义是什么？</p>
-<p>可以这么去理解：<code>#&#123;&#125;</code>主要用于预编译，而预编译的场景其实非常受限，而<code>$&#123;&#125;</code>用于替换，很多场景会出现替换，而这种场景是不可预编译，例如：MyBatis XML配置对抗MyBatis注解的一大杀器：SQL片段，抽取可重用的SQL语句</p>
-<h2 id="参考">参考</h2>
-<ul>
-<li><a class="link"   href="https://bbs.huaweicloud.com/blogs/394244" >https://bbs.huaweicloud.com/blogs/394244 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>Java学习笔记</category>
-      </categories>
-      <tags>
-        <tag>MyBatis</tag>
       </tags>
   </entry>
 </search>
