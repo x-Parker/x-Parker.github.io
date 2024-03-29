@@ -1721,39 +1721,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Git 报错：无法创建 index.lock 文件，因其已存在。</title>
-    <url>/2024/01/25/Git-%E6%8A%A5%E9%94%99%EF%BC%9A%E6%97%A0%E6%B3%95%E5%88%9B%E5%BB%BA-index-lock-%E6%96%87%E4%BB%B6%EF%BC%8C%E5%9B%A0%E5%85%B6%E5%B7%B2%E5%AD%98%E5%9C%A8/</url>
-    <content><![CDATA[<h2 id="问题">问题</h2>
-<p>使用 Git 向 Github 部署代码时，出现如下报错：</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/01/25/VTOAzyM2Jm9pEWH.png"
-                      alt=""
-                ></p>
-<h2 id="原因">原因</h2>
-<p>有两个 Git 命令同时运行，可能一种来自命令提示符，另一种来自 IDE 。</p>
-<h2 id="解决">解决</h2>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/01/25/V2x6Msj5KSDqFp3.png"
-                      alt=""
-                ><br>
-删除报错信息对应路径下已存在的 <code>index.lock</code> 文件即可。</p>
-<h2 id="引用">引用</h2>
-<ul>
-<li><a class="link"   href="https://stackoverflow.com/questions/38004148/another-git-process-seems-to-be-running-in-this-repository" >https://stackoverflow.com/questions/38004148/another-git-process-seems-to-be-running-in-this-repository <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>Git</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>PowerShell 报错：在此系统上禁止运行脚本</title>
     <url>/2024/01/22/PowerShell-vue%E6%97%A0%E6%B3%95%E5%8A%A0%E8%BD%BD%E6%96%87%E4%BB%B6-%E5%9B%A0%E4%B8%BA%E5%9C%A8%E6%AD%A4%E7%B3%BB%E7%BB%9F%E4%B8%8A%E7%A6%81%E6%AD%A2%E8%BF%90%E8%A1%8C%E8%84%9A%E6%9C%AC/</url>
     <content><![CDATA[<h2 id="问题">问题</h2>
@@ -1818,6 +1785,39 @@
       </categories>
       <tags>
         <tag>Hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Git 报错：无法创建 index.lock 文件，因其已存在。</title>
+    <url>/2024/01/25/Git-%E6%8A%A5%E9%94%99%EF%BC%9A%E6%97%A0%E6%B3%95%E5%88%9B%E5%BB%BA-index-lock-%E6%96%87%E4%BB%B6%EF%BC%8C%E5%9B%A0%E5%85%B6%E5%B7%B2%E5%AD%98%E5%9C%A8/</url>
+    <content><![CDATA[<h2 id="问题">问题</h2>
+<p>使用 Git 向 Github 部署代码时，出现如下报错：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/01/25/VTOAzyM2Jm9pEWH.png"
+                      alt=""
+                ></p>
+<h2 id="原因">原因</h2>
+<p>有两个 Git 命令同时运行，可能一种来自命令提示符，另一种来自 IDE 。</p>
+<h2 id="解决">解决</h2>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/01/25/V2x6Msj5KSDqFp3.png"
+                      alt=""
+                ><br>
+删除报错信息对应路径下已存在的 <code>index.lock</code> 文件即可。</p>
+<h2 id="引用">引用</h2>
+<ul>
+<li><a class="link"   href="https://stackoverflow.com/questions/38004148/another-git-process-seems-to-be-running-in-this-repository" >https://stackoverflow.com/questions/38004148/another-git-process-seems-to-be-running-in-this-repository <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>Git</tag>
       </tags>
   </entry>
   <entry>
@@ -1947,29 +1947,6 @@
       <tags>
         <tag>Windows环境变量</tag>
         <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>实现 Windows 环境下 Thunderbird 邮件客户端自启动</title>
-    <url>/2024/03/05/%E5%AE%9E%E7%8E%B0Windows%E7%8E%AF%E5%A2%83%E4%B8%8BThunderbird%E9%82%AE%E4%BB%B6%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%87%AA%E5%90%AF%E5%8A%A8/</url>
-    <content><![CDATA[<p>Thunderbird是一款优秀的开源邮件客户端，但在Windows环境下没有自启动选项，且关闭主界面后客户端也会关闭，这种设计不利于在后台接收新邮件提醒。因此，考虑通过其他途径实现Thunderbird的自启动。</p>
-<h2 id="实现">实现</h2>
-<p>在<code>C:\Users\[用户名]\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup</code>路径下创建一个Thunderbird主程序快捷方式，即可实现Thunderbird开机自启。</p>
-<blockquote>
-<p>推而广之，可用此方式实现其他（任何）程序的开机自启。</p>
-</blockquote>
-<h2 id="One-more-thing">One more thing</h2>
-<p>更进一步，可在Thunderbird客户端安装以下插件：</p>
-<ul>
-<li>Minimize at startup：启动时最小化到托盘。配合上述自启动设置，可实现开机自启且最小化。</li>
-<li>Minimize on Close：点击关闭按钮后最小化到托盘，而不是关闭程序。可避免误关，更重要的是可以拯救强迫症患者。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>工具</category>
-      </categories>
-      <tags>
-        <tag>Thunderbird</tag>
       </tags>
   </entry>
   <entry>
@@ -2208,6 +2185,29 @@
       </tags>
   </entry>
   <entry>
+    <title>实现 Windows 环境下 Thunderbird 邮件客户端自启动</title>
+    <url>/2024/03/05/%E5%AE%9E%E7%8E%B0Windows%E7%8E%AF%E5%A2%83%E4%B8%8BThunderbird%E9%82%AE%E4%BB%B6%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%87%AA%E5%90%AF%E5%8A%A8/</url>
+    <content><![CDATA[<p>Thunderbird是一款优秀的开源邮件客户端，但在Windows环境下没有自启动选项，且关闭主界面后客户端也会关闭，这种设计不利于在后台接收新邮件提醒。因此，考虑通过其他途径实现Thunderbird的自启动。</p>
+<h2 id="实现">实现</h2>
+<p>在<code>C:\Users\[用户名]\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup</code>路径下创建一个Thunderbird主程序快捷方式，即可实现Thunderbird开机自启。</p>
+<blockquote>
+<p>推而广之，可用此方式实现其他（任何）程序的开机自启。</p>
+</blockquote>
+<h2 id="One-more-thing">One more thing</h2>
+<p>更进一步，可在Thunderbird客户端安装以下插件：</p>
+<ul>
+<li>Minimize at startup：启动时最小化到托盘。配合上述自启动设置，可实现开机自启且最小化。</li>
+<li>Minimize on Close：点击关闭按钮后最小化到托盘，而不是关闭程序。可避免误关，更重要的是可以拯救强迫症患者。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>工具</category>
+      </categories>
+      <tags>
+        <tag>Thunderbird</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>转载 - SpringBoot 为什么不需要额外安装 Tomcat ？</title>
     <url>/2024/03/07/%E8%BD%AC%E8%BD%BD-SpringBoot%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E9%9C%80%E8%A6%81%E9%A2%9D%E5%A4%96%E5%AE%89%E8%A3%85Tomcat%EF%BC%9F/</url>
     <content><![CDATA[
@@ -2227,26 +2227,6 @@
       </categories>
       <tags>
         <tag>Tomcat</tag>
-        <tag>Spring</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>IOC 容器对 Bean 的命名规则</title>
-    <url>/2024/03/08/IOC-%E5%AE%B9%E5%99%A8%E5%AF%B9-Bean-%E7%9A%84%E5%91%BD%E5%90%8D%E8%A7%84%E5%88%99/</url>
-    <content><![CDATA[<h2 id="1-默认规则">1. 默认规则</h2>
-<p>在 Spring 中，IOC（控制反转）容器可以自动识别并创建 Bean，而且它默认遵循一定的命名规则。Spring 的 IOC 容器在自动识别 Bean 时通常使用的是<strong>基于类名的驼峰命名规则</strong>。</p>
-<p><strong>如果类名以大写字母开头，Spring 将会把它转换为以小写字母开头，并且在容器中注册为 Bean。</strong></p>
-<p>例如，假设你有一个名为 <code>UserService</code> 的类，Spring IOC 容器会将它识别为 <code>userService</code> 的 Bean。类似地，<code>UserServiceImpl</code> 会变成 <code>userServiceImpl</code>。</p>
-<p>这种自动的 Bean 命名规则存在于 Spring 的默认行为中，这样开发者就不需要显式地在配置文件或注解中指定 Bean 的名称，Spring 会根据类名来自动推断。</p>
-<h2 id="2-自定义">2. 自定义</h2>
-<p>但是，如果开发者想要<strong>自定义 Bean 的名称</strong>，可以使用 <code>@Component</code>、<code>@Service</code>、<code>@Repository</code> 等注解，并<strong>在括号中指定 Bean 的名称</strong>，例如：</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Service(&quot;myCustomService&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyCustomServiceImpl</span> <span class="keyword">implements</span> <span class="title class_">MyCustomService</span> &#123;</span><br><span class="line">    <span class="comment">// 实现代码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<p>在这个例子中，<code>MyCustomServiceImpl</code> 类会被注册到 Spring 容器中，并且 Bean 的名称将会是 <code>myCustomService</code>，而不是自动推断的 <code>myCustomServiceImpl</code>。</p>
-]]></content>
-      <categories>
-        <category>Java学习笔记</category>
-      </categories>
-      <tags>
         <tag>Spring</tag>
       </tags>
   </entry>
@@ -2554,6 +2534,26 @@
       </tags>
   </entry>
   <entry>
+    <title>IOC 容器对 Bean 的命名规则</title>
+    <url>/2024/03/08/IOC-%E5%AE%B9%E5%99%A8%E5%AF%B9-Bean-%E7%9A%84%E5%91%BD%E5%90%8D%E8%A7%84%E5%88%99/</url>
+    <content><![CDATA[<h2 id="1-默认规则">1. 默认规则</h2>
+<p>在 Spring 中，IOC（控制反转）容器可以自动识别并创建 Bean，而且它默认遵循一定的命名规则。Spring 的 IOC 容器在自动识别 Bean 时通常使用的是<strong>基于类名的驼峰命名规则</strong>。</p>
+<p><strong>如果类名以大写字母开头，Spring 将会把它转换为以小写字母开头，并且在容器中注册为 Bean。</strong></p>
+<p>例如，假设你有一个名为 <code>UserService</code> 的类，Spring IOC 容器会将它识别为 <code>userService</code> 的 Bean。类似地，<code>UserServiceImpl</code> 会变成 <code>userServiceImpl</code>。</p>
+<p>这种自动的 Bean 命名规则存在于 Spring 的默认行为中，这样开发者就不需要显式地在配置文件或注解中指定 Bean 的名称，Spring 会根据类名来自动推断。</p>
+<h2 id="2-自定义">2. 自定义</h2>
+<p>但是，如果开发者想要<strong>自定义 Bean 的名称</strong>，可以使用 <code>@Component</code>、<code>@Service</code>、<code>@Repository</code> 等注解，并<strong>在括号中指定 Bean 的名称</strong>，例如：</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Service(&quot;myCustomService&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyCustomServiceImpl</span> <span class="keyword">implements</span> <span class="title class_">MyCustomService</span> &#123;</span><br><span class="line">    <span class="comment">// 实现代码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>在这个例子中，<code>MyCustomServiceImpl</code> 类会被注册到 Spring 容器中，并且 Bean 的名称将会是 <code>myCustomService</code>，而不是自动推断的 <code>myCustomServiceImpl</code>。</p>
+]]></content>
+      <categories>
+        <category>Java学习笔记</category>
+      </categories>
+      <tags>
+        <tag>Spring</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>转载 - Spring 注解之 @RestController 与 @Controller 的区别</title>
     <url>/2024/03/08/%E8%BD%AC%E8%BD%BD-Spring-%E6%B3%A8%E8%A7%A3%E4%B9%8B-RestController%E4%B8%8E-Controller%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
     <content><![CDATA[
@@ -2638,48 +2638,6 @@
       </categories>
       <tags>
         <tag>JavaWeb</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Maven - 分模块设计与开发</title>
-    <url>/2024/03/11/Maven-%E5%88%86%E6%A8%A1%E5%9D%97%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%BC%80%E5%8F%91/</url>
-    <content><![CDATA[<p>所谓分模块设计，指的就是我们在设计一个 Java 项目的时候，将一个 Java 项目拆分成多个模块进行开发。</p>
-<h2 id="1-未分模块设计的问题">1. 未分模块设计的问题</h2>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/03/11/hUQJls9Z1mW74ot.png"
-                      style="zoom: 67%;" 
-                > 
-<p>如果项目不分模块，也就意味着所有的业务代码是不是都写在这一个 Java 项目当中。随着这个项目的业务扩张，项目当中的业务功能可能会越来越多。</p>
-<p>假如我们开发的是一个大型的电商项目，里面可能就包括了商品模块的功能、搜索模块的功能、购物车模块、订单模块、用户中心等等。这些所有的业务代码我们都在一个 Java 项目当中编写。</p>
-<p>此时大家可以试想一下，假如我们开发的是一个大型的电商网站，这个项目组至少几十号甚至几百号开发人员，这些开发人员全部操作这一个 Java 项目。此时大家就会发现我们项目管理和维护起来将会非常的困难。而且大家再来看，假如在我们的项目当中，我们自己定义了一些通用的工具类以及通用的组件，而公司还有其他的项目组，其他项目组也想使用我们所封装的这些组件和工具类，其实是非常不方便的。因为 Java 项目当中包含了当前项目的所有业务代码，所以就造成了这里面所封装的一些组件会难以复用。</p>
-<p><strong>总结起来，主要两点问题：不方便项目的维护和管理、项目中的通用组件难以复用。</strong></p>
-<h2 id="2-分模块设计">2. 分模块设计</h2>
-<p>分模块设计我们在进行项目设计阶段，就可以将一个大的项目拆分成若干个模块，每一个模块都是独立的。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/03/11/lb1yva64pVwJgAL.png"
-                      alt=""
-                ></p>
-<p>比如我们可以将商品的相关功能放在商品模块当中，搜索的相关业务功能我都封装在搜索模块当中，还有像购物车模块、订单模块。而为了组件的复用，我们也可以将项目当中的实体类、工具类以及我们定义的通用的组件都单独的抽取到一个模块当中。</p>
-<p>如果当前这个模块，比如订单模块需要用到这些实体类以及工具类或者这些通用组件，此时直接在订单模块当中引入工具类的坐标就可以了。这样我们就将一个项目拆分成了若干个模块儿，这就是分模块儿设计。</p>
-<p>分模块儿设计之后，大家再来看。我们在进行项目管理的时候，我就可以几个人一组，几个人来负责订单模块儿，另外几个人来负责购物车模块儿，这样更加便于项目的管理以及项目的后期维护。</p>
-<p>而且分模块设计之后，如果我们需要用到另外一个模块的功能，我们直接依赖模块就可以了。比如商品模块、搜索模块、购物车订单模块都需要依赖于通用组件当中封装的一些工具类，我只需要引入通用组件的坐标就可以了。</p>
-<p><strong>分模块设计就是将项目按照功能/结构拆分成若干个子模块，方便项目的管理维护、拓展，也方便模块键的相互调用、资源共享。</strong></p>
-<h2 id="3-总结">3. 总结</h2>
-<ul>
-<li>什么是分模块设计：将项目按照功能拆分成若干个子模块</li>
-<li>为什么要分模块设计：方便项目的管理维护、扩展，也方便模块间的相互调用，资源共享</li>
-<li>注意事项：分模块设计需要先针对模块功能进行设计，再进行编码。不会先将工程开发完毕，然后进行拆分</li>
-</ul>
-]]></content>
-      <categories>
-        <category>Java学习笔记</category>
-      </categories>
-      <tags>
-        <tag>Maven</tag>
       </tags>
   </entry>
   <entry>
@@ -2768,6 +2726,129 @@
       </categories>
       <tags>
         <tag>Maven</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Maven - 分模块设计与开发</title>
+    <url>/2024/03/11/Maven-%E5%88%86%E6%A8%A1%E5%9D%97%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%BC%80%E5%8F%91/</url>
+    <content><![CDATA[<p>所谓分模块设计，指的就是我们在设计一个 Java 项目的时候，将一个 Java 项目拆分成多个模块进行开发。</p>
+<h2 id="1-未分模块设计的问题">1. 未分模块设计的问题</h2>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/03/11/hUQJls9Z1mW74ot.png"
+                      style="zoom: 67%;" 
+                > 
+<p>如果项目不分模块，也就意味着所有的业务代码是不是都写在这一个 Java 项目当中。随着这个项目的业务扩张，项目当中的业务功能可能会越来越多。</p>
+<p>假如我们开发的是一个大型的电商项目，里面可能就包括了商品模块的功能、搜索模块的功能、购物车模块、订单模块、用户中心等等。这些所有的业务代码我们都在一个 Java 项目当中编写。</p>
+<p>此时大家可以试想一下，假如我们开发的是一个大型的电商网站，这个项目组至少几十号甚至几百号开发人员，这些开发人员全部操作这一个 Java 项目。此时大家就会发现我们项目管理和维护起来将会非常的困难。而且大家再来看，假如在我们的项目当中，我们自己定义了一些通用的工具类以及通用的组件，而公司还有其他的项目组，其他项目组也想使用我们所封装的这些组件和工具类，其实是非常不方便的。因为 Java 项目当中包含了当前项目的所有业务代码，所以就造成了这里面所封装的一些组件会难以复用。</p>
+<p><strong>总结起来，主要两点问题：不方便项目的维护和管理、项目中的通用组件难以复用。</strong></p>
+<h2 id="2-分模块设计">2. 分模块设计</h2>
+<p>分模块设计我们在进行项目设计阶段，就可以将一个大的项目拆分成若干个模块，每一个模块都是独立的。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/03/11/lb1yva64pVwJgAL.png"
+                      alt=""
+                ></p>
+<p>比如我们可以将商品的相关功能放在商品模块当中，搜索的相关业务功能我都封装在搜索模块当中，还有像购物车模块、订单模块。而为了组件的复用，我们也可以将项目当中的实体类、工具类以及我们定义的通用的组件都单独的抽取到一个模块当中。</p>
+<p>如果当前这个模块，比如订单模块需要用到这些实体类以及工具类或者这些通用组件，此时直接在订单模块当中引入工具类的坐标就可以了。这样我们就将一个项目拆分成了若干个模块儿，这就是分模块儿设计。</p>
+<p>分模块儿设计之后，大家再来看。我们在进行项目管理的时候，我就可以几个人一组，几个人来负责订单模块儿，另外几个人来负责购物车模块儿，这样更加便于项目的管理以及项目的后期维护。</p>
+<p>而且分模块设计之后，如果我们需要用到另外一个模块的功能，我们直接依赖模块就可以了。比如商品模块、搜索模块、购物车订单模块都需要依赖于通用组件当中封装的一些工具类，我只需要引入通用组件的坐标就可以了。</p>
+<p><strong>分模块设计就是将项目按照功能/结构拆分成若干个子模块，方便项目的管理维护、拓展，也方便模块键的相互调用、资源共享。</strong></p>
+<h2 id="3-总结">3. 总结</h2>
+<ul>
+<li>什么是分模块设计：将项目按照功能拆分成若干个子模块</li>
+<li>为什么要分模块设计：方便项目的管理维护、扩展，也方便模块间的相互调用，资源共享</li>
+<li>注意事项：分模块设计需要先针对模块功能进行设计，再进行编码。不会先将工程开发完毕，然后进行拆分</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Java学习笔记</category>
+      </categories>
+      <tags>
+        <tag>Maven</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Swagger</title>
+    <url>/2024/03/12/Swagger/</url>
+    <content><![CDATA[<h2 id="1-介绍">1. 介绍</h2>
+<p>Swagger 是一个规范和完整的框架，用于生成、描述、调用和可视化 RESTful 风格的 Web 服务（<a class="link"   href="https://swagger.io/" >https://swagger.io/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>）。 它的主要作用是：</p>
+<ul>
+<li>使得前后端分离开发更加方便，有利于团队协作</li>
+<li>接口的文档在线自动生成，降低后端开发人员编写接口文档的负担</li>
+<li>功能测试</li>
+</ul>
+<p>Spring已经将Swagger纳入自身的标准，建立了Spring-swagger项目，现在叫Springfox。通过在项目中引入Springfox ，即可非常简单快捷的使用Swagger。</p>
+<p>knife4j是为Java MVC框架集成Swagger生成Api文档的增强解决方案，前身是swagger-bootstrap-ui，取名kni4j是希望它能像一把匕首一样小巧，轻量，并且功能强悍。</p>
+<p>目前，一般都使用knife4j框架。</p>
+<h2 id="2-使用步骤">2 使用步骤</h2>
+<h3 id="2-1-导入-knife4j-的maven坐标">2.1 导入 knife4j 的maven坐标</h3>
+<p>在pom.xml中添加依赖</p>
+<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.github.xiaoymin<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>knife4j-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
+<h3 id="2-2-在配置类中加入-knife4j-相关配置">2.2 在配置类中加入 knife4j 相关配置</h3>
+<p>WebMvcConfiguration.java</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 通过knife4j生成接口文档</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> Docket <span class="title function_">docket</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">ApiInfo</span> <span class="variable">apiInfo</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ApiInfoBuilder</span>()</span><br><span class="line">                .title(<span class="string">&quot;苍穹外卖项目接口文档&quot;</span>)</span><br><span class="line">                .version(<span class="string">&quot;2.0&quot;</span>)</span><br><span class="line">                .description(<span class="string">&quot;苍穹外卖项目接口文档&quot;</span>)</span><br><span class="line">                .build();</span><br><span class="line">        <span class="type">Docket</span> <span class="variable">docket</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Docket</span>(DocumentationType.SWAGGER_2)</span><br><span class="line">                .apiInfo(apiInfo)</span><br><span class="line">                .select()</span><br><span class="line">                .apis(RequestHandlerSelectors.basePackage(<span class="string">&quot;com.sky.controller&quot;</span>))</span><br><span class="line">                .paths(PathSelectors.any())</span><br><span class="line">                .build();</span><br><span class="line">        <span class="keyword">return</span> docket;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></div>
+<h3 id="2-3-设置静态资源映射">2.3 设置静态资源映射</h3>
+<p>WebMvcConfiguration.java</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 设置静态资源映射</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> registry</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">addResourceHandlers</span><span class="params">(ResourceHandlerRegistry registry)</span> &#123;</span><br><span class="line">        registry.addResourceHandler(<span class="string">&quot;/doc.html&quot;</span>).addResourceLocations(<span class="string">&quot;classpath:/META-INF/resources/&quot;</span>);</span><br><span class="line">        registry.addResourceHandler(<span class="string">&quot;/webjars/**&quot;</span>).addResourceLocations(<span class="string">&quot;classpath:/META-INF/resources/webjars/&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h3 id="2-4-访问测试">2.4 访问测试</h3>
+<p>接口文档访问路径为 <code>http://ip:port/doc.html</code> -&gt; <code>http://localhost:8080/doc.html</code></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/03/12/YAHX2qBR7kI4m1y.png"
+                      alt=""
+                ></p>
+<blockquote>
+<p><strong>思考</strong>：通过 Swagger 就可以生成接口文档，那么我们就不需要 Yapi 了？答案：需要。</p>
+<ul>
+<li>Yapi 是设计阶段使用的工具，管理和维护接口</li>
+<li>Swagger 在开发阶段使用的框架，帮助后端开发人员做后端的接口测试</li>
+</ul>
+</blockquote>
+<h2 id="3-常用注解">3. 常用注解</h2>
+<p>通过注解可以控制生成的接口文档，使接口文档拥有更好的可读性，常用注解如下：</p>
+<table>
+<thead>
+<tr>
+<th><strong>注解</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>@Api</td>
+<td>用在类上，例如Controller，表示对类的说明</td>
+</tr>
+<tr>
+<td>@ApiOperation</td>
+<td>用在方法上，例如Controller的方法，说明方法的用途、作用</td>
+</tr>
+<tr>
+<td>@ApiModel</td>
+<td>用在类上，例如entity、DTO、VO</td>
+</tr>
+<tr>
+<td>@ApiModelProperty</td>
+<td>用在属性上，描述属性信息</td>
+</tr>
+</tbody>
+</table>
+<p><strong>例如</strong>：</p>
+<p>在sky-server模块中：<br>
+EmployeeController.java</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping(&quot;/admin/employee&quot;)</span></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="meta">@Api(tags = &quot;员工相关接口&quot;)</span>	<span class="comment">// @Api 注解</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">EmployeeController</span> &#123;</span><br><span class="line">	……</span><br><span class="line">    <span class="meta">@PostMapping(&quot;/login&quot;)</span></span><br><span class="line">    <span class="meta">@ApiOperation(value = &quot;员工登录&quot;)</span>	<span class="comment">// @ApiOperation 注解</span></span><br><span class="line">    <span class="keyword">public</span> Result&lt;EmployeeLoginVO&gt; <span class="title function_">login</span><span class="params">(<span class="meta">@RequestBody</span> EmployeeLoginDTO employeeLoginDTO)</span> 	&#123;</span><br><span class="line">        <span class="comment">//..............</span></span><br><span class="line">    &#125;</span><br><span class="line">    ……</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+<p>在sky-pojo模块中：<br>
+EmployeeLoginDTO.java</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@ApiModel(description = &quot;员工登录时传递的数据模型&quot;)</span>	<span class="comment">// @ApiModel 注解</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">EmployeeLoginDTO</span> <span class="keyword">implements</span> <span class="title class_">Serializable</span> &#123;</span><br><span class="line">    <span class="meta">@ApiModelProperty(&quot;用户名&quot;)</span>	<span class="comment">// @ApiModelProperty 注解</span></span><br><span class="line">    <span class="keyword">private</span> String username;</span><br><span class="line">    <span class="meta">@ApiModelProperty(&quot;密码&quot;)</span>	<span class="comment">// @ApiModelProperty 注解</span></span><br><span class="line">    <span class="keyword">private</span> String password;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+]]></content>
+      <categories>
+        <category>Java学习笔记</category>
+      </categories>
+      <tags>
+        <tag>Swagger</tag>
       </tags>
   </entry>
   <entry>
@@ -3066,87 +3147,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Swagger</title>
-    <url>/2024/03/12/Swagger/</url>
-    <content><![CDATA[<h2 id="1-介绍">1. 介绍</h2>
-<p>Swagger 是一个规范和完整的框架，用于生成、描述、调用和可视化 RESTful 风格的 Web 服务（<a class="link"   href="https://swagger.io/" >https://swagger.io/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>）。 它的主要作用是：</p>
-<ul>
-<li>使得前后端分离开发更加方便，有利于团队协作</li>
-<li>接口的文档在线自动生成，降低后端开发人员编写接口文档的负担</li>
-<li>功能测试</li>
-</ul>
-<p>Spring已经将Swagger纳入自身的标准，建立了Spring-swagger项目，现在叫Springfox。通过在项目中引入Springfox ，即可非常简单快捷的使用Swagger。</p>
-<p>knife4j是为Java MVC框架集成Swagger生成Api文档的增强解决方案，前身是swagger-bootstrap-ui，取名kni4j是希望它能像一把匕首一样小巧，轻量，并且功能强悍。</p>
-<p>目前，一般都使用knife4j框架。</p>
-<h2 id="2-使用步骤">2 使用步骤</h2>
-<h3 id="2-1-导入-knife4j-的maven坐标">2.1 导入 knife4j 的maven坐标</h3>
-<p>在pom.xml中添加依赖</p>
-<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.github.xiaoymin<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>knife4j-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
-<h3 id="2-2-在配置类中加入-knife4j-相关配置">2.2 在配置类中加入 knife4j 相关配置</h3>
-<p>WebMvcConfiguration.java</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 通过knife4j生成接口文档</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> Docket <span class="title function_">docket</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">ApiInfo</span> <span class="variable">apiInfo</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ApiInfoBuilder</span>()</span><br><span class="line">                .title(<span class="string">&quot;苍穹外卖项目接口文档&quot;</span>)</span><br><span class="line">                .version(<span class="string">&quot;2.0&quot;</span>)</span><br><span class="line">                .description(<span class="string">&quot;苍穹外卖项目接口文档&quot;</span>)</span><br><span class="line">                .build();</span><br><span class="line">        <span class="type">Docket</span> <span class="variable">docket</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Docket</span>(DocumentationType.SWAGGER_2)</span><br><span class="line">                .apiInfo(apiInfo)</span><br><span class="line">                .select()</span><br><span class="line">                .apis(RequestHandlerSelectors.basePackage(<span class="string">&quot;com.sky.controller&quot;</span>))</span><br><span class="line">                .paths(PathSelectors.any())</span><br><span class="line">                .build();</span><br><span class="line">        <span class="keyword">return</span> docket;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></div>
-<h3 id="2-3-设置静态资源映射">2.3 设置静态资源映射</h3>
-<p>WebMvcConfiguration.java</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 设置静态资源映射</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> registry</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">addResourceHandlers</span><span class="params">(ResourceHandlerRegistry registry)</span> &#123;</span><br><span class="line">        registry.addResourceHandler(<span class="string">&quot;/doc.html&quot;</span>).addResourceLocations(<span class="string">&quot;classpath:/META-INF/resources/&quot;</span>);</span><br><span class="line">        registry.addResourceHandler(<span class="string">&quot;/webjars/**&quot;</span>).addResourceLocations(<span class="string">&quot;classpath:/META-INF/resources/webjars/&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<h3 id="2-4-访问测试">2.4 访问测试</h3>
-<p>接口文档访问路径为 <code>http://ip:port/doc.html</code> -&gt; <code>http://localhost:8080/doc.html</code></p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/03/12/YAHX2qBR7kI4m1y.png"
-                      alt=""
-                ></p>
-<blockquote>
-<p><strong>思考</strong>：通过 Swagger 就可以生成接口文档，那么我们就不需要 Yapi 了？答案：需要。</p>
-<ul>
-<li>Yapi 是设计阶段使用的工具，管理和维护接口</li>
-<li>Swagger 在开发阶段使用的框架，帮助后端开发人员做后端的接口测试</li>
-</ul>
-</blockquote>
-<h2 id="3-常用注解">3. 常用注解</h2>
-<p>通过注解可以控制生成的接口文档，使接口文档拥有更好的可读性，常用注解如下：</p>
-<table>
-<thead>
-<tr>
-<th><strong>注解</strong></th>
-<th><strong>说明</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>@Api</td>
-<td>用在类上，例如Controller，表示对类的说明</td>
-</tr>
-<tr>
-<td>@ApiOperation</td>
-<td>用在方法上，例如Controller的方法，说明方法的用途、作用</td>
-</tr>
-<tr>
-<td>@ApiModel</td>
-<td>用在类上，例如entity、DTO、VO</td>
-</tr>
-<tr>
-<td>@ApiModelProperty</td>
-<td>用在属性上，描述属性信息</td>
-</tr>
-</tbody>
-</table>
-<p><strong>例如</strong>：</p>
-<p>在sky-server模块中：<br>
-EmployeeController.java</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping(&quot;/admin/employee&quot;)</span></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="meta">@Api(tags = &quot;员工相关接口&quot;)</span>	<span class="comment">// @Api 注解</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">EmployeeController</span> &#123;</span><br><span class="line">	……</span><br><span class="line">    <span class="meta">@PostMapping(&quot;/login&quot;)</span></span><br><span class="line">    <span class="meta">@ApiOperation(value = &quot;员工登录&quot;)</span>	<span class="comment">// @ApiOperation 注解</span></span><br><span class="line">    <span class="keyword">public</span> Result&lt;EmployeeLoginVO&gt; <span class="title function_">login</span><span class="params">(<span class="meta">@RequestBody</span> EmployeeLoginDTO employeeLoginDTO)</span> 	&#123;</span><br><span class="line">        <span class="comment">//..............</span></span><br><span class="line">    &#125;</span><br><span class="line">    ……</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
-<p>在sky-pojo模块中：<br>
-EmployeeLoginDTO.java</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@ApiModel(description = &quot;员工登录时传递的数据模型&quot;)</span>	<span class="comment">// @ApiModel 注解</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">EmployeeLoginDTO</span> <span class="keyword">implements</span> <span class="title class_">Serializable</span> &#123;</span><br><span class="line">    <span class="meta">@ApiModelProperty(&quot;用户名&quot;)</span>	<span class="comment">// @ApiModelProperty 注解</span></span><br><span class="line">    <span class="keyword">private</span> String username;</span><br><span class="line">    <span class="meta">@ApiModelProperty(&quot;密码&quot;)</span>	<span class="comment">// @ApiModelProperty 注解</span></span><br><span class="line">    <span class="keyword">private</span> String password;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-]]></content>
-      <categories>
-        <category>Java学习笔记</category>
-      </categories>
-      <tags>
-        <tag>Swagger</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Java - ThreadLocal</title>
     <url>/2024/03/14/Java-ThreadLocal/</url>
     <content><![CDATA[<h2 id="介绍">介绍</h2>
@@ -3224,153 +3224,6 @@ ThreadLocal为每个线程提供单独一份存储空间，具有线程隔离的
       </categories>
       <tags>
         <tag>JavaWeb</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>#{} 和 ${} 的区别是什么？</title>
-    <url>/2024/03/14/MyBatis%E4%B8%AD%E4%B8%A4%E7%A7%8D%E5%8D%A0%E4%BD%8D%E7%AC%A6%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
-    <content><![CDATA[<h2 id="区别">区别</h2>
-<p>经常碰到这样的面试题目：<code>#&#123;&#125;</code>和<code>$&#123;&#125;</code>的区别是什么？</p>
-<p>正确的答案是：<code>#&#123;&#125;</code>是预编译处理，<code>$&#123;&#125;</code>是字符串替换。</p>
-<h2 id="内部原理">内部原理</h2>
-<ol>
-<li>mybatis在处理<code>#&#123;&#125;</code>时，会将sql中的<code>#&#123;&#125;</code>替换为<code>?</code>号，调用PreparedStatement的set方法来赋值。</li>
-<li>mybatis在处理<code>$&#123;&#125;</code>时，就是把<code>$&#123;&#125;</code>替换成变量的值。</li>
-<li>使用<code>#&#123;&#125;</code>可以有效的防止SQL注入，提高系统安全性。原因在于：预编译机制。预编译完成之后，SQL的结构已经固定，即便用户输入非法参数，也不会对SQL的结构产生影响，从而避免了潜在的安全风险。</li>
-<li>预编译是提前对SQL语句进行预编译，而其后注入的参数将不会再进行SQL编译。我们知道，SQL注入是发生在编译的过程中，因为恶意注入了某些特殊字符，最后被编译成了恶意的执行操作。而预编译机制则可以很好的防止SQL注入。</li>
-</ol>
-<h2 id="记忆方式">记忆方式</h2>
-<p>$符号一般用来当作占位符，常使用Linux脚本的人应该对此有更深的体会。</p>
-<p>例如：$1，$2等等表示输入参数的占位符。</p>
-<p>知道了这点就能很容易区分$和#，从而不容易记错了。</p>
-<h2 id="两种替换符存在的意义">两种替换符存在的意义</h2>
-<p>既然<code>$&#123;&#125;</code>会引起sql注入，为什么有了<code>#&#123;&#125;</code>还需要有<code>$&#123;&#125;</code>呢？那其存在的意义是什么？</p>
-<p>可以这么去理解：<code>#&#123;&#125;</code>主要用于预编译，而预编译的场景其实非常受限，而<code>$&#123;&#125;</code>用于替换，很多场景会出现替换，而这种场景是不可预编译，例如：MyBatis XML配置对抗MyBatis注解的一大杀器：SQL片段，抽取可重用的SQL语句</p>
-<h2 id="参考">参考</h2>
-<ul>
-<li><a class="link"   href="https://bbs.huaweicloud.com/blogs/394244" >https://bbs.huaweicloud.com/blogs/394244 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>Java学习笔记</category>
-      </categories>
-      <tags>
-        <tag>MyBatis</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Redis 数据类型与常用命令</title>
-    <url>/2024/03/21/Redis%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B8%8E%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
-    <content><![CDATA[<h2 id="1-Redis-数据类型">1. Redis 数据类型</h2>
-<h3 id="1-1-五种常用数据类型">1.1 五种常用数据类型</h3>
-<p>Redis存储的是key-value结构的数据，其中key是字符串类型，value有5种常用的数据类型：</p>
-<ul>
-<li>字符串 string</li>
-<li>哈希 hash</li>
-<li>列表 list</li>
-<li>集合 set</li>
-<li>有序集合 sorted set / zset</li>
-</ul>
-<h3 id="1-2-各种数据类型特点">1.2 各种数据类型特点</h3>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/03/21/wuvLqBfzWjDSPiM.png"
-                      style="zoom:50%;" 
-                > 
-<p><strong>解释说明</strong>：</p>
-<ul>
-<li>字符串(string)：普通字符串，Redis中最简单的数据类型</li>
-<li>哈希(hash)：也叫散列，类似于Java中的HashMap结构</li>
-<li>列表(list)：按照插入顺序排序，可以有重复元素，类似于Java中的LinkedList</li>
-<li>集合(set)：无序集合，没有重复元素，类似于Java中的HashSet</li>
-<li>有序集合(sorted set/zset)：集合中每个元素关联一个分数(score)，根据分数升序排序，没有重复元素</li>
-</ul>
-<h2 id="2-Redis-常用命令">2. Redis 常用命令</h2>
-<h3 id="2-1-字符串操作命令">2.1 字符串操作命令</h3>
-<p>Redis 中字符串类型常用命令：</p>
-<ul>
-<li><code>SET key value</code> ：设置指定key的值</li>
-<li><code>GET key</code> ：获取指定key的值</li>
-<li><code>SETEX key seconds value</code> ：设置指定key的值，并将 key 的过期时间设为 seconds 秒</li>
-<li><code>SETNX key value</code> ：只有在 key 不存在时设置 key 的值</li>
-</ul>
-<p>更多命令可以参考Redis中文网：<a class="link"   href="https://www.redis.net.cn" >https://www.redis.net.cn <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<h3 id="2-2-哈希操作命令">2.2 哈希操作命令</h3>
-<p>Redis hash 是一个string类型的 field 和 value 的映射表，hash特别适合用于存储对象，常用命令：</p>
-<ul>
-<li><code>HSET key field value</code> ：将哈希表 key 中的字段 field 的值设为 value</li>
-<li><code>HGET key field</code> ：获取存储在哈希表中指定字段的值</li>
-<li><code>HDEL key field</code> ：删除存储在哈希表中的指定字段</li>
-<li><code>HKEYS key</code> ：获取哈希表中所有字段</li>
-<li><code>HVALS key</code> ：获取哈希表中所有值</li>
-</ul>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/03/21/4ijqElTNOrympbx.png"
-                      style="zoom: 67%;" 
-                > 
-<h3 id="2-3-列表操作命令">2.3 列表操作命令</h3>
-<p>Redis 列表是简单的字符串列表，按照插入顺序排序，常用命令：</p>
-<ul>
-<li><code>LPUSH key value1 [value2]</code> ：将一个或多个值插入到列表头部</li>
-<li><code>LRANGE key start stop</code> ：获取列表指定范围内的元素</li>
-<li><code>RPOP key</code> ：移除并获取列表最后一个元素</li>
-<li><code>LLEN key</code> ：获取列表长度</li>
-<li><code>BRPOP key1 [key2 ] timeout</code> ：移出并获取列表的最后一个元素， 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止</li>
-</ul>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/03/21/7FSamg6GzrOvxUH.png"
-                      style="zoom: 67%;" 
-                > 
-<h3 id="2-4-集合操作命令">2.4 集合操作命令</h3>
-<p>Redis set 是string类型的无序集合。集合成员是唯一的，这就意味着集合中不能出现重复的数据，常用命令：</p>
-<ul>
-<li><code>SADD key member1 [member2]</code> ：向集合添加一个或多个成员</li>
-<li><code>SMEMBERS key</code> ：返回集合中的所有成员</li>
-<li><code>SCARD key</code> ：获取集合的成员数</li>
-<li><code>SINTER key1 [key2]</code> ：返回给定所有集合的交集</li>
-<li><code>SUNION key1 [key2]</code> ：返回所有给定集合的并集</li>
-<li><code>SREM key member1 [member2]</code> ：移除集合中一个或多个成员</li>
-</ul>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/03/21/hyU1z25WdQJgTiq.png"
-                      style="zoom:67%;" 
-                >
-<h3 id="2-5-有序集合操作命令">2.5 有序集合操作命令</h3>
-<p>Redis有序集合是string类型元素的集合，且不允许有重复成员。每个元素都会关联一个double类型的分数。常用命令：</p>
-<p>常用命令：</p>
-<ul>
-<li><code>ZADD key score1 member1 [score2 member2]</code> ：向有序集合添加一个或多个成员</li>
-<li><code>ZRANGE key start stop [WITHSCORES]</code> ：通过索引区间返回有序集合中指定区间内的成员</li>
-<li><code>ZINCRBY key increment member</code> ：有序集合中对指定成员的分数加上增量 increment</li>
-<li><code>ZREM key member [member ...]</code> ：移除有序集合中的一个或多个成员</li>
-</ul>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/03/21/hivMjBQAFzuKtdy.png"
-                      style="zoom: 67%;" 
-                > 
-<h3 id="2-6-通用命令">2.6 通用命令</h3>
-<p>Redis的通用命令是不分数据类型的，都可以使用的命令：</p>
-<ul>
-<li><code>KEYS pattern</code> ：查找所有符合给定模式( pattern)的 key</li>
-<li><code>EXISTS key</code> ：检查给定 key 是否存在</li>
-<li><code>TYPE key</code> ：返回 key 所储存的值的类型</li>
-<li><code>DEL key</code> ：该命令用于在 key 存在是删除 key</li>
-</ul>
-]]></content>
-      <categories>
-        <category>Java学习笔记</category>
-      </categories>
-      <tags>
-        <tag>Redis</tag>
       </tags>
   </entry>
   <entry>
@@ -3526,6 +3379,153 @@ ThreadLocal为每个线程提供单独一份存储空间，具有线程隔离的
       </categories>
       <tags>
         <tag>Spring</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>#{} 和 ${} 的区别是什么？</title>
+    <url>/2024/03/14/MyBatis%E4%B8%AD%E4%B8%A4%E7%A7%8D%E5%8D%A0%E4%BD%8D%E7%AC%A6%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
+    <content><![CDATA[<h2 id="区别">区别</h2>
+<p>经常碰到这样的面试题目：<code>#&#123;&#125;</code>和<code>$&#123;&#125;</code>的区别是什么？</p>
+<p>正确的答案是：<code>#&#123;&#125;</code>是预编译处理，<code>$&#123;&#125;</code>是字符串替换。</p>
+<h2 id="内部原理">内部原理</h2>
+<ol>
+<li>mybatis在处理<code>#&#123;&#125;</code>时，会将sql中的<code>#&#123;&#125;</code>替换为<code>?</code>号，调用PreparedStatement的set方法来赋值。</li>
+<li>mybatis在处理<code>$&#123;&#125;</code>时，就是把<code>$&#123;&#125;</code>替换成变量的值。</li>
+<li>使用<code>#&#123;&#125;</code>可以有效的防止SQL注入，提高系统安全性。原因在于：预编译机制。预编译完成之后，SQL的结构已经固定，即便用户输入非法参数，也不会对SQL的结构产生影响，从而避免了潜在的安全风险。</li>
+<li>预编译是提前对SQL语句进行预编译，而其后注入的参数将不会再进行SQL编译。我们知道，SQL注入是发生在编译的过程中，因为恶意注入了某些特殊字符，最后被编译成了恶意的执行操作。而预编译机制则可以很好的防止SQL注入。</li>
+</ol>
+<h2 id="记忆方式">记忆方式</h2>
+<p>$符号一般用来当作占位符，常使用Linux脚本的人应该对此有更深的体会。</p>
+<p>例如：$1，$2等等表示输入参数的占位符。</p>
+<p>知道了这点就能很容易区分$和#，从而不容易记错了。</p>
+<h2 id="两种替换符存在的意义">两种替换符存在的意义</h2>
+<p>既然<code>$&#123;&#125;</code>会引起sql注入，为什么有了<code>#&#123;&#125;</code>还需要有<code>$&#123;&#125;</code>呢？那其存在的意义是什么？</p>
+<p>可以这么去理解：<code>#&#123;&#125;</code>主要用于预编译，而预编译的场景其实非常受限，而<code>$&#123;&#125;</code>用于替换，很多场景会出现替换，而这种场景是不可预编译，例如：MyBatis XML配置对抗MyBatis注解的一大杀器：SQL片段，抽取可重用的SQL语句</p>
+<h2 id="参考">参考</h2>
+<ul>
+<li><a class="link"   href="https://bbs.huaweicloud.com/blogs/394244" >https://bbs.huaweicloud.com/blogs/394244 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>Java学习笔记</category>
+      </categories>
+      <tags>
+        <tag>MyBatis</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Redis 数据类型与常用命令</title>
+    <url>/2024/03/21/Redis%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B8%8E%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
+    <content><![CDATA[<h2 id="1-Redis-数据类型">1. Redis 数据类型</h2>
+<h3 id="1-1-五种常用数据类型">1.1 五种常用数据类型</h3>
+<p>Redis存储的是key-value结构的数据，其中key是字符串类型，value有5种常用的数据类型：</p>
+<ul>
+<li>字符串 string</li>
+<li>哈希 hash</li>
+<li>列表 list</li>
+<li>集合 set</li>
+<li>有序集合 sorted set / zset</li>
+</ul>
+<h3 id="1-2-各种数据类型特点">1.2 各种数据类型特点</h3>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/03/21/wuvLqBfzWjDSPiM.png"
+                      style="zoom:50%;" 
+                > 
+<p><strong>解释说明</strong>：</p>
+<ul>
+<li>字符串(string)：普通字符串，Redis中最简单的数据类型</li>
+<li>哈希(hash)：也叫散列，类似于Java中的HashMap结构</li>
+<li>列表(list)：按照插入顺序排序，可以有重复元素，类似于Java中的LinkedList</li>
+<li>集合(set)：无序集合，没有重复元素，类似于Java中的HashSet</li>
+<li>有序集合(sorted set/zset)：集合中每个元素关联一个分数(score)，根据分数升序排序，没有重复元素</li>
+</ul>
+<h2 id="2-Redis-常用命令">2. Redis 常用命令</h2>
+<h3 id="2-1-字符串操作命令">2.1 字符串操作命令</h3>
+<p>Redis 中字符串类型常用命令：</p>
+<ul>
+<li><code>SET key value</code> ：设置指定key的值</li>
+<li><code>GET key</code> ：获取指定key的值</li>
+<li><code>SETEX key seconds value</code> ：设置指定key的值，并将 key 的过期时间设为 seconds 秒</li>
+<li><code>SETNX key value</code> ：只有在 key 不存在时设置 key 的值</li>
+</ul>
+<p>更多命令可以参考Redis中文网：<a class="link"   href="https://www.redis.net.cn" >https://www.redis.net.cn <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h3 id="2-2-哈希操作命令">2.2 哈希操作命令</h3>
+<p>Redis hash 是一个string类型的 field 和 value 的映射表，hash特别适合用于存储对象，常用命令：</p>
+<ul>
+<li><code>HSET key field value</code> ：将哈希表 key 中的字段 field 的值设为 value</li>
+<li><code>HGET key field</code> ：获取存储在哈希表中指定字段的值</li>
+<li><code>HDEL key field</code> ：删除存储在哈希表中的指定字段</li>
+<li><code>HKEYS key</code> ：获取哈希表中所有字段</li>
+<li><code>HVALS key</code> ：获取哈希表中所有值</li>
+</ul>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/03/21/4ijqElTNOrympbx.png"
+                      style="zoom: 67%;" 
+                > 
+<h3 id="2-3-列表操作命令">2.3 列表操作命令</h3>
+<p>Redis 列表是简单的字符串列表，按照插入顺序排序，常用命令：</p>
+<ul>
+<li><code>LPUSH key value1 [value2]</code> ：将一个或多个值插入到列表头部</li>
+<li><code>LRANGE key start stop</code> ：获取列表指定范围内的元素</li>
+<li><code>RPOP key</code> ：移除并获取列表最后一个元素</li>
+<li><code>LLEN key</code> ：获取列表长度</li>
+<li><code>BRPOP key1 [key2 ] timeout</code> ：移出并获取列表的最后一个元素， 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止</li>
+</ul>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/03/21/7FSamg6GzrOvxUH.png"
+                      style="zoom: 67%;" 
+                > 
+<h3 id="2-4-集合操作命令">2.4 集合操作命令</h3>
+<p>Redis set 是string类型的无序集合。集合成员是唯一的，这就意味着集合中不能出现重复的数据，常用命令：</p>
+<ul>
+<li><code>SADD key member1 [member2]</code> ：向集合添加一个或多个成员</li>
+<li><code>SMEMBERS key</code> ：返回集合中的所有成员</li>
+<li><code>SCARD key</code> ：获取集合的成员数</li>
+<li><code>SINTER key1 [key2]</code> ：返回给定所有集合的交集</li>
+<li><code>SUNION key1 [key2]</code> ：返回所有给定集合的并集</li>
+<li><code>SREM key member1 [member2]</code> ：移除集合中一个或多个成员</li>
+</ul>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/03/21/hyU1z25WdQJgTiq.png"
+                      style="zoom:67%;" 
+                >
+<h3 id="2-5-有序集合操作命令">2.5 有序集合操作命令</h3>
+<p>Redis有序集合是string类型元素的集合，且不允许有重复成员。每个元素都会关联一个double类型的分数。常用命令：</p>
+<p>常用命令：</p>
+<ul>
+<li><code>ZADD key score1 member1 [score2 member2]</code> ：向有序集合添加一个或多个成员</li>
+<li><code>ZRANGE key start stop [WITHSCORES]</code> ：通过索引区间返回有序集合中指定区间内的成员</li>
+<li><code>ZINCRBY key increment member</code> ：有序集合中对指定成员的分数加上增量 increment</li>
+<li><code>ZREM key member [member ...]</code> ：移除有序集合中的一个或多个成员</li>
+</ul>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/03/21/hivMjBQAFzuKtdy.png"
+                      style="zoom: 67%;" 
+                > 
+<h3 id="2-6-通用命令">2.6 通用命令</h3>
+<p>Redis的通用命令是不分数据类型的，都可以使用的命令：</p>
+<ul>
+<li><code>KEYS pattern</code> ：查找所有符合给定模式( pattern)的 key</li>
+<li><code>EXISTS key</code> ：检查给定 key 是否存在</li>
+<li><code>TYPE key</code> ：返回 key 所储存的值的类型</li>
+<li><code>DEL key</code> ：该命令用于在 key 存在是删除 key</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Java学习笔记</category>
+      </categories>
+      <tags>
+        <tag>Redis</tag>
       </tags>
   </entry>
 </search>
