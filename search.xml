@@ -1,6 +1,208 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Hadoop 环境配置</title>
+    <url>/2024/01/10/Hadoop%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/</url>
+    <content><![CDATA[<h2 id="主要步骤">主要步骤</h2>
+<h3 id="一、准备虚拟机">一、准备虚拟机</h3>
+<p>首先要创建五台一模一样的Ubuntu虚拟机，可在VMware中先安装一个Ubuntu虚拟机，然后克隆出另外四个虚拟机。</p>
+<h3 id="二、搭建集群">二、搭建集群</h3>
+<h4 id="1-修改hostname">1.修改hostname</h4>
+<p>现在有五台虚拟机，改hostname：将其中一台改作master，其余分别改作slave1、slave2、slave3、slave4。让其处于同一局域网中。</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">sudo gedit /etc/hostname</span><br></pre></td></tr></table></figure></div>
+<p>修改后保存。</p>
+<h4 id="2-记录五台虚拟机的IP地址">2.记录五台虚拟机的IP地址</h4>
+<p>在终端输入<code>ipconfig</code>，可以得到本节点IP。最终可以得到：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">192.168.242.129	master</span><br><span class="line">192.168.242.130	slave1</span><br><span class="line">192.168.242.131	slave2</span><br><span class="line">192.168.242.132	slave3</span><br><span class="line">192.168.242.133	slave4</span><br></pre></td></tr></table></figure></div>
+<p>接下来修改节点IP映射，在每台虚拟机的<code>hosts</code>文件末尾添加上述<code>IP-主机名</code>映射（重启后生效）：</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">sudo gedit /etc/hosts  </span><br></pre></td></tr></table></figure></div>
+<h4 id="3-ping通五台虚拟机">3.ping通五台虚拟机</h4>
+<p>利用刚刚记录下来的IP地址，五台虚拟机互相ping通：</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">ping IP地址/主机名</span><br></pre></td></tr></table></figure></div>
+<h4 id="4-配置SSH免密登录">4.配置SSH免密登录</h4>
+<p>首先安装SSH：</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">sudo apt-get install openssh-server  #安装服务，一路回车                     </span><br><span class="line">sudo /etc/init.d/ssh restart  #启动服务                                      </span><br><span class="line">sudo ufw disable   #关闭防火墙     </span><br></pre></td></tr></table></figure></div>
+<p>关闭完防火墙，接下来查看是否开通SSH服务：</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">ps -e | grep ssh</span><br></pre></td></tr></table></figure></div>
+<p>只要出现了以下进程就说明成功了：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2023/10/18/arKLqu23wdTIgbD.png"
+                      alt=""
+                ></p>
+<p>接下来在master节点生成SSH公钥，公钥储存在 <code>/root/.ssh</code> 中</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">sudo cd /root/.ssh  </span><br><span class="line">rm ./id_rsa*            # 删除之前生成的公匙（如果有）                  </span><br><span class="line">ssh-keygen -t rsa       # 一直按回车就可以     </span><br></pre></td></tr></table></figure></div>
+<p>让master 节点可以无密码 SSH 本机，在 master 节点上执行以下代码：</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">cat ./id_rsa.pub &gt;&gt; ./authorized_keys</span><br></pre></td></tr></table></figure></div>
+<p>完成后可执行<code>ssh master</code>验证一下（需要输入 <code>yes</code>，成功后执行 <code>exit</code> 返回原来的终端）</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">ssh master</span><br></pre></td></tr></table></figure></div>
+<p>接着在 master 节点将上述公匙传输到 slave1 节点，过程中需要输入 slave1 节点的密码，传输100%以后就是传过去了：</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">scp ./.ssh/id_rsa.pub xpk@slave1:/home/xpk</span><br></pre></td></tr></table></figure></div>
+<p>接着在 slave1 节点上，把 master 节点的公钥加入授权：</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">mkdir ~/.ssh        # 如果不存在该文件夹需先创建，若已存在则忽略        </span><br><span class="line">cat ~/id_rsa.pub &gt;&gt; ~/.ssh/authorized_keys                                   </span><br><span class="line">rm ~/id_rsa.pub    # 用完就可以删掉了</span><br></pre></td></tr></table></figure></div>
+<p>在其余 slave 节点重复以上步骤，然后就可以免密码SSH所有 slave 节点了：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2023/10/18/2NYJbqB8ytKh3zZ.png"
+                      alt=""
+                ></p>
+<p>最后在 master 节点修改SSH文件权限（否则之后SSH免密登录可能失效）：</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">chmod 700 /root/.ssh/	#修改 .ssh/ 文件夹权限为700</span><br><span class="line">chmod 600 /root/.ssh/authorized_keys 	#修改 authorized_keys 文件权限为700</span><br></pre></td></tr></table></figure></div>
+<h4 id="5-安装配置JDK环境变量">5.安装配置JDK环境变量</h4>
+<h5 id="下载JDK">下载JDK</h5>
+<p>官网： <a class="link"   href="https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html" >https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p>我下载的是 JDK1.8 ，压缩文件名为<code>jdk-8u391-linux-x64.tar.gz</code>。</p>
+<h5 id="解压tar包">解压tar包</h5>
+<p>把安装包放到 <code>/usr/local/java/</code> 目录下面（没有java目录的话自行创建），然后解压安装包：</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">创建目录</span></span><br><span class="line">mkdir -p /usr/local/java/	</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">解压</span></span><br><span class="line">tar -zxvf  安装包名称	</span><br></pre></td></tr></table></figure></div>
+<h5 id="配置JDK环境变量">配置JDK环境变量</h5>
+<p>修改 environment 文件：</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">修改文件</span></span><br><span class="line">sudo gedit /etc/environment</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">文件尾部添加如下配置</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">java</span></span><br><span class="line">export JAVA_HOME=/usr/local/java/jdk1.8.0_391</span><br><span class="line">export JRE_HOME=/usr/local/java/jdk1.8.0_391/jre</span><br><span class="line">export CLASSPATH=$CLASSPATH:$JAVA_HOME/lib:$JAVA_HOME/jre/lib</span><br></pre></td></tr></table></figure></div>
+<p>修改 profile 文件：</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">修改文件</span></span><br><span class="line">sudo gedit /etc/profile </span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">文件尾部添加如下配置</span></span><br><span class="line">export JAVA_HOME=/usr/local/java/jdk1.8.0_391</span><br><span class="line">export JRE_HOME=/usr/local/java/jdk1.8.0_391/jre</span><br><span class="line">export CLASSPATH=$CLASSPATH:$JAVA_HOME/lib:$JAVA_HOME/jre/lib</span><br><span class="line">export PATH=$JAVA_HOME/bin:$JAVA_HOME/jre/bin:$PATH:$HOME/bin</span><br></pre></td></tr></table></figure></div>
+<p>配置立即生效：</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">立即生效</span></span><br><span class="line">source /etc/profile</span><br></pre></td></tr></table></figure></div>
+<p>检查Java命令：</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">查看java版本</span></span><br><span class="line">java -version</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">显示如下表示成功</span></span><br><span class="line">java version &quot;1.8.0_391&quot;</span><br><span class="line">Java(TM) SE Runtime Environment (build 1.8.0_391-b13)</span><br><span class="line">Java HotSpot(TM) 64-Bit Server VM (build 25.391-b13, mixed mode)</span><br></pre></td></tr></table></figure></div>
+<h4 id="6-安装和配置Hadoop">6.安装和配置Hadoop</h4>
+<h5 id="下载Hadoop安装包">下载Hadoop安装包</h5>
+<p>Hadoop官网：<a class="link"   href="http://hadoop.apache.org/" >http://hadoop.apache.org/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p>我下载的是 hadoop3 ，压缩文件名为<code>hadoop-3.3.6.tar.gz</code>。</p>
+<h5 id="解压Hadoop安装包（只在master做）">解压Hadoop安装包（只在master做）</h5>
+<p>把 Hadoop 压缩包放置到<code>/opt/hadoop</code>目录内，然后在 master 主机上执行以下代码：</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">cd /opt/hadoop</span><br></pre></td></tr></table></figure></div>
+<p>进入<code>/opt/hadoop</code>目录后，执行解压缩命令：</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">tar -zxvf hadoop-3.3.6.tar.gz</span><br></pre></td></tr></table></figure></div>
+<h5 id="配置env文件（只在master做）">配置env文件（只在master做）</h5>
+<p>执行命令：</p>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">sudo gedit /opt/hadoop/hadoop/etc/hadoop/hadoop-env.sh</span><br></pre></td></tr></table></figure></div>
+<p>找到<code>export JAVA_HOME</code>这行，修改为：</p>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">export</span> JAVA_HOME=/usr/local/java/jdk1.8.0_391/</span><br></pre></td></tr></table></figure></div>
+<h5 id="配置核心组件文件（只在master做）">配置核心组件文件（只在master做）</h5>
+<p>Hadoop 的核心组件文件是<code>core-site.xml</code>，位于<code>/opt/hadoop/hadoop/etc/hadoop</code>子目录下，将下面的配置代码放在文件的<code>&lt;configuration&gt;</code>和<code>&lt;/configuration&gt;</code>之间。</p>
+<p>执行编辑<code>core-site.xml</code>文件的命令：</p>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">sudo gedit /opt/hadoop/hadoop/etc/hadoop/core-site.xml</span><br></pre></td></tr></table></figure></div>
+<p>需要在<code>&lt;configuration&gt;</code>和<code>&lt;/configuration&gt;</code>之间加入的代码：</p>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">&lt;property&gt;</span><br><span class="line">		&lt;name&gt;fs.defaultFS&lt;/name&gt;</span><br><span class="line">		&lt;value&gt;hdfs://master:9000&lt;/value&gt;</span><br><span class="line">	&lt;/property&gt;</span><br><span class="line">	&lt;property&gt;</span><br><span class="line">		&lt;name&gt;hadoop.tmp.dir&lt;/name&gt;</span><br><span class="line">		&lt;value&gt;/opt/hadoop/hadoopdata&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br></pre></td></tr></table></figure></div>
+<p>编辑完成后，退出并保存即可。</p>
+<h5 id="配置文件系统（只在master做）">配置文件系统（只在master做）</h5>
+<p>Hadoop 的文件系统配置文件是<code>hdfs-site.xml</code>，位于<code>/opt/hadoop/hadoop/etc/hadoop</code>子目录下，将以下代码放在文件的<code>&lt;configuration&gt;</code>和<code>&lt;/configuration&gt;</code>之间。</p>
+<p>执行编辑<code>hdfs-site.xml</code>文件的命令：</p>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">sudo gedit /opt/hadoop/hadoop/etc/hadoop/hdfs-site.xml</span><br></pre></td></tr></table></figure></div>
+<p>需要在<code>&lt;configuration&gt;</code>和<code>&lt;/configuration&gt;</code>之间加入的代码：</p>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">&lt;property&gt;</span><br><span class="line">		&lt;name&gt;dfs.replication&lt;/name&gt;</span><br><span class="line">		&lt;value&gt;1&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br></pre></td></tr></table></figure></div>
+<p>编辑完成后，退出保存即可。</p>
+<h5 id="配置yarn-site-xml文件（只在master做）">配置yarn-site.xml文件（只在master做）</h5>
+<p>yarn 的站点配置文件是<code>yarn-site.xml</code>，位于<code>/opt/hadoop/hadoop/etc/hadoop</code>子目录下，将以下代码放在文件的<code>&lt;configuration&gt;</code>和<code>&lt;/configuration&gt;</code>之间。</p>
+<p>执行编辑<code>yarn-site.xml</code>文件的命令：</p>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">sudo gedit /opt/hadoop/hadoop/etc/hadoop/yarn-site.xml</span><br></pre></td></tr></table></figure></div>
+<p>需要在<code>&lt;configuration&gt;</code>和<code>&lt;/configuration&gt;</code>之间加入的代码：</p>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">&lt;property&gt;</span><br><span class="line">	&lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt;</span><br><span class="line">	&lt;value&gt;mapreduce_shuffle&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">	&lt;name&gt;yarn.resourcemanager.address&lt;/name&gt;</span><br><span class="line">	&lt;value&gt;master:18040&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">	&lt;name&gt;yarn.resourcemanager.scheduler.address&lt;/name&gt;</span><br><span class="line">	&lt;value&gt;master:18030&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">	&lt;name&gt;yarn.resourcemanager.resource-tracker.address&lt;/name&gt;</span><br><span class="line">	&lt;value&gt;master:18025&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">	&lt;name&gt;yarn.resourcemanager.admin.address&lt;/name&gt;</span><br><span class="line">	&lt;value&gt;master:18141&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">	&lt;name&gt;yarn.resourcemanager.webapp.address&lt;/name&gt;</span><br><span class="line">	&lt;value&gt;master:18088&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br></pre></td></tr></table></figure></div>
+<h5 id="配置MapReduce计算框架文件（只在master做）">配置MapReduce计算框架文件（只在master做）</h5>
+<p>配置文件是<code>mapred-site.xml</code>，在<code>/opt/hadoop/hadoop/etc/hadoop</code>子目录下，将下面的代码填充到文件的<code>&lt;configuration&gt;</code>和<code>&lt;/configuration&gt;</code>之间。</p>
+<p>执行命令：</p>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">sudo gedit /opt/hadoop/hadoop/etc/hadoop/mapred-site.xml</span><br></pre></td></tr></table></figure></div>
+<p>需要在<code>&lt;configuration&gt;</code>和<code>&lt;/configuration&gt;</code>之间加入的代码：</p>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">&lt;property&gt;</span><br><span class="line">		&lt;name&gt;mapreduce.framework.name&lt;/name&gt;</span><br><span class="line">		&lt;value&gt;yarn&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br></pre></td></tr></table></figure></div>
+<p>编辑完毕，保存退出即可。</p>
+<h5 id="配置master的workers文件（只在master做）">配置master的workers文件（只在master做）</h5>
+<p>workers 文件给出了 Hadoop 集群的 slave 节点列表，该文件十分重要，因为启动 Hadoop 的时候，系统总是根据当前workers 文件中的 slave 节点名称列表启动集群，不在列表中的 slave 节点便不会被视为计算节点。</p>
+<p>执行编辑 workers 文件命令：</p>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">sudo gedit /opt/hadoop/hadoop/etc/hadoop/workers</span><br></pre></td></tr></table></figure></div>
+<p>加入以下代码：</p>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">slave1</span><br><span class="line">slave2</span><br><span class="line">slave3</span><br><span class="line">slave4</span><br></pre></td></tr></table></figure></div>
+<p>注意：删除 workers 文件中原来 localhost 那一行。</p>
+<h5 id="复制master上的Hadoop到slave节点（只在master做）">复制master上的Hadoop到slave节点（只在master做）</h5>
+<p>通过复制master节点上的 Hadoop ，能够大大提高系统部署效率。由于我这里有4个 slave 节点，所以复制4次。</p>
+<p>复制命令：</p>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">scp -r /opt/hadoop root@slave1:/opt</span><br><span class="line">scp -r /opt/hadoop root@slave2:/opt</span><br><span class="line">scp -r /opt/hadoop root@slave3:/opt</span><br><span class="line">scp -r /opt/hadoop root@slave4:/opt</span><br></pre></td></tr></table></figure></div>
+<h5 id="配置操作系统环境变量（五个节点都做）">配置操作系统环境变量（五个节点都做）</h5>
+<p>回到用户目录命令：</p>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /opt/hadoop</span><br></pre></td></tr></table></figure></div>
+<p>然后编辑<code>.bash_profile</code>文件，命令：</p>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">sudo gedit ~/.bash_profile</span><br></pre></td></tr></table></figure></div>
+<p>最后把以下代码追加到文件的尾部：</p>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment">#HADOOP</span></span><br><span class="line"><span class="built_in">export</span> HADOOP_HOME=/opt/hadoop/hadoop</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$HADOOP_HOME</span>/bin:<span class="variable">$HADOOP_HOME</span>/sbin:<span class="variable">$PATH</span></span><br></pre></td></tr></table></figure></div>
+<p>保存退出后，执行命令：</p>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">source</span> ~/.bash_profile</span><br></pre></td></tr></table></figure></div>
+<p><code>source ~/.bash_profile</code>命令是使上述配置生效。</p>
+<p>提示：在其余 slave 节点使用上述相同的配置方法，配置全部 slave 节点。</p>
+<h5 id="创建Hadoop数据目录（只在master做）">创建Hadoop数据目录（只在master做）</h5>
+<p>创建数据目录，命令是：</p>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> /opt/hadoop/hadoopdata</span><br></pre></td></tr></table></figure></div>
+<h5 id="格式化文件系统（只在master做）">格式化文件系统（只在master做）</h5>
+<p>执行格式化文件系统命令：</p>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">hadoop namenode -format</span><br></pre></td></tr></table></figure></div>
+<h3 id="三、Hadoop集群的启动与关闭">三、Hadoop集群的启动与关闭</h3>
+<h4 id="1-启动和关闭Hadoop集群（只在master做）">1.启动和关闭Hadoop集群（只在master做）</h4>
+<p>首先进入安装主目录，命令是：</p>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /opt/hadoop/hadoop/sbin</span><br></pre></td></tr></table></figure></div>
+<p>然后启动，命令是：</p>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">./start-all.sh</span><br></pre></td></tr></table></figure></div>
+<p>如果要关闭 Hadoop 集群，可以使用命令：</p>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">./stop-all.sh</span><br></pre></td></tr></table></figure></div>
+<h4 id="2-验证Hadoop集群是否启动成功">2.验证Hadoop集群是否启动成功</h4>
+<p>在 master 节点的浏览器中输入<code>localhost:9870/</code>并回车。打开 HDFS 面板查看详细信息：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/01/10/PHrsxtvNiIFGmkT.png"
+                      alt=""
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/01/10/x4uYlirEd5U2hgy.png"
+                      alt=""
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/01/10/zUywuYjHvRTX3sa.png"
+                      alt=""
+                ></p>
+<h3 id="参考资料：">参考资料：</h3>
+<p><a class="link"   href="https://blog.csdn.net/weixin_52105111/article/details/123159877" >三台Ubuntu虚拟机搭建 Hadoop集群 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><a class="link"   href="https://blog.51cto.com/u_12835254/5273118" >Linux：Ubuntu配置jdk环境变量 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><a class="link"   href="https://blog.csdn.net/weixin_44198965/article/details/89603788?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522164601575316780271530136%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fall.%2522%257D&amp;request_id=164601575316780271530136&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~first_rank_ecpm_v1~rank_v31_ecpm-1-89603788.pc_search_result_cache&amp;utm_term=hadoop%E5%AE%89%E8%A3%85&amp;spm=1018.2226.3001.4187" >Hadoop安装与配置详细教程 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h2 id="遇到的-问题-解决方法">遇到的 问题&amp;解决方法</h2>
+<h3 id="一、部分Ubuntu虚拟机无法连接网络">一、部分Ubuntu虚拟机无法连接网络</h3>
+<h4 id="问题：">问题：</h4>
+<p>安装之后可以正常使用，但是隔了一段时间再上就发现有一两台虚拟机连不上网络。</p>
+<h4 id="解决：">解决：</h4>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">sudo service NetworkManager stop</span><br><span class="line">sudo <span class="built_in">rm</span> /var/lib/NetworkManager/NetworkManager.state</span><br><span class="line">sudo service NetworkManager start</span><br></pre></td></tr></table></figure></div>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">sudo gedit /etc/NetworkManager/NetworkManager.conf	<span class="comment">#把false改成true</span></span><br></pre></td></tr></table></figure></div>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">sudo service NetworkManager restart</span><br></pre></td></tr></table></figure></div>
+<h4 id="参考资料：-2">参考资料：</h4>
+<p><a class="link"   href="https://blog.csdn.net/lj695242104/article/details/80922108" >ubuntu 18.04 网络图标不见的问题解决方案 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h3 id="二、第一次运行Hadoop时，出现以下报错：">二、第一次运行Hadoop时，出现以下报错：</h3>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">ERROR: Attempting to operate on hdfs namenode as root</span><br><span class="line">ERROR: but there is no HDFS_NAMENODE_USER defined. </span><br><span class="line">Aborting operation.</span><br><span class="line">Starting datanodes</span><br><span class="line">ERROR: Attempting to operate on hdfs datanode as root</span><br><span class="line">ERROR: but there is no HDFS_DATANODE_USER defined. </span><br><span class="line">Aborting operation.</span><br><span class="line">Starting secondary namenodes</span><br><span class="line">ERROR: Attempting to operate on hdfs secondarynamenode as root</span><br><span class="line">ERROR: but there is no HDFS_SECONDARYNAMENODE_USER defined. </span><br><span class="line">Aborting operation.</span><br></pre></td></tr></table></figure></div>
+<h4 id="解决：-2">解决：</h4>
+<p>在<code>$HADOOP_HOME/etc/hadoop/hadoop-env.sh</code>中添加以下内容：</p>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">export</span> HDFS_NAMENODE_USER=root</span><br><span class="line"><span class="built_in">export</span> HDFS_DATANODE_USER=root</span><br><span class="line"><span class="built_in">export</span> HDFS_SECONDARYNAMENODE_USER=root</span><br><span class="line"><span class="built_in">export</span> YARN_RESOURCEMANAGER_USER=root</span><br><span class="line"><span class="built_in">export</span> YARN_NODEMANAGER_USER=root</span><br></pre></td></tr></table></figure></div>
+<h4 id="参考资料：-3">参考资料：</h4>
+<p><a class="link"   href="https://stackoverflow.com/questions/48129029/hdfs-namenode-user-hdfs-datanode-user-hdfs-secondarynamenode-user-not-defined" >HDFS_NAMENODE_USER, HDFS_DATANODE_USER &amp; HDFS_SECONDARYNAMENODE_USER not defined <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h3 id="三、主节点启动成功，从节点没有启动">三、主节点启动成功，从节点没有启动</h3>
+<h4 id="解决：-3">解决：</h4>
+<p>执行编辑 workers 文件命令：</p>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">sudo gedit /opt/hadoop/hadoop/etc/hadoop/workers</span><br></pre></td></tr></table></figure></div>
+<p>加入以下代码：</p>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">slave1</span><br><span class="line">slave2</span><br><span class="line">slave3</span><br><span class="line">slave4</span><br></pre></td></tr></table></figure></div>
+<h4 id="原因分析：">原因分析：</h4>
+<p>网上教程用的是Hadoop 2 版本，配置 slave 节点列表文件时修改的是<code>slaves</code>文件；而我使用的是 Hadoop 3 版本，Hadoop 3 版本里的配置文件需要修改<code>workers</code>文件，而不是<code>slaves</code>文件。</p>
+<h4 id="参考资料：-4">参考资料：</h4>
+<p><a class="link"   href="https://blog.51cto.com/u_16099172/6391674" >hadoop从节点进程缺失 hadoop从节点没有启动 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>Hadoop</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>MapReduce 配置与操作</title>
     <url>/2024/01/11/MapReduce%E9%85%8D%E7%BD%AE%E4%B8%8E%E6%93%8D%E4%BD%9C/</url>
     <content><![CDATA[<h3 id="一、通过eclipse连接hadoop">一、通过eclipse连接hadoop</h3>
@@ -137,25 +339,8 @@
         <category>技术</category>
       </categories>
       <tags>
-        <tag>MapReduce</tag>
         <tag>Hadoop</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Once Upon a Time in America</title>
-    <url>/2024/01/19/Once-Upon-a-Time-in-America/</url>
-    <content><![CDATA[<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/01/19/y9MTUVfmBbJcC5s.jpg"
-                      style="zoom: 200%;" 
-                >
-]]></content>
-      <categories>
-        <category>生活</category>
-      </categories>
-      <tags>
-        <tag>电影</tag>
+        <tag>MapReduce</tag>
       </tags>
   </entry>
   <entry>
@@ -1474,6 +1659,59 @@
       </tags>
   </entry>
   <entry>
+    <title>PowerShell 报错：在此系统上禁止运行脚本</title>
+    <url>/2024/01/22/PowerShell-vue%E6%97%A0%E6%B3%95%E5%8A%A0%E8%BD%BD%E6%96%87%E4%BB%B6-%E5%9B%A0%E4%B8%BA%E5%9C%A8%E6%AD%A4%E7%B3%BB%E7%BB%9F%E4%B8%8A%E7%A6%81%E6%AD%A2%E8%BF%90%E8%A1%8C%E8%84%9A%E6%9C%AC/</url>
+    <content><![CDATA[<h2 id="问题">问题</h2>
+<p>在 Windows PowerShell （管理员模式下）执行 <code>vue --version</code> 命令时报错如下：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/01/22/IBWcwtCLqjm2ya3.png"
+                      alt=""
+                ></p>
+<h2 id="原因">原因</h2>
+<p>首次在计算机上启动 Windows PowerShell 时，现用执行策略很可能是 Restricted（默认设置）。Restricted 策略不允许任何脚本运行，以防止执行不信任的脚本。</p>
+<h2 id="解决">解决</h2>
+<p>在 Windows PowerShell 执行以下命令：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">set-executionpolicy remotesigned</span><br></pre></td></tr></table></figure></div>
+<h2 id="效果">效果</h2>
+<p>再次执行 <code>vue --version</code> 命令，可正常查看 Vue 版本：</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/01/22/2UpOySQuL3ev5to.png"
+                      style="zoom: 50%;"
+                >
+<h2 id="引用">引用</h2>
+<ul>
+<li><a class="link"   href="https://cloud.tencent.com/developer/article/1612513" >https://cloud.tencent.com/developer/article/1612513 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>PowerShell</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Once Upon a Time in America</title>
+    <url>/2024/01/19/Once-Upon-a-Time-in-America/</url>
+    <content><![CDATA[<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/01/19/y9MTUVfmBbJcC5s.jpg"
+                      style="zoom: 200%;" 
+                >
+]]></content>
+      <categories>
+        <category>生活</category>
+      </categories>
+      <tags>
+        <tag>电影</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Git 报错：SSH连接超时</title>
     <url>/2024/01/19/Git%E6%8A%A5%E9%94%99-SSH%E8%BF%9E%E6%8E%A5%E8%B6%85%E6%97%B6/</url>
     <content><![CDATA[<h2 id="问题">问题</h2>
@@ -1519,241 +1757,36 @@
       </tags>
   </entry>
   <entry>
-    <title>PowerShell 报错：在此系统上禁止运行脚本</title>
-    <url>/2024/01/22/PowerShell-vue%E6%97%A0%E6%B3%95%E5%8A%A0%E8%BD%BD%E6%96%87%E4%BB%B6-%E5%9B%A0%E4%B8%BA%E5%9C%A8%E6%AD%A4%E7%B3%BB%E7%BB%9F%E4%B8%8A%E7%A6%81%E6%AD%A2%E8%BF%90%E8%A1%8C%E8%84%9A%E6%9C%AC/</url>
+    <title>Git 报错：无法创建 index.lock 文件，因其已存在。</title>
+    <url>/2024/01/25/Git-%E6%8A%A5%E9%94%99%EF%BC%9A%E6%97%A0%E6%B3%95%E5%88%9B%E5%BB%BA-index-lock-%E6%96%87%E4%BB%B6%EF%BC%8C%E5%9B%A0%E5%85%B6%E5%B7%B2%E5%AD%98%E5%9C%A8/</url>
     <content><![CDATA[<h2 id="问题">问题</h2>
-<p>在 Windows PowerShell （管理员模式下）执行 <code>vue --version</code> 命令时报错如下：</p>
+<p>使用 Git 向 Github 部署代码时，出现如下报错：</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/01/22/IBWcwtCLqjm2ya3.png"
+                     data-src="https://s2.loli.net/2024/01/25/VTOAzyM2Jm9pEWH.png"
                       alt=""
                 ></p>
 <h2 id="原因">原因</h2>
-<p>首次在计算机上启动 Windows PowerShell 时，现用执行策略很可能是 Restricted（默认设置）。Restricted 策略不允许任何脚本运行，以防止执行不信任的脚本。</p>
+<p>有两个 Git 命令同时运行，可能一种来自命令提示符，另一种来自 IDE 。</p>
 <h2 id="解决">解决</h2>
-<p>在 Windows PowerShell 执行以下命令：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">set-executionpolicy remotesigned</span><br></pre></td></tr></table></figure></div>
-<h2 id="效果">效果</h2>
-<p>再次执行 <code>vue --version</code> 命令，可正常查看 Vue 版本：</p>
-<img  
+<p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/01/22/2UpOySQuL3ev5to.png"
-                      style="zoom: 50%;"
-                >
+                     data-src="https://s2.loli.net/2024/01/25/V2x6Msj5KSDqFp3.png"
+                      alt=""
+                ><br>
+删除报错信息对应路径下已存在的 <code>index.lock</code> 文件即可。</p>
 <h2 id="引用">引用</h2>
 <ul>
-<li><a class="link"   href="https://cloud.tencent.com/developer/article/1612513" >https://cloud.tencent.com/developer/article/1612513 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://stackoverflow.com/questions/38004148/another-git-process-seems-to-be-running-in-this-repository" >https://stackoverflow.com/questions/38004148/another-git-process-seems-to-be-running-in-this-repository <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
 </ul>
 ]]></content>
       <categories>
         <category>技术</category>
       </categories>
       <tags>
-        <tag>PowerShell</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hadoop 环境配置</title>
-    <url>/2024/01/10/Hadoop%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/</url>
-    <content><![CDATA[<h2 id="主要步骤">主要步骤</h2>
-<h3 id="一、准备虚拟机">一、准备虚拟机</h3>
-<p>首先要创建五台一模一样的Ubuntu虚拟机，可在VMware中先安装一个Ubuntu虚拟机，然后克隆出另外四个虚拟机。</p>
-<h3 id="二、搭建集群">二、搭建集群</h3>
-<h4 id="1-修改hostname">1.修改hostname</h4>
-<p>现在有五台虚拟机，改hostname：将其中一台改作master，其余分别改作slave1、slave2、slave3、slave4。让其处于同一局域网中。</p>
-<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">sudo gedit /etc/hostname</span><br></pre></td></tr></table></figure></div>
-<p>修改后保存。</p>
-<h4 id="2-记录五台虚拟机的IP地址">2.记录五台虚拟机的IP地址</h4>
-<p>在终端输入<code>ipconfig</code>，可以得到本节点IP。最终可以得到：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">192.168.242.129	master</span><br><span class="line">192.168.242.130	slave1</span><br><span class="line">192.168.242.131	slave2</span><br><span class="line">192.168.242.132	slave3</span><br><span class="line">192.168.242.133	slave4</span><br></pre></td></tr></table></figure></div>
-<p>接下来修改节点IP映射，在每台虚拟机的<code>hosts</code>文件末尾添加上述<code>IP-主机名</code>映射（重启后生效）：</p>
-<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">sudo gedit /etc/hosts  </span><br></pre></td></tr></table></figure></div>
-<h4 id="3-ping通五台虚拟机">3.ping通五台虚拟机</h4>
-<p>利用刚刚记录下来的IP地址，五台虚拟机互相ping通：</p>
-<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">ping IP地址/主机名</span><br></pre></td></tr></table></figure></div>
-<h4 id="4-配置SSH免密登录">4.配置SSH免密登录</h4>
-<p>首先安装SSH：</p>
-<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">sudo apt-get install openssh-server  #安装服务，一路回车                     </span><br><span class="line">sudo /etc/init.d/ssh restart  #启动服务                                      </span><br><span class="line">sudo ufw disable   #关闭防火墙     </span><br></pre></td></tr></table></figure></div>
-<p>关闭完防火墙，接下来查看是否开通SSH服务：</p>
-<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">ps -e | grep ssh</span><br></pre></td></tr></table></figure></div>
-<p>只要出现了以下进程就说明成功了：</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2023/10/18/arKLqu23wdTIgbD.png"
-                      alt=""
-                ></p>
-<p>接下来在master节点生成SSH公钥，公钥储存在 <code>/root/.ssh</code> 中</p>
-<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">sudo cd /root/.ssh  </span><br><span class="line">rm ./id_rsa*            # 删除之前生成的公匙（如果有）                  </span><br><span class="line">ssh-keygen -t rsa       # 一直按回车就可以     </span><br></pre></td></tr></table></figure></div>
-<p>让master 节点可以无密码 SSH 本机，在 master 节点上执行以下代码：</p>
-<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">cat ./id_rsa.pub &gt;&gt; ./authorized_keys</span><br></pre></td></tr></table></figure></div>
-<p>完成后可执行<code>ssh master</code>验证一下（需要输入 <code>yes</code>，成功后执行 <code>exit</code> 返回原来的终端）</p>
-<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">ssh master</span><br></pre></td></tr></table></figure></div>
-<p>接着在 master 节点将上述公匙传输到 slave1 节点，过程中需要输入 slave1 节点的密码，传输100%以后就是传过去了：</p>
-<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">scp ./.ssh/id_rsa.pub xpk@slave1:/home/xpk</span><br></pre></td></tr></table></figure></div>
-<p>接着在 slave1 节点上，把 master 节点的公钥加入授权：</p>
-<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">mkdir ~/.ssh        # 如果不存在该文件夹需先创建，若已存在则忽略        </span><br><span class="line">cat ~/id_rsa.pub &gt;&gt; ~/.ssh/authorized_keys                                   </span><br><span class="line">rm ~/id_rsa.pub    # 用完就可以删掉了</span><br></pre></td></tr></table></figure></div>
-<p>在其余 slave 节点重复以上步骤，然后就可以免密码SSH所有 slave 节点了：</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2023/10/18/2NYJbqB8ytKh3zZ.png"
-                      alt=""
-                ></p>
-<p>最后在 master 节点修改SSH文件权限（否则之后SSH免密登录可能失效）：</p>
-<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">chmod 700 /root/.ssh/	#修改 .ssh/ 文件夹权限为700</span><br><span class="line">chmod 600 /root/.ssh/authorized_keys 	#修改 authorized_keys 文件权限为700</span><br></pre></td></tr></table></figure></div>
-<h4 id="5-安装配置JDK环境变量">5.安装配置JDK环境变量</h4>
-<h5 id="下载JDK">下载JDK</h5>
-<p>官网： <a class="link"   href="https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html" >https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<p>我下载的是 JDK1.8 ，压缩文件名为<code>jdk-8u391-linux-x64.tar.gz</code>。</p>
-<h5 id="解压tar包">解压tar包</h5>
-<p>把安装包放到 <code>/usr/local/java/</code> 目录下面（没有java目录的话自行创建），然后解压安装包：</p>
-<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">创建目录</span></span><br><span class="line">mkdir -p /usr/local/java/	</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">解压</span></span><br><span class="line">tar -zxvf  安装包名称	</span><br></pre></td></tr></table></figure></div>
-<h5 id="配置JDK环境变量">配置JDK环境变量</h5>
-<p>修改 environment 文件：</p>
-<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">修改文件</span></span><br><span class="line">sudo gedit /etc/environment</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">文件尾部添加如下配置</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">java</span></span><br><span class="line">export JAVA_HOME=/usr/local/java/jdk1.8.0_391</span><br><span class="line">export JRE_HOME=/usr/local/java/jdk1.8.0_391/jre</span><br><span class="line">export CLASSPATH=$CLASSPATH:$JAVA_HOME/lib:$JAVA_HOME/jre/lib</span><br></pre></td></tr></table></figure></div>
-<p>修改 profile 文件：</p>
-<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">修改文件</span></span><br><span class="line">sudo gedit /etc/profile </span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">文件尾部添加如下配置</span></span><br><span class="line">export JAVA_HOME=/usr/local/java/jdk1.8.0_391</span><br><span class="line">export JRE_HOME=/usr/local/java/jdk1.8.0_391/jre</span><br><span class="line">export CLASSPATH=$CLASSPATH:$JAVA_HOME/lib:$JAVA_HOME/jre/lib</span><br><span class="line">export PATH=$JAVA_HOME/bin:$JAVA_HOME/jre/bin:$PATH:$HOME/bin</span><br></pre></td></tr></table></figure></div>
-<p>配置立即生效：</p>
-<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">立即生效</span></span><br><span class="line">source /etc/profile</span><br></pre></td></tr></table></figure></div>
-<p>检查Java命令：</p>
-<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">查看java版本</span></span><br><span class="line">java -version</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">显示如下表示成功</span></span><br><span class="line">java version &quot;1.8.0_391&quot;</span><br><span class="line">Java(TM) SE Runtime Environment (build 1.8.0_391-b13)</span><br><span class="line">Java HotSpot(TM) 64-Bit Server VM (build 25.391-b13, mixed mode)</span><br></pre></td></tr></table></figure></div>
-<h4 id="6-安装和配置Hadoop">6.安装和配置Hadoop</h4>
-<h5 id="下载Hadoop安装包">下载Hadoop安装包</h5>
-<p>Hadoop官网：<a class="link"   href="http://hadoop.apache.org/" >http://hadoop.apache.org/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<p>我下载的是 hadoop3 ，压缩文件名为<code>hadoop-3.3.6.tar.gz</code>。</p>
-<h5 id="解压Hadoop安装包（只在master做）">解压Hadoop安装包（只在master做）</h5>
-<p>把 Hadoop 压缩包放置到<code>/opt/hadoop</code>目录内，然后在 master 主机上执行以下代码：</p>
-<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">cd /opt/hadoop</span><br></pre></td></tr></table></figure></div>
-<p>进入<code>/opt/hadoop</code>目录后，执行解压缩命令：</p>
-<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">tar -zxvf hadoop-3.3.6.tar.gz</span><br></pre></td></tr></table></figure></div>
-<h5 id="配置env文件（只在master做）">配置env文件（只在master做）</h5>
-<p>执行命令：</p>
-<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">sudo gedit /opt/hadoop/hadoop/etc/hadoop/hadoop-env.sh</span><br></pre></td></tr></table></figure></div>
-<p>找到<code>export JAVA_HOME</code>这行，修改为：</p>
-<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">export</span> JAVA_HOME=/usr/local/java/jdk1.8.0_391/</span><br></pre></td></tr></table></figure></div>
-<h5 id="配置核心组件文件（只在master做）">配置核心组件文件（只在master做）</h5>
-<p>Hadoop 的核心组件文件是<code>core-site.xml</code>，位于<code>/opt/hadoop/hadoop/etc/hadoop</code>子目录下，将下面的配置代码放在文件的<code>&lt;configuration&gt;</code>和<code>&lt;/configuration&gt;</code>之间。</p>
-<p>执行编辑<code>core-site.xml</code>文件的命令：</p>
-<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">sudo gedit /opt/hadoop/hadoop/etc/hadoop/core-site.xml</span><br></pre></td></tr></table></figure></div>
-<p>需要在<code>&lt;configuration&gt;</code>和<code>&lt;/configuration&gt;</code>之间加入的代码：</p>
-<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">&lt;property&gt;</span><br><span class="line">		&lt;name&gt;fs.defaultFS&lt;/name&gt;</span><br><span class="line">		&lt;value&gt;hdfs://master:9000&lt;/value&gt;</span><br><span class="line">	&lt;/property&gt;</span><br><span class="line">	&lt;property&gt;</span><br><span class="line">		&lt;name&gt;hadoop.tmp.dir&lt;/name&gt;</span><br><span class="line">		&lt;value&gt;/opt/hadoop/hadoopdata&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br></pre></td></tr></table></figure></div>
-<p>编辑完成后，退出并保存即可。</p>
-<h5 id="配置文件系统（只在master做）">配置文件系统（只在master做）</h5>
-<p>Hadoop 的文件系统配置文件是<code>hdfs-site.xml</code>，位于<code>/opt/hadoop/hadoop/etc/hadoop</code>子目录下，将以下代码放在文件的<code>&lt;configuration&gt;</code>和<code>&lt;/configuration&gt;</code>之间。</p>
-<p>执行编辑<code>hdfs-site.xml</code>文件的命令：</p>
-<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">sudo gedit /opt/hadoop/hadoop/etc/hadoop/hdfs-site.xml</span><br></pre></td></tr></table></figure></div>
-<p>需要在<code>&lt;configuration&gt;</code>和<code>&lt;/configuration&gt;</code>之间加入的代码：</p>
-<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">&lt;property&gt;</span><br><span class="line">		&lt;name&gt;dfs.replication&lt;/name&gt;</span><br><span class="line">		&lt;value&gt;1&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br></pre></td></tr></table></figure></div>
-<p>编辑完成后，退出保存即可。</p>
-<h5 id="配置yarn-site-xml文件（只在master做）">配置yarn-site.xml文件（只在master做）</h5>
-<p>yarn 的站点配置文件是<code>yarn-site.xml</code>，位于<code>/opt/hadoop/hadoop/etc/hadoop</code>子目录下，将以下代码放在文件的<code>&lt;configuration&gt;</code>和<code>&lt;/configuration&gt;</code>之间。</p>
-<p>执行编辑<code>yarn-site.xml</code>文件的命令：</p>
-<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">sudo gedit /opt/hadoop/hadoop/etc/hadoop/yarn-site.xml</span><br></pre></td></tr></table></figure></div>
-<p>需要在<code>&lt;configuration&gt;</code>和<code>&lt;/configuration&gt;</code>之间加入的代码：</p>
-<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">&lt;property&gt;</span><br><span class="line">	&lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt;</span><br><span class="line">	&lt;value&gt;mapreduce_shuffle&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">	&lt;name&gt;yarn.resourcemanager.address&lt;/name&gt;</span><br><span class="line">	&lt;value&gt;master:18040&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">	&lt;name&gt;yarn.resourcemanager.scheduler.address&lt;/name&gt;</span><br><span class="line">	&lt;value&gt;master:18030&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">	&lt;name&gt;yarn.resourcemanager.resource-tracker.address&lt;/name&gt;</span><br><span class="line">	&lt;value&gt;master:18025&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">	&lt;name&gt;yarn.resourcemanager.admin.address&lt;/name&gt;</span><br><span class="line">	&lt;value&gt;master:18141&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">	&lt;name&gt;yarn.resourcemanager.webapp.address&lt;/name&gt;</span><br><span class="line">	&lt;value&gt;master:18088&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br></pre></td></tr></table></figure></div>
-<h5 id="配置MapReduce计算框架文件（只在master做）">配置MapReduce计算框架文件（只在master做）</h5>
-<p>配置文件是<code>mapred-site.xml</code>，在<code>/opt/hadoop/hadoop/etc/hadoop</code>子目录下，将下面的代码填充到文件的<code>&lt;configuration&gt;</code>和<code>&lt;/configuration&gt;</code>之间。</p>
-<p>执行命令：</p>
-<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">sudo gedit /opt/hadoop/hadoop/etc/hadoop/mapred-site.xml</span><br></pre></td></tr></table></figure></div>
-<p>需要在<code>&lt;configuration&gt;</code>和<code>&lt;/configuration&gt;</code>之间加入的代码：</p>
-<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">&lt;property&gt;</span><br><span class="line">		&lt;name&gt;mapreduce.framework.name&lt;/name&gt;</span><br><span class="line">		&lt;value&gt;yarn&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br></pre></td></tr></table></figure></div>
-<p>编辑完毕，保存退出即可。</p>
-<h5 id="配置master的workers文件（只在master做）">配置master的workers文件（只在master做）</h5>
-<p>workers 文件给出了 Hadoop 集群的 slave 节点列表，该文件十分重要，因为启动 Hadoop 的时候，系统总是根据当前workers 文件中的 slave 节点名称列表启动集群，不在列表中的 slave 节点便不会被视为计算节点。</p>
-<p>执行编辑 workers 文件命令：</p>
-<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">sudo gedit /opt/hadoop/hadoop/etc/hadoop/workers</span><br></pre></td></tr></table></figure></div>
-<p>加入以下代码：</p>
-<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">slave1</span><br><span class="line">slave2</span><br><span class="line">slave3</span><br><span class="line">slave4</span><br></pre></td></tr></table></figure></div>
-<p>注意：删除 workers 文件中原来 localhost 那一行。</p>
-<h5 id="复制master上的Hadoop到slave节点（只在master做）">复制master上的Hadoop到slave节点（只在master做）</h5>
-<p>通过复制master节点上的 Hadoop ，能够大大提高系统部署效率。由于我这里有4个 slave 节点，所以复制4次。</p>
-<p>复制命令：</p>
-<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">scp -r /opt/hadoop root@slave1:/opt</span><br><span class="line">scp -r /opt/hadoop root@slave2:/opt</span><br><span class="line">scp -r /opt/hadoop root@slave3:/opt</span><br><span class="line">scp -r /opt/hadoop root@slave4:/opt</span><br></pre></td></tr></table></figure></div>
-<h5 id="配置操作系统环境变量（五个节点都做）">配置操作系统环境变量（五个节点都做）</h5>
-<p>回到用户目录命令：</p>
-<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /opt/hadoop</span><br></pre></td></tr></table></figure></div>
-<p>然后编辑<code>.bash_profile</code>文件，命令：</p>
-<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">sudo gedit ~/.bash_profile</span><br></pre></td></tr></table></figure></div>
-<p>最后把以下代码追加到文件的尾部：</p>
-<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment">#HADOOP</span></span><br><span class="line"><span class="built_in">export</span> HADOOP_HOME=/opt/hadoop/hadoop</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$HADOOP_HOME</span>/bin:<span class="variable">$HADOOP_HOME</span>/sbin:<span class="variable">$PATH</span></span><br></pre></td></tr></table></figure></div>
-<p>保存退出后，执行命令：</p>
-<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">source</span> ~/.bash_profile</span><br></pre></td></tr></table></figure></div>
-<p><code>source ~/.bash_profile</code>命令是使上述配置生效。</p>
-<p>提示：在其余 slave 节点使用上述相同的配置方法，配置全部 slave 节点。</p>
-<h5 id="创建Hadoop数据目录（只在master做）">创建Hadoop数据目录（只在master做）</h5>
-<p>创建数据目录，命令是：</p>
-<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> /opt/hadoop/hadoopdata</span><br></pre></td></tr></table></figure></div>
-<h5 id="格式化文件系统（只在master做）">格式化文件系统（只在master做）</h5>
-<p>执行格式化文件系统命令：</p>
-<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">hadoop namenode -format</span><br></pre></td></tr></table></figure></div>
-<h3 id="三、Hadoop集群的启动与关闭">三、Hadoop集群的启动与关闭</h3>
-<h4 id="1-启动和关闭Hadoop集群（只在master做）">1.启动和关闭Hadoop集群（只在master做）</h4>
-<p>首先进入安装主目录，命令是：</p>
-<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /opt/hadoop/hadoop/sbin</span><br></pre></td></tr></table></figure></div>
-<p>然后启动，命令是：</p>
-<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">./start-all.sh</span><br></pre></td></tr></table></figure></div>
-<p>如果要关闭 Hadoop 集群，可以使用命令：</p>
-<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">./stop-all.sh</span><br></pre></td></tr></table></figure></div>
-<h4 id="2-验证Hadoop集群是否启动成功">2.验证Hadoop集群是否启动成功</h4>
-<p>在 master 节点的浏览器中输入<code>localhost:9870/</code>并回车。打开 HDFS 面板查看详细信息：</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/01/10/PHrsxtvNiIFGmkT.png"
-                      alt=""
-                ></p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/01/10/x4uYlirEd5U2hgy.png"
-                      alt=""
-                ></p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/01/10/zUywuYjHvRTX3sa.png"
-                      alt=""
-                ></p>
-<h3 id="参考资料：">参考资料：</h3>
-<p><a class="link"   href="https://blog.csdn.net/weixin_52105111/article/details/123159877" >三台Ubuntu虚拟机搭建 Hadoop集群 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<p><a class="link"   href="https://blog.51cto.com/u_12835254/5273118" >Linux：Ubuntu配置jdk环境变量 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<p><a class="link"   href="https://blog.csdn.net/weixin_44198965/article/details/89603788?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522164601575316780271530136%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fall.%2522%257D&amp;request_id=164601575316780271530136&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~first_rank_ecpm_v1~rank_v31_ecpm-1-89603788.pc_search_result_cache&amp;utm_term=hadoop%E5%AE%89%E8%A3%85&amp;spm=1018.2226.3001.4187" >Hadoop安装与配置详细教程 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<h2 id="遇到的-问题-解决方法">遇到的 问题&amp;解决方法</h2>
-<h3 id="一、部分Ubuntu虚拟机无法连接网络">一、部分Ubuntu虚拟机无法连接网络</h3>
-<h4 id="问题：">问题：</h4>
-<p>安装之后可以正常使用，但是隔了一段时间再上就发现有一两台虚拟机连不上网络。</p>
-<h4 id="解决：">解决：</h4>
-<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">sudo service NetworkManager stop</span><br><span class="line">sudo <span class="built_in">rm</span> /var/lib/NetworkManager/NetworkManager.state</span><br><span class="line">sudo service NetworkManager start</span><br></pre></td></tr></table></figure></div>
-<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">sudo gedit /etc/NetworkManager/NetworkManager.conf	<span class="comment">#把false改成true</span></span><br></pre></td></tr></table></figure></div>
-<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">sudo service NetworkManager restart</span><br></pre></td></tr></table></figure></div>
-<h4 id="参考资料：-2">参考资料：</h4>
-<p><a class="link"   href="https://blog.csdn.net/lj695242104/article/details/80922108" >ubuntu 18.04 网络图标不见的问题解决方案 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<h3 id="二、第一次运行Hadoop时，出现以下报错：">二、第一次运行Hadoop时，出现以下报错：</h3>
-<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">ERROR: Attempting to operate on hdfs namenode as root</span><br><span class="line">ERROR: but there is no HDFS_NAMENODE_USER defined. </span><br><span class="line">Aborting operation.</span><br><span class="line">Starting datanodes</span><br><span class="line">ERROR: Attempting to operate on hdfs datanode as root</span><br><span class="line">ERROR: but there is no HDFS_DATANODE_USER defined. </span><br><span class="line">Aborting operation.</span><br><span class="line">Starting secondary namenodes</span><br><span class="line">ERROR: Attempting to operate on hdfs secondarynamenode as root</span><br><span class="line">ERROR: but there is no HDFS_SECONDARYNAMENODE_USER defined. </span><br><span class="line">Aborting operation.</span><br></pre></td></tr></table></figure></div>
-<h4 id="解决：-2">解决：</h4>
-<p>在<code>$HADOOP_HOME/etc/hadoop/hadoop-env.sh</code>中添加以下内容：</p>
-<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">export</span> HDFS_NAMENODE_USER=root</span><br><span class="line"><span class="built_in">export</span> HDFS_DATANODE_USER=root</span><br><span class="line"><span class="built_in">export</span> HDFS_SECONDARYNAMENODE_USER=root</span><br><span class="line"><span class="built_in">export</span> YARN_RESOURCEMANAGER_USER=root</span><br><span class="line"><span class="built_in">export</span> YARN_NODEMANAGER_USER=root</span><br></pre></td></tr></table></figure></div>
-<h4 id="参考资料：-3">参考资料：</h4>
-<p><a class="link"   href="https://stackoverflow.com/questions/48129029/hdfs-namenode-user-hdfs-datanode-user-hdfs-secondarynamenode-user-not-defined" >HDFS_NAMENODE_USER, HDFS_DATANODE_USER &amp; HDFS_SECONDARYNAMENODE_USER not defined <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<h3 id="三、主节点启动成功，从节点没有启动">三、主节点启动成功，从节点没有启动</h3>
-<h4 id="解决：-3">解决：</h4>
-<p>执行编辑 workers 文件命令：</p>
-<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">sudo gedit /opt/hadoop/hadoop/etc/hadoop/workers</span><br></pre></td></tr></table></figure></div>
-<p>加入以下代码：</p>
-<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">slave1</span><br><span class="line">slave2</span><br><span class="line">slave3</span><br><span class="line">slave4</span><br></pre></td></tr></table></figure></div>
-<h4 id="原因分析：">原因分析：</h4>
-<p>网上教程用的是Hadoop 2 版本，配置 slave 节点列表文件时修改的是<code>slaves</code>文件；而我使用的是 Hadoop 3 版本，Hadoop 3 版本里的配置文件需要修改<code>workers</code>文件，而不是<code>slaves</code>文件。</p>
-<h4 id="参考资料：-4">参考资料：</h4>
-<p><a class="link"   href="https://blog.51cto.com/u_16099172/6391674" >hadoop从节点进程缺失 hadoop从节点没有启动 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>Hadoop</tag>
+        <tag>Git</tag>
       </tags>
   </entry>
   <entry>
@@ -1785,39 +1818,6 @@
       </categories>
       <tags>
         <tag>Hexo</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Git 报错：无法创建 index.lock 文件，因其已存在。</title>
-    <url>/2024/01/25/Git-%E6%8A%A5%E9%94%99%EF%BC%9A%E6%97%A0%E6%B3%95%E5%88%9B%E5%BB%BA-index-lock-%E6%96%87%E4%BB%B6%EF%BC%8C%E5%9B%A0%E5%85%B6%E5%B7%B2%E5%AD%98%E5%9C%A8/</url>
-    <content><![CDATA[<h2 id="问题">问题</h2>
-<p>使用 Git 向 Github 部署代码时，出现如下报错：</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/01/25/VTOAzyM2Jm9pEWH.png"
-                      alt=""
-                ></p>
-<h2 id="原因">原因</h2>
-<p>有两个 Git 命令同时运行，可能一种来自命令提示符，另一种来自 IDE 。</p>
-<h2 id="解决">解决</h2>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/01/25/V2x6Msj5KSDqFp3.png"
-                      alt=""
-                ><br>
-删除报错信息对应路径下已存在的 <code>index.lock</code> 文件即可。</p>
-<h2 id="引用">引用</h2>
-<ul>
-<li><a class="link"   href="https://stackoverflow.com/questions/38004148/another-git-process-seems-to-be-running-in-this-repository" >https://stackoverflow.com/questions/38004148/another-git-process-seems-to-be-running-in-this-repository <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>Git</tag>
       </tags>
   </entry>
   <entry>
@@ -1947,6 +1947,48 @@
       </categories>
       <tags>
         <tag>Tomcat</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SpringBoot 配置的优先级</title>
+    <url>/2024/03/07/SpringBoot%E9%85%8D%E7%BD%AE%E4%BC%98%E5%85%88%E7%BA%A7/</url>
+    <content><![CDATA[<h2 id="1-配置文件">1. 配置文件</h2>
+<p>配置文件优先级排名（从高到低）：</p>
+<ol>
+<li>properties配置文件</li>
+<li>yml配置文件</li>
+<li>yaml配置文件</li>
+</ol>
+<p>注意事项：虽然SpringBoot支持多种格式配置文件，但是在项目开发时，推荐统一使用一种格式的配置。（yml是主流）</p>
+<h2 id="2-系统属性和命令行参数">2. 系统属性和命令行参数</h2>
+<p>在SpringBoot项目当中除了以上3种配置文件外，SpringBoot为了增强程序的扩展性，除了支持配置文件的配置方式以外，还支持另外两种常见的配置方式：</p>
+<ol>
+<li>
+<p>Java系统属性配置 （格式： -Dkey=value）</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">-Dserver.port=9000</span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>命令行参数 （格式：–key=value）</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">--server.port=10010</span><br></pre></td></tr></table></figure></div>
+</li>
+</ol>
+<p>思考：如果项目已经打包上线了，这个时候我们又如何来设置Java系统属性和命令行参数呢？</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">java [-Dserver.port=9000] -jar XXXXX.jar [--server.port=10010]</span><br></pre></td></tr></table></figure></div>
+<h2 id="3-总结">3. 总结</h2>
+<p>在SpringBoot项目当中，常见的属性配置方式有5种： 3种配置文件，加上2种外部属性的配置(Java系统属性、命令行参数)，优先级从高到低：</p>
+<ol>
+<li>命令行参数（–xxx=xxx）</li>
+<li>java系统属性（-Dxxx=xxx）</li>
+<li>application.properties</li>
+<li>application.yml</li>
+<li>application.yaml（忽略）</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Java学习笔记</category>
+      </categories>
+      <tags>
+        <tag>Spring</tag>
       </tags>
   </entry>
   <entry>
@@ -2189,39 +2231,210 @@
       </tags>
   </entry>
   <entry>
-    <title>SpringBoot 配置的优先级</title>
-    <url>/2024/03/07/SpringBoot%E9%85%8D%E7%BD%AE%E4%BC%98%E5%85%88%E7%BA%A7/</url>
-    <content><![CDATA[<h2 id="1-配置文件">1. 配置文件</h2>
-<p>配置文件优先级排名（从高到低）：</p>
-<ol>
-<li>properties配置文件</li>
-<li>yml配置文件</li>
-<li>yaml配置文件</li>
-</ol>
-<p>注意事项：虽然SpringBoot支持多种格式配置文件，但是在项目开发时，推荐统一使用一种格式的配置。（yml是主流）</p>
-<h2 id="2-系统属性和命令行参数">2. 系统属性和命令行参数</h2>
-<p>在SpringBoot项目当中除了以上3种配置文件外，SpringBoot为了增强程序的扩展性，除了支持配置文件的配置方式以外，还支持另外两种常见的配置方式：</p>
+    <title>JavaWeb 后端开发总结</title>
+    <url>/2024/03/10/JavaWeb-%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<p>web后端开发现在基本上都是基于标准的三层架构进行开发的，在三层架构当中，Controller控制器层负责接收请求响应数据，Service业务层负责具体的业务逻辑处理，而Dao数据访问层也叫持久层，就是用来处理数据访问操作的，来完成数据库当中数据的增删改查操作。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/03/10/tgSJKPX3FBwZGx6.png"
+                      alt=""
+                ></p>
+<blockquote>
+<p>在三层架构当中，前端发起请求首先会到达Controller(不进行逻辑处理)，然后Controller会直接调用Service 进行逻辑处理， Service再调用Dao完成数据访问操作。</p>
+</blockquote>
+<p>如果我们在执行具体的业务处理之前，需要去做一些通用的业务处理，比如：我们要进行统一的登录校验，我们要进行统一的字符编码等这些操作时，我们就可以借助于Javaweb当中三大组件之一的过滤器Filter或者是Spring当中提供的拦截器Interceptor来实现。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/03/10/jIOK7DnacR2uVEG.png"
+                      alt=""
+                ></p>
+<p>而为了实现三层架构层与层之间的解耦，我们学习了Spring框架当中的第一大核心：IOC控制反转与DI依赖注入。</p>
+<blockquote>
+<p>所谓控制反转，指的是将对象创建的控制权由应用程序自身交给外部容器，这个容器就是我们常说的IOC容器或Spring容器。</p>
+<p>而DI依赖注入指的是容器为程序提供运行时所需要的资源。</p>
+</blockquote>
+<p>除了IOC与DI我们还讲到了AOP面向切面编程，还有Spring中的事务管理、全局异常处理器，以及传递会话技术Cookie、Session以及新的会话跟踪解决方案JWT令牌，阿里云OSS对象存储服务，以及通过Mybatis持久层架构操作数据库等技术。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/03/10/lOK2t8nTUq6EVp9.png"
+                      alt=""
+                ></p>
+<p>我们在学习这些web后端开发技术的时候，我们都是基于主流的SpringBoot进行整合使用的。而SpringBoot又是用来简化开发，提高开发效率的。像过滤器、拦截器、IOC、DI、AOP、事务管理等这些技术到底是哪个框架提供的核心功能？</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/03/10/c73xEmrLOfNjS8o.png"
+                      alt=""
+                ></p>
+<blockquote>
+<p>Filter过滤器、Cookie、 Session这些都是传统的JavaWeb提供的技术。</p>
+<p>JWT令牌、阿里云OSS对象存储服务，是现在企业项目中常见的一些解决方案。</p>
+<p>IOC控制反转、DI依赖注入、AOP面向切面编程、事务管理、全局异常处理、拦截器等，这些技术都是 Spring Framework框架当中提供的核心功能。</p>
+<p>Mybatis就是一个持久层的框架，是用来操作数据库的。</p>
+</blockquote>
+<p>在Spring框架的生态中，对web程序开发提供了很好的支持，如：全局异常处理器、拦截器这些都是Spring框架中web开发模块所提供的功能，而Spring框架的web开发模块，我们也称为：SpringMVC</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/03/10/Fvtu8Kz6OJyR2oE.png"
+                      alt=""
+                ></p>
+<blockquote>
+<p>SpringMVC不是一个单独的框架，它是Spring框架的一部分，是Spring框架中的web开发模块，是用来简化原始的Servlet程序开发的。</p>
+</blockquote>
+<p>外界俗称的SSM，就是由：SpringMVC、Spring Framework、Mybatis三块组成。</p>
+<p>基于传统的SSM框架进行整合开发项目会比较繁琐，而且效率也比较低，所以在现在的企业项目开发当中，基本上都是直接基于SpringBoot整合SSM进行项目开发的。</p>
+]]></content>
+      <categories>
+        <category>Java学习笔记</category>
+      </categories>
+      <tags>
+        <tag>JavaWeb</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>IOC 容器对 Bean 的命名规则</title>
+    <url>/2024/03/08/IOC-%E5%AE%B9%E5%99%A8%E5%AF%B9-Bean-%E7%9A%84%E5%91%BD%E5%90%8D%E8%A7%84%E5%88%99/</url>
+    <content><![CDATA[<h2 id="1-默认规则">1. 默认规则</h2>
+<p>在 Spring 中，IOC（控制反转）容器可以自动识别并创建 Bean，而且它默认遵循一定的命名规则。Spring 的 IOC 容器在自动识别 Bean 时通常使用的是<strong>基于类名的驼峰命名规则</strong>。</p>
+<p><strong>如果类名以大写字母开头，Spring 将会把它转换为以小写字母开头，并且在容器中注册为 Bean。</strong></p>
+<p>例如，假设你有一个名为 <code>UserService</code> 的类，Spring IOC 容器会将它识别为 <code>userService</code> 的 Bean。类似地，<code>UserServiceImpl</code> 会变成 <code>userServiceImpl</code>。</p>
+<p>这种自动的 Bean 命名规则存在于 Spring 的默认行为中，这样开发者就不需要显式地在配置文件或注解中指定 Bean 的名称，Spring 会根据类名来自动推断。</p>
+<h2 id="2-自定义">2. 自定义</h2>
+<p>但是，如果开发者想要<strong>自定义 Bean 的名称</strong>，可以使用 <code>@Component</code>、<code>@Service</code>、<code>@Repository</code> 等注解，并<strong>在括号中指定 Bean 的名称</strong>，例如：</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Service(&quot;myCustomService&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyCustomServiceImpl</span> <span class="keyword">implements</span> <span class="title class_">MyCustomService</span> &#123;</span><br><span class="line">    <span class="comment">// 实现代码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>在这个例子中，<code>MyCustomServiceImpl</code> 类会被注册到 Spring 容器中，并且 Bean 的名称将会是 <code>myCustomService</code>，而不是自动推断的 <code>myCustomServiceImpl</code>。</p>
+]]></content>
+      <categories>
+        <category>Java学习笔记</category>
+      </categories>
+      <tags>
+        <tag>Spring</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SpringBoot - Bean 的管理</title>
+    <url>/2024/03/08/SpringBoot-Bean%E7%9A%84%E7%AE%A1%E7%90%86/</url>
+    <content><![CDATA[<h2 id="1-Bean的获取">1. Bean的获取</h2>
+<p>默认情况下，SpringBoot项目在启动的时候会自动的创建IOC容器(也称为Spring容器)，并且在启动的过程当中会自动的将bean对象都创建好，存放在IOC容器当中。应用程序在运行时需要依赖什么bean对象，就直接进行依赖注入就可以了。</p>
+<p>而在Spring容器中提供了一些方法，可以主动从IOC容器中获取到bean对象，下面介绍3种常用方式：</p>
 <ol>
 <li>
-<p>Java系统属性配置 （格式： -Dkey=value）</p>
-<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">-Dserver.port=9000</span><br></pre></td></tr></table></figure></div>
+<p>根据name获取bean</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line">Object <span class="title function_">getBean</span><span class="params">(String name)</span></span><br></pre></td></tr></table></figure></div>
 </li>
 <li>
-<p>命令行参数 （格式：–key=value）</p>
-<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">--server.port=10010</span><br></pre></td></tr></table></figure></div>
+<p>根据类型获取bean</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line">&lt;T&gt; T <span class="title function_">getBean</span><span class="params">(Class&lt;T&gt; requiredType)</span></span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>根据name获取bean（带类型转换）</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line">&lt;T&gt; T <span class="title function_">getBean</span><span class="params">(String name, Class&lt;T&gt; requiredType)</span></span><br></pre></td></tr></table></figure></div>
 </li>
 </ol>
-<p>思考：如果项目已经打包上线了，这个时候我们又如何来设置Java系统属性和命令行参数呢？</p>
-<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">java [-Dserver.port=9000] -jar XXXXX.jar [--server.port=10010]</span><br></pre></td></tr></table></figure></div>
-<h2 id="3-总结">3. 总结</h2>
-<p>在SpringBoot项目当中，常见的属性配置方式有5种： 3种配置文件，加上2种外部属性的配置(Java系统属性、命令行参数)，优先级从高到低：</p>
-<ol>
-<li>命令行参数（–xxx=xxx）</li>
-<li>java系统属性（-Dxxx=xxx）</li>
-<li>application.properties</li>
-<li>application.yml</li>
-<li>application.yaml（忽略）</li>
-</ol>
+<p>思考：要从IOC容器当中来获取到bean对象，需要先拿到IOC容器对象，怎么样才能拿到IOC容器呢？</p>
+<ul>
+<li>想获取到IOC容器，直接将IOC容器对象注入进来就可以了</li>
+</ul>
+<p>注意事项：</p>
+<ul>
+<li>上述所说的 【Spring项目启动时，会把其中的bean都创建好】还会受到作用域及延迟初始化影响，这里主要针对于默认的单例非延迟加载的bean而言。</li>
+</ul>
+<h2 id="2-Bean的作用域">2. Bean的作用域</h2>
+<p>在Spring中支持五种作用域，后三种在web环境才生效：</p>
+<table>
+<thead>
+<tr>
+<th><strong>作用域</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>singleton</td>
+<td>容器内同名称的bean只有一个实例（单例）（默认）</td>
+</tr>
+<tr>
+<td>prototype</td>
+<td>每次使用该bean时会创建新的实例（非单例）</td>
+</tr>
+<tr>
+<td>request</td>
+<td>每个请求范围内会创建新的实例（web环境中，了解）</td>
+</tr>
+<tr>
+<td>session</td>
+<td>每个会话范围内会创建新的实例（web环境中，了解）</td>
+</tr>
+<tr>
+<td>application</td>
+<td>每个应用范围内会创建新的实例（web环境中，了解）</td>
+</tr>
+</tbody>
+</table>
+<p>知道了bean的5种作用域了，我们要怎么去设置一个bean的作用域呢？</p>
+<ul>
+<li>可以借助Spring中的@Scope注解来进行配置作用域</li>
+</ul>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/03/08/GXCRYFwmTeKJILo.png"
+                      alt=""
+                ></p>
+<p>注意事项：</p>
+<ul>
+<li>
+<p>IOC容器中的bean默认使用的作用域：singleton (单例)。默认singleton的bean，在容器启动时被创建，可以使用@Lazy注解来延迟初始化(延迟到第一次使用时)</p>
+</li>
+<li>
+<p>prototype的bean，每一次使用该bean的时候都会创建一个新的实例</p>
+</li>
+<li>
+<p>实际开发当中，绝大部分的Bean是单例的，也就是说绝大部分Bean不需要配置scope属性</p>
+</li>
+</ul>
+<h2 id="3-第三方Bean">3. 第三方Bean</h2>
+<p>在我们项目开发当中，有的类不是我们自己编写的，而是我们引入的第三方依赖当中提供的。</p>
+<p>在pom.xml文件中，引入dom4j：</p>
+<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--Dom4j--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.dom4j<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>dom4j<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.1.3<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
+<blockquote>
+<p>dom4j就是第三方组织提供的。 dom4j中的SAXReader类就是第三方编写的。</p>
+</blockquote>
+<p>那么我们应该怎样使用并定义第三方的bean呢？</p>
+<ul>
+<li>如果要管理的bean对象来自于第三方（不是自定义的），是无法用@Component 及衍生注解声明bean的，而是需要用到**@Bean**注解。</li>
+</ul>
+<p><strong>解决方案1：在启动类上添加@Bean标识的方法</strong></p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SpringbootWebConfig2Application</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        SpringApplication.run(SpringbootWebConfig2Application.class, args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 声明第三方 Bean</span></span><br><span class="line">    <span class="meta">@Bean</span> <span class="comment">// 将当前方法的返回值对象交给 IOC 容器管理, 成为 IOC 容器 Bean</span></span><br><span class="line">    <span class="keyword">public</span> SAXReader <span class="title function_">saxReader</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">SAXReader</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<blockquote>
+<p><strong>说明：以上在启动类中声明第三方Bean的作法，不建议使用（项目中要保证启动类的纯粹性）</strong></p>
+</blockquote>
+<p><strong>解决方案2：在配置类中定义@Bean标识的方法</strong></p>
+<ul>
+<li>如果需要定义第三方Bean时， 通常会单独定义一个配置类</li>
+</ul>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Configuration</span> <span class="comment">// 配置类  (在配置类当中对第三方bean进行集中配置管理)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CommonConfig</span> &#123;</span><br><span class="line">    <span class="comment">// 声明第三方 bean</span></span><br><span class="line">    <span class="meta">@Bean</span> <span class="comment">// 将当前方法的返回值对象交给 IOC 容器管理, 成为 IOC 容器 bean</span></span><br><span class="line">          <span class="comment">// 通过 @Bean 注解的 name/value 属性指定 bean 名称, 如果未指定, 默认是方法名</span></span><br><span class="line">    <span class="keyword">public</span> SAXReader <span class="title function_">reader</span><span class="params">(DeptService deptService)</span>&#123;</span><br><span class="line">        System.out.println(deptService);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">SAXReader</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>在方法上加上一个@Bean注解，Spring 容器在启动的时候，它会自动的调用这个方法，并将方法的返回值声明为Spring容器当中的Bean对象。</p>
+<blockquote>
+<p>注意事项 ：</p>
+<ul>
+<li>
+<p>通过@Bean注解的name或value属性可以声明bean的名称，如果不指定，默认bean的名称就是方法名。</p>
+</li>
+<li>
+<p>如果第三方bean需要依赖其它bean对象，直接在bean定义<strong>方法</strong>中设置<strong>形参</strong>即可，容器会根据类型自动装配。</p>
+</li>
+</ul>
+</blockquote>
+<p><strong>关于Bean只需要保持一个原则：</strong></p>
+<ul>
+<li>如果是在项目当中自己定义的类，想将这些类交给IOC容器管理，我们直接使用@Component以及它的衍生注解来声明就可以。</li>
+<li>如果这个类它不是自己定义的，而是引入的第三方依赖当中提供的类，而且我们还想将这个类交给IOC容器管理。此时我们就需要在配置类中定义一个方法，在方法上加上一个@Bean注解，通过这种方式来声明第三方的bean对象。</li>
+</ul>
 ]]></content>
       <categories>
         <category>Java学习笔记</category>
@@ -2406,283 +2619,6 @@
       </tags>
   </entry>
   <entry>
-    <title>IOC 容器对 Bean 的命名规则</title>
-    <url>/2024/03/08/IOC-%E5%AE%B9%E5%99%A8%E5%AF%B9-Bean-%E7%9A%84%E5%91%BD%E5%90%8D%E8%A7%84%E5%88%99/</url>
-    <content><![CDATA[<h2 id="1-默认规则">1. 默认规则</h2>
-<p>在 Spring 中，IOC（控制反转）容器可以自动识别并创建 Bean，而且它默认遵循一定的命名规则。Spring 的 IOC 容器在自动识别 Bean 时通常使用的是<strong>基于类名的驼峰命名规则</strong>。</p>
-<p><strong>如果类名以大写字母开头，Spring 将会把它转换为以小写字母开头，并且在容器中注册为 Bean。</strong></p>
-<p>例如，假设你有一个名为 <code>UserService</code> 的类，Spring IOC 容器会将它识别为 <code>userService</code> 的 Bean。类似地，<code>UserServiceImpl</code> 会变成 <code>userServiceImpl</code>。</p>
-<p>这种自动的 Bean 命名规则存在于 Spring 的默认行为中，这样开发者就不需要显式地在配置文件或注解中指定 Bean 的名称，Spring 会根据类名来自动推断。</p>
-<h2 id="2-自定义">2. 自定义</h2>
-<p>但是，如果开发者想要<strong>自定义 Bean 的名称</strong>，可以使用 <code>@Component</code>、<code>@Service</code>、<code>@Repository</code> 等注解，并<strong>在括号中指定 Bean 的名称</strong>，例如：</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Service(&quot;myCustomService&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyCustomServiceImpl</span> <span class="keyword">implements</span> <span class="title class_">MyCustomService</span> &#123;</span><br><span class="line">    <span class="comment">// 实现代码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<p>在这个例子中，<code>MyCustomServiceImpl</code> 类会被注册到 Spring 容器中，并且 Bean 的名称将会是 <code>myCustomService</code>，而不是自动推断的 <code>myCustomServiceImpl</code>。</p>
-]]></content>
-      <categories>
-        <category>Java学习笔记</category>
-      </categories>
-      <tags>
-        <tag>Spring</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SpringBoot - Bean 的管理</title>
-    <url>/2024/03/08/SpringBoot-Bean%E7%9A%84%E7%AE%A1%E7%90%86/</url>
-    <content><![CDATA[<h2 id="1-Bean的获取">1. Bean的获取</h2>
-<p>默认情况下，SpringBoot项目在启动的时候会自动的创建IOC容器(也称为Spring容器)，并且在启动的过程当中会自动的将bean对象都创建好，存放在IOC容器当中。应用程序在运行时需要依赖什么bean对象，就直接进行依赖注入就可以了。</p>
-<p>而在Spring容器中提供了一些方法，可以主动从IOC容器中获取到bean对象，下面介绍3种常用方式：</p>
-<ol>
-<li>
-<p>根据name获取bean</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line">Object <span class="title function_">getBean</span><span class="params">(String name)</span></span><br></pre></td></tr></table></figure></div>
-</li>
-<li>
-<p>根据类型获取bean</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line">&lt;T&gt; T <span class="title function_">getBean</span><span class="params">(Class&lt;T&gt; requiredType)</span></span><br></pre></td></tr></table></figure></div>
-</li>
-<li>
-<p>根据name获取bean（带类型转换）</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line">&lt;T&gt; T <span class="title function_">getBean</span><span class="params">(String name, Class&lt;T&gt; requiredType)</span></span><br></pre></td></tr></table></figure></div>
-</li>
-</ol>
-<p>思考：要从IOC容器当中来获取到bean对象，需要先拿到IOC容器对象，怎么样才能拿到IOC容器呢？</p>
-<ul>
-<li>想获取到IOC容器，直接将IOC容器对象注入进来就可以了</li>
-</ul>
-<p>注意事项：</p>
-<ul>
-<li>上述所说的 【Spring项目启动时，会把其中的bean都创建好】还会受到作用域及延迟初始化影响，这里主要针对于默认的单例非延迟加载的bean而言。</li>
-</ul>
-<h2 id="2-Bean的作用域">2. Bean的作用域</h2>
-<p>在Spring中支持五种作用域，后三种在web环境才生效：</p>
-<table>
-<thead>
-<tr>
-<th><strong>作用域</strong></th>
-<th><strong>说明</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>singleton</td>
-<td>容器内同名称的bean只有一个实例（单例）（默认）</td>
-</tr>
-<tr>
-<td>prototype</td>
-<td>每次使用该bean时会创建新的实例（非单例）</td>
-</tr>
-<tr>
-<td>request</td>
-<td>每个请求范围内会创建新的实例（web环境中，了解）</td>
-</tr>
-<tr>
-<td>session</td>
-<td>每个会话范围内会创建新的实例（web环境中，了解）</td>
-</tr>
-<tr>
-<td>application</td>
-<td>每个应用范围内会创建新的实例（web环境中，了解）</td>
-</tr>
-</tbody>
-</table>
-<p>知道了bean的5种作用域了，我们要怎么去设置一个bean的作用域呢？</p>
-<ul>
-<li>可以借助Spring中的@Scope注解来进行配置作用域</li>
-</ul>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/03/08/GXCRYFwmTeKJILo.png"
-                      alt=""
-                ></p>
-<p>注意事项：</p>
-<ul>
-<li>
-<p>IOC容器中的bean默认使用的作用域：singleton (单例)。默认singleton的bean，在容器启动时被创建，可以使用@Lazy注解来延迟初始化(延迟到第一次使用时)</p>
-</li>
-<li>
-<p>prototype的bean，每一次使用该bean的时候都会创建一个新的实例</p>
-</li>
-<li>
-<p>实际开发当中，绝大部分的Bean是单例的，也就是说绝大部分Bean不需要配置scope属性</p>
-</li>
-</ul>
-<h2 id="3-第三方Bean">3. 第三方Bean</h2>
-<p>在我们项目开发当中，有的类不是我们自己编写的，而是我们引入的第三方依赖当中提供的。</p>
-<p>在pom.xml文件中，引入dom4j：</p>
-<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--Dom4j--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.dom4j<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>dom4j<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.1.3<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
-<blockquote>
-<p>dom4j就是第三方组织提供的。 dom4j中的SAXReader类就是第三方编写的。</p>
-</blockquote>
-<p>那么我们应该怎样使用并定义第三方的bean呢？</p>
-<ul>
-<li>如果要管理的bean对象来自于第三方（不是自定义的），是无法用@Component 及衍生注解声明bean的，而是需要用到**@Bean**注解。</li>
-</ul>
-<p><strong>解决方案1：在启动类上添加@Bean标识的方法</strong></p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SpringbootWebConfig2Application</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        SpringApplication.run(SpringbootWebConfig2Application.class, args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 声明第三方 Bean</span></span><br><span class="line">    <span class="meta">@Bean</span> <span class="comment">// 将当前方法的返回值对象交给 IOC 容器管理, 成为 IOC 容器 Bean</span></span><br><span class="line">    <span class="keyword">public</span> SAXReader <span class="title function_">saxReader</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">SAXReader</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<blockquote>
-<p><strong>说明：以上在启动类中声明第三方Bean的作法，不建议使用（项目中要保证启动类的纯粹性）</strong></p>
-</blockquote>
-<p><strong>解决方案2：在配置类中定义@Bean标识的方法</strong></p>
-<ul>
-<li>如果需要定义第三方Bean时， 通常会单独定义一个配置类</li>
-</ul>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Configuration</span> <span class="comment">// 配置类  (在配置类当中对第三方bean进行集中配置管理)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CommonConfig</span> &#123;</span><br><span class="line">    <span class="comment">// 声明第三方 bean</span></span><br><span class="line">    <span class="meta">@Bean</span> <span class="comment">// 将当前方法的返回值对象交给 IOC 容器管理, 成为 IOC 容器 bean</span></span><br><span class="line">          <span class="comment">// 通过 @Bean 注解的 name/value 属性指定 bean 名称, 如果未指定, 默认是方法名</span></span><br><span class="line">    <span class="keyword">public</span> SAXReader <span class="title function_">reader</span><span class="params">(DeptService deptService)</span>&#123;</span><br><span class="line">        System.out.println(deptService);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">SAXReader</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<p>在方法上加上一个@Bean注解，Spring 容器在启动的时候，它会自动的调用这个方法，并将方法的返回值声明为Spring容器当中的Bean对象。</p>
-<blockquote>
-<p>注意事项 ：</p>
-<ul>
-<li>
-<p>通过@Bean注解的name或value属性可以声明bean的名称，如果不指定，默认bean的名称就是方法名。</p>
-</li>
-<li>
-<p>如果第三方bean需要依赖其它bean对象，直接在bean定义<strong>方法</strong>中设置<strong>形参</strong>即可，容器会根据类型自动装配。</p>
-</li>
-</ul>
-</blockquote>
-<p><strong>关于Bean只需要保持一个原则：</strong></p>
-<ul>
-<li>如果是在项目当中自己定义的类，想将这些类交给IOC容器管理，我们直接使用@Component以及它的衍生注解来声明就可以。</li>
-<li>如果这个类它不是自己定义的，而是引入的第三方依赖当中提供的类，而且我们还想将这个类交给IOC容器管理。此时我们就需要在配置类中定义一个方法，在方法上加上一个@Bean注解，通过这种方式来声明第三方的bean对象。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>Java学习笔记</category>
-      </categories>
-      <tags>
-        <tag>Spring</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>JavaWeb 后端开发总结</title>
-    <url>/2024/03/10/JavaWeb-%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91%E6%80%BB%E7%BB%93/</url>
-    <content><![CDATA[<p>web后端开发现在基本上都是基于标准的三层架构进行开发的，在三层架构当中，Controller控制器层负责接收请求响应数据，Service业务层负责具体的业务逻辑处理，而Dao数据访问层也叫持久层，就是用来处理数据访问操作的，来完成数据库当中数据的增删改查操作。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/03/10/tgSJKPX3FBwZGx6.png"
-                      alt=""
-                ></p>
-<blockquote>
-<p>在三层架构当中，前端发起请求首先会到达Controller(不进行逻辑处理)，然后Controller会直接调用Service 进行逻辑处理， Service再调用Dao完成数据访问操作。</p>
-</blockquote>
-<p>如果我们在执行具体的业务处理之前，需要去做一些通用的业务处理，比如：我们要进行统一的登录校验，我们要进行统一的字符编码等这些操作时，我们就可以借助于Javaweb当中三大组件之一的过滤器Filter或者是Spring当中提供的拦截器Interceptor来实现。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/03/10/jIOK7DnacR2uVEG.png"
-                      alt=""
-                ></p>
-<p>而为了实现三层架构层与层之间的解耦，我们学习了Spring框架当中的第一大核心：IOC控制反转与DI依赖注入。</p>
-<blockquote>
-<p>所谓控制反转，指的是将对象创建的控制权由应用程序自身交给外部容器，这个容器就是我们常说的IOC容器或Spring容器。</p>
-<p>而DI依赖注入指的是容器为程序提供运行时所需要的资源。</p>
-</blockquote>
-<p>除了IOC与DI我们还讲到了AOP面向切面编程，还有Spring中的事务管理、全局异常处理器，以及传递会话技术Cookie、Session以及新的会话跟踪解决方案JWT令牌，阿里云OSS对象存储服务，以及通过Mybatis持久层架构操作数据库等技术。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/03/10/lOK2t8nTUq6EVp9.png"
-                      alt=""
-                ></p>
-<p>我们在学习这些web后端开发技术的时候，我们都是基于主流的SpringBoot进行整合使用的。而SpringBoot又是用来简化开发，提高开发效率的。像过滤器、拦截器、IOC、DI、AOP、事务管理等这些技术到底是哪个框架提供的核心功能？</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/03/10/c73xEmrLOfNjS8o.png"
-                      alt=""
-                ></p>
-<blockquote>
-<p>Filter过滤器、Cookie、 Session这些都是传统的JavaWeb提供的技术。</p>
-<p>JWT令牌、阿里云OSS对象存储服务，是现在企业项目中常见的一些解决方案。</p>
-<p>IOC控制反转、DI依赖注入、AOP面向切面编程、事务管理、全局异常处理、拦截器等，这些技术都是 Spring Framework框架当中提供的核心功能。</p>
-<p>Mybatis就是一个持久层的框架，是用来操作数据库的。</p>
-</blockquote>
-<p>在Spring框架的生态中，对web程序开发提供了很好的支持，如：全局异常处理器、拦截器这些都是Spring框架中web开发模块所提供的功能，而Spring框架的web开发模块，我们也称为：SpringMVC</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/03/10/Fvtu8Kz6OJyR2oE.png"
-                      alt=""
-                ></p>
-<blockquote>
-<p>SpringMVC不是一个单独的框架，它是Spring框架的一部分，是Spring框架中的web开发模块，是用来简化原始的Servlet程序开发的。</p>
-</blockquote>
-<p>外界俗称的SSM，就是由：SpringMVC、Spring Framework、Mybatis三块组成。</p>
-<p>基于传统的SSM框架进行整合开发项目会比较繁琐，而且效率也比较低，所以在现在的企业项目开发当中，基本上都是直接基于SpringBoot整合SSM进行项目开发的。</p>
-]]></content>
-      <categories>
-        <category>Java学习笔记</category>
-      </categories>
-      <tags>
-        <tag>JavaWeb</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>转载 - Spring 注解之 @RestController 与 @Controller 的区别</title>
-    <url>/2024/03/08/%E8%BD%AC%E8%BD%BD-Spring-%E6%B3%A8%E8%A7%A3%E4%B9%8B-RestController%E4%B8%8E-Controller%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
-    <content><![CDATA[
-  <div class="note-large yellow">
-    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
-      <p>链接</p>
-
-    </div>
-    <div class="notel-content">
-      <p><a class="link"   href="https://www.cnblogs.com/east7/p/10462279.html" >https://www.cnblogs.com/east7/p/10462279.html <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-
-    </div>
-  </div>
-]]></content>
-      <categories>
-        <category>转载</category>
-      </categories>
-      <tags>
-        <tag>Spring</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Maven - 分模块设计与开发</title>
-    <url>/2024/03/11/Maven-%E5%88%86%E6%A8%A1%E5%9D%97%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%BC%80%E5%8F%91/</url>
-    <content><![CDATA[<p>所谓分模块设计，指的就是我们在设计一个 Java 项目的时候，将一个 Java 项目拆分成多个模块进行开发。</p>
-<h2 id="1-未分模块设计的问题">1. 未分模块设计的问题</h2>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/03/11/hUQJls9Z1mW74ot.png"
-                      style="zoom: 67%;" 
-                > 
-<p>如果项目不分模块，也就意味着所有的业务代码是不是都写在这一个 Java 项目当中。随着这个项目的业务扩张，项目当中的业务功能可能会越来越多。</p>
-<p>假如我们开发的是一个大型的电商项目，里面可能就包括了商品模块的功能、搜索模块的功能、购物车模块、订单模块、用户中心等等。这些所有的业务代码我们都在一个 Java 项目当中编写。</p>
-<p>此时大家可以试想一下，假如我们开发的是一个大型的电商网站，这个项目组至少几十号甚至几百号开发人员，这些开发人员全部操作这一个 Java 项目。此时大家就会发现我们项目管理和维护起来将会非常的困难。而且大家再来看，假如在我们的项目当中，我们自己定义了一些通用的工具类以及通用的组件，而公司还有其他的项目组，其他项目组也想使用我们所封装的这些组件和工具类，其实是非常不方便的。因为 Java 项目当中包含了当前项目的所有业务代码，所以就造成了这里面所封装的一些组件会难以复用。</p>
-<p><strong>总结起来，主要两点问题：不方便项目的维护和管理、项目中的通用组件难以复用。</strong></p>
-<h2 id="2-分模块设计">2. 分模块设计</h2>
-<p>分模块设计我们在进行项目设计阶段，就可以将一个大的项目拆分成若干个模块，每一个模块都是独立的。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/03/11/lb1yva64pVwJgAL.png"
-                      alt=""
-                ></p>
-<p>比如我们可以将商品的相关功能放在商品模块当中，搜索的相关业务功能我都封装在搜索模块当中，还有像购物车模块、订单模块。而为了组件的复用，我们也可以将项目当中的实体类、工具类以及我们定义的通用的组件都单独的抽取到一个模块当中。</p>
-<p>如果当前这个模块，比如订单模块需要用到这些实体类以及工具类或者这些通用组件，此时直接在订单模块当中引入工具类的坐标就可以了。这样我们就将一个项目拆分成了若干个模块儿，这就是分模块儿设计。</p>
-<p>分模块儿设计之后，大家再来看。我们在进行项目管理的时候，我就可以几个人一组，几个人来负责订单模块儿，另外几个人来负责购物车模块儿，这样更加便于项目的管理以及项目的后期维护。</p>
-<p>而且分模块设计之后，如果我们需要用到另外一个模块的功能，我们直接依赖模块就可以了。比如商品模块、搜索模块、购物车订单模块都需要依赖于通用组件当中封装的一些工具类，我只需要引入通用组件的坐标就可以了。</p>
-<p><strong>分模块设计就是将项目按照功能/结构拆分成若干个子模块，方便项目的管理维护、拓展，也方便模块键的相互调用、资源共享。</strong></p>
-<h2 id="3-总结">3. 总结</h2>
-<ul>
-<li>什么是分模块设计：将项目按照功能拆分成若干个子模块</li>
-<li>为什么要分模块设计：方便项目的管理维护、扩展，也方便模块间的相互调用，资源共享</li>
-<li>注意事项：分模块设计需要先针对模块功能进行设计，再进行编码。不会先将工程开发完毕，然后进行拆分</li>
-</ul>
-]]></content>
-      <categories>
-        <category>Java学习笔记</category>
-      </categories>
-      <tags>
-        <tag>Maven</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Maven - 私服</title>
     <url>/2024/03/11/Maven-%E7%A7%81%E6%9C%8D/</url>
     <content><![CDATA[<h2 id="1-场景">1. 场景</h2>
@@ -2768,6 +2704,70 @@
       </categories>
       <tags>
         <tag>Maven</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Maven - 分模块设计与开发</title>
+    <url>/2024/03/11/Maven-%E5%88%86%E6%A8%A1%E5%9D%97%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%BC%80%E5%8F%91/</url>
+    <content><![CDATA[<p>所谓分模块设计，指的就是我们在设计一个 Java 项目的时候，将一个 Java 项目拆分成多个模块进行开发。</p>
+<h2 id="1-未分模块设计的问题">1. 未分模块设计的问题</h2>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/03/11/hUQJls9Z1mW74ot.png"
+                      style="zoom: 67%;" 
+                > 
+<p>如果项目不分模块，也就意味着所有的业务代码是不是都写在这一个 Java 项目当中。随着这个项目的业务扩张，项目当中的业务功能可能会越来越多。</p>
+<p>假如我们开发的是一个大型的电商项目，里面可能就包括了商品模块的功能、搜索模块的功能、购物车模块、订单模块、用户中心等等。这些所有的业务代码我们都在一个 Java 项目当中编写。</p>
+<p>此时大家可以试想一下，假如我们开发的是一个大型的电商网站，这个项目组至少几十号甚至几百号开发人员，这些开发人员全部操作这一个 Java 项目。此时大家就会发现我们项目管理和维护起来将会非常的困难。而且大家再来看，假如在我们的项目当中，我们自己定义了一些通用的工具类以及通用的组件，而公司还有其他的项目组，其他项目组也想使用我们所封装的这些组件和工具类，其实是非常不方便的。因为 Java 项目当中包含了当前项目的所有业务代码，所以就造成了这里面所封装的一些组件会难以复用。</p>
+<p><strong>总结起来，主要两点问题：不方便项目的维护和管理、项目中的通用组件难以复用。</strong></p>
+<h2 id="2-分模块设计">2. 分模块设计</h2>
+<p>分模块设计我们在进行项目设计阶段，就可以将一个大的项目拆分成若干个模块，每一个模块都是独立的。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/03/11/lb1yva64pVwJgAL.png"
+                      alt=""
+                ></p>
+<p>比如我们可以将商品的相关功能放在商品模块当中，搜索的相关业务功能我都封装在搜索模块当中，还有像购物车模块、订单模块。而为了组件的复用，我们也可以将项目当中的实体类、工具类以及我们定义的通用的组件都单独的抽取到一个模块当中。</p>
+<p>如果当前这个模块，比如订单模块需要用到这些实体类以及工具类或者这些通用组件，此时直接在订单模块当中引入工具类的坐标就可以了。这样我们就将一个项目拆分成了若干个模块儿，这就是分模块儿设计。</p>
+<p>分模块儿设计之后，大家再来看。我们在进行项目管理的时候，我就可以几个人一组，几个人来负责订单模块儿，另外几个人来负责购物车模块儿，这样更加便于项目的管理以及项目的后期维护。</p>
+<p>而且分模块设计之后，如果我们需要用到另外一个模块的功能，我们直接依赖模块就可以了。比如商品模块、搜索模块、购物车订单模块都需要依赖于通用组件当中封装的一些工具类，我只需要引入通用组件的坐标就可以了。</p>
+<p><strong>分模块设计就是将项目按照功能/结构拆分成若干个子模块，方便项目的管理维护、拓展，也方便模块键的相互调用、资源共享。</strong></p>
+<h2 id="3-总结">3. 总结</h2>
+<ul>
+<li>什么是分模块设计：将项目按照功能拆分成若干个子模块</li>
+<li>为什么要分模块设计：方便项目的管理维护、扩展，也方便模块间的相互调用，资源共享</li>
+<li>注意事项：分模块设计需要先针对模块功能进行设计，再进行编码。不会先将工程开发完毕，然后进行拆分</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Java学习笔记</category>
+      </categories>
+      <tags>
+        <tag>Maven</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>转载 - Spring 注解之 @RestController 与 @Controller 的区别</title>
+    <url>/2024/03/08/%E8%BD%AC%E8%BD%BD-Spring-%E6%B3%A8%E8%A7%A3%E4%B9%8B-RestController%E4%B8%8E-Controller%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
+    <content><![CDATA[
+  <div class="note-large yellow">
+    <div class="notel-title rounded-t-lg p-3 font-bold text-lg flex flex-row gap-2 items-center">
+      <p>链接</p>
+
+    </div>
+    <div class="notel-content">
+      <p><a class="link"   href="https://www.cnblogs.com/east7/p/10462279.html" >https://www.cnblogs.com/east7/p/10462279.html <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+
+    </div>
+  </div>
+]]></content>
+      <categories>
+        <category>转载</category>
+      </categories>
+      <tags>
+        <tag>Spring</tag>
       </tags>
   </entry>
   <entry>
@@ -3044,6 +3044,49 @@ EmployeeLoginDTO.java</p>
       </tags>
   </entry>
   <entry>
+    <title>JavaWeb - 日期时间数据格式化</title>
+    <url>/2024/03/14/JavaWeb-%E6%97%A5%E6%9C%9F%E6%97%B6%E9%97%B4%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F%E5%8C%96/</url>
+    <content><![CDATA[<h2 id="问题描述">问题描述</h2>
+<p>在JavaWeb开发中，日期时间数据在后端往往以对象属性的形式存储。但当日期时间数据以json格式传到前端时，会丢失其格式而变成普通数组，无法正确显示为日期时间格式。</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/03/14/QOYTC2PciEM1lvt.png"
+                       
+                > 
+<h2 id="解决方式">解决方式</h2>
+<h3 id="方式一">方式一</h3>
+<p>在日期时间属性上加<code>@JsonFormat</code>注解，对日期进行格式化：</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/03/14/DZQ7rS9oOHwnGpI.png"
+                      style="zoom:67%;" 
+                > 
+<p>但这种方式，需要在每个时间属性上都要加上该注解，使用较麻烦，不能全局处理。</p>
+<h3 id="方式二（推荐">方式二（推荐 )</h3>
+<p>在<code>WebMvcConfiguration</code>中扩展SpringMVC的消息转换器，统一对日期类型进行格式处理</p>
+<p><strong>代码</strong>：</p>
+<p>在<code>sky-server</code>模块，<code>WebMvcConfiguration.java</code>中：</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 扩展Spring MVC框架的消息转化器</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span> converters</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">extendMessageConverters</span><span class="params">(List&lt;HttpMessageConverter&lt;?&gt;&gt; converters)</span> &#123;</span><br><span class="line">       <span class="comment">// 创建消息转换器对象</span></span><br><span class="line">       <span class="type">MappingJackson2HttpMessageConverter</span> <span class="variable">converter</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">MappingJackson2HttpMessageConverter</span>();</span><br><span class="line">       <span class="comment">// 为消息转换器设置一个对象转换器，对象转换器可以将Java对象序列化为json数据</span></span><br><span class="line">       converter.setObjectMapper(<span class="keyword">new</span> <span class="title class_">JacksonObjectMapper</span>());</span><br><span class="line">       <span class="comment">// 将自己的消息转化器加入容器中（index:0 指定将自己的消息转化器放在首位，优先使用）</span></span><br><span class="line">       converters.add(<span class="number">0</span>,converter);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></div>
+<p>在<code>sky-common</code>模块，<code>JacksonObjectMapper.java</code>中：</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 对象映射器:基于jackson将Java对象转为json，或者将json转为Java对象</span></span><br><span class="line"><span class="comment"> * 从Java对象生成JSON的过程称为 [序列化Java对象到JSON]</span></span><br><span class="line"><span class="comment"> * 将JSON解析为Java对象的过程称为 [从JSON反序列化Java对象]</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JacksonObjectMapper</span> <span class="keyword">extends</span> <span class="title class_">ObjectMapper</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">DEFAULT_DATE_FORMAT</span> <span class="operator">=</span> <span class="string">&quot;yyyy-MM-dd&quot;</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">DEFAULT_DATE_TIME_FORMAT</span> <span class="operator">=</span> <span class="string">&quot;yyyy-MM-dd HH:mm&quot;</span>;</span><br><span class="line">    <span class="comment">// 可指定为其他类型的日期时间格式</span></span><br><span class="line">    <span class="comment">// public static final String DEFAULT_DATE_TIME_FORMAT = &quot;yyyy-MM-dd HH:mm:ss&quot;;</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">DEFAULT_TIME_FORMAT</span> <span class="operator">=</span> <span class="string">&quot;HH:mm:ss&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">JacksonObjectMapper</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>();</span><br><span class="line">        <span class="comment">//收到未知属性时不报异常</span></span><br><span class="line">        <span class="built_in">this</span>.configure(FAIL_ON_UNKNOWN_PROPERTIES, <span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//反序列化时，属性不存在的兼容处理</span></span><br><span class="line">        <span class="built_in">this</span>.getDeserializationConfig().withoutFeatures(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);</span><br><span class="line"></span><br><span class="line">        <span class="type">SimpleModule</span> <span class="variable">simpleModule</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SimpleModule</span>()</span><br><span class="line">                .addDeserializer(LocalDateTime.class, <span class="keyword">new</span> <span class="title class_">LocalDateTimeDeserializer</span>(DateTimeFormatter.ofPattern(DEFAULT_DATE_TIME_FORMAT)))</span><br><span class="line">                .addDeserializer(LocalDate.class, <span class="keyword">new</span> <span class="title class_">LocalDateDeserializer</span>(DateTimeFormatter.ofPattern(DEFAULT_DATE_FORMAT)))</span><br><span class="line">                .addDeserializer(LocalTime.class, <span class="keyword">new</span> <span class="title class_">LocalTimeDeserializer</span>(DateTimeFormatter.ofPattern(DEFAULT_TIME_FORMAT)))</span><br><span class="line">                .addSerializer(LocalDateTime.class, <span class="keyword">new</span> <span class="title class_">LocalDateTimeSerializer</span>(DateTimeFormatter.ofPattern(DEFAULT_DATE_TIME_FORMAT)))</span><br><span class="line">                .addSerializer(LocalDate.class, <span class="keyword">new</span> <span class="title class_">LocalDateSerializer</span>(DateTimeFormatter.ofPattern(DEFAULT_DATE_FORMAT)))</span><br><span class="line">                .addSerializer(LocalTime.class, <span class="keyword">new</span> <span class="title class_">LocalTimeSerializer</span>(DateTimeFormatter.ofPattern(DEFAULT_TIME_FORMAT)));</span><br><span class="line"></span><br><span class="line">        <span class="comment">//注册功能模块 例如，可以添加自定义序列化器和反序列化器</span></span><br><span class="line">        <span class="built_in">this</span>.registerModule(simpleModule);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p><strong>效果</strong>：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/03/14/18nfoO7Qs3pyTmt.png"
+                      alt=""
+                ></p>
+]]></content>
+      <categories>
+        <category>Java学习笔记</category>
+      </categories>
+      <tags>
+        <tag>JavaWeb</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>nginx - 反向代理和负载均衡</title>
     <url>/2024/03/12/nginx-%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%E5%92%8C%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/</url>
     <content><![CDATA[<img  
@@ -3181,49 +3224,6 @@ ThreadLocal为每个线程提供单独一份存储空间，具有线程隔离的
       </categories>
       <tags>
         <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>JavaWeb - 日期时间数据格式化</title>
-    <url>/2024/03/14/JavaWeb-%E6%97%A5%E6%9C%9F%E6%97%B6%E9%97%B4%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F%E5%8C%96/</url>
-    <content><![CDATA[<h2 id="问题描述">问题描述</h2>
-<p>在JavaWeb开发中，日期时间数据在后端往往以对象属性的形式存储。但当日期时间数据以json格式传到前端时，会丢失其格式而变成普通数组，无法正确显示为日期时间格式。</p>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/03/14/QOYTC2PciEM1lvt.png"
-                       
-                > 
-<h2 id="解决方式">解决方式</h2>
-<h3 id="方式一">方式一</h3>
-<p>在日期时间属性上加<code>@JsonFormat</code>注解，对日期进行格式化：</p>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/03/14/DZQ7rS9oOHwnGpI.png"
-                      style="zoom:67%;" 
-                > 
-<p>但这种方式，需要在每个时间属性上都要加上该注解，使用较麻烦，不能全局处理。</p>
-<h3 id="方式二（推荐">方式二（推荐 )</h3>
-<p>在<code>WebMvcConfiguration</code>中扩展SpringMVC的消息转换器，统一对日期类型进行格式处理</p>
-<p><strong>代码</strong>：</p>
-<p>在<code>sky-server</code>模块，<code>WebMvcConfiguration.java</code>中：</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 扩展Spring MVC框架的消息转化器</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span> converters</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">extendMessageConverters</span><span class="params">(List&lt;HttpMessageConverter&lt;?&gt;&gt; converters)</span> &#123;</span><br><span class="line">       <span class="comment">// 创建消息转换器对象</span></span><br><span class="line">       <span class="type">MappingJackson2HttpMessageConverter</span> <span class="variable">converter</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">MappingJackson2HttpMessageConverter</span>();</span><br><span class="line">       <span class="comment">// 为消息转换器设置一个对象转换器，对象转换器可以将Java对象序列化为json数据</span></span><br><span class="line">       converter.setObjectMapper(<span class="keyword">new</span> <span class="title class_">JacksonObjectMapper</span>());</span><br><span class="line">       <span class="comment">// 将自己的消息转化器加入容器中（index:0 指定将自己的消息转化器放在首位，优先使用）</span></span><br><span class="line">       converters.add(<span class="number">0</span>,converter);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></div>
-<p>在<code>sky-common</code>模块，<code>JacksonObjectMapper.java</code>中：</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 对象映射器:基于jackson将Java对象转为json，或者将json转为Java对象</span></span><br><span class="line"><span class="comment"> * 从Java对象生成JSON的过程称为 [序列化Java对象到JSON]</span></span><br><span class="line"><span class="comment"> * 将JSON解析为Java对象的过程称为 [从JSON反序列化Java对象]</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JacksonObjectMapper</span> <span class="keyword">extends</span> <span class="title class_">ObjectMapper</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">DEFAULT_DATE_FORMAT</span> <span class="operator">=</span> <span class="string">&quot;yyyy-MM-dd&quot;</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">DEFAULT_DATE_TIME_FORMAT</span> <span class="operator">=</span> <span class="string">&quot;yyyy-MM-dd HH:mm&quot;</span>;</span><br><span class="line">    <span class="comment">// 可指定为其他类型的日期时间格式</span></span><br><span class="line">    <span class="comment">// public static final String DEFAULT_DATE_TIME_FORMAT = &quot;yyyy-MM-dd HH:mm:ss&quot;;</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">DEFAULT_TIME_FORMAT</span> <span class="operator">=</span> <span class="string">&quot;HH:mm:ss&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">JacksonObjectMapper</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>();</span><br><span class="line">        <span class="comment">//收到未知属性时不报异常</span></span><br><span class="line">        <span class="built_in">this</span>.configure(FAIL_ON_UNKNOWN_PROPERTIES, <span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//反序列化时，属性不存在的兼容处理</span></span><br><span class="line">        <span class="built_in">this</span>.getDeserializationConfig().withoutFeatures(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);</span><br><span class="line"></span><br><span class="line">        <span class="type">SimpleModule</span> <span class="variable">simpleModule</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SimpleModule</span>()</span><br><span class="line">                .addDeserializer(LocalDateTime.class, <span class="keyword">new</span> <span class="title class_">LocalDateTimeDeserializer</span>(DateTimeFormatter.ofPattern(DEFAULT_DATE_TIME_FORMAT)))</span><br><span class="line">                .addDeserializer(LocalDate.class, <span class="keyword">new</span> <span class="title class_">LocalDateDeserializer</span>(DateTimeFormatter.ofPattern(DEFAULT_DATE_FORMAT)))</span><br><span class="line">                .addDeserializer(LocalTime.class, <span class="keyword">new</span> <span class="title class_">LocalTimeDeserializer</span>(DateTimeFormatter.ofPattern(DEFAULT_TIME_FORMAT)))</span><br><span class="line">                .addSerializer(LocalDateTime.class, <span class="keyword">new</span> <span class="title class_">LocalDateTimeSerializer</span>(DateTimeFormatter.ofPattern(DEFAULT_DATE_TIME_FORMAT)))</span><br><span class="line">                .addSerializer(LocalDate.class, <span class="keyword">new</span> <span class="title class_">LocalDateSerializer</span>(DateTimeFormatter.ofPattern(DEFAULT_DATE_FORMAT)))</span><br><span class="line">                .addSerializer(LocalTime.class, <span class="keyword">new</span> <span class="title class_">LocalTimeSerializer</span>(DateTimeFormatter.ofPattern(DEFAULT_TIME_FORMAT)));</span><br><span class="line"></span><br><span class="line">        <span class="comment">//注册功能模块 例如，可以添加自定义序列化器和反序列化器</span></span><br><span class="line">        <span class="built_in">this</span>.registerModule(simpleModule);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<p><strong>效果</strong>：</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/03/14/18nfoO7Qs3pyTmt.png"
-                      alt=""
-                ></p>
-]]></content>
-      <categories>
-        <category>Java学习笔记</category>
-      </categories>
-      <tags>
-        <tag>JavaWeb</tag>
       </tags>
   </entry>
   <entry>
@@ -3371,6 +3371,64 @@ ThreadLocal为每个线程提供单独一份存储空间，具有线程隔离的
       </categories>
       <tags>
         <tag>Redis</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Apache POI</title>
+    <url>/2024/03/31/Apache-POI/</url>
+    <content><![CDATA[<h2 id="1-介绍">1. 介绍</h2>
+<p>Apache POI 是一个处理 Miscrosoft Office 各种文件格式的开源 Java 库。我们可以使用 POI 在 Java 程序中对 Miscrosoft Office 各种文件进行读写操作。<br>
+一般情况下，POI 都是用于操作 Excel 文件。</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/03/31/4biv69uVloMdqsF.png"
+                      style="zoom:60%;" 
+                > 
+<p><strong>Apache POI 的应用场景：</strong></p>
+<ul>
+<li>
+<p>银行网银系统导出交易明细</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/03/31/awbH7WzcK43vDEP.png"
+                      style="zoom:50%;" 
+                > 
+</li>
+<li>
+<p>各种业务系统导出Excel报表</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/03/31/73iaWw5kvKfxdEg.png"
+                      style="zoom:50%;" 
+                > 
+</li>
+<li>
+<p>批量导入业务数据</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s2.loli.net/2024/03/31/VPw4RBYLmqOjJ9u.png"
+                      style="zoom:50%;" 
+                > 
+</li>
+</ul>
+<h2 id="2-使用案例">2. 使用案例</h2>
+<p>Apache POI 既可以将数据写入 Excel 文件，也可以读取 Excel 文件中的数据，接下来分别进行实现。</p>
+<p><strong>引入 Apache POI 的 maven 坐标:</strong></p>
+<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.poi<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>poi<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.16<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.poi<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>poi-ooxml<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.16<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
+<h3 id="2-1-将数据写入-Excel-文件">2.1 将数据写入 Excel 文件</h3>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">POITest</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        write();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 基于POI向Excel文件写入数据</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">write</span><span class="params">()</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        <span class="comment">// 在内存中创建Excel文件对象</span></span><br><span class="line">        <span class="type">XSSFWorkbook</span> <span class="variable">sheets</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">XSSFWorkbook</span>();</span><br><span class="line">        <span class="comment">// 创建sheet页</span></span><br><span class="line">        <span class="type">XSSFSheet</span> <span class="variable">sheet</span> <span class="operator">=</span> sheets.createSheet(<span class="string">&quot;info&quot;</span>);</span><br><span class="line">        <span class="comment">// 在sheet中创建行</span></span><br><span class="line">        <span class="type">XSSFRow</span> <span class="variable">row</span> <span class="operator">=</span> sheet.createRow(<span class="number">0</span>);</span><br><span class="line">        <span class="comment">// 在sheet中创建单元格并写入数据</span></span><br><span class="line">        row.createCell(<span class="number">0</span>).setCellValue(<span class="string">&quot;姓名&quot;</span>);</span><br><span class="line">        row.createCell(<span class="number">1</span>).setCellValue(<span class="string">&quot;城市&quot;</span>);</span><br><span class="line">        row = sheet.createRow(<span class="number">1</span>);</span><br><span class="line">        row.createCell(<span class="number">0</span>).setCellValue(<span class="string">&quot;张三&quot;</span>);</span><br><span class="line">        row.createCell(<span class="number">1</span>).setCellValue(<span class="string">&quot;北京&quot;</span>);</span><br><span class="line">        row = sheet.createRow(<span class="number">2</span>);</span><br><span class="line">        row.createCell(<span class="number">0</span>).setCellValue(<span class="string">&quot;李四&quot;</span>);</span><br><span class="line">        row.createCell(<span class="number">1</span>).setCellValue(<span class="string">&quot;南京&quot;</span>);</span><br><span class="line">        <span class="comment">// 通过输出流将内存中的Excel写出到磁盘</span></span><br><span class="line">        <span class="type">FileOutputStream</span> <span class="variable">fileOutputStream</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(<span class="string">&quot;D://info.xlsx&quot;</span>);</span><br><span class="line">        sheets.write(fileOutputStream);</span><br><span class="line">        log.info(<span class="string">&quot;写出Excel文件到磁盘: &#123;&#125;&quot;</span>, sheets);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h3 id="2-2-读取-Excel-文件中的数据">2.2 读取 Excel 文件中的数据</h3>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">POITest</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        read();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 基于POI读取Excel文件中的数据</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">read</span><span class="params">()</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        <span class="comment">// 通过输入流读取指定的Excel文件</span></span><br><span class="line">        <span class="type">FileInputStream</span> <span class="variable">fileInputStream</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileInputStream</span>(<span class="string">&quot;D://info.xlsx&quot;</span>);</span><br><span class="line">        <span class="type">XSSFWorkbook</span> <span class="variable">sheets</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">XSSFWorkbook</span>(fileInputStream);</span><br><span class="line">        <span class="comment">// 获取要读取的sheet页</span></span><br><span class="line">        <span class="type">XSSFSheet</span> <span class="variable">sheet</span> <span class="operator">=</span> sheets.getSheetAt(<span class="number">0</span>);</span><br><span class="line">        <span class="comment">// 获取最后一行数据的行号</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">lastRowNum</span> <span class="operator">=</span> sheet.getLastRowNum();</span><br><span class="line">        <span class="comment">// 逐行读取数据</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt;= lastRowNum; i++) &#123;</span><br><span class="line">            <span class="comment">// 获取当前行</span></span><br><span class="line">            <span class="type">XSSFRow</span> <span class="variable">row</span> <span class="operator">=</span> sheet.getRow(i);</span><br><span class="line">            <span class="comment">// 获取单元格数据</span></span><br><span class="line">            <span class="type">String</span> <span class="variable">stringCellValue1</span> <span class="operator">=</span> row.getCell(<span class="number">0</span>).getStringCellValue();</span><br><span class="line">            <span class="type">String</span> <span class="variable">stringCellValue2</span> <span class="operator">=</span> row.getCell(<span class="number">1</span>).getStringCellValue();</span><br><span class="line">            <span class="comment">// 将该行数据打印到控制台</span></span><br><span class="line">            System.out.println(stringCellValue1 + <span class="string">&quot;\t&quot;</span> + stringCellValue2);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 关闭资源</span></span><br><span class="line">        sheets.close();</span><br><span class="line">        fileInputStream.close();</span><br><span class="line">        log.info(<span class="string">&quot;读取Excel文件: &#123;&#125;&quot;</span>, sheets);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+]]></content>
+      <categories>
+        <category>Java学习笔记</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
       </tags>
   </entry>
   <entry>
@@ -3529,65 +3587,7 @@ ThreadLocal为每个线程提供单独一份存储空间，具有线程隔离的
       </tags>
   </entry>
   <entry>
-    <title>Apache POI</title>
-    <url>/2024/03/31/Apache-POI/</url>
-    <content><![CDATA[<h2 id="1-介绍">1. 介绍</h2>
-<p>Apache POI 是一个处理 Miscrosoft Office 各种文件格式的开源 Java 库。我们可以使用 POI 在 Java 程序中对 Miscrosoft Office 各种文件进行读写操作。<br>
-一般情况下，POI 都是用于操作 Excel 文件。</p>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/03/31/4biv69uVloMdqsF.png"
-                      style="zoom:60%;" 
-                > 
-<p><strong>Apache POI 的应用场景：</strong></p>
-<ul>
-<li>
-<p>银行网银系统导出交易明细</p>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/03/31/awbH7WzcK43vDEP.png"
-                      style="zoom:50%;" 
-                > 
-</li>
-<li>
-<p>各种业务系统导出Excel报表</p>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/03/31/73iaWw5kvKfxdEg.png"
-                      style="zoom:50%;" 
-                > 
-</li>
-<li>
-<p>批量导入业务数据</p>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s2.loli.net/2024/03/31/VPw4RBYLmqOjJ9u.png"
-                      style="zoom:50%;" 
-                > 
-</li>
-</ul>
-<h2 id="2-使用案例">2. 使用案例</h2>
-<p>Apache POI 既可以将数据写入 Excel 文件，也可以读取 Excel 文件中的数据，接下来分别进行实现。</p>
-<p><strong>引入 Apache POI 的 maven 坐标:</strong></p>
-<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.poi<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>poi<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.16<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.poi<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>poi-ooxml<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.16<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
-<h3 id="2-1-将数据写入-Excel-文件">2.1 将数据写入 Excel 文件</h3>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">POITest</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        write();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 基于POI向Excel文件写入数据</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">write</span><span class="params">()</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        <span class="comment">// 在内存中创建Excel文件对象</span></span><br><span class="line">        <span class="type">XSSFWorkbook</span> <span class="variable">sheets</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">XSSFWorkbook</span>();</span><br><span class="line">        <span class="comment">// 创建sheet页</span></span><br><span class="line">        <span class="type">XSSFSheet</span> <span class="variable">sheet</span> <span class="operator">=</span> sheets.createSheet(<span class="string">&quot;info&quot;</span>);</span><br><span class="line">        <span class="comment">// 在sheet中创建行</span></span><br><span class="line">        <span class="type">XSSFRow</span> <span class="variable">row</span> <span class="operator">=</span> sheet.createRow(<span class="number">0</span>);</span><br><span class="line">        <span class="comment">// 在sheet中创建单元格并写入数据</span></span><br><span class="line">        row.createCell(<span class="number">0</span>).setCellValue(<span class="string">&quot;姓名&quot;</span>);</span><br><span class="line">        row.createCell(<span class="number">1</span>).setCellValue(<span class="string">&quot;城市&quot;</span>);</span><br><span class="line">        row = sheet.createRow(<span class="number">1</span>);</span><br><span class="line">        row.createCell(<span class="number">0</span>).setCellValue(<span class="string">&quot;张三&quot;</span>);</span><br><span class="line">        row.createCell(<span class="number">1</span>).setCellValue(<span class="string">&quot;北京&quot;</span>);</span><br><span class="line">        row = sheet.createRow(<span class="number">2</span>);</span><br><span class="line">        row.createCell(<span class="number">0</span>).setCellValue(<span class="string">&quot;李四&quot;</span>);</span><br><span class="line">        row.createCell(<span class="number">1</span>).setCellValue(<span class="string">&quot;南京&quot;</span>);</span><br><span class="line">        <span class="comment">// 通过输出流将内存中的Excel写出到磁盘</span></span><br><span class="line">        <span class="type">FileOutputStream</span> <span class="variable">fileOutputStream</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(<span class="string">&quot;D://info.xlsx&quot;</span>);</span><br><span class="line">        sheets.write(fileOutputStream);</span><br><span class="line">        log.info(<span class="string">&quot;写出Excel文件到磁盘: &#123;&#125;&quot;</span>, sheets);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<h3 id="2-2-读取-Excel-文件中的数据">2.2 读取 Excel 文件中的数据</h3>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">POITest</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        read();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 基于POI读取Excel文件中的数据</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">read</span><span class="params">()</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        <span class="comment">// 通过输入流读取指定的Excel文件</span></span><br><span class="line">        <span class="type">FileInputStream</span> <span class="variable">fileInputStream</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileInputStream</span>(<span class="string">&quot;D://info.xlsx&quot;</span>);</span><br><span class="line">        <span class="type">XSSFWorkbook</span> <span class="variable">sheets</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">XSSFWorkbook</span>(fileInputStream);</span><br><span class="line">        <span class="comment">// 获取要读取的sheet页</span></span><br><span class="line">        <span class="type">XSSFSheet</span> <span class="variable">sheet</span> <span class="operator">=</span> sheets.getSheetAt(<span class="number">0</span>);</span><br><span class="line">        <span class="comment">// 获取最后一行数据的行号</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">lastRowNum</span> <span class="operator">=</span> sheet.getLastRowNum();</span><br><span class="line">        <span class="comment">// 逐行读取数据</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt;= lastRowNum; i++) &#123;</span><br><span class="line">            <span class="comment">// 获取当前行</span></span><br><span class="line">            <span class="type">XSSFRow</span> <span class="variable">row</span> <span class="operator">=</span> sheet.getRow(i);</span><br><span class="line">            <span class="comment">// 获取单元格数据</span></span><br><span class="line">            <span class="type">String</span> <span class="variable">stringCellValue1</span> <span class="operator">=</span> row.getCell(<span class="number">0</span>).getStringCellValue();</span><br><span class="line">            <span class="type">String</span> <span class="variable">stringCellValue2</span> <span class="operator">=</span> row.getCell(<span class="number">1</span>).getStringCellValue();</span><br><span class="line">            <span class="comment">// 将该行数据打印到控制台</span></span><br><span class="line">            System.out.println(stringCellValue1 + <span class="string">&quot;\t&quot;</span> + stringCellValue2);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 关闭资源</span></span><br><span class="line">        sheets.close();</span><br><span class="line">        fileInputStream.close();</span><br><span class="line">        log.info(<span class="string">&quot;读取Excel文件: &#123;&#125;&quot;</span>, sheets);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-]]></content>
-      <categories>
-        <category>Java学习笔记</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>转载-黑马程序员MyBatisPlus教程笔记</title>
+    <title>转载 - 黑马程序员 MyBatisPlus 教程笔记</title>
     <url>/2024/04/14/%E8%BD%AC%E8%BD%BD-MyBatisPlus%E7%AC%94%E8%AE%B0-%E9%BB%91%E9%A9%AC%E7%A8%8B%E5%BA%8F%E5%91%98/</url>
     <content><![CDATA[
   <div class="note-large yellow">
